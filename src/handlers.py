@@ -68,7 +68,7 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
             "newcomer": is_new,
             "tutorial": is_new,
             "acquirableLoginBonus": False,
-            "progression": 0 if is_new else 6,
+            "progression": 0,
         },
         phase=0,
         popupFlag=0,
@@ -173,6 +173,7 @@ def handle_raid(request_data: dict, user: Optional[User], db_session: DBSession)
 
 @register(103)  # POST /stage/start
 def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    logger.info("STAGE START: full payload = %s", request_data)
     stage_id = request_data.get("stageId", 1001010)
     keyblade_id = request_data.get("userKeybladeId", 1)
     return build_response(user,
