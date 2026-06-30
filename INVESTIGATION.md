@@ -51,8 +51,33 @@ with URL-encoded base64 AES) have been tried. Same result.
 3. The response content-type is being sent with extra params (e.g., charset=utf-8)
    that cause the pattern search to fail
 
+## verifyResponse analysis (from assembly 4BB4C5.asm)
+
+The function uses a jump table with action_id - 1 as index.
+
+Key mappings (CONFIRMED from assembly):
+- Case 23 (action 24 = /system/coppa): calls SystemNeedUrl::parse, checks [this+0x54]
+- Case 24 (action 25 = /system/master): calls SystemCoppa::parse, checks parse result at [SP+0x458]
+- Case 25 (action 26 = /system/resource): calls MasterDataManager::update, returns its result
+- Case 26 (action 27 = /system/resourceEv): calls ResourceDataManager::update, returns its result
+
+The blocker: case 24 calls SystemCoppa::parse on the /system/master response.
+The parse result at SP+0x458 (shared_ptr data pointer) is checked. If null → returns 0.
+
+Our response includes misc.{"116":13,"900":0,...} but SystemCoppa::parse still returns null.
+Need to investigate WHY the parse fails on valid-looking data.
+
+MasterDataManager::update (called for /system/resource) returns 1 as long as
+master.revision and master.count are valid ints, regardless of count value.
+
+Binary patching was attempted but libhoudini ARM translation crashes on
+modified function prologues.
+
 ## Next steps
-- Try using Frida to hook the callback function and log the StatusCode
-- Check if the response content-type header has extra parameters
-- Try matching the exact response format from xlash123/khux-re-api
-- Check if the game expects cookies (Set-Cookie headers) from the server
+- Investigate SystemCoppa::parse failure: the decompile at line 21727 might
+  have issues with the decompiler output. Read the ASSEMBLY for SystemCoppa::parse
+  instead of trusting the decompile.
+- Check if the `& 8` check (uint) actually corresponds to a different flag
+  in this rapidjson version.
+- Try sending all coppa values as unsigned (use large positive values instead of 0)
+- Alternatively, find the exact rapidjson flag layout used by this build

@@ -131,7 +131,12 @@ async def lifespan(app: FastAPI):
 # Application
 # ---------------------------------------------------------------------------
 
+import os as _os
+from fastapi.responses import FileResponse
+
 app = FastAPI(title="KHUx Private Server", lifespan=lifespan)
+
+MASTER_DATA_DIR = "D:/Modding/KHUx/m"
 
 
 @app.middleware("http")
@@ -303,31 +308,52 @@ async def game_api(
 
     body = await request.body()
     body_str = body.decode("utf-8")
+    logger.info("    raw_body(%d): %s", len(body_str), body_str[:300])
 
-    # Try to decrypt (v5.0.1 encrypted body), fall back to raw parsing
+    # Try to decrypt
     payload = {}
     if body_str:
         try:
             payload = decrypt_request(body_str, session.security_key)
-        except Exception:
-            # v1.0.1 may send unencrypted JSON or form-encoded
+            logger.info("    decrypted OK: %s", str(payload)[:300])
+        except Exception as e:
+            logger.warning("    decrypt failed: %s", e)
             try:
                 payload = json.loads(body_str) if body_str.startswith("{") else {}
             except Exception:
                 payload = {}
 
     action_id = _resolve_action_id(full_path)
-    logger.info("    action_id=%d payload_keys=%s", action_id, list(payload.keys()) if payload else [])
+    logger.info("    action_id=%d payload_keys=%s key=%s", action_id,
+                list(payload.keys()) if payload else [], session.security_key.hex() if isinstance(session.security_key, bytes) else session.security_key)
     response_data = dispatch(action_id, payload, user, db)
 
     import json as _json
     resp_json = _json.dumps(response_data, separators=(",", ":"))
     logger.info("<<< Response action=%d: %s", action_id, resp_json[:500])
 
-    # Return plain JSON with application/json content-type.
-    # The v1.0.1 client detects response format from headers.
     db.commit()
-    return Response(content=resp_json, media_type="application/json")
+    resp_bytes = resp_json.encode("utf-8")
+    from starlette.responses import Response as StarletteResponse
+    resp = StarletteResponse(
+        content=resp_bytes,
+        media_type="application/json",
+        headers={"Content-Length": str(len(resp_bytes))},
+    )
+    resp.set_cookie("cookie_user_session_code", session.session_id)
+    resp.set_cookie("nAJW839RbEHrfm6M", "1")
+    resp.set_cookie("nodeNo1", "1")
+    return resp
+
+
+@app.get("/data/master/{filename}")
+async def serve_master_data(filename: str):
+    filepath = _os.path.join(MASTER_DATA_DIR, filename)
+    if _os.path.exists(filepath):
+        logger.info(">>> SERVING FILE: %s (%d bytes)", filename, _os.path.getsize(filepath))
+        return FileResponse(filepath, media_type="application/octet-stream")
+    logger.warning("!!! FILE NOT FOUND: %s", filename)
+    return Response(status_code=404)
 
 
 @app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])
