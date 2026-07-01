@@ -43,7 +43,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0,
-        "versionDat": 0,
+        "versionDat": 1,
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -354,12 +354,44 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, count=0)
+    import hashlib as _hashlib
+    import os as _os
+    MASTER_DIR = "D:/Modding/KHUx/m"
+    KEY_APK = "5CA56C5827FA15CF1ECE2A37180953B801DEBFD0A71DD6AA6DD1D4F414A5FBC4"
+    TABLE_NAMES = [
+        "albumChallenge", "avatarCombination", "avatarParts", "badstatus",
+        "battleMisc", "buff", "burst", "chapter", "colosseum", "colosseumStage",
+        "drawMedalList", "drawMedalType", "drawSkillList", "drawSkillType",
+        "enemyAttack", "enemy", "evCampaign", "evGroupPattern", "evResource",
+        "evStage", "guiltProb", "initItem", "keyblade", "loginBonus",
+        "material", "medal", "medalMisc", "misc", "mypageBackground", "player",
+        "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking",
+        "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",
+        "skill", "sphereArray", "sphere", "sphereMasu", "stage", "stamp",
+        "title", "tutorialMisc", "world",
+    ]
+    base_url = "http://api.sp.kingdomhearts.com/data/master"
+    master = {"revision": 1, "count": 0}
+    for i, name in enumerate(TABLE_NAMES):
+        fname = f"m{i:03d}.jpg"
+        fpath = _os.path.join(MASTER_DIR, fname)
+        if _os.path.exists(fpath):
+            with open(fpath, "rb") as f:
+                md5 = _hashlib.md5(f.read()).hexdigest()
+            master[name] = {
+                "revision": 1,
+                "url": f"{base_url}/{fname}",
+                "key": KEY_APK,
+                "md5": md5,
+            }
+            master["count"] += 1
+    logger.info("MASTER: serving %d tables", master["count"])
+    return build_response(user, master=master)
 
 
 @register(26)  # GET /system/resource
 def handle_resource(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, count=0)
+    return build_response(user, resource={"revision": 0, "count": 0, "mode": 0}, mode=0)
 
 
 @register(61)  # POST /tutorial/user/create
