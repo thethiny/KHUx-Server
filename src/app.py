@@ -377,6 +377,37 @@ def _build_misc_data():
 
 MASTER_JSON_DATA = {
     "misc": _build_misc_data(),
+    "world": [
+        {"worldId": 1, "worldName": "Daybreak Town", "raidBackground": "", "instanceLwf": "", "instance": "", "xPos": 0, "yPos": 0, "rate": 100, "validParts": 0, "partsId": [], "xPostion": [], "yPostion": []},
+    ],
+    "chapter": [
+        {"chapterId": 1, "name": "Prologue"},
+    ],
+    "battleMisc": [
+        {"battleMiscId": i, "value": 0} for i in range(1, 101)
+    ],
+    "keyblade": [
+        {"keybladeId": 1000, "name": "Starlight", "description": "A keyblade of light", "lv": 1, "displayId": 1, "category": 0, "passive": 0, "passivePower": 0, "drawCount": 0, "maxBurstGauge": 100, "validConsist": 0, "attribute": [100, 100, 100, 100, 100], "darklight": [0, 0, 0, 0, 0], "accord": [0, 0, 0, 0, 0], "dlaccord": [0, 0, 0, 0, 0], "partnerRate": 100, "evolveId": 0, "validNeedMaterial": 0, "needMaterialId": [], "needMaterialNum": []},
+    ],
+    "initItem": [
+        {"id": 1, "category": 1, "equipType": 0, "equipNo": 0, "param": 1, "itemId": 1, "skillId": 0},
+    ],
+    "avatarParts": [
+        {"avatarPartsId": 30001, "name": "30001", "partsType": 1, "gender": 0, "combinationType": 1, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
+        {"avatarPartsId": 30002, "name": "30002", "partsType": 1, "gender": 0, "combinationType": 1, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
+        {"avatarPartsId": 20001, "name": "20001", "partsType": 2, "gender": 0, "combinationType": 2, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
+        {"avatarPartsId": 20002, "name": "20002", "partsType": 2, "gender": 0, "combinationType": 2, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
+        {"avatarPartsId": 40001, "name": "40001", "partsType": 3, "gender": 0, "combinationType": 3, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
+        {"avatarPartsId": 40002, "name": "40002", "partsType": 3, "gender": 0, "combinationType": 3, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
+    ],
+    "avatarCombination": [
+        {"avatarCombinationId": 1, "combinationType": 1, "avatarPartsId": 30001, "status": 1},
+        {"avatarCombinationId": 2, "combinationType": 1, "avatarPartsId": 30002, "status": 1},
+        {"avatarCombinationId": 3, "combinationType": 2, "avatarPartsId": 20001, "status": 1},
+        {"avatarCombinationId": 4, "combinationType": 2, "avatarPartsId": 20002, "status": 1},
+        {"avatarCombinationId": 5, "combinationType": 3, "avatarPartsId": 40001, "status": 1},
+        {"avatarCombinationId": 6, "combinationType": 3, "avatarPartsId": 40002, "status": 1},
+    ],
 }
 
 MASTER_KEY_HEX = "00" * 32

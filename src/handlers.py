@@ -152,12 +152,16 @@ def handle_user_avatar_parts(request_data: dict, user: Optional[User], db_sessio
 @register(62)  # POST /tutorial/progress
 def handle_tutorial_progress(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     progression = request_data.get("progression", 0)
+    name = request_data.get("name", "")
     logger.info("TUTORIAL PROGRESS: progression=%s payload=%s", progression, request_data)
+    if name and user:
+        user.user_name = name
+        db_session.add(user)
     return build_response(user,
         tutorial={
             "userTutorialId": 1,
             "progression": progression,
-            "name": "",
+            "name": name or (user.user_name if user else ""),
             "inviteCode": "",
         },
     )
@@ -272,8 +276,8 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
         "userSkills": [],
         "userAvatar": {
             "myCoordinateNo": 0, "gender": 0,
-            "hairPartsId": 0, "hairColorPartsId": 0,
-            "facePartsId": 0, "bodyPartsId": 0, "skinPartsId": 0,
+            "hairPartsId": 40001, "hairColorPartsId": 0,
+            "facePartsId": 20001, "bodyPartsId": 30001, "skinPartsId": 0,
             "accessoriesPartsIds": [],
         },
         "userKeyblade": {
@@ -398,8 +402,7 @@ def handle_resource(request_data: dict, user: Optional[User], db_session: DBSess
 
 @register(61)  # POST /tutorial/user/create
 def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    if user:
-        user.tutorial_done = False
+    if user and not user.tutorial_done:
         db_session.add(user)
     return build_response(user,
         login={
@@ -417,6 +420,46 @@ def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_ses
         phase=0,
         popupFlag=0,
         isFinished=0,
+    )
+
+
+@register(28)  # GET /system/information/list
+@register(29)  # GET /system/information/list/151203
+def handle_information_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, informations=[])
+
+
+@register(30)  # GET /system/information/detail
+def handle_information_detail(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, information={})
+
+
+@register(76)  # GET /party/notice
+def handle_party_notice(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, notice="")
+
+
+@register(108)  # GET /raid/list
+def handle_raid_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, raidList=[], raidBossList=[])
+
+
+@register(129)  # GET /ranking/parade
+def handle_ranking_parade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, parades=[])
+
+
+@register(131)  # GET /campaign
+def handle_campaign(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, campaigns=[])
+
+
+@register(56)  # GET /mypage
+def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user,
+        loginBonus=[],
+        events=[],
+        notifications=[],
     )
 
 
