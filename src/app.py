@@ -352,13 +352,88 @@ async def game_api(
     return resp
 
 
+MASTER_TABLE_NAMES = [
+    "albumChallenge", "avatarCombination", "avatarParts", "badstatus",
+    "battleMisc", "buff", "burst", "chapter", "colosseum", "colosseumStage",
+    "drawMedalList", "drawMedalType", "drawSkillList", "drawSkillType",
+    "enemyAttack", "enemy", "evCampaign", "evGroupPattern", "evResource",
+    "evStage", "guiltProb", "initItem", "keyblade", "loginBonus",
+    "material", "medal", "medalMisc", "misc", "mypageBackground", "player",
+    "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking",
+    "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",
+    "skill", "sphereArray", "sphere", "sphereMasu", "stage", "stamp",
+    "title", "tutorialMisc", "world",
+]
+
+def _build_misc_data():
+    entries = []
+    for i in range(1, 1001):
+        val = 0
+        if i == 804:
+            val = 16
+        entries.append({"miscId": i, "value": val})
+    return entries
+
+
+MASTER_JSON_DATA = {
+    "misc": _build_misc_data(),
+}
+
+MASTER_KEY_HEX = "00" * 32
+MASTER_AES_KEY = MASTER_KEY_HEX[:32].encode("ascii")
+
+
+def _encrypt_master_json(data: list, key: bytes = MASTER_AES_KEY) -> tuple[bytes, str]:
+    """Encrypt a JSON array for master data download.
+    The game's Cipher takes the first 32 ASCII bytes of the hex key string.
+    Returns (b64_response_body, md5_hex_of_response_body)."""
+    import json as _json
+    from .crypto import encrypt as aes_encrypt
+    plaintext = _json.dumps(data, separators=(",", ":")).encode("utf-8")
+    ciphertext = aes_encrypt(plaintext, key)
+    b64_data = b64encode(ciphertext)
+    md5_hex = hashlib.md5(b64_data).hexdigest()
+    return b64_data, md5_hex
+
+
+_master_cache: dict[str, tuple[bytes, str]] = {}
+
+
+def _get_master_encrypted(table_name: str) -> tuple[bytes, str]:
+    """Get encrypted+base64 master data and its MD5, with caching."""
+    if table_name not in _master_cache:
+        data = MASTER_JSON_DATA.get(table_name, [])
+        _master_cache[table_name] = _encrypt_master_json(data)
+    return _master_cache[table_name]
+
+
 @app.get("/data/master/{filename}")
 async def serve_master_data(filename: str):
-    filepath = _os.path.join(MASTER_DATA_DIR, filename)
+    import re
+    match = re.match(r'm(\d+)\.jpg', filename)
+    if match:
+        idx = int(match.group(1))
+        if idx < len(MASTER_TABLE_NAMES):
+            table_name = MASTER_TABLE_NAMES[idx]
+            b64_data, md5_hex = _get_master_encrypted(table_name)
+            entries = len(MASTER_JSON_DATA.get(table_name, []))
+            logger.info(">>> SERVING MASTER (encrypted): %s (%s, %d entries, %d bytes)",
+                        filename, table_name, entries, len(b64_data))
+            return Response(content=b64_data, media_type="application/octet-stream")
+    logger.warning("!!! MASTER NOT FOUND: %s", filename)
+    return Response(content=b"", status_code=404)
+
+
+RESOURCE_DIR = "D:/Modding/KHUx/R"
+
+
+@app.get("/data/resource/{filename}")
+async def serve_resource_data(filename: str):
+    filepath = _os.path.join(RESOURCE_DIR, filename)
     if _os.path.exists(filepath):
-        logger.info(">>> SERVING FILE: %s (%d bytes)", filename, _os.path.getsize(filepath))
+        logger.info(">>> SERVING RESOURCE: %s (%d bytes)", filename, _os.path.getsize(filepath))
         return FileResponse(filepath, media_type="application/octet-stream")
-    logger.warning("!!! FILE NOT FOUND: %s", filename)
+    logger.warning("!!! RESOURCE NOT FOUND: %s", filename)
     return Response(status_code=404)
 
 

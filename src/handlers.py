@@ -42,7 +42,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "sessionTO": False,
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
-        "versionRes": 0,
+        "versionRes": 1,
         "versionDat": 1,
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
@@ -354,44 +354,46 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    import hashlib as _hashlib
-    import os as _os
-    MASTER_DIR = "D:/Modding/KHUx/m"
-    KEY_APK = "5CA56C5827FA15CF1ECE2A37180953B801DEBFD0A71DD6AA6DD1D4F414A5FBC4"
-    TABLE_NAMES = [
-        "albumChallenge", "avatarCombination", "avatarParts", "badstatus",
-        "battleMisc", "buff", "burst", "chapter", "colosseum", "colosseumStage",
-        "drawMedalList", "drawMedalType", "drawSkillList", "drawSkillType",
-        "enemyAttack", "enemy", "evCampaign", "evGroupPattern", "evResource",
-        "evStage", "guiltProb", "initItem", "keyblade", "loginBonus",
-        "material", "medal", "medalMisc", "misc", "mypageBackground", "player",
-        "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking",
-        "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",
-        "skill", "sphereArray", "sphere", "sphereMasu", "stage", "stamp",
-        "title", "tutorialMisc", "world",
-    ]
+    from .app import MASTER_TABLE_NAMES, _get_master_encrypted, MASTER_KEY_HEX
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master = {"revision": 1, "count": 0}
-    for i, name in enumerate(TABLE_NAMES):
-        fname = f"m{i:03d}.jpg"
-        fpath = _os.path.join(MASTER_DIR, fname)
-        if _os.path.exists(fpath):
-            with open(fpath, "rb") as f:
-                md5 = _hashlib.md5(f.read()).hexdigest()
-            master[name] = {
-                "revision": 1,
-                "url": f"{base_url}/{fname}",
-                "key": KEY_APK,
-                "md5": md5,
-            }
-            master["count"] += 1
-    logger.info("MASTER: serving %d tables", master["count"])
-    return build_response(user, master=master)
+    resp = build_response(user, master={"revision": 1, "count": len(MASTER_TABLE_NAMES)})
+    for i, name in enumerate(MASTER_TABLE_NAMES):
+        _, md5_hex = _get_master_encrypted(name)
+        resp[name] = {
+            "revision": 1,
+            "url": f"{base_url}/m{i:03d}.jpg",
+            "key": MASTER_KEY_HEX,
+            "md5": md5_hex,
+        }
+    logger.info("MASTER: serving %d tables (encrypted)", len(MASTER_TABLE_NAMES))
+    return resp
 
 
 @register(26)  # GET /system/resource
 def handle_resource(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, resource={"revision": 0, "count": 0, "mode": 0}, mode=0)
+    import hashlib as _hashlib
+    import os as _os
+    base_url = "http://api.sp.kingdomhearts.com/data/resource"
+    KEY = "5CA56C5827FA15CF1ECE2A37180953B801DEBFD0A71DD6AA6DD1D4F414A5FBC4"
+    resource = {"revision": 1, "count": 0, "mode": 0, "minVersion": ""}
+    # Serve resource files from D:/Modding/KHUx/R/
+    RES_DIR = "D:/Modding/KHUx/R"
+    if _os.path.isdir(RES_DIR):
+        for fname in sorted(_os.listdir(RES_DIR)):
+            if fname.endswith(".mp4"):
+                name = fname.replace(".mp4", "")
+                fpath = _os.path.join(RES_DIR, fname)
+                with open(fpath, "rb") as f:
+                    md5 = _hashlib.md5(f.read()).hexdigest()
+                resource[name] = {
+                    "revision": 1,
+                    "url": f"{base_url}/{fname}",
+                    "key": KEY,
+                    "md5": md5,
+                }
+                resource["count"] += 1
+    logger.info("RESOURCE: serving %d entries", resource["count"])
+    return build_response(user, resource=resource, mode=0, minVersion="")
 
 
 @register(61)  # POST /tutorial/user/create
