@@ -149,6 +149,20 @@ def handle_user_avatar_parts(request_data: dict, user: Optional[User], db_sessio
     return build_response(user, userAvatarParts=[])
 
 
+@register(62)  # POST /tutorial/progress
+def handle_tutorial_progress(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    progression = request_data.get("progression", 0)
+    logger.info("TUTORIAL PROGRESS: progression=%s payload=%s", progression, request_data)
+    return build_response(user,
+        tutorial={
+            "userTutorialId": 1,
+            "progression": progression,
+            "name": "",
+            "inviteCode": "",
+        },
+    )
+
+
 @register(64)  # GET /tutorial/status
 def handle_tutorial_status(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user, phase=0, popupFlag=0, isFinished=0)
@@ -351,15 +365,24 @@ def handle_resource(request_data: dict, user: Optional[User], db_session: DBSess
 @register(61)  # POST /tutorial/user/create
 def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     if user:
-        user.tutorial_done = True
+        user.tutorial_done = False
         db_session.add(user)
     return build_response(user,
+        login={
+            "newcomer": True,
+            "tutorial": True,
+            "acquirableLoginBonus": False,
+            "progression": 0,
+        },
         tutorial={
             "userTutorialId": 1,
             "progression": 0,
             "name": "",
             "inviteCode": "",
         },
+        phase=0,
+        popupFlag=0,
+        isFinished=0,
     )
 
 
