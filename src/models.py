@@ -133,7 +133,23 @@ def get_engine(db_path: str = "khux.db"):
 
 
 def create_tables(engine):
-    Base.metadata.create_all(engine)
+    import os
+    from sqlalchemy import inspect, text
+    db_path = str(engine.url).replace("sqlite:///", "")
+    inspector = inspect(engine)
+    if inspector.has_table("_meta"):
+        with engine.connect() as conn:
+            row = conn.execute(text("SELECT created_at FROM _meta LIMIT 1")).fetchone()
+            if row:
+                print(f"  DB created @ {row[0]}")
+    else:
+        Base.metadata.create_all(engine)
+        with engine.connect() as conn:
+            conn.execute(text("CREATE TABLE IF NOT EXISTS _meta (created_at TEXT)"))
+            now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+            conn.execute(text(f"INSERT INTO _meta VALUES ('{now}')"))
+            conn.commit()
+            print(f"  Creating DB @ {now}")
 
 
 def get_session(engine):

@@ -137,6 +137,12 @@ from fastapi.responses import FileResponse
 app = FastAPI(title="KHUx Private Server", lifespan=lifespan)
 
 MASTER_DATA_DIR = "D:/Modding/KHUx/m"
+_START_TIME = time.strftime("%Y-%m-%d %H:%M:%S")
+
+
+@app.get("/internal-healthcheck")
+async def healthcheck():
+    return {"status": "ok", "started": _START_TIME}
 
 
 @app.middleware("http")
