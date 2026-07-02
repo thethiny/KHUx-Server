@@ -1,12 +1,22 @@
+import os
 import socket
 import struct
 import threading
 
-LISTEN_IP = "0.0.0.0"
-LISTEN_PORT = 15353
-UPSTREAM_DNS = "8.8.8.8"
-REDIRECT_IP = "192.168.1.119"
-REDIRECT_DOMAIN = "api.sp.kingdomhearts.com"
+_env_file = os.path.join(os.path.dirname(__file__), ".env")
+if os.path.isfile(_env_file):
+    with open(_env_file) as _f:
+        for _line in _f:
+            _line = _line.strip()
+            if _line and not _line.startswith("#") and "=" in _line:
+                _k, _v = _line.split("=", 1)
+                os.environ.setdefault(_k.strip(), _v.strip())
+
+LISTEN_IP = os.getenv("KHUX_DNS_LISTEN_IP", "0.0.0.0")
+LISTEN_PORT = int(os.getenv("KHUX_DNS_PORT", "15353"))
+UPSTREAM_DNS = os.getenv("KHUX_DNS_UPSTREAM", "8.8.8.8")
+REDIRECT_IP = os.getenv("KHUX_SERVER_IP", "127.0.0.1")
+REDIRECT_DOMAIN = os.getenv("KHUX_DNS_DOMAIN", "api.sp.kingdomhearts.com")
 
 def build_response(query, redirect_ip):
     response = bytearray(query)

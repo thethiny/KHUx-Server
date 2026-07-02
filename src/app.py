@@ -8,10 +8,20 @@ Run with: uvicorn src.app:app --host 0.0.0.0 --port 443 --ssl-keyfile key.pem --
 import hashlib
 import json
 import logging
+import os as _os_early
 import time
 from base64 import b64encode
 from contextlib import asynccontextmanager
 from datetime import datetime
+
+_env_file = _os_early.path.join(_os_early.path.dirname(_os_early.path.dirname(__file__)), ".env")
+if _os_early.path.isfile(_env_file):
+    with open(_env_file) as _f:
+        for _line in _f:
+            _line = _line.strip()
+            if _line and not _line.startswith("#") and "=" in _line:
+                _k, _v = _line.split("=", 1)
+                _os_early.environ.setdefault(_k.strip(), _v.strip())
 
 from fastapi import Depends, FastAPI, Header, Request, Response
 
