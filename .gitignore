@@ -1,12 +1,25 @@
+# Python
 __pycache__/
 *.pyc
 .cache/
+venv/
+.env
+
+# Database
 *.db
 *.sqlite
-.env
-venv/
-data/master/
-data/assets/
+
+# SSL/TLS certs
 *.pem
 *.key
 *.0
+
+# Generated data dirs
+data/master/
+data/assets/
+
+# Frida (binaries + debug scripts)
+frida-server-*
+frida-gadget*
+frida_*
+frida_archive/

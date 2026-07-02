@@ -136,7 +136,8 @@ from fastapi.responses import FileResponse
 
 app = FastAPI(title="KHUx Private Server", lifespan=lifespan)
 
-MASTER_DATA_DIR = "D:/Modding/KHUx/m"
+_KHUX_DATA = _os.environ["KHUX_DATA_DIR"]
+MASTER_DATA_DIR = _os.path.join(_KHUX_DATA, "m")
 _START_TIME = time.strftime("%Y-%m-%d %H:%M:%S")
 
 
@@ -475,7 +476,7 @@ async def serve_master_data(filename: str):
     return Response(content=b"", status_code=404)
 
 
-RESOURCE_DIR = "D:/Modding/KHUx/R"
+RESOURCE_DIR = _os.path.join(_KHUX_DATA, "R")
 
 
 @app.get("/data/resource/{filename}")

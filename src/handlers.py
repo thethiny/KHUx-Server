@@ -380,8 +380,8 @@ def handle_resource(request_data: dict, user: Optional[User], db_session: DBSess
     base_url = "http://api.sp.kingdomhearts.com/data/resource"
     KEY = "5CA56C5827FA15CF1ECE2A37180953B801DEBFD0A71DD6AA6DD1D4F414A5FBC4"
     resource = {"revision": 1, "count": 0, "mode": 0, "minVersion": ""}
-    # Serve resource files from D:/Modding/KHUx/R/
-    RES_DIR = "D:/Modding/KHUx/R"
+    import os as _os
+    RES_DIR = _os.path.join(_os.environ["KHUX_DATA_DIR"], "R")
     if _os.path.isdir(RES_DIR):
         for fname in sorted(_os.listdir(RES_DIR)):
             if fname.endswith(".mp4"):
