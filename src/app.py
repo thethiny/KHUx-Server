@@ -391,6 +391,16 @@ def _build_misc_data():
     return entries
 
 
+_DATA_DIR = _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), "data")
+
+def _load_json(name):
+    path = _os.path.join(_DATA_DIR, f"{name}.json")
+    if _os.path.isfile(path):
+        with open(path) as f:
+            return json.load(f)
+    return []
+
+
 MASTER_JSON_DATA = {
     "misc": _build_misc_data(),
     "world": [
@@ -405,9 +415,7 @@ MASTER_JSON_DATA = {
     "keyblade": [
         {"keybladeId": 1000, "name": "Starlight", "description": "A keyblade of light", "lv": 1, "displayId": 1, "category": 0, "passive": 0, "passivePower": 0, "drawCount": 0, "maxBurstGauge": 100, "validConsist": 0, "attribute": [100, 100, 100, 100, 100], "darklight": [0, 0, 0, 0, 0], "accord": [0, 0, 0, 0, 0], "dlaccord": [0, 0, 0, 0, 0], "partnerRate": 100, "evolveId": 0, "validNeedMaterial": 0, "needMaterialId": [], "needMaterialNum": []},
     ],
-    "initItem": [
-        {"id": 1, "category": 1, "equipType": 0, "equipNo": 0, "param": 1, "itemId": 1, "skillId": 0},
-    ],
+    "initItem": _load_json("initItem"),
     "enemy": [
         {"enemyId": 1010, "name": "Shadow", "flavor": "A dark creature", "displayId": 1, "show": 1, "showSwf": 0, "showFrame": 0, "hideFrame": 0, "moveSpeed": 100, "hitRadius": 50, "tapRadius": 50, "width": 100, "height": 100, "spBattle": 0, "kind": 1, "attribute": 1, "validGrowth": 0, "baseLv": [1], "hp": [500], "attack": [10], "defense": [5], "exp": [10], "money": [0], "raidPoint": [0], "lux": [1], "attackCp": 100, "suppressCp": 50, "attackHp": 100, "suppressHp": 50, "suppressGuilt": 0, "battlePattern": 0, "displayHeight": 0, "runaway": 0, "neverAttack": 0, "validSkill": 0, "skillId": [], "skillRequire": [], "skillRequireArg": [], "skillOdds": [], "protectPoison": 0, "protectDeepPoison": 0, "protectSleep": 0, "protectParalysis": 0, "registPoison": 0, "registDeepPoison": 0, "registSleep": 0, "registParalysis": 0, "bufAttack": 0, "bufDefense": 0, "bufAttackPower": 0, "bufDefensePower": 0, "bufAttackSpeed": 0, "bufDefenseSpeed": 0, "bufAttackMagic": 0, "bufDefenseMagic": 0, "bufTurn": 0, "bufCount": 0, "statusAilments": [], "statusAilmentsTurn": 0, "statusAilmentsCount": 0},
     ],
@@ -423,22 +431,8 @@ MASTER_JSON_DATA = {
     "stage": [
         {"stageId": 1001010, "id": 1, "name": "Tutorial: Defeat the Heartless!", "mapName": "map_DB_01", "useAp": 0, "chapterId": 1, "worldId": 1, "thumbId": 0, "stageKind": 0, "showIcon": 0, "validBeforeDrama": 0, "beforeDramaId": [], "beforeDramaType": [], "validAfterDrama": 0, "afterDramaId": [], "afterDramaType": [], "validClearGetTitle": 0, "clearGetTitle": 0, "validClearGetSphere": 0, "clearGetSphere": 0, "resetClearGet": 0, "validClearGetItem": 0, "clearGetItemType": [], "clearGetItemId": [], "clearGetAssignSkillType": [], "clearGetAssignSkillId": [], "clearGetAssignSkillLv": [], "clearGetItemNum": [], "resetSubMission": 0, "validSubmission": 0, "submissionRequire": [], "submissionName": [], "submissionDataType": [], "submissionIdType": [], "submissionId": [], "submissionNum": [], "submissionRewardType": [], "submissionItemId": [], "submissionSkillType": [], "submissionSkillId": [], "submissionSkillLv": [], "submissionItemNum": [], "raidBoss": 0, "bgmField": 0, "bgmBattle": 0, "bgmBoss": 0},
     ],
-    "avatarParts": [
-        {"avatarPartsId": 30001, "name": "30001", "partsType": 1, "gender": 0, "combinationType": 1, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
-        {"avatarPartsId": 30002, "name": "30002", "partsType": 1, "gender": 0, "combinationType": 1, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
-        {"avatarPartsId": 20001, "name": "20001", "partsType": 2, "gender": 0, "combinationType": 2, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
-        {"avatarPartsId": 20002, "name": "20002", "partsType": 2, "gender": 0, "combinationType": 2, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
-        {"avatarPartsId": 40001, "name": "40001", "partsType": 3, "gender": 0, "combinationType": 3, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
-        {"avatarPartsId": 40002, "name": "40002", "partsType": 3, "gender": 0, "combinationType": 3, "combinationFlag": 0, "position": 0, "setKind": 0, "fixedFlag": 0, "validSetCloth": 0, "setCloth": [], "status": 1},
-    ],
-    "avatarCombination": [
-        {"avatarCombinationId": 1, "combinationType": 1, "avatarPartsId": 30001, "status": 1},
-        {"avatarCombinationId": 2, "combinationType": 1, "avatarPartsId": 30002, "status": 1},
-        {"avatarCombinationId": 3, "combinationType": 2, "avatarPartsId": 20001, "status": 1},
-        {"avatarCombinationId": 4, "combinationType": 2, "avatarPartsId": 20002, "status": 1},
-        {"avatarCombinationId": 5, "combinationType": 3, "avatarPartsId": 40001, "status": 1},
-        {"avatarCombinationId": 6, "combinationType": 3, "avatarPartsId": 40002, "status": 1},
-    ],
+    "avatarParts": _load_json("avatarParts"),
+    "avatarCombination": _load_json("avatarCombination"),
 }
 
 MASTER_KEY_HEX = "00" * 32

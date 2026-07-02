@@ -43,7 +43,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 1,
-        "versionDat": 1,
+        "versionDat": 3,
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -146,7 +146,16 @@ def handle_user_avatar_all(request_data: dict, user: Optional[User], db_session:
 
 @register(21)  # GET /user/avatar/parts
 def handle_user_avatar_parts(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userAvatarParts=[])
+    parts = [
+        {"userAvatarPartsId": i + 1, "partsType": p_type, "avatarPartsId": p_id,
+         "getDatetime": "2026-01-01 00:00:00"}
+        for i, (p_type, p_id) in enumerate([
+            (1, 30001), (1, 30002),   # body male/female
+            (2, 20001), (2, 20002),   # face male/female
+            (3, 40001), (3, 40002),   # hair male/female
+        ])
+    ]
+    return build_response(user, userAvatarParts=parts)
 
 
 @register(62)  # POST /tutorial/progress
