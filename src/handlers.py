@@ -351,8 +351,19 @@ def handle_need_url(request_data: dict, user: Optional[User], db_session: DBSess
 
 @register(24)  # GET /system/coppa
 def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    from datetime import datetime
     return build_response(user,
-        misc={str(k): 0 for k in [116, 900, 901, 902, 903, 904, 905, 906, 907]},
+        misc={
+            "116": 300,     # tutorial download jewel reward amount
+            "900": 15,      # COPPA minimum age (chat restriction threshold)
+            "901": 15,      # under-age bracket upper bound
+            "902": 18,      # adult age threshold
+            "903": 30,      # purchase limit $ for under-15
+            "904": 100,     # purchase limit $ for 15-17
+            "905": 1920,    # year picker start
+            "906": datetime.now().year,  # year picker end (current year)
+            "907": 0,       # 0=show birthday page, nonzero=skip
+        },
     )
 
 
