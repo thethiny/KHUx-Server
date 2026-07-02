@@ -221,6 +221,11 @@ async def login_token(request: Request):
     }
 
 
+from .information import router as html_router, mount_static
+app.include_router(html_router)
+mount_static(app)
+
+
 @app.get("/")
 @app.post("/")
 async def root_endpoint(request: Request):

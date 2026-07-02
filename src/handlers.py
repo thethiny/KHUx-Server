@@ -344,8 +344,8 @@ def handle_need_url(request_data: dict, user: Optional[User], db_session: DBSess
     base = "http://api.sp.kingdomhearts.com"
     return build_response(user,
         support=base, register=base, update=base, help=base,
-        staff=base, agreement=base, license=base, shikin=base,
-        tokutei=base, store=base,
+        staff=base, agreement=f"{base}/agreement", license=f"{base}/agreement",
+        shikin=base, tokutei=base, store=base,
     )
 
 
@@ -426,12 +426,28 @@ def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_ses
 @register(28)  # GET /system/information/list
 @register(29)  # GET /system/information/list/151203
 def handle_information_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, informations=[])
+    from .information import NOTICES, CATEGORIES
+    infos = []
+    for n in NOTICES:
+        cat_label, _ = CATEGORIES[n["cat"]]
+        infos.append({
+            "informationId": n["id"],
+            "category": n["cat"],
+            "categoryName": cat_label,
+            "title": n["title"],
+            "date": f"2026/{n['date']}",
+            "isNew": 0,
+        })
+    return build_response(user, informations=infos)
 
 
 @register(30)  # GET /system/information/detail
 def handle_information_detail(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, information={})
+    info_id = request_data.get("informationId", 1)
+    return build_response(user, information={
+        "informationId": info_id,
+        "url": f"http://api.sp.kingdomhearts.com/dark/information/detail/{info_id}",
+    })
 
 
 @register(76)  # GET /party/notice
