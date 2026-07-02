@@ -5,6 +5,7 @@ Based on decompiled libcocos2dcpp.so (arm64-v8a) analysis.
 """
 
 import logging
+import os
 import time
 from typing import Callable, Optional
 
@@ -42,7 +43,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "sessionTO": False,
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
-        "versionRes": 1,
+        "versionRes": 7,
         "versionDat": 3,
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
@@ -393,31 +394,158 @@ def handle_master(request_data: dict, user: Optional[User], db_session: DBSessio
     return resp
 
 
+import threading as _threading
+
+_resource_md5_cache: dict = {}
+_resource_md5_lock = _threading.Lock()
+_resource_md5_ready = _threading.Event()
+
+
+def _resource_md5(path: str) -> str:
+    import hashlib as _hashlib
+    _resource_md5_ready.wait()
+    mtime = os.path.getmtime(path)
+    cache_key = f"{path}:{mtime}"
+    with _resource_md5_lock:
+        cached = _resource_md5_cache.get(cache_key)
+    if cached:
+        return cached
+    _hash_resource(path)
+    with _resource_md5_lock:
+        return _resource_md5_cache.get(cache_key, "")
+
+
+def _hash_resource(path: str):
+    import hashlib as _hashlib
+    if not os.path.isfile(path):
+        return
+    mtime = os.path.getmtime(path)
+    cache_key = f"{path}:{mtime}"
+    size = os.path.getsize(path)
+    logger.info("Hashing %s (%d MB)...", os.path.basename(path), size >> 20)
+    h = _hashlib.md5()
+    with open(path, "rb") as f:
+        while chunk := f.read(1 << 20):
+            h.update(chunk)
+    with _resource_md5_lock:
+        _resource_md5_cache[cache_key] = h.hexdigest()
+    logger.info("Hashed %s -> %s", os.path.basename(path), _resource_md5_cache[cache_key])
+
+
+RESOURCE_CHUNK_SIZE = 250 * 1024 * 1024
+
+
+def _hash_resource_chunk(path: str, offset: int, end: int):
+    import hashlib as _hashlib
+    mtime = os.path.getmtime(path)
+    cache_key = f"{path}:{mtime}:{offset}:{end}"
+    h = _hashlib.md5()
+    with open(path, "rb") as f:
+        f.seek(offset)
+        remaining = end - offset
+        while remaining > 0:
+            data = f.read(min(1 << 20, remaining))
+            if not data:
+                break
+            h.update(data)
+            remaining -= len(data)
+    with _resource_md5_lock:
+        _resource_md5_cache[cache_key] = h.hexdigest()
+
+
+def _hash_resource_chunks(path: str, chunk_size: int):
+    """Hash a file in fixed-size chunks and store per-chunk MD5s."""
+    import hashlib as _hashlib
+    if not os.path.isfile(path):
+        return
+    file_size = os.path.getsize(path)
+    mtime = os.path.getmtime(path)
+    logger.info("Hashing %s (%d MB) in %d MB chunks...",
+                os.path.basename(path), file_size >> 20, chunk_size >> 20)
+    with open(path, "rb") as f:
+        offset = 0
+        chunk_idx = 0
+        while offset < file_size:
+            end = min(offset + chunk_size, file_size)
+            h = _hashlib.md5()
+            f.seek(offset)
+            remaining = end - offset
+            while remaining > 0:
+                data = f.read(min(1 << 20, remaining))
+                if not data:
+                    break
+                h.update(data)
+                remaining -= len(data)
+            cache_key = f"{path}:{mtime}:{offset}:{end}"
+            with _resource_md5_lock:
+                _resource_md5_cache[cache_key] = h.hexdigest()
+            logger.info("  chunk %d: %d-%d -> %s", chunk_idx, offset, end, _resource_md5_cache[cache_key])
+            offset = end
+            chunk_idx += 1
+    _hash_resource(path)
+
+
+def _prehash_resources():
+    data_dir = os.environ.get("KHUX_DATA_DIR", "")
+    repo_dir = os.environ.get("KHUX_REPO_DIR", "")
+    misc_mp4 = os.path.join(data_dir, "misc.mp4")
+    misc_png = os.path.join(repo_dir, "validate_data", "misc.png") if repo_dir else ""
+    if misc_mp4:
+        _hash_resource_chunks(misc_mp4, RESOURCE_CHUNK_SIZE)
+    if misc_png:
+        _hash_resource(misc_png)
+    _resource_md5_ready.set()
+
+
+_hash_thread = _threading.Thread(target=_prehash_resources, daemon=True)
+_hash_thread.start()
+
+
 @register(26)  # GET /system/resource
 def handle_resource(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    import hashlib as _hashlib
-    import os as _os
     base_url = "http://api.sp.kingdomhearts.com/data/resource"
-    KEY = "5CA56C5827FA15CF1ECE2A37180953B801DEBFD0A71DD6AA6DD1D4F414A5FBC4"
-    resource = {"revision": 1, "count": 0, "mode": 0, "minVersion": ""}
-    import os as _os
-    RES_DIR = _os.path.join(_os.environ["KHUX_DATA_DIR"], "R")
-    if _os.path.isdir(RES_DIR):
-        for fname in sorted(_os.listdir(RES_DIR)):
-            if fname.endswith(".mp4"):
-                name = fname.replace(".mp4", "")
-                fpath = _os.path.join(RES_DIR, fname)
-                with open(fpath, "rb") as f:
-                    md5 = _hashlib.md5(f.read()).hexdigest()
-                resource[name] = {
-                    "revision": 1,
-                    "url": f"{base_url}/{fname}",
-                    "key": KEY,
-                    "md5": md5,
-                }
-                resource["count"] += 1
-    logger.info("RESOURCE: serving %d entries", resource["count"])
-    return build_response(user, resource=resource, mode=0, minVersion="")
+    data_dir = os.environ["KHUX_DATA_DIR"]
+    repo_dir = os.getenv("KHUX_REPO_DIR", "")
+    misc_mp4 = os.path.join(data_dir, "misc.mp4")
+    misc_png = os.path.join(repo_dir, "validate_data", "misc.png") if repo_dir else ""
+    versions = []
+    if os.path.isfile(misc_mp4) and misc_png and os.path.isfile(misc_png):
+        file_size = os.path.getsize(misc_mp4)
+        mtime = os.path.getmtime(misc_mp4)
+        data_chunks = []
+        offset = 0
+        while offset < file_size:
+            end = min(offset + RESOURCE_CHUNK_SIZE, file_size)
+            chunk_size = end - offset
+            cache_key = f"{misc_mp4}:{mtime}:{offset}:{end}"
+            with _resource_md5_lock:
+                md5 = _resource_md5_cache.get(cache_key, "")
+            if not md5:
+                _hash_resource_chunk(misc_mp4, offset, end)
+                with _resource_md5_lock:
+                    md5 = _resource_md5_cache.get(cache_key, "")
+            data_chunks.append({
+                "url": f"{base_url}/misc.mp4?offset={offset}&size={chunk_size}",
+                "md5": md5,
+                "size": chunk_size,
+            })
+            offset = end
+        versions.append({
+            "data": data_chunks,
+            "index": [{
+                "url": f"{base_url}/misc.png",
+                "md5": _resource_md5(misc_png),
+                "size": os.path.getsize(misc_png),
+            }],
+        })
+    logger.info("RESOURCE: serving %d data chunks + index", len(versions[0]["data"]) if versions else 0)
+    return build_response(user,
+        resource={
+            "mode": 1,
+            "minVersion": 0,
+            "versions": versions,
+        },
+    )
 
 
 @register(61)  # POST /tutorial/user/create

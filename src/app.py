@@ -153,7 +153,13 @@ _START_TIME = time.strftime("%Y-%m-%d %H:%M:%S")
 
 @app.get("/internal-healthcheck")
 async def healthcheck():
-    return {"status": "ok", "started": _START_TIME}
+    from .handlers import _resource_md5_ready, _resource_md5_cache
+    return {
+        "status": "ok",
+        "started": _START_TIME,
+        "md5_ready": _resource_md5_ready.is_set(),
+        "md5_cached": len(_resource_md5_cache),
+    }
 
 
 @app.middleware("http")
@@ -482,15 +488,49 @@ async def serve_master_data(filename: str):
 
 RESOURCE_DIR = _os.path.join(_KHUX_DATA, "R")
 
+_REPO_DIR = _os.getenv("KHUX_REPO_DIR", _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), ".."))
+_RESOURCE_PATHS = {
+    "misc.mp4": _os.path.join(_KHUX_DATA, "misc.mp4"),
+    "misc.png": _os.path.join(_REPO_DIR, "validate_data", "misc.png"),
+    "test.mp4": _os.path.join(_KHUX_DATA, "test.mp4"),
+    "test.png": _os.path.join(_KHUX_DATA, "test.png"),
+}
+
+
+RESOURCE_CHUNK_SIZE = 250 * 1024 * 1024  # 250MB
+
 
 @app.get("/data/resource/{filename}")
-async def serve_resource_data(filename: str):
-    filepath = _os.path.join(RESOURCE_DIR, filename)
-    if _os.path.exists(filepath):
-        logger.info(">>> SERVING RESOURCE: %s (%d bytes)", filename, _os.path.getsize(filepath))
-        return FileResponse(filepath, media_type="application/octet-stream")
-    logger.warning("!!! RESOURCE NOT FOUND: %s", filename)
-    return Response(status_code=404)
+async def serve_resource_data(filename: str, offset: int = 0, size: int = 0):
+    if filename in _RESOURCE_PATHS:
+        filepath = _RESOURCE_PATHS[filename]
+    else:
+        filepath = _os.path.join(RESOURCE_DIR, filename)
+    if not _os.path.exists(filepath):
+        logger.warning("!!! RESOURCE NOT FOUND: %s", filename)
+        return Response(status_code=404)
+    file_size = _os.path.getsize(filepath)
+    if size > 0 and offset >= 0:
+        end = min(offset + size, file_size)
+        logger.info(">>> SERVING RESOURCE CHUNK: %s [%d-%d] (%d bytes)",
+                     filename, offset, end, end - offset)
+
+        def _stream():
+            with open(filepath, "rb") as f:
+                f.seek(offset)
+                remaining = end - offset
+                while remaining > 0:
+                    chunk = f.read(min(1 << 20, remaining))
+                    if not chunk:
+                        break
+                    remaining -= len(chunk)
+                    yield chunk
+
+        from starlette.responses import StreamingResponse
+        return StreamingResponse(_stream(), media_type="application/octet-stream",
+                                 headers={"Content-Length": str(end - offset)})
+    logger.info(">>> SERVING RESOURCE: %s (%d bytes)", filename, file_size)
+    return FileResponse(filepath, media_type="application/octet-stream")
 
 
 @app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])
