@@ -402,7 +402,7 @@ _DATA_DIR = _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), "data")
 def _load_json(name):
     path = _os.path.join(_DATA_DIR, f"{name}.json")
     if _os.path.isfile(path):
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
     return []
 
@@ -419,6 +419,7 @@ MASTER_JSON_DATA = {
         {"battleMiscId": i, "value": 0} for i in range(1, 101)
     ],
     "keyblade": [
+        {"keybladeId": 0, "name": "", "description": "", "lv": 1, "displayId": 0, "category": 0, "passive": 0, "passivePower": 0, "drawCount": 0, "maxBurstGauge": 0, "validConsist": 0, "attribute": [0, 0, 0, 0, 0], "darklight": [0, 0, 0, 0, 0], "accord": [0, 0, 0, 0, 0], "dlaccord": [0, 0, 0, 0, 0], "partnerRate": 0, "evolveId": 0, "validNeedMaterial": 0, "needMaterialId": [], "needMaterialNum": []},
         {"keybladeId": 1000, "name": "Starlight", "description": "A keyblade of light", "lv": 1, "displayId": 1, "category": 0, "passive": 0, "passivePower": 0, "drawCount": 0, "maxBurstGauge": 100, "validConsist": 0, "attribute": [100, 100, 100, 100, 100], "darklight": [0, 0, 0, 0, 0], "accord": [0, 0, 0, 0, 0], "dlaccord": [0, 0, 0, 0, 0], "partnerRate": 100, "evolveId": 0, "validNeedMaterial": 0, "needMaterialId": [], "needMaterialNum": []},
     ],
     "initItem": _load_json("initItem"),
@@ -435,7 +436,7 @@ MASTER_JSON_DATA = {
         {"skillId": 1, "imageId": 1, "thumbId": 1, "name": "Attack Boost I", "description": "Boosts attack.", "rank": 1, "maxLv": 1, "expType": 1, "sortId": 1, "categoryEvolve": 0, "invokeType": 0, "invokeProb": 100, "invokeProbPerLv": 0, "invokeShowTiming": 0, "attackUp": 10, "burstCancel": 0, "damageCut": 0, "dokonjo": 0, "counter": 0, "addAction": 0, "addPoison": 0, "addDeepPoison": 0, "addSleep": 0, "addParalysis": 0, "conditionTurn": 0, "conditionCount": 0, "prizeHpUp": 0, "prizeBurstUp": 0, "luxUp": 0, "moneyUp": 0, "raidUp": 0},
     ],
     "stage": [
-        {"stageId": 1001010, "id": 1, "name": "Tutorial: Defeat the Heartless!", "mapName": "map_DB_01", "useAp": 0, "chapterId": 1, "worldId": 1, "thumbId": 0, "stageKind": 0, "showIcon": 0, "validBeforeDrama": 0, "beforeDramaId": [], "beforeDramaType": [], "validAfterDrama": 0, "afterDramaId": [], "afterDramaType": [], "validClearGetTitle": 0, "clearGetTitle": 0, "validClearGetSphere": 0, "clearGetSphere": 0, "resetClearGet": 0, "validClearGetItem": 0, "clearGetItemType": [], "clearGetItemId": [], "clearGetAssignSkillType": [], "clearGetAssignSkillId": [], "clearGetAssignSkillLv": [], "clearGetItemNum": [], "resetSubMission": 0, "validSubmission": 0, "submissionRequire": [], "submissionName": [], "submissionDataType": [], "submissionIdType": [], "submissionId": [], "submissionNum": [], "submissionRewardType": [], "submissionItemId": [], "submissionSkillType": [], "submissionSkillId": [], "submissionSkillLv": [], "submissionItemNum": [], "raidBoss": 0, "bgmField": 0, "bgmBattle": 0, "bgmBoss": 0},
+        {"stageId": 1001010, "id": 1010, "name": "Prologue", "mapName": "Fountain Square", "useAp": 0, "chapterId": 1, "worldId": 1, "thumbId": 0, "stageKind": 4, "showIcon": 0, "validBeforeDrama": 0, "beforeDramaId": [], "beforeDramaType": [], "validAfterDrama": 0, "afterDramaId": [], "afterDramaType": [], "validClearGetTitle": 0, "clearGetTitle": 0, "validClearGetSphere": 0, "clearGetSphere": 0, "resetClearGet": 0, "validClearGetItem": 0, "clearGetItemType": [], "clearGetItemId": [], "clearGetAssignSkillType": [], "clearGetAssignSkillId": [], "clearGetAssignSkillLv": [], "clearGetItemNum": [], "resetSubMission": 0, "validSubmission": 0, "submissionRequire": [], "submissionName": [], "submissionDataType": [], "submissionIdType": [], "submissionId": [], "submissionNum": [], "submissionRewardType": [], "submissionItemId": [], "submissionSkillType": [], "submissionSkillId": [], "submissionSkillLv": [], "submissionItemNum": [], "raidBoss": 0, "bgmField": 0, "bgmBattle": 0, "bgmBoss": 0},
     ],
     "avatarParts": _load_json("avatarParts"),
     "avatarCombination": _load_json("avatarCombination"),

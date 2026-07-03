@@ -43,8 +43,8 @@ def build_ret(user: Optional[User] = None) -> dict:
         "sessionTO": False,
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
-        "versionRes": 7,
-        "versionDat": 3,
+        "versionRes": 0 if (DEBUG_MODE or (user and user.tutorial_done)) else 1,  # game bug: resource_revision never saves, so skip for returning users
+        "versionDat": 1,   # triggers master data download if > saved master_revision (NOT saved itself)
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -58,18 +58,26 @@ def build_response(user: Optional[User] = None, **extra) -> dict:
 
 # ---------------------------------------------------------------------------
 # Login handlers (v4.3.1 uses /system/login and /khux/login)
+# DEBUG: set to a progression value to skip tutorial steps on fresh login
+# 0=full tutorial, 7=skip to union selection, 995=tutorial done
+DEBUG_SKIP_TO = int(os.getenv("KHUX_DEBUG_SKIP_TO", "0"))
+DEBUG_MODE = bool(os.getenv("KHUX_DEBUG_MODE", ""))
+
 # ---------------------------------------------------------------------------
 @register(59)  # POST /login
 def handle_login(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     is_new = not user.tutorial_done if user else True
-    logger.info("LOGIN HANDLER: user=%s tutorial_done=%s is_new=%s",
-                user.id if user else None, user.tutorial_done if user else None, is_new)
+    progression = DEBUG_SKIP_TO if (is_new and DEBUG_SKIP_TO) else 0
+    if DEBUG_SKIP_TO:
+        is_new = True
+    logger.info("LOGIN HANDLER: user=%s tutorial_done=%s is_new=%s progression=%s",
+                user.id if user else None, user.tutorial_done if user else None, is_new, progression)
     return build_response(user,
         login={
             "newcomer": is_new,
             "tutorial": is_new,
             "acquirableLoginBonus": False,
-            "progression": 0,
+            "progression": progression,
         },
         phase=0,
         popupFlag=0,
@@ -162,10 +170,15 @@ def handle_user_avatar_parts(request_data: dict, user: Optional[User], db_sessio
 @register(62)  # POST /tutorial/progress
 def handle_tutorial_progress(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     progression = request_data.get("progression", 0)
+    if DEBUG_SKIP_TO and progression < DEBUG_SKIP_TO:
+        progression = DEBUG_SKIP_TO
     name = request_data.get("name", "")
-    logger.info("TUTORIAL PROGRESS: progression=%s payload=%s", progression, request_data)
-    if name and user:
-        user.user_name = name
+    logger.info("TUTORIAL PROGRESS: progression=%s (skip_to=%s) payload=%s", progression, DEBUG_SKIP_TO, request_data)
+    if user:
+        if name:
+            user.user_name = name
+        if progression >= 995: # Union is at 6, tutorial at 995. Must be set to 6 to avoid re-download on failed tutorial.
+            user.tutorial_done = True
         db_session.add(user)
     return build_response(user,
         tutorial={
@@ -184,7 +197,32 @@ def handle_tutorial_status(request_data: dict, user: Optional[User], db_session:
 
 @register(100)  # GET /stage/160310
 def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, stories=[], newStageId=0)
+    uid = user.id if user else 1
+    avatar = {"avatarParts": [
+        {"partsId": 50001, "partsType": 2},
+        {"partsId": 50101, "partsType": 3},
+        {"partsId": 50201, "partsType": 4},
+    ], "coordinate": {"no": 0, "x": 0, "y": 0, "scale": 100}}
+    raid_user = {"userId": uid, "name": user.user_name if user else "Player",
+                 "level": 1, "userAvatar": avatar}
+    return build_response(user,
+        stories=[
+            {"stageId": 1010, "useAp": 0, "score": 0, "clearMissionIds": []},
+        ],
+        newStageId=1010,
+        raidStatus=0,
+        raid={
+            "raidId": 0, "level": 0, "useAp": 0,
+            "timeLeft": "2099-01-01 00:00:00",
+            "feverFlag": 0, "feverTime": "2099-01-01 00:00:00",
+            "stageId": 0, "parts": [],
+        },
+        discoverer=raid_user,
+        mvp=raid_user,
+        events=[],
+        supportUsers=[],
+        colosseum={"ranking": 0, "round": 0},
+    )
 
 
 @register(107)  # GET /raid
@@ -202,7 +240,7 @@ def handle_raid(request_data: dict, user: Optional[User], db_session: DBSession)
 @register(103)  # POST /stage/start
 def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     logger.info("STAGE START: full payload = %s", request_data)
-    stage_id = request_data.get("stageId", 1001010)
+    stage_id = request_data.get("stageId", 1010)
     keyblade_id = request_data.get("userKeybladeId", 1)
     return build_response(user,
         userRandomEnemies=[],
@@ -372,7 +410,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
             "904": 100,     # purchase limit $ for 15-17
             "905": 1920,    # year picker start
             "906": datetime.now().year,  # year picker end (current year)
-            "907": 0,       # 0=show birthday page, nonzero=skip
+            "907": DEBUG_SKIP_TO,  # 0=show birthday page, nonzero=skip
         },
     )
 
@@ -381,11 +419,12 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     from .app import MASTER_TABLE_NAMES, _get_master_encrypted, MASTER_KEY_HEX
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    resp = build_response(user, master={"revision": 1, "count": len(MASTER_TABLE_NAMES)})
+    resp = build_response(user, master={"revision": 1, "count": len(MASTER_TABLE_NAMES)})  # saved as master_revision
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = _get_master_encrypted(name)
+        rev = 1
         resp[name] = {
-            "revision": 1,
+            "revision": rev,  # saved in master_file_revisions array (per-table)
             "url": f"{base_url}/m{i:03d}.jpg",
             "key": MASTER_KEY_HEX,
             "md5": md5_hex,
@@ -531,11 +570,13 @@ def handle_resource(request_data: dict, user: Optional[User], db_session: DBSess
             })
             offset = end
         versions.append({
+            "revision": 1,
             "data": data_chunks,
             "index": [{
                 "url": f"{base_url}/misc.png",
                 "md5": _resource_md5(misc_png),
                 "size": os.path.getsize(misc_png),
+                "revision": 1,
             }],
         })
     logger.info("RESOURCE: serving %d data chunks + index", len(versions[0]["data"]) if versions else 0)
@@ -552,16 +593,20 @@ def handle_resource(request_data: dict, user: Optional[User], db_session: DBSess
 def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     if user and not user.tutorial_done:
         db_session.add(user)
+    is_new = True
+    progression = DEBUG_SKIP_TO if DEBUG_SKIP_TO else 0
+    if DEBUG_SKIP_TO >= 995:
+        is_new = False
     return build_response(user,
         login={
-            "newcomer": True,
-            "tutorial": True,
+            "newcomer": is_new,
+            "tutorial": is_new,
             "acquirableLoginBonus": False,
-            "progression": 0,
+            "progression": progression,
         },
         tutorial={
             "userTutorialId": 1,
-            "progression": 0,
+            "progression": progression,
             "name": "",
             "inviteCode": "",
         },
