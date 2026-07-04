@@ -44,7 +44,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0 if (DEBUG_MODE or (user and user.tutorial_done)) else 1,  # game bug: resource_revision never saves, so skip for returning users
-        "versionDat": 1,   # triggers master data download if > saved master_revision (NOT saved itself)
+        "versionDat": 100,   # triggers master data download if > saved master_revision (NOT saved itself)
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -108,7 +108,8 @@ def handle_user_sphere(request_data: dict, user: Optional[User], db_session: DBS
 def handle_user_keyblade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user, userKeyblades=[{
         "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-        "deckMedals": [], "burst": 0,
+        "deckMedals": [],
+        "burst": 0,
         "totalAttack": 100, "totalDefense": 100,
         "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
     }])
@@ -209,7 +210,7 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
         stories=[
             {"stageId": 1010, "useAp": 0, "score": 0, "clearMissionIds": []},
         ],
-        newStageId=1010,
+        newStageId=1001010,
         raidStatus=0,
         raid={
             "raidId": 0, "level": 0, "useAp": 0,
@@ -330,7 +331,8 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
         },
         "userKeyblade": {
             "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-            "deckMedals": [], "burst": 0,
+            "deckMedals": [],
+            "burst": 0,
             "totalAttack": 100, "totalDefense": 100,
             "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
         },
@@ -419,12 +421,14 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     from .app import MASTER_TABLE_NAMES, _get_master_encrypted, MASTER_KEY_HEX
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    resp = build_response(user, master={"revision": 1, "count": len(MASTER_TABLE_NAMES)})  # saved as master_revision
+    _BUMPED = {"keyblade", "stage"}
+    master_rev = 100
+    resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = _get_master_encrypted(name)
-        rev = 1
+        rev = master_rev if name in _BUMPED else 1
         resp[name] = {
-            "revision": rev,  # saved in master_file_revisions array (per-table)
+            "revision": rev,
             "url": f"{base_url}/m{i:03d}.jpg",
             "key": MASTER_KEY_HEX,
             "md5": md5_hex,

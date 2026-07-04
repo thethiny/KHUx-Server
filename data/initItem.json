@@ -1,992 +1,1775 @@
 [
-    {
-        "id": 1,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2100001,
-        "skillId": 0
-    },
-    {
-        "id": 2,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2100002,
-        "skillId": 0
-    },
-    {
-        "id": 10,
-        "category": 13,
-        "equipType": 3,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1000,
-        "skillId": 0
-    },
-    {
-        "id": 11,
-        "category": 3,
-        "equipType": 3,
-        "equipNo": 1,
-        "param": 1,
-        "itemId": 13021,
-        "skillId": 0
-    },
-    {
-        "id": 12,
-        "category": 3,
-        "equipType": 3,
-        "equipNo": 2,
-        "param": 1,
-        "itemId": 11021,
-        "skillId": 0
-    },
-    {
-        "id": 13,
-        "category": 3,
-        "equipType": 3,
-        "equipNo": 3,
-        "param": 1,
-        "itemId": 13031,
-        "skillId": 0
-    },
-    {
-        "id": 100,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20001,
-        "skillId": 0
-    },
-    {
-        "id": 101,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20002,
-        "skillId": 0
-    },
-    {
-        "id": 102,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20003,
-        "skillId": 0
-    },
-    {
-        "id": 103,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20004,
-        "skillId": 0
-    },
-    {
-        "id": 104,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20005,
-        "skillId": 0
-    },
-    {
-        "id": 105,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20006,
-        "skillId": 0
-    },
-    {
-        "id": 106,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20019,
-        "skillId": 0
-    },
-    {
-        "id": 107,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20020,
-        "skillId": 0
-    },
-    {
-        "id": 108,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20021,
-        "skillId": 0
-    },
-    {
-        "id": 109,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20022,
-        "skillId": 0
-    },
-    {
-        "id": 110,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20023,
-        "skillId": 0
-    },
-    {
-        "id": 111,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20024,
-        "skillId": 0
-    },
-    {
-        "id": 112,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30001,
-        "skillId": 0
-    },
-    {
-        "id": 113,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30002,
-        "skillId": 0
-    },
-    {
-        "id": 114,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30003,
-        "skillId": 0
-    },
-    {
-        "id": 115,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30004,
-        "skillId": 0
-    },
-    {
-        "id": 116,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30005,
-        "skillId": 0
-    },
-    {
-        "id": 117,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30006,
-        "skillId": 0
-    },
-    {
-        "id": 118,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30007,
-        "skillId": 0
-    },
-    {
-        "id": 119,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30008,
-        "skillId": 0
-    },
-    {
-        "id": 120,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30009,
-        "skillId": 0
-    },
-    {
-        "id": 121,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30010,
-        "skillId": 0
-    },
-    {
-        "id": 122,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50001,
-        "skillId": 0
-    },
-    {
-        "id": 123,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50002,
-        "skillId": 0
-    },
-    {
-        "id": 124,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50003,
-        "skillId": 0
-    },
-    {
-        "id": 125,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50004,
-        "skillId": 0
-    },
-    {
-        "id": 126,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50005,
-        "skillId": 0
-    },
-    {
-        "id": 127,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50006,
-        "skillId": 0
-    },
-    {
-        "id": 128,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50007,
-        "skillId": 0
-    },
-    {
-        "id": 129,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50008,
-        "skillId": 0
-    },
-    {
-        "id": 130,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50009,
-        "skillId": 0
-    },
-    {
-        "id": 131,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 50010,
-        "skillId": 0
-    },
-    {
-        "id": 132,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51001,
-        "skillId": 0
-    },
-    {
-        "id": 133,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51002,
-        "skillId": 0
-    },
-    {
-        "id": 134,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51003,
-        "skillId": 0
-    },
-    {
-        "id": 135,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51004,
-        "skillId": 0
-    },
-    {
-        "id": 136,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51005,
-        "skillId": 0
-    },
-    {
-        "id": 137,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51006,
-        "skillId": 0
-    },
-    {
-        "id": 138,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51007,
-        "skillId": 0
-    },
-    {
-        "id": 139,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51008,
-        "skillId": 0
-    },
-    {
-        "id": 140,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51009,
-        "skillId": 0
-    },
-    {
-        "id": 141,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 51010,
-        "skillId": 0
-    },
-    {
-        "id": 142,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 40001,
-        "skillId": 0
-    },
-    {
-        "id": 143,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 40002,
-        "skillId": 0
-    },
-    {
-        "id": 144,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 40003,
-        "skillId": 0
-    },
-    {
-        "id": 145,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 41002,
-        "skillId": 0
-    },
-    {
-        "id": 146,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 41003,
-        "skillId": 0
-    },
-    {
-        "id": 147,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 41005,
-        "skillId": 0
-    },
-    {
-        "id": 148,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1,
-        "skillId": 0
-    },
-    {
-        "id": 149,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109001,
-        "skillId": 0
-    },
-    {
-        "id": 150,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 2,
-        "skillId": 0
-    },
-    {
-        "id": 151,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109002,
-        "skillId": 0
-    },
-    {
-        "id": 152,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 7,
-        "skillId": 0
-    },
-    {
-        "id": 153,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109007,
-        "skillId": 0
-    },
-    {
-        "id": 154,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 8,
-        "skillId": 0
-    },
-    {
-        "id": 155,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109008,
-        "skillId": 0
-    },
-    {
-        "id": 156,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 11,
-        "skillId": 0
-    },
-    {
-        "id": 157,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109011,
-        "skillId": 0
-    },
-    {
-        "id": 158,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 12,
-        "skillId": 0
-    },
-    {
-        "id": 159,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109012,
-        "skillId": 0
-    },
-    {
-        "id": 160,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 13,
-        "skillId": 0
-    },
-    {
-        "id": 161,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109013,
-        "skillId": 0
-    },
-    {
-        "id": 162,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 14,
-        "skillId": 0
-    },
-    {
-        "id": 163,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 109014,
-        "skillId": 0
-    },
-    {
-        "id": 164,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30011,
-        "skillId": 0
-    },
-    {
-        "id": 165,
-        "category": 100,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 30012,
-        "skillId": 0
-    },
-    {
-        "id": 200,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1,
-        "skillId": 0
-    },
-    {
-        "id": 201,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 2,
-        "skillId": 0
-    },
-    {
-        "id": 202,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 3,
-        "skillId": 0
-    },
-    {
-        "id": 203,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 4,
-        "skillId": 0
-    },
-    {
-        "id": 204,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 5,
-        "skillId": 0
-    },
-    {
-        "id": 205,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 6,
-        "skillId": 0
-    },
-    {
-        "id": 206,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 7,
-        "skillId": 0
-    },
-    {
-        "id": 207,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 8,
-        "skillId": 0
-    },
-    {
-        "id": 208,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 9,
-        "skillId": 0
-    },
-    {
-        "id": 209,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 10,
-        "skillId": 0
-    },
-    {
-        "id": 210,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 11,
-        "skillId": 0
-    },
-    {
-        "id": 211,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 12,
-        "skillId": 0
-    },
-    {
-        "id": 212,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 13,
-        "skillId": 0
-    },
-    {
-        "id": 213,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 14,
-        "skillId": 0
-    },
-    {
-        "id": 214,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 15,
-        "skillId": 0
-    },
-    {
-        "id": 215,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 16,
-        "skillId": 0
-    },
-    {
-        "id": 216,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 17,
-        "skillId": 0
-    },
-    {
-        "id": 217,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 18,
-        "skillId": 0
-    },
-    {
-        "id": 218,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 19,
-        "skillId": 0
-    },
-    {
-        "id": 219,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 20,
-        "skillId": 0
-    },
-    {
-        "id": 220,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 21,
-        "skillId": 0
-    },
-    {
-        "id": 221,
-        "category": 24,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 22,
-        "skillId": 0
-    },
-    {
-        "id": 300,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1001,
-        "skillId": 0
-    },
-    {
-        "id": 301,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1002,
-        "skillId": 0
-    },
-    {
-        "id": 302,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1003,
-        "skillId": 0
-    },
-    {
-        "id": 303,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1004,
-        "skillId": 0
-    },
-    {
-        "id": 304,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1005,
-        "skillId": 0
-    },
-    {
-        "id": 305,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1006,
-        "skillId": 0
-    },
-    {
-        "id": 306,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1007,
-        "skillId": 0
-    },
-    {
-        "id": 307,
-        "category": 7,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 0,
-        "itemId": 1008,
-        "skillId": 0
-    },
-    {
-        "id": 400,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500002,
-        "skillId": 0
-    },
-    {
-        "id": 401,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500003,
-        "skillId": 0
-    },
-    {
-        "id": 402,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500004,
-        "skillId": 0
-    },
-    {
-        "id": 403,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500005,
-        "skillId": 0
-    },
-    {
-        "id": 404,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500006,
-        "skillId": 0
-    },
-    {
-        "id": 405,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500007,
-        "skillId": 0
-    },
-    {
-        "id": 406,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500008,
-        "skillId": 0
-    },
-    {
-        "id": 407,
-        "category": 25,
-        "equipType": 2,
-        "equipNo": 0,
-        "param": 2,
-        "itemId": 2500009,
-        "skillId": 0
-    }
+  {
+    "id": 1,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2100001,
+    "skillId": 0
+  },
+  {
+    "id": 2,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2100002,
+    "skillId": 0
+  },
+  {
+    "id": 10,
+    "category": 13,
+    "equipType": 3,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1000,
+    "skillId": 0
+  },
+  {
+    "id": 11,
+    "category": 3,
+    "equipType": 3,
+    "equipNo": 1,
+    "param": 1,
+    "itemId": 13021,
+    "skillId": 0
+  },
+  {
+    "id": 12,
+    "category": 3,
+    "equipType": 3,
+    "equipNo": 2,
+    "param": 1,
+    "itemId": 11021,
+    "skillId": 0
+  },
+  {
+    "id": 13,
+    "category": 3,
+    "equipType": 3,
+    "equipNo": 3,
+    "param": 1,
+    "itemId": 13031,
+    "skillId": 0
+  },
+  {
+    "id": 100,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20001,
+    "skillId": 0
+  },
+  {
+    "id": 101,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20002,
+    "skillId": 0
+  },
+  {
+    "id": 102,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20003,
+    "skillId": 0
+  },
+  {
+    "id": 103,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20004,
+    "skillId": 0
+  },
+  {
+    "id": 104,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20005,
+    "skillId": 0
+  },
+  {
+    "id": 105,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20006,
+    "skillId": 0
+  },
+  {
+    "id": 106,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20019,
+    "skillId": 0
+  },
+  {
+    "id": 107,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20020,
+    "skillId": 0
+  },
+  {
+    "id": 108,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20021,
+    "skillId": 0
+  },
+  {
+    "id": 109,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20022,
+    "skillId": 0
+  },
+  {
+    "id": 110,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20023,
+    "skillId": 0
+  },
+  {
+    "id": 111,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20024,
+    "skillId": 0
+  },
+  {
+    "id": 112,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30001,
+    "skillId": 0
+  },
+  {
+    "id": 113,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30002,
+    "skillId": 0
+  },
+  {
+    "id": 114,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30003,
+    "skillId": 0
+  },
+  {
+    "id": 115,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30004,
+    "skillId": 0
+  },
+  {
+    "id": 116,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30005,
+    "skillId": 0
+  },
+  {
+    "id": 117,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30006,
+    "skillId": 0
+  },
+  {
+    "id": 118,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30007,
+    "skillId": 0
+  },
+  {
+    "id": 119,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30008,
+    "skillId": 0
+  },
+  {
+    "id": 120,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30009,
+    "skillId": 0
+  },
+  {
+    "id": 121,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30010,
+    "skillId": 0
+  },
+  {
+    "id": 122,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50001,
+    "skillId": 0
+  },
+  {
+    "id": 123,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50002,
+    "skillId": 0
+  },
+  {
+    "id": 124,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50003,
+    "skillId": 0
+  },
+  {
+    "id": 125,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50004,
+    "skillId": 0
+  },
+  {
+    "id": 126,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50005,
+    "skillId": 0
+  },
+  {
+    "id": 127,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50006,
+    "skillId": 0
+  },
+  {
+    "id": 128,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50007,
+    "skillId": 0
+  },
+  {
+    "id": 129,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50008,
+    "skillId": 0
+  },
+  {
+    "id": 130,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50009,
+    "skillId": 0
+  },
+  {
+    "id": 131,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 50010,
+    "skillId": 0
+  },
+  {
+    "id": 132,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51001,
+    "skillId": 0
+  },
+  {
+    "id": 133,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51002,
+    "skillId": 0
+  },
+  {
+    "id": 134,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51003,
+    "skillId": 0
+  },
+  {
+    "id": 135,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51004,
+    "skillId": 0
+  },
+  {
+    "id": 136,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51005,
+    "skillId": 0
+  },
+  {
+    "id": 137,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51006,
+    "skillId": 0
+  },
+  {
+    "id": 138,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51007,
+    "skillId": 0
+  },
+  {
+    "id": 139,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51008,
+    "skillId": 0
+  },
+  {
+    "id": 140,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51009,
+    "skillId": 0
+  },
+  {
+    "id": 141,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 51010,
+    "skillId": 0
+  },
+  {
+    "id": 142,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 40001,
+    "skillId": 0
+  },
+  {
+    "id": 143,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 40002,
+    "skillId": 0
+  },
+  {
+    "id": 144,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 40003,
+    "skillId": 0
+  },
+  {
+    "id": 145,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 41002,
+    "skillId": 0
+  },
+  {
+    "id": 146,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 41003,
+    "skillId": 0
+  },
+  {
+    "id": 147,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 41005,
+    "skillId": 0
+  },
+  {
+    "id": 148,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1,
+    "skillId": 0
+  },
+  {
+    "id": 149,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109001,
+    "skillId": 0
+  },
+  {
+    "id": 150,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 2,
+    "skillId": 0
+  },
+  {
+    "id": 151,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109002,
+    "skillId": 0
+  },
+  {
+    "id": 152,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 7,
+    "skillId": 0
+  },
+  {
+    "id": 153,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109007,
+    "skillId": 0
+  },
+  {
+    "id": 154,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 8,
+    "skillId": 0
+  },
+  {
+    "id": 155,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109008,
+    "skillId": 0
+  },
+  {
+    "id": 156,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 11,
+    "skillId": 0
+  },
+  {
+    "id": 157,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109011,
+    "skillId": 0
+  },
+  {
+    "id": 158,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 12,
+    "skillId": 0
+  },
+  {
+    "id": 159,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109012,
+    "skillId": 0
+  },
+  {
+    "id": 160,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 13,
+    "skillId": 0
+  },
+  {
+    "id": 161,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109013,
+    "skillId": 0
+  },
+  {
+    "id": 162,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 14,
+    "skillId": 0
+  },
+  {
+    "id": 163,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 109014,
+    "skillId": 0
+  },
+  {
+    "id": 200,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1,
+    "skillId": 0
+  },
+  {
+    "id": 201,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 2,
+    "skillId": 0
+  },
+  {
+    "id": 202,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 3,
+    "skillId": 0
+  },
+  {
+    "id": 203,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 4,
+    "skillId": 0
+  },
+  {
+    "id": 204,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 5,
+    "skillId": 0
+  },
+  {
+    "id": 205,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 6,
+    "skillId": 0
+  },
+  {
+    "id": 206,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 7,
+    "skillId": 0
+  },
+  {
+    "id": 207,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 8,
+    "skillId": 0
+  },
+  {
+    "id": 208,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 9,
+    "skillId": 0
+  },
+  {
+    "id": 209,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 10,
+    "skillId": 0
+  },
+  {
+    "id": 210,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 11,
+    "skillId": 0
+  },
+  {
+    "id": 211,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 12,
+    "skillId": 0
+  },
+  {
+    "id": 212,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 13,
+    "skillId": 0
+  },
+  {
+    "id": 213,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 14,
+    "skillId": 0
+  },
+  {
+    "id": 214,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 15,
+    "skillId": 0
+  },
+  {
+    "id": 215,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 16,
+    "skillId": 0
+  },
+  {
+    "id": 216,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 17,
+    "skillId": 0
+  },
+  {
+    "id": 217,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 18,
+    "skillId": 0
+  },
+  {
+    "id": 218,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 19,
+    "skillId": 0
+  },
+  {
+    "id": 219,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20,
+    "skillId": 0
+  },
+  {
+    "id": 220,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 21,
+    "skillId": 0
+  },
+  {
+    "id": 221,
+    "category": 24,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 22,
+    "skillId": 0
+  },
+  {
+    "id": 300,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1001,
+    "skillId": 0
+  },
+  {
+    "id": 301,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1002,
+    "skillId": 0
+  },
+  {
+    "id": 302,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1003,
+    "skillId": 0
+  },
+  {
+    "id": 303,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1004,
+    "skillId": 0
+  },
+  {
+    "id": 304,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1005,
+    "skillId": 0
+  },
+  {
+    "id": 305,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1006,
+    "skillId": 0
+  },
+  {
+    "id": 306,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1007,
+    "skillId": 0
+  },
+  {
+    "id": 307,
+    "category": 7,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1008,
+    "skillId": 0
+  },
+  {
+    "id": 400,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500002,
+    "skillId": 0
+  },
+  {
+    "id": 401,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500003,
+    "skillId": 0
+  },
+  {
+    "id": 402,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500004,
+    "skillId": 0
+  },
+  {
+    "id": 403,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500005,
+    "skillId": 0
+  },
+  {
+    "id": 404,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500006,
+    "skillId": 0
+  },
+  {
+    "id": 405,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500007,
+    "skillId": 0
+  },
+  {
+    "id": 406,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500008,
+    "skillId": 0
+  },
+  {
+    "id": 407,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2500009,
+    "skillId": 0
+  },
+  {
+    "id": 512,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30011,
+    "skillId": 0
+  },
+  {
+    "id": 513,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30012,
+    "skillId": 0
+  },
+  {
+    "id": 514,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30013,
+    "skillId": 0
+  },
+  {
+    "id": 515,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30014,
+    "skillId": 0
+  },
+  {
+    "id": 516,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30015,
+    "skillId": 0
+  },
+  {
+    "id": 517,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30016,
+    "skillId": 0
+  },
+  {
+    "id": 518,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30017,
+    "skillId": 0
+  },
+  {
+    "id": 519,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30018,
+    "skillId": 0
+  },
+  {
+    "id": 520,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30019,
+    "skillId": 0
+  },
+  {
+    "id": 521,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30020,
+    "skillId": 0
+  },
+  {
+    "id": 522,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30021,
+    "skillId": 0
+  },
+  {
+    "id": 523,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30022,
+    "skillId": 0
+  },
+  {
+    "id": 524,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30023,
+    "skillId": 0
+  },
+  {
+    "id": 525,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30024,
+    "skillId": 0
+  },
+  {
+    "id": 526,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30025,
+    "skillId": 0
+  },
+  {
+    "id": 527,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30026,
+    "skillId": 0
+  },
+  {
+    "id": 528,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30027,
+    "skillId": 0
+  },
+  {
+    "id": 529,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30028,
+    "skillId": 0
+  },
+  {
+    "id": 530,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30029,
+    "skillId": 0
+  },
+  {
+    "id": 531,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30030,
+    "skillId": 0
+  },
+  {
+    "id": 532,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30031,
+    "skillId": 0
+  },
+  {
+    "id": 533,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30032,
+    "skillId": 0
+  },
+  {
+    "id": 534,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20007,
+    "skillId": 0
+  },
+  {
+    "id": 535,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20008,
+    "skillId": 0
+  },
+  {
+    "id": 536,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20009,
+    "skillId": 0
+  },
+  {
+    "id": 537,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20010,
+    "skillId": 0
+  },
+  {
+    "id": 538,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20011,
+    "skillId": 0
+  },
+  {
+    "id": 539,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20012,
+    "skillId": 0
+  },
+  {
+    "id": 540,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20013,
+    "skillId": 0
+  },
+  {
+    "id": 541,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20014,
+    "skillId": 0
+  },
+  {
+    "id": 542,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20015,
+    "skillId": 0
+  },
+  {
+    "id": 543,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20016,
+    "skillId": 0
+  },
+  {
+    "id": 544,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20017,
+    "skillId": 0
+  },
+  {
+    "id": 545,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20018,
+    "skillId": 0
+  },
+  {
+    "id": 546,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20025,
+    "skillId": 0
+  },
+  {
+    "id": 547,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20026,
+    "skillId": 0
+  },
+  {
+    "id": 548,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20027,
+    "skillId": 0
+  },
+  {
+    "id": 549,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20028,
+    "skillId": 0
+  },
+  {
+    "id": 550,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20029,
+    "skillId": 0
+  },
+  {
+    "id": 551,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20030,
+    "skillId": 0
+  },
+  {
+    "id": 552,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20031,
+    "skillId": 0
+  },
+  {
+    "id": 553,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20032,
+    "skillId": 0
+  },
+  {
+    "id": 554,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20033,
+    "skillId": 0
+  },
+  {
+    "id": 555,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20034,
+    "skillId": 0
+  },
+  {
+    "id": 556,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20035,
+    "skillId": 0
+  },
+  {
+    "id": 557,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20036,
+    "skillId": 0
+  },
+  {
+    "id": 558,
+    "category": 101,
+    "equipType": 3,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 304001,
+    "skillId": 0
+  },
+  {
+    "id": 559,
+    "category": 101,
+    "equipType": 3,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 303001,
+    "skillId": 0
+  },
+  {
+    "id": 560,
+    "category": 101,
+    "equipType": 3,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 308001,
+    "skillId": 0
+  },
+  {
+    "id": 561,
+    "category": 101,
+    "equipType": 3,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 306001,
+    "skillId": 0
+  },
+  {
+    "id": 562,
+    "category": 101,
+    "equipType": 3,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 309001,
+    "skillId": 0
+  },
+  {
+    "id": 563,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 304002,
+    "skillId": 0
+  },
+  {
+    "id": 564,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 303002,
+    "skillId": 0
+  },
+  {
+    "id": 565,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 308002,
+    "skillId": 0
+  },
+  {
+    "id": 566,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 306002,
+    "skillId": 0
+  },
+  {
+    "id": 567,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 309002,
+    "skillId": 0
+  },
+  {
+    "id": 568,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 304004,
+    "skillId": 0
+  },
+  {
+    "id": 569,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 303004,
+    "skillId": 0
+  },
+  {
+    "id": 570,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 308004,
+    "skillId": 0
+  },
+  {
+    "id": 571,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 306004,
+    "skillId": 0
+  },
+  {
+    "id": 572,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 309004,
+    "skillId": 0
+  },
+  {
+    "id": 573,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 304005,
+    "skillId": 0
+  },
+  {
+    "id": 574,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 303005,
+    "skillId": 0
+  },
+  {
+    "id": 575,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 308005,
+    "skillId": 0
+  },
+  {
+    "id": 576,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 306005,
+    "skillId": 0
+  },
+  {
+    "id": 577,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 309005,
+    "skillId": 0
+  },
+  {
+    "id": 601,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 1,
+    "skillId": 0
+  },
+  {
+    "id": 602,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 2,
+    "skillId": 0
+  },
+  {
+    "id": 603,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 3,
+    "skillId": 0
+  },
+  {
+    "id": 604,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 4,
+    "skillId": 0
+  },
+  {
+    "id": 605,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 5,
+    "skillId": 0
+  },
+  {
+    "id": 606,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 6,
+    "skillId": 0
+  },
+  {
+    "id": 607,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 7,
+    "skillId": 0
+  },
+  {
+    "id": 608,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 8,
+    "skillId": 0
+  },
+  {
+    "id": 609,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 9,
+    "skillId": 0
+  },
+  {
+    "id": 610,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 10,
+    "skillId": 0
+  },
+  {
+    "id": 611,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 11,
+    "skillId": 0
+  },
+  {
+    "id": 612,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 12,
+    "skillId": 0
+  },
+  {
+    "id": 613,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 13,
+    "skillId": 0
+  },
+  {
+    "id": 614,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 14,
+    "skillId": 0
+  },
+  {
+    "id": 615,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 15,
+    "skillId": 0
+  },
+  {
+    "id": 616,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 16,
+    "skillId": 0
+  },
+  {
+    "id": 617,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 17,
+    "skillId": 0
+  },
+  {
+    "id": 618,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 18,
+    "skillId": 0
+  },
+  {
+    "id": 619,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 19,
+    "skillId": 0
+  },
+  {
+    "id": 620,
+    "category": 31,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 20,
+    "skillId": 0
+  },
+  {
+    "id": 621,
+    "category": 25,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 2,
+    "itemId": 2510000,
+    "skillId": 0
+  },
+  {
+    "id": 642,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 401002,
+    "skillId": 0
+  },
+  {
+    "id": 643,
+    "category": 101,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 405001,
+    "skillId": 0
+  }
 ]

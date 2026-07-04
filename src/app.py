@@ -408,36 +408,17 @@ def _load_json(name):
 
 
 MASTER_JSON_DATA = {
-    "misc": _build_misc_data(),
-    "world": [
-        {"worldId": 1, "worldName": "Daybreak Town", "raidBackground": "", "instanceLwf": "", "instance": "", "xPos": 0, "yPos": 0, "rate": 100, "validParts": 0, "partsId": [], "xPostion": [], "yPostion": []},
-    ],
-    "chapter": [
-        {"chapterId": 1, "name": "Prologue"},
-    ],
-    "battleMisc": [
-        {"battleMiscId": i, "value": 0} for i in range(1, 101)
-    ],
-    "keyblade": [
-        {"keybladeId": 0, "name": "", "description": "", "lv": 1, "displayId": 0, "category": 0, "passive": 0, "passivePower": 0, "drawCount": 0, "maxBurstGauge": 0, "validConsist": 0, "attribute": [0, 0, 0, 0, 0], "darklight": [0, 0, 0, 0, 0], "accord": [0, 0, 0, 0, 0], "dlaccord": [0, 0, 0, 0, 0], "partnerRate": 0, "evolveId": 0, "validNeedMaterial": 0, "needMaterialId": [], "needMaterialNum": []},
-        {"keybladeId": 1000, "name": "Starlight", "description": "A keyblade of light", "lv": 1, "displayId": 1, "category": 0, "passive": 0, "passivePower": 0, "drawCount": 0, "maxBurstGauge": 100, "validConsist": 0, "attribute": [100, 100, 100, 100, 100], "darklight": [0, 0, 0, 0, 0], "accord": [0, 0, 0, 0, 0], "dlaccord": [0, 0, 0, 0, 0], "partnerRate": 100, "evolveId": 0, "validNeedMaterial": 0, "needMaterialId": [], "needMaterialNum": []},
-    ],
+    "misc": _load_json("misc") or _build_misc_data(),
+    "world": _load_json("world") or [{"worldId": 1, "worldName": "Daybreak Town", "raidBackground": "", "instanceLwf": "", "instance": "", "xPos": 0, "yPos": 0, "rate": 100, "validParts": 0, "partsId": [], "xPostion": [], "yPostion": []}],
+    "chapter": [{"chapterId": 1, "name": "Prologue"}],
+    "battleMisc": _load_json("battleMisc") or [{"battleMiscId": i, "value": 0} for i in range(1, 101)],
+    "keyblade": _load_json("keyblade") or [],
     "initItem": _load_json("initItem"),
-    "enemy": [
-        {"enemyId": 1010, "name": "Shadow", "flavor": "A dark creature", "displayId": 1, "show": 1, "showSwf": 0, "showFrame": 0, "hideFrame": 0, "moveSpeed": 100, "hitRadius": 50, "tapRadius": 50, "width": 100, "height": 100, "spBattle": 0, "kind": 1, "attribute": 1, "validGrowth": 0, "baseLv": [1], "hp": [500], "attack": [10], "defense": [5], "exp": [10], "money": [0], "raidPoint": [0], "lux": [1], "attackCp": 100, "suppressCp": 50, "attackHp": 100, "suppressHp": 50, "suppressGuilt": 0, "battlePattern": 0, "displayHeight": 0, "runaway": 0, "neverAttack": 0, "validSkill": 0, "skillId": [], "skillRequire": [], "skillRequireArg": [], "skillOdds": [], "protectPoison": 0, "protectDeepPoison": 0, "protectSleep": 0, "protectParalysis": 0, "registPoison": 0, "registDeepPoison": 0, "registSleep": 0, "registParalysis": 0, "bufAttack": 0, "bufDefense": 0, "bufAttackPower": 0, "bufDefensePower": 0, "bufAttackSpeed": 0, "bufDefenseSpeed": 0, "bufAttackMagic": 0, "bufDefenseMagic": 0, "bufTurn": 0, "bufCount": 0, "statusAilments": [], "statusAilmentsTurn": 0, "statusAilmentsCount": 0},
-    ],
-    "enemyAttack": [
-        {"enemyAttackId": 1, "name": "Scratch", "attackMotion": 0, "hitEffect": 0, "effectDirectionFix": 0, "display": 0, "choiseAttribute": 0, "hitCount": 1, "power": 10, "critical": 0, "criticalPower": 0, "target": 0, "effect": 0, "addTarget": 0, "addTurn": 0, "addCount": 0, "bufAttack": 0, "bufDefense": 0, "bufAttackPower": 0, "bufDefensePower": 0, "bufAttackSpeed": 0, "bufDefenseSpeed": 0, "bufAttackMagic": 0, "bufDefenseMagic": 0, "resetAttack": 0, "resetDefense": 0, "resetAttackPower": 0, "resetDefensePower": 0, "resetAttackSpeed": 0, "resetDefenseSpeed": 0, "resetAttackMagic": 0, "resetDefenseMagic": 0, "heal": 0, "healShake": 0, "poison": 0, "deepPoison": 0, "sleep": 0, "paralysis": 0, "curePoison": 0, "cureSleep": 0, "cureParalysis": 0},
-    ],
-    "medal": [
-        {"medalId": 1, "imageId": 1, "thumbId": 1, "sortId": 1, "name": "KH Sora A", "flavor": "A young boy.", "advantage": "Power", "type": 0, "attribute": 1, "darklight": 0, "validSource": 0, "source": [], "rare": 1, "skillSlot": 1, "guiltValue": 0, "maxLv": 10, "expType": 1, "cost": 1, "minCost": 1, "growthType": 1, "attack": 100, "maxAttack": 500, "addMaxAttack": 0, "defense": 100, "maxDefense": 500, "addMaxDefense": 0, "validBurst": 0, "burstId": 0, "burstEnhanceCategory": [], "groupId": 0, "sellSpherePoint": 0, "materialExp": 0, "sell": 100, "sellPerLv": 10, "enhanceAttack": 10, "enhanceDefense": 10, "enhanceCost": 0, "validEvolve": 0, "evolveId": 0, "evolveMoney": 0, "validEvolveNeed": 0, "evolveNeedId": []},
-    ],
-    "skill": [
-        {"skillId": 1, "imageId": 1, "thumbId": 1, "name": "Attack Boost I", "description": "Boosts attack.", "rank": 1, "maxLv": 1, "expType": 1, "sortId": 1, "categoryEvolve": 0, "invokeType": 0, "invokeProb": 100, "invokeProbPerLv": 0, "invokeShowTiming": 0, "attackUp": 10, "burstCancel": 0, "damageCut": 0, "dokonjo": 0, "counter": 0, "addAction": 0, "addPoison": 0, "addDeepPoison": 0, "addSleep": 0, "addParalysis": 0, "conditionTurn": 0, "conditionCount": 0, "prizeHpUp": 0, "prizeBurstUp": 0, "luxUp": 0, "moneyUp": 0, "raidUp": 0},
-    ],
-    "stage": [
-        {"stageId": 1001010, "id": 1010, "name": "Prologue", "mapName": "Fountain Square", "useAp": 0, "chapterId": 1, "worldId": 1, "thumbId": 0, "stageKind": 4, "showIcon": 0, "validBeforeDrama": 0, "beforeDramaId": [], "beforeDramaType": [], "validAfterDrama": 0, "afterDramaId": [], "afterDramaType": [], "validClearGetTitle": 0, "clearGetTitle": 0, "validClearGetSphere": 0, "clearGetSphere": 0, "resetClearGet": 0, "validClearGetItem": 0, "clearGetItemType": [], "clearGetItemId": [], "clearGetAssignSkillType": [], "clearGetAssignSkillId": [], "clearGetAssignSkillLv": [], "clearGetItemNum": [], "resetSubMission": 0, "validSubmission": 0, "submissionRequire": [], "submissionName": [], "submissionDataType": [], "submissionIdType": [], "submissionId": [], "submissionNum": [], "submissionRewardType": [], "submissionItemId": [], "submissionSkillType": [], "submissionSkillId": [], "submissionSkillLv": [], "submissionItemNum": [], "raidBoss": 0, "bgmField": 0, "bgmBattle": 0, "bgmBoss": 0},
-    ],
+    "enemy": _load_json("enemy") or [],
+    "enemyAttack": _load_json("enemyAttack") or [],
+    "medal": _load_json("medal") or [],
+    "skill": _load_json("skill") or [],
+    "stage": _load_json("stage") or [],
     "avatarParts": _load_json("avatarParts"),
     "avatarCombination": _load_json("avatarCombination"),
 }
