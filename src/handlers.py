@@ -44,7 +44,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0 if (DEBUG_MODE or (user and user.tutorial_done)) else 1,  # game bug: resource_revision never saves, so skip for returning users
-        "versionDat": 100,   # triggers master data download if > saved master_revision (NOT saved itself)
+        "versionDat": 200,   # triggers master data download if > saved master_revision (NOT saved itself)
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -135,6 +135,14 @@ _STARTING_MEDALS = [
      "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
      "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
      "getDatetime": "2026-01-01 00:00:00"},
+    {"userMedalId": 2, "medalId": 13021, "level": 1, "exp": 0,
+     "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
+     "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
+     "getDatetime": "2026-01-01 00:00:00"},
+    {"userMedalId": 3, "medalId": 13031, "level": 1, "exp": 0,
+     "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
+     "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
+     "getDatetime": "2026-01-01 00:00:00"},
 ]
 
 
@@ -142,7 +150,7 @@ _STARTING_MEDALS = [
 def handle_user_keyblade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user, userKeyblades=[{
         "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-        "deckMedals": [1],
+        "deckMedals": [1, 2, 3],
         "burst": 0,
         "totalAttack": 5646, "totalDefense": 5483,
         "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
@@ -499,7 +507,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     from .app import MASTER_TABLE_NAMES, _get_master_encrypted, MASTER_KEY_HEX
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 100
+    master_rev = 200
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = _get_master_encrypted(name)

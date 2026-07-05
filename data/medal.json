@@ -11,7 +11,9 @@
     "attribute": 1,
     "darklight": 1,
     "validSource": 1,
-    "source": [3],
+    "source": [
+      3
+    ],
     "rare": 1,
     "skillSlot": 1,
     "guiltValue": 0,
@@ -28,7 +30,10 @@
     "addMaxDefense": 200,
     "validBurst": 1,
     "burstId": 10091,
-    "burstEnhanceCategory": [0, 0],
+    "burstEnhanceCategory": [
+      0,
+      0
+    ],
     "groupId": 0,
     "sellSpherePoint": 0,
     "materialExp": 30,
@@ -41,6 +46,110 @@
     "evolveId": 11022,
     "evolveMoney": 3000,
     "validEvolveNeed": 1,
-    "evolveNeedId": [90081]
+    "evolveNeedId": [
+      90081
+    ]
+  },
+  {
+    "medalId": 13021,
+    "imageId": 13021,
+    "thumbId": 13021,
+    "sortId": 9,
+    "name": "Donald A",
+    "flavor": "Fantasia (1940)\nCourt magician of Disney Castle and one of King Mickey's most trusted friends.",
+    "advantage": "N/A",
+    "type": 2,
+    "attribute": 3,
+    "darklight": 1,
+    "validSource": 1,
+    "source": [
+      3
+    ],
+    "rare": 1,
+    "skillSlot": 1,
+    "guiltValue": 0,
+    "maxLv": 20,
+    "expType": 1,
+    "cost": 1,
+    "minCost": 1,
+    "growthType": 1,
+    "attack": 1350,
+    "maxAttack": 1950,
+    "addMaxAttack": 200,
+    "defense": 1200,
+    "maxDefense": 1750,
+    "addMaxDefense": 200,
+    "validBurst": 1,
+    "burstId": 10092,
+    "burstEnhanceCategory": [
+      0,
+      0
+    ],
+    "groupId": 0,
+    "sellSpherePoint": 0,
+    "materialExp": 30,
+    "sell": 90,
+    "sellPerLv": 30,
+    "enhanceAttack": 0,
+    "enhanceDefense": 0,
+    "enhanceCost": 0,
+    "validEvolve": 1,
+    "evolveId": 13022,
+    "evolveMoney": 3000,
+    "validEvolveNeed": 1,
+    "evolveNeedId": [
+      90082
+    ]
+  },
+  {
+    "medalId": 13031,
+    "imageId": 13031,
+    "thumbId": 13031,
+    "sortId": 15,
+    "name": "Yuna",
+    "flavor": "FINAL FANTASY X (2001)\nA young summoner on a journey to save the world of Spira.",
+    "advantage": "N/A",
+    "type": 2,
+    "attribute": 3,
+    "darklight": 1,
+    "validSource": 1,
+    "source": [
+      3
+    ],
+    "rare": 1,
+    "skillSlot": 1,
+    "guiltValue": 0,
+    "maxLv": 20,
+    "expType": 1,
+    "cost": 1,
+    "minCost": 1,
+    "growthType": 1,
+    "attack": 1400,
+    "maxAttack": 2000,
+    "addMaxAttack": 200,
+    "defense": 1150,
+    "maxDefense": 1700,
+    "addMaxDefense": 200,
+    "validBurst": 1,
+    "burstId": 10093,
+    "burstEnhanceCategory": [
+      0,
+      0
+    ],
+    "groupId": 0,
+    "sellSpherePoint": 0,
+    "materialExp": 30,
+    "sell": 90,
+    "sellPerLv": 30,
+    "enhanceAttack": 0,
+    "enhanceDefense": 0,
+    "enhanceCost": 0,
+    "validEvolve": 1,
+    "evolveId": 13032,
+    "evolveMoney": 3000,
+    "validEvolveNeed": 1,
+    "evolveNeedId": [
+      90083
+    ]
   }
 ]
