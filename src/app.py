@@ -431,6 +431,9 @@ MASTER_JSON_DATA = {
     "stage": _load_json("stage") or [],
     "avatarParts": _load_json("avatarParts"),
     "avatarCombination": _load_json("avatarCombination"),
+    "medalMisc": _load_json("medalMisc"),
+    "burst": _load_json("burst"),
+    "tutorialMisc": _load_json("tutorialMisc"),
 }
 
 MASTER_KEY_HEX = "00" * 32
