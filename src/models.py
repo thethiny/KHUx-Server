@@ -60,6 +60,12 @@ class User(Base):
     title_plate_id: Mapped[int] = mapped_column(Integer, default=0)
     continue_login_count: Mapped[int] = mapped_column(Integer, default=0)
     union_id: Mapped[int] = mapped_column(Integer, default=0)
+    hair_parts_id: Mapped[int] = mapped_column(Integer, default=40001)
+    hair_color_parts_id: Mapped[int] = mapped_column(Integer, default=0)
+    face_parts_id: Mapped[int] = mapped_column(Integer, default=20001)
+    body_parts_id: Mapped[int] = mapped_column(Integer, default=30001)
+    skin_parts_id: Mapped[int] = mapped_column(Integer, default=0)
+    accessories_parts_ids: Mapped[str] = mapped_column(String, default="")
     is_guilt: Mapped[bool] = mapped_column(Boolean, default=False)
     tutorial_done: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
@@ -133,15 +139,14 @@ def get_engine(db_path: str = "khux.db"):
 
 
 def create_tables(engine):
-    import os
     from sqlalchemy import inspect, text
-    db_path = str(engine.url).replace("sqlite:///", "")
     inspector = inspect(engine)
     if inspector.has_table("_meta"):
         with engine.connect() as conn:
             row = conn.execute(text("SELECT created_at FROM _meta LIMIT 1")).fetchone()
             if row:
                 print(f"  DB created @ {row[0]}")
+        _migrate(engine, inspector)
     else:
         Base.metadata.create_all(engine)
         with engine.connect() as conn:
@@ -150,6 +155,28 @@ def create_tables(engine):
             conn.execute(text(f"INSERT INTO _meta VALUES ('{now}')"))
             conn.commit()
             print(f"  Creating DB @ {now}")
+
+
+def _migrate(engine, inspector):
+    from sqlalchemy import text
+    existing = {col["name"] for col in inspector.get_columns("users")}
+    new_cols = {
+        "hair_parts_id": "INTEGER DEFAULT 40001",
+        "hair_color_parts_id": "INTEGER DEFAULT 0",
+        "face_parts_id": "INTEGER DEFAULT 20001",
+        "body_parts_id": "INTEGER DEFAULT 30001",
+        "skin_parts_id": "INTEGER DEFAULT 0",
+        "accessories_parts_ids": "VARCHAR DEFAULT ''",
+    }
+    added = []
+    with engine.connect() as conn:
+        for col, typedef in new_cols.items():
+            if col not in existing:
+                conn.execute(text(f"ALTER TABLE users ADD COLUMN {col} {typedef}"))
+                added.append(col)
+        if added:
+            conn.commit()
+            print(f"  Migrated: added {', '.join(added)}")
 
 
 def get_session(engine):

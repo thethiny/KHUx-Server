@@ -113,14 +113,14 @@
   },
   {
     "stageId": 1010,
-    "id": 1,
+    "id": 1010,
     "name": "Prologue",
     "mapName": "Fountain Square",
     "useAp": 0,
     "chapterId": 1,
     "worldId": 1,
     "thumbId": 0,
-    "stageKind": 1,
+    "stageKind": 4,
     "showIcon": 0,
     "validBeforeDrama": 0,
     "beforeDramaId": [],
@@ -1013,106 +1013,6 @@
     "raidBoss": 2000,
     "bgmField": 501000110,
     "bgmBattle": 501000120,
-    "bgmBoss": 501000130
-  },
-  {
-    "stageId": 1001010,
-    "id": 1000001,
-    "name": "Prologue",
-    "mapName": "Fountain Square",
-    "useAp": 0,
-    "chapterId": 1,
-    "worldId": 1,
-    "thumbId": 0,
-    "stageKind": 4,
-    "showIcon": 0,
-    "validBeforeDrama": 0,
-    "beforeDramaId": [],
-    "beforeDramaType": [],
-    "validAfterDrama": 1,
-    "afterDramaId": [
-      1989901
-    ],
-    "afterDramaType": [
-      0
-    ],
-    "validClearGetTitle": 0,
-    "clearGetTitle": 0,
-    "validClearGetSphere": 0,
-    "clearGetSphere": 0,
-    "resetClearGet": 0,
-    "validClearGetItem": 0,
-    "clearGetItemType": [],
-    "clearGetItemId": [],
-    "clearGetAssignSkillType": [],
-    "clearGetAssignSkillId": [],
-    "clearGetAssignSkillLv": [],
-    "clearGetItemNum": [],
-    "resetSubMission": 0,
-    "validSubmission": 3,
-    "submissionRequire": [
-      28,
-      29,
-      5
-    ],
-    "submissionName": [
-      "Defeat all enemies within 1 turn",
-      "Collect %d or more Lux",
-      "Use %d or more special attacks"
-    ],
-    "submissionDataType": [
-      1,
-      2,
-      2
-    ],
-    "submissionIdType": [
-      0,
-      0,
-      0
-    ],
-    "submissionId": [
-      0,
-      0,
-      0
-    ],
-    "submissionNum": [
-      0,
-      200,
-      2
-    ],
-    "submissionRewardType": [
-      5,
-      14,
-      3
-    ],
-    "submissionItemId": [
-      55,
-      0,
-      90156
-    ],
-    "submissionSkillType": [
-      0,
-      0,
-      1
-    ],
-    "submissionSkillId": [
-      0,
-      0,
-      0
-    ],
-    "submissionSkillLv": [
-      0,
-      0,
-      1
-    ],
-    "submissionItemNum": [
-      1,
-      5,
-      1
-    ],
-    "raidBoss": 0,
-    "bgmField": 501000810,
-    "bgmBattle": 501000820,
     "bgmBoss": 501000130
   }
 ]

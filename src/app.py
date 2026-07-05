@@ -93,10 +93,10 @@ V1_PATH_MAP = {
     "/ranking/colosseum": 127, "/ranking/colosseum/own": 128,
     "/ranking/parade": 129, "/ranking/reward/check": 130,
     "/campaign": 131, "/campaign/pincode": 132,
-    "/campaign/pincode/status": 137, "/user/option": 138,
-    "/user/option/update": 139, "/link/members": 140,
-    "/user/link": 141, "/system/uuid": 144,
-    "/user/album/challenge/update": 145,
+    "/campaign/pincode/status": 136, "/user/option": 137,
+    "/user/option/update": 138, "/link/members": 139,
+    "/user/link": 140, "/system/uuid": 143,
+    "/user/album/challenge/update": 144,
 }
 
 # v5.0.1 path → action ID (kept for backwards compat)
@@ -257,9 +257,19 @@ async def root_endpoint(request: Request):
 # ---------------------------------------------------------------------------
 
 
-def _resolve_action_id(request_path: str) -> int:
-    """Map a URL path to an action ID. Checks v1.0.1 paths first, then v5.0.1."""
+V1_METHOD_OVERRIDES = {
+    ("/tutorial/status", "PUT"): 65,
+    ("/user/link", "PUT"): 141,
+    ("/user/link", "DELETE"): 142,
+}
+
+
+def _resolve_action_id(request_path: str, method: str = "GET") -> int:
+    """Map a URL path + method to an action ID."""
     clean = "/" + request_path.strip("/") if not request_path.startswith("/") else request_path
+    override = V1_METHOD_OVERRIDES.get((clean, method.upper()))
+    if override is not None:
+        return override
     if clean in V1_PATH_MAP:
         return V1_PATH_MAP[clean]
     segment = clean.rsplit("/", 1)[-1]
@@ -351,7 +361,7 @@ async def game_api(
             except Exception:
                 payload = {}
 
-    action_id = _resolve_action_id(full_path)
+    action_id = _resolve_action_id(full_path, request.method)
     logger.info("    action_id=%d payload_keys=%s key=%s", action_id,
                 list(payload.keys()) if payload else [], session.security_key.hex() if isinstance(session.security_key, bytes) else session.security_key)
     response_data = dispatch(action_id, payload, user, db)

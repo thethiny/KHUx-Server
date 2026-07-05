@@ -104,13 +104,47 @@ def handle_user_sphere(request_data: dict, user: Optional[User], db_session: DBS
         userSphere={"userSphereDatas": [], "notChargedSphereBoardIds": []})
 
 
+def _user_point(user: Optional[User]) -> dict:
+    now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+    return {
+        "money": 0, "lux": 0, "totalLux": 0,
+        "spherePoint": 0, "kizunaPoint": 0, "raidPoint": 0,
+        "attack": 100, "defense": 100, "baseHp": 100,
+        "hp": 100, "ap": 50, "maxHp": 100, "maxAp": 50,
+        "lastApDatetime": now,
+        "stageSpherePoint": 0, "raidSpherePoint": 0,
+        "colosseumSpherePoint": 0, "stageSkipTicket": 0,
+    }
+
+
+def _user_avatar(user: Optional[User]) -> dict:
+    if not user:
+        return {"myCoordinateNo": 0, "gender": 0,
+                "hairPartsId": 40001, "hairColorPartsId": 0,
+                "facePartsId": 20001, "bodyPartsId": 30001, "skinPartsId": 0,
+                "accessoriesPartsIds": []}
+    acc = [int(x) for x in user.accessories_parts_ids.split(",") if x] if user.accessories_parts_ids else []
+    return {"myCoordinateNo": user.equip_coordinate_no, "gender": user.gender,
+            "hairPartsId": user.hair_parts_id, "hairColorPartsId": user.hair_color_parts_id,
+            "facePartsId": user.face_parts_id, "bodyPartsId": user.body_parts_id,
+            "skinPartsId": user.skin_parts_id, "accessoriesPartsIds": acc}
+
+
+_STARTING_MEDALS = [
+    {"userMedalId": 1, "medalId": 11021, "level": 1, "exp": 0,
+     "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
+     "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
+     "getDatetime": "2026-01-01 00:00:00"},
+]
+
+
 @register(10)  # GET /user/keyblade
 def handle_user_keyblade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user, userKeyblades=[{
         "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-        "deckMedals": [],
+        "deckMedals": [1],
         "burst": 0,
-        "totalAttack": 100, "totalDefense": 100,
+        "totalAttack": 5646, "totalDefense": 5483,
         "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
     }])
 
@@ -122,7 +156,7 @@ def handle_user_skill(request_data: dict, user: Optional[User], db_session: DBSe
 
 @register(13)  # GET /user/medal
 def handle_user_medal(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userMedals=[])
+    return build_response(user, userMedals=_STARTING_MEDALS)
 
 
 @register(14)  # GET /user/material
@@ -151,7 +185,7 @@ def handle_user_support(request_data: dict, user: Optional[User], db_session: DB
 
 @register(20)  # GET /user/avatar/all
 def handle_user_avatar_all(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userAvatars=[])
+    return build_response(user, userAvatars=[_user_avatar(user)])
 
 
 @register(21)  # GET /user/avatar/parts
@@ -166,6 +200,51 @@ def handle_user_avatar_parts(request_data: dict, user: Optional[User], db_sessio
         ])
     ]
     return build_response(user, userAvatarParts=parts)
+
+
+@register(37)  # POST /user/gender/update
+def handle_gender_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    gender = request_data.get("gender", 0)
+    logger.info("GENDER UPDATE: %s", gender)
+    if user:
+        user.gender = gender
+        db_session.add(user)
+    return build_response(user)
+
+
+@register(41)  # POST /user/avatar/update
+def handle_avatar_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    logger.info("AVATAR UPDATE: %s", request_data)
+    if user:
+        user.hair_parts_id = request_data.get("hairPartsId", user.hair_parts_id)
+        user.hair_color_parts_id = request_data.get("hairColorPartsId", user.hair_color_parts_id)
+        user.face_parts_id = request_data.get("facePartsId", user.face_parts_id)
+        user.body_parts_id = request_data.get("bodyPartsId", user.body_parts_id)
+        user.skin_parts_id = request_data.get("skinPartsId", user.skin_parts_id)
+        acc = request_data.get("accessoriesPartsIds", [])
+        user.accessories_parts_ids = ",".join(str(x) for x in acc) if acc else ""
+        user.equip_coordinate_no = request_data.get("myCoordinateNo", user.equip_coordinate_no)
+        db_session.add(user)
+    return build_response(user, userAvatar=_user_avatar(user))
+
+
+@register(63)  # POST /tutorial/clear
+def handle_tutorial_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    logger.info("TUTORIAL CLEAR")
+    if user:
+        user.tutorial_done = True
+        db_session.add(user)
+    return build_response(user)
+
+
+@register(69)  # POST /union/change
+def handle_union_change(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    union_id = request_data.get("unionId", 1)
+    logger.info("UNION CHANGE: %s", union_id)
+    if user:
+        user.union_id = union_id
+        db_session.add(user)
+    return build_response(user)
 
 
 @register(62)  # POST /tutorial/progress
@@ -196,6 +275,16 @@ def handle_tutorial_status(request_data: dict, user: Optional[User], db_session:
     return build_response(user, phase=0, popupFlag=0, isFinished=0)
 
 
+@register(65)  # PUT /tutorial/status
+def handle_tutorial_status_put(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    phase = request_data.get("phase", 0)
+    logger.info("TUTORIAL STATUS PUT: phase=%s", phase)
+    if user and phase >= 995:
+        user.tutorial_done = True
+        db_session.add(user)
+    return build_response(user)
+
+
 @register(100)  # GET /stage/160310
 def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     uid = user.id if user else 1
@@ -210,7 +299,7 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
         stories=[
             {"stageId": 1010, "useAp": 0, "score": 0, "clearMissionIds": []},
         ],
-        newStageId=1001010,
+        newStageId=1010,
         raidStatus=0,
         raid={
             "raidId": 0, "level": 0, "useAp": 0,
@@ -240,10 +329,11 @@ def handle_raid(request_data: dict, user: Optional[User], db_session: DBSession)
 
 @register(103)  # POST /stage/start
 def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    logger.info("STAGE START: full payload = %s", request_data)
     stage_id = request_data.get("stageId", 1010)
     keyblade_id = request_data.get("userKeybladeId", 1)
+    logger.info("STAGE START: stageId=%s keybladeId=%s payload=%s", stage_id, keyblade_id, request_data)
     return build_response(user,
+        userData={"userPoint": _user_point(user)},
         userRandomEnemies=[],
         userEnemyDropItems=[],
         userTreasures=[],
@@ -255,10 +345,11 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
             "stageSkip": 0,
         },
         campaigns=[],
+        supportUsers=[],
     )
 
 
-@register(138)  # GET /user/option
+@register(137)  # GET /user/option
 def handle_user_option(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user,
         userOption={"isNoticeAp": 0, "isNoticeHelp": 0, "isNoticeEvent": 0})
@@ -284,8 +375,8 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
                 "nativeUserId": uid,
                 "platformId": 2,
                 "userName": user.user_name if user else "Player",
-                "gender": 0,
-                "comment": "",
+                "gender": user.gender if user else 0,
+                "comment": user.comment if user else "",
                 "deviceType": 2,
                 "continueLoginCount": 1,
                 "isFleeze": 0,
@@ -295,24 +386,16 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
             "userDetail": {
                 "level": 1, "exp": 0, "luxRank": 0, "luxGetRatio": 100,
                 "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
-                "maxDeckCost": 30,
+                "maxDeckCost": user.max_deck_cost if user else 30,
                 "playTimezones": [0, 0, 0, 0, 0, 0],
-                "playFrequently": 0, "partyId": 0, "unionId": 1,
+                "playFrequently": 0, "partyId": 0, "unionId": user.union_id if user else 1,
                 "maxMedal": 100, "mvpCount": 0, "equipCoordinateNo": 0,
                 "lastClearStageId": 0,
                 "lastPlayNormalSphereBoardId": 0, "lastPlayStageSphereBoardId": 0,
                 "lastPlayRaidSphereBoardId": 0, "lastPlayColosseumSphereBoardId": 0,
                 "isGuilt": 0,
             },
-            "userPoint": {
-                "money": 0, "lux": 0, "totalLux": 0,
-                "spherePoint": 0, "kizunaPoint": 0, "raidPoint": 0,
-                "attack": 100, "defense": 100, "baseHp": 100,
-                "hp": 100, "ap": 50, "maxHp": 100, "maxAp": 50,
-                "lastApDatetime": now,
-                "stageSpherePoint": 0, "raidSpherePoint": 0,
-                "colosseumSpherePoint": 0, "stageSkipTicket": 0,
-            },
+            "userPoint": _user_point(user),
             "lastActionDatetime": now,
             "stageResumption": {
                 "resumptionStatus": 0,
@@ -321,19 +404,14 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
                 "colosseumStageId": 0,
             },
         },
-        "userMedals": [],
+        "userMedals": _STARTING_MEDALS,
         "userSkills": [],
-        "userAvatar": {
-            "myCoordinateNo": 0, "gender": 0,
-            "hairPartsId": 40001, "hairColorPartsId": 0,
-            "facePartsId": 20001, "bodyPartsId": 30001, "skinPartsId": 0,
-            "accessoriesPartsIds": [],
-        },
+        "userAvatar": _user_avatar(user),
         "userKeyblade": {
             "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-            "deckMedals": [],
+            "deckMedals": [1],
             "burst": 0,
-            "totalAttack": 100, "totalDefense": 100,
+            "totalAttack": 5646, "totalDefense": 5483,
             "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
         },
         "userRecord": {},
@@ -421,12 +499,11 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     from .app import MASTER_TABLE_NAMES, _get_master_encrypted, MASTER_KEY_HEX
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    _BUMPED = {"keyblade", "stage"}
     master_rev = 100
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = _get_master_encrypted(name)
-        rev = master_rev if name in _BUMPED else 1
+        rev = master_rev
         resp[name] = {
             "revision": rev,
             "url": f"{base_url}/m{i:03d}.jpg",
