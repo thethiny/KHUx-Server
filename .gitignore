@@ -17,6 +17,8 @@ venv/
 # Generated data dirs
 data/master/
 data/assets/
+data_431
+data_501
 
 # Frida (binaries + debug scripts)
 frida-server-*
