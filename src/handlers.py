@@ -79,7 +79,7 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
             "acquirableLoginBonus": False,
             "progression": progression,
         },
-        phase=0,
+        phase=50,
         popupFlag=0,
         isFinished=0,
     )
@@ -255,17 +255,22 @@ def handle_union_change(request_data: dict, user: Optional[User], db_session: DB
     return build_response(user)
 
 
+_PROGRESSION_MAP = {0: 0, 1: 1, 3: 3, 4: 4, 5: 5, 6: 6, 995: 995}
+
+
 @register(62)  # POST /tutorial/progress
 def handle_tutorial_progress(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    progression = request_data.get("progression", 0)
+    raw_progression = request_data.get("progression", 0)
+    progression = _PROGRESSION_MAP.get(raw_progression, raw_progression)
     if DEBUG_SKIP_TO and progression < DEBUG_SKIP_TO:
         progression = DEBUG_SKIP_TO
     name = request_data.get("name", "")
-    logger.info("TUTORIAL PROGRESS: progression=%s (skip_to=%s) payload=%s", progression, DEBUG_SKIP_TO, request_data)
+    logger.info("TUTORIAL PROGRESS: raw=%s mapped=%s (skip_to=%s) payload=%s",
+                raw_progression, progression, DEBUG_SKIP_TO, request_data)
     if user:
         if name:
             user.user_name = name
-        if progression >= 995: # Union is at 6, tutorial at 995. Must be set to 6 to avoid re-download on failed tutorial.
+        if raw_progression >= 995: # Union is at 6, tutorial at 995. Must be set to 6 to avoid re-download on failed tutorial.
             user.tutorial_done = True
         db_session.add(user)
     return build_response(user,
@@ -280,7 +285,7 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
 
 @register(64)  # GET /tutorial/status
 def handle_tutorial_status(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, phase=0, popupFlag=0, isFinished=0)
+    return build_response(user, phase=50, popupFlag=0, isFinished=0)
 
 
 @register(65)  # PUT /tutorial/status
@@ -734,7 +739,7 @@ def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_ses
             "name": "",
             "inviteCode": "",
         },
-        phase=0,
+        phase=50,
         popupFlag=0,
         isFinished=0,
     )
