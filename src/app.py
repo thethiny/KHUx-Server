@@ -431,6 +431,7 @@ MASTER_JSON_DATA = {
     "stage": _load_json("stage") or [],
     "avatarParts": _load_json("avatarParts"),
     "avatarCombination": _load_json("avatarCombination"),
+    "material": _load_json("material"),
     "medalMisc": _load_json("medalMisc"),
     "burst": _load_json("burst"),
     "tutorialMisc": _load_json("tutorialMisc"),

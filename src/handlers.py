@@ -109,8 +109,8 @@ def _user_point(user: Optional[User]) -> dict:
     return {
         "money": 0, "lux": 0, "totalLux": 0,
         "spherePoint": 0, "kizunaPoint": 0, "raidPoint": 0,
-        "attack": 100, "defense": 100, "baseHp": 100,
-        "hp": 100, "ap": 50, "maxHp": 100, "maxAp": 50,
+        "attack": 5646, "defense": 5483, "baseHp": 500,
+        "hp": 500, "ap": 50, "maxHp": 500, "maxAp": 50,
         "lastApDatetime": now,
         "stageSpherePoint": 0, "raidSpherePoint": 0,
         "colosseumSpherePoint": 0, "stageSkipTicket": 0,
