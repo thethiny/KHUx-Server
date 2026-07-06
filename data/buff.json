@@ -1,0 +1,962 @@
+[
+    {
+        "buffId": 1,
+        "grade": -7,
+        "name": "Buff 1/-7",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 7000
+    },
+    {
+        "buffId": 2,
+        "grade": -6,
+        "name": "Buff 1/-6",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 6000
+    },
+    {
+        "buffId": 3,
+        "grade": -5,
+        "name": "Buff 1/-5",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 5000
+    },
+    {
+        "buffId": 4,
+        "grade": -4,
+        "name": "Buff 1/-4",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 4000
+    },
+    {
+        "buffId": 5,
+        "grade": -3,
+        "name": "Buff 1/-3",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 3000
+    },
+    {
+        "buffId": 6,
+        "grade": -2,
+        "name": "Buff 1/-2",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 2000
+    },
+    {
+        "buffId": 7,
+        "grade": -1,
+        "name": "Buff 1/-1",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 1000
+    },
+    {
+        "buffId": 8,
+        "grade": 0,
+        "name": "Buff 1/0",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 0
+    },
+    {
+        "buffId": 9,
+        "grade": 1,
+        "name": "Buff 1/1",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 1000
+    },
+    {
+        "buffId": 10,
+        "grade": 2,
+        "name": "Buff 1/2",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 2000
+    },
+    {
+        "buffId": 11,
+        "grade": 3,
+        "name": "Buff 1/3",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 3000
+    },
+    {
+        "buffId": 12,
+        "grade": 4,
+        "name": "Buff 1/4",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 4000
+    },
+    {
+        "buffId": 13,
+        "grade": 5,
+        "name": "Buff 1/5",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 5000
+    },
+    {
+        "buffId": 14,
+        "grade": 6,
+        "name": "Buff 1/6",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 6000
+    },
+    {
+        "buffId": 15,
+        "grade": 7,
+        "name": "Buff 1/7",
+        "iconId": 1,
+        "effect": 1,
+        "addPower": 7000
+    },
+    {
+        "buffId": 16,
+        "grade": -7,
+        "name": "Buff 2/-7",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 7000
+    },
+    {
+        "buffId": 17,
+        "grade": -6,
+        "name": "Buff 2/-6",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 6000
+    },
+    {
+        "buffId": 18,
+        "grade": -5,
+        "name": "Buff 2/-5",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 5000
+    },
+    {
+        "buffId": 19,
+        "grade": -4,
+        "name": "Buff 2/-4",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 4000
+    },
+    {
+        "buffId": 20,
+        "grade": -3,
+        "name": "Buff 2/-3",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 3000
+    },
+    {
+        "buffId": 21,
+        "grade": -2,
+        "name": "Buff 2/-2",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 2000
+    },
+    {
+        "buffId": 22,
+        "grade": -1,
+        "name": "Buff 2/-1",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 1000
+    },
+    {
+        "buffId": 23,
+        "grade": 0,
+        "name": "Buff 2/0",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 0
+    },
+    {
+        "buffId": 24,
+        "grade": 1,
+        "name": "Buff 2/1",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 1000
+    },
+    {
+        "buffId": 25,
+        "grade": 2,
+        "name": "Buff 2/2",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 2000
+    },
+    {
+        "buffId": 26,
+        "grade": 3,
+        "name": "Buff 2/3",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 3000
+    },
+    {
+        "buffId": 27,
+        "grade": 4,
+        "name": "Buff 2/4",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 4000
+    },
+    {
+        "buffId": 28,
+        "grade": 5,
+        "name": "Buff 2/5",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 5000
+    },
+    {
+        "buffId": 29,
+        "grade": 6,
+        "name": "Buff 2/6",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 6000
+    },
+    {
+        "buffId": 30,
+        "grade": 7,
+        "name": "Buff 2/7",
+        "iconId": 2,
+        "effect": 2,
+        "addPower": 7000
+    },
+    {
+        "buffId": 31,
+        "grade": -7,
+        "name": "Buff 3/-7",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 7000
+    },
+    {
+        "buffId": 32,
+        "grade": -6,
+        "name": "Buff 3/-6",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 6000
+    },
+    {
+        "buffId": 33,
+        "grade": -5,
+        "name": "Buff 3/-5",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 5000
+    },
+    {
+        "buffId": 34,
+        "grade": -4,
+        "name": "Buff 3/-4",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 4000
+    },
+    {
+        "buffId": 35,
+        "grade": -3,
+        "name": "Buff 3/-3",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 3000
+    },
+    {
+        "buffId": 36,
+        "grade": -2,
+        "name": "Buff 3/-2",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 2000
+    },
+    {
+        "buffId": 37,
+        "grade": -1,
+        "name": "Buff 3/-1",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 1000
+    },
+    {
+        "buffId": 38,
+        "grade": 0,
+        "name": "Buff 3/0",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 0
+    },
+    {
+        "buffId": 39,
+        "grade": 1,
+        "name": "Buff 3/1",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 1000
+    },
+    {
+        "buffId": 40,
+        "grade": 2,
+        "name": "Buff 3/2",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 2000
+    },
+    {
+        "buffId": 41,
+        "grade": 3,
+        "name": "Buff 3/3",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 3000
+    },
+    {
+        "buffId": 42,
+        "grade": 4,
+        "name": "Buff 3/4",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 4000
+    },
+    {
+        "buffId": 43,
+        "grade": 5,
+        "name": "Buff 3/5",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 5000
+    },
+    {
+        "buffId": 44,
+        "grade": 6,
+        "name": "Buff 3/6",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 6000
+    },
+    {
+        "buffId": 45,
+        "grade": 7,
+        "name": "Buff 3/7",
+        "iconId": 3,
+        "effect": 3,
+        "addPower": 7000
+    },
+    {
+        "buffId": 46,
+        "grade": -7,
+        "name": "Buff 4/-7",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 7000
+    },
+    {
+        "buffId": 47,
+        "grade": -6,
+        "name": "Buff 4/-6",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 6000
+    },
+    {
+        "buffId": 48,
+        "grade": -5,
+        "name": "Buff 4/-5",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 5000
+    },
+    {
+        "buffId": 49,
+        "grade": -4,
+        "name": "Buff 4/-4",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 4000
+    },
+    {
+        "buffId": 50,
+        "grade": -3,
+        "name": "Buff 4/-3",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 3000
+    },
+    {
+        "buffId": 51,
+        "grade": -2,
+        "name": "Buff 4/-2",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 2000
+    },
+    {
+        "buffId": 52,
+        "grade": -1,
+        "name": "Buff 4/-1",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 1000
+    },
+    {
+        "buffId": 53,
+        "grade": 0,
+        "name": "Buff 4/0",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 0
+    },
+    {
+        "buffId": 54,
+        "grade": 1,
+        "name": "Buff 4/1",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 1000
+    },
+    {
+        "buffId": 55,
+        "grade": 2,
+        "name": "Buff 4/2",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 2000
+    },
+    {
+        "buffId": 56,
+        "grade": 3,
+        "name": "Buff 4/3",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 3000
+    },
+    {
+        "buffId": 57,
+        "grade": 4,
+        "name": "Buff 4/4",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 4000
+    },
+    {
+        "buffId": 58,
+        "grade": 5,
+        "name": "Buff 4/5",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 5000
+    },
+    {
+        "buffId": 59,
+        "grade": 6,
+        "name": "Buff 4/6",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 6000
+    },
+    {
+        "buffId": 60,
+        "grade": 7,
+        "name": "Buff 4/7",
+        "iconId": 4,
+        "effect": 4,
+        "addPower": 7000
+    },
+    {
+        "buffId": 61,
+        "grade": -7,
+        "name": "Buff 5/-7",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 7000
+    },
+    {
+        "buffId": 62,
+        "grade": -6,
+        "name": "Buff 5/-6",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 6000
+    },
+    {
+        "buffId": 63,
+        "grade": -5,
+        "name": "Buff 5/-5",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 5000
+    },
+    {
+        "buffId": 64,
+        "grade": -4,
+        "name": "Buff 5/-4",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 4000
+    },
+    {
+        "buffId": 65,
+        "grade": -3,
+        "name": "Buff 5/-3",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 3000
+    },
+    {
+        "buffId": 66,
+        "grade": -2,
+        "name": "Buff 5/-2",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 2000
+    },
+    {
+        "buffId": 67,
+        "grade": -1,
+        "name": "Buff 5/-1",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 1000
+    },
+    {
+        "buffId": 68,
+        "grade": 0,
+        "name": "Buff 5/0",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 0
+    },
+    {
+        "buffId": 69,
+        "grade": 1,
+        "name": "Buff 5/1",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 1000
+    },
+    {
+        "buffId": 70,
+        "grade": 2,
+        "name": "Buff 5/2",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 2000
+    },
+    {
+        "buffId": 71,
+        "grade": 3,
+        "name": "Buff 5/3",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 3000
+    },
+    {
+        "buffId": 72,
+        "grade": 4,
+        "name": "Buff 5/4",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 4000
+    },
+    {
+        "buffId": 73,
+        "grade": 5,
+        "name": "Buff 5/5",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 5000
+    },
+    {
+        "buffId": 74,
+        "grade": 6,
+        "name": "Buff 5/6",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 6000
+    },
+    {
+        "buffId": 75,
+        "grade": 7,
+        "name": "Buff 5/7",
+        "iconId": 5,
+        "effect": 5,
+        "addPower": 7000
+    },
+    {
+        "buffId": 76,
+        "grade": -7,
+        "name": "Buff 6/-7",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 7000
+    },
+    {
+        "buffId": 77,
+        "grade": -6,
+        "name": "Buff 6/-6",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 6000
+    },
+    {
+        "buffId": 78,
+        "grade": -5,
+        "name": "Buff 6/-5",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 5000
+    },
+    {
+        "buffId": 79,
+        "grade": -4,
+        "name": "Buff 6/-4",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 4000
+    },
+    {
+        "buffId": 80,
+        "grade": -3,
+        "name": "Buff 6/-3",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 3000
+    },
+    {
+        "buffId": 81,
+        "grade": -2,
+        "name": "Buff 6/-2",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 2000
+    },
+    {
+        "buffId": 82,
+        "grade": -1,
+        "name": "Buff 6/-1",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 1000
+    },
+    {
+        "buffId": 83,
+        "grade": 0,
+        "name": "Buff 6/0",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 0
+    },
+    {
+        "buffId": 84,
+        "grade": 1,
+        "name": "Buff 6/1",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 1000
+    },
+    {
+        "buffId": 85,
+        "grade": 2,
+        "name": "Buff 6/2",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 2000
+    },
+    {
+        "buffId": 86,
+        "grade": 3,
+        "name": "Buff 6/3",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 3000
+    },
+    {
+        "buffId": 87,
+        "grade": 4,
+        "name": "Buff 6/4",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 4000
+    },
+    {
+        "buffId": 88,
+        "grade": 5,
+        "name": "Buff 6/5",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 5000
+    },
+    {
+        "buffId": 89,
+        "grade": 6,
+        "name": "Buff 6/6",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 6000
+    },
+    {
+        "buffId": 90,
+        "grade": 7,
+        "name": "Buff 6/7",
+        "iconId": 6,
+        "effect": 6,
+        "addPower": 7000
+    },
+    {
+        "buffId": 91,
+        "grade": -7,
+        "name": "Buff 7/-7",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 7000
+    },
+    {
+        "buffId": 92,
+        "grade": -6,
+        "name": "Buff 7/-6",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 6000
+    },
+    {
+        "buffId": 93,
+        "grade": -5,
+        "name": "Buff 7/-5",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 5000
+    },
+    {
+        "buffId": 94,
+        "grade": -4,
+        "name": "Buff 7/-4",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 4000
+    },
+    {
+        "buffId": 95,
+        "grade": -3,
+        "name": "Buff 7/-3",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 3000
+    },
+    {
+        "buffId": 96,
+        "grade": -2,
+        "name": "Buff 7/-2",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 2000
+    },
+    {
+        "buffId": 97,
+        "grade": -1,
+        "name": "Buff 7/-1",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 1000
+    },
+    {
+        "buffId": 98,
+        "grade": 0,
+        "name": "Buff 7/0",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 0
+    },
+    {
+        "buffId": 99,
+        "grade": 1,
+        "name": "Buff 7/1",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 1000
+    },
+    {
+        "buffId": 100,
+        "grade": 2,
+        "name": "Buff 7/2",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 2000
+    },
+    {
+        "buffId": 101,
+        "grade": 3,
+        "name": "Buff 7/3",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 3000
+    },
+    {
+        "buffId": 102,
+        "grade": 4,
+        "name": "Buff 7/4",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 4000
+    },
+    {
+        "buffId": 103,
+        "grade": 5,
+        "name": "Buff 7/5",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 5000
+    },
+    {
+        "buffId": 104,
+        "grade": 6,
+        "name": "Buff 7/6",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 6000
+    },
+    {
+        "buffId": 105,
+        "grade": 7,
+        "name": "Buff 7/7",
+        "iconId": 7,
+        "effect": 7,
+        "addPower": 7000
+    },
+    {
+        "buffId": 106,
+        "grade": -7,
+        "name": "Buff 8/-7",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 7000
+    },
+    {
+        "buffId": 107,
+        "grade": -6,
+        "name": "Buff 8/-6",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 6000
+    },
+    {
+        "buffId": 108,
+        "grade": -5,
+        "name": "Buff 8/-5",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 5000
+    },
+    {
+        "buffId": 109,
+        "grade": -4,
+        "name": "Buff 8/-4",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 4000
+    },
+    {
+        "buffId": 110,
+        "grade": -3,
+        "name": "Buff 8/-3",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 3000
+    },
+    {
+        "buffId": 111,
+        "grade": -2,
+        "name": "Buff 8/-2",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 2000
+    },
+    {
+        "buffId": 112,
+        "grade": -1,
+        "name": "Buff 8/-1",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 1000
+    },
+    {
+        "buffId": 113,
+        "grade": 0,
+        "name": "Buff 8/0",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 0
+    },
+    {
+        "buffId": 114,
+        "grade": 1,
+        "name": "Buff 8/1",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 1000
+    },
+    {
+        "buffId": 115,
+        "grade": 2,
+        "name": "Buff 8/2",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 2000
+    },
+    {
+        "buffId": 116,
+        "grade": 3,
+        "name": "Buff 8/3",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 3000
+    },
+    {
+        "buffId": 117,
+        "grade": 4,
+        "name": "Buff 8/4",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 4000
+    },
+    {
+        "buffId": 118,
+        "grade": 5,
+        "name": "Buff 8/5",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 5000
+    },
+    {
+        "buffId": 119,
+        "grade": 6,
+        "name": "Buff 8/6",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 6000
+    },
+    {
+        "buffId": 120,
+        "grade": 7,
+        "name": "Buff 8/7",
+        "iconId": 8,
+        "effect": 8,
+        "addPower": 7000
+    }
+]

@@ -436,6 +436,7 @@ MASTER_JSON_DATA = {
     "burst": _load_json("burst"),
     "tutorialMisc": _load_json("tutorialMisc"),
     "player": _load_json("player"),
+    "buff": _load_json("buff"),
 }
 
 MASTER_KEY_HEX = "00" * 32
