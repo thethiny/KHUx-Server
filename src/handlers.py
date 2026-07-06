@@ -109,8 +109,8 @@ def _user_point(user: Optional[User]) -> dict:
     return {
         "money": 0, "lux": 0, "totalLux": 0,
         "spherePoint": 0, "kizunaPoint": 0, "raidPoint": 0,
-        "attack": 5646, "defense": 5483, "baseHp": 500,
-        "hp": 500, "ap": 50, "maxHp": 500, "maxAp": 50,
+        "attack": 0, "defense": 0, "baseHp": 3000,
+        "hp": 3000, "ap": 50, "maxHp": 3000, "maxAp": 50,
         "lastApDatetime": now,
         "stageSpherePoint": 0, "raidSpherePoint": 0,
         "colosseumSpherePoint": 0, "stageSkipTicket": 0,
@@ -131,11 +131,11 @@ def _user_avatar(user: Optional[User]) -> dict:
 
 
 _STARTING_MEDALS = [
-    {"userMedalId": 1, "medalId": 11021, "level": 1, "exp": 0,
+    {"userMedalId": 1, "medalId": 13021, "level": 1, "exp": 0,
      "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
      "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
      "getDatetime": "2026-01-01 00:00:00"},
-    {"userMedalId": 2, "medalId": 13021, "level": 1, "exp": 0,
+    {"userMedalId": 2, "medalId": 11021, "level": 1, "exp": 0,
      "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
      "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
      "getDatetime": "2026-01-01 00:00:00"},
@@ -152,7 +152,7 @@ def handle_user_keyblade(request_data: dict, user: Optional[User], db_session: D
         "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
         "deckMedals": [1, 2, 3],
         "burst": 0,
-        "totalAttack": 5646, "totalDefense": 5483,
+        "totalAttack": 3960, "totalDefense": 3747,
         "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
     }])
 
@@ -419,7 +419,7 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
             "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
             "deckMedals": [1],
             "burst": 0,
-            "totalAttack": 5646, "totalDefense": 5483,
+            "totalAttack": 3960, "totalDefense": 3747,
             "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
         },
         "userRecord": {},
