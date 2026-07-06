@@ -1,0 +1,2702 @@
+[
+    {
+        "lv": 1,
+        "needExp": 0,
+        "luxMedal": 0,
+        "ap": 16,
+        "cost": 42,
+        "hp": 3000,
+        "rewardId": 0
+    },
+    {
+        "lv": 2,
+        "needExp": 729,
+        "luxMedal": 5,
+        "ap": 16,
+        "cost": 44,
+        "hp": 3010,
+        "rewardId": 0
+    },
+    {
+        "lv": 3,
+        "needExp": 1523,
+        "luxMedal": 5,
+        "ap": 17,
+        "cost": 46,
+        "hp": 3010,
+        "rewardId": 0
+    },
+    {
+        "lv": 4,
+        "needExp": 2407,
+        "luxMedal": 0,
+        "ap": 17,
+        "cost": 48,
+        "hp": 3020,
+        "rewardId": 0
+    },
+    {
+        "lv": 5,
+        "needExp": 3381,
+        "luxMedal": 5,
+        "ap": 18,
+        "cost": 50,
+        "hp": 3020,
+        "rewardId": 0
+    },
+    {
+        "lv": 6,
+        "needExp": 4445,
+        "luxMedal": 5,
+        "ap": 18,
+        "cost": 52,
+        "hp": 3030,
+        "rewardId": 0
+    },
+    {
+        "lv": 7,
+        "needExp": 5549,
+        "luxMedal": 0,
+        "ap": 19,
+        "cost": 54,
+        "hp": 3030,
+        "rewardId": 0
+    },
+    {
+        "lv": 8,
+        "needExp": 6693,
+        "luxMedal": 5,
+        "ap": 20,
+        "cost": 56,
+        "hp": 3030,
+        "rewardId": 0
+    },
+    {
+        "lv": 9,
+        "needExp": 7877,
+        "luxMedal": 5,
+        "ap": 21,
+        "cost": 58,
+        "hp": 3040,
+        "rewardId": 0
+    },
+    {
+        "lv": 10,
+        "needExp": 9101,
+        "luxMedal": 0,
+        "ap": 21,
+        "cost": 60,
+        "hp": 3040,
+        "rewardId": 0
+    },
+    {
+        "lv": 11,
+        "needExp": 10365,
+        "luxMedal": 10,
+        "ap": 22,
+        "cost": 62,
+        "hp": 3040,
+        "rewardId": 0
+    },
+    {
+        "lv": 12,
+        "needExp": 11669,
+        "luxMedal": 10,
+        "ap": 23,
+        "cost": 64,
+        "hp": 3050,
+        "rewardId": 0
+    },
+    {
+        "lv": 13,
+        "needExp": 13013,
+        "luxMedal": 0,
+        "ap": 24,
+        "cost": 66,
+        "hp": 3050,
+        "rewardId": 0
+    },
+    {
+        "lv": 14,
+        "needExp": 14397,
+        "luxMedal": 10,
+        "ap": 24,
+        "cost": 68,
+        "hp": 3050,
+        "rewardId": 0
+    },
+    {
+        "lv": 15,
+        "needExp": 15821,
+        "luxMedal": 10,
+        "ap": 25,
+        "cost": 70,
+        "hp": 3060,
+        "rewardId": 0
+    },
+    {
+        "lv": 16,
+        "needExp": 17285,
+        "luxMedal": 0,
+        "ap": 26,
+        "cost": 72,
+        "hp": 3060,
+        "rewardId": 0
+    },
+    {
+        "lv": 17,
+        "needExp": 18789,
+        "luxMedal": 10,
+        "ap": 27,
+        "cost": 74,
+        "hp": 3060,
+        "rewardId": 0
+    },
+    {
+        "lv": 18,
+        "needExp": 20333,
+        "luxMedal": 10,
+        "ap": 28,
+        "cost": 76,
+        "hp": 3060,
+        "rewardId": 0
+    },
+    {
+        "lv": 19,
+        "needExp": 21917,
+        "luxMedal": 0,
+        "ap": 28,
+        "cost": 78,
+        "hp": 3070,
+        "rewardId": 0
+    },
+    {
+        "lv": 20,
+        "needExp": 23541,
+        "luxMedal": 15,
+        "ap": 29,
+        "cost": 80,
+        "hp": 3070,
+        "rewardId": 0
+    },
+    {
+        "lv": 21,
+        "needExp": 25205,
+        "luxMedal": 15,
+        "ap": 30,
+        "cost": 82,
+        "hp": 3070,
+        "rewardId": 0
+    },
+    {
+        "lv": 22,
+        "needExp": 26909,
+        "luxMedal": 0,
+        "ap": 30,
+        "cost": 84,
+        "hp": 3080,
+        "rewardId": 0
+    },
+    {
+        "lv": 23,
+        "needExp": 28653,
+        "luxMedal": 15,
+        "ap": 31,
+        "cost": 86,
+        "hp": 3080,
+        "rewardId": 0
+    },
+    {
+        "lv": 24,
+        "needExp": 30437,
+        "luxMedal": 15,
+        "ap": 32,
+        "cost": 88,
+        "hp": 3080,
+        "rewardId": 0
+    },
+    {
+        "lv": 25,
+        "needExp": 32261,
+        "luxMedal": 0,
+        "ap": 33,
+        "cost": 90,
+        "hp": 3080,
+        "rewardId": 0
+    },
+    {
+        "lv": 26,
+        "needExp": 34125,
+        "luxMedal": 15,
+        "ap": 34,
+        "cost": 92,
+        "hp": 3080,
+        "rewardId": 0
+    },
+    {
+        "lv": 27,
+        "needExp": 36029,
+        "luxMedal": 15,
+        "ap": 34,
+        "cost": 94,
+        "hp": 3090,
+        "rewardId": 0
+    },
+    {
+        "lv": 28,
+        "needExp": 37973,
+        "luxMedal": 0,
+        "ap": 35,
+        "cost": 96,
+        "hp": 3090,
+        "rewardId": 0
+    },
+    {
+        "lv": 29,
+        "needExp": 39957,
+        "luxMedal": 15,
+        "ap": 35,
+        "cost": 98,
+        "hp": 3090,
+        "rewardId": 0
+    },
+    {
+        "lv": 30,
+        "needExp": 41981,
+        "luxMedal": 15,
+        "ap": 36,
+        "cost": 100,
+        "hp": 3100,
+        "rewardId": 0
+    },
+    {
+        "lv": 31,
+        "needExp": 44045,
+        "luxMedal": 0,
+        "ap": 37,
+        "cost": 102,
+        "hp": 3100,
+        "rewardId": 0
+    },
+    {
+        "lv": 32,
+        "needExp": 46149,
+        "luxMedal": 15,
+        "ap": 38,
+        "cost": 104,
+        "hp": 3100,
+        "rewardId": 0
+    },
+    {
+        "lv": 33,
+        "needExp": 48293,
+        "luxMedal": 15,
+        "ap": 39,
+        "cost": 106,
+        "hp": 3100,
+        "rewardId": 0
+    },
+    {
+        "lv": 34,
+        "needExp": 50477,
+        "luxMedal": 0,
+        "ap": 40,
+        "cost": 108,
+        "hp": 3110,
+        "rewardId": 0
+    },
+    {
+        "lv": 35,
+        "needExp": 52701,
+        "luxMedal": 15,
+        "ap": 40,
+        "cost": 110,
+        "hp": 3110,
+        "rewardId": 0
+    },
+    {
+        "lv": 36,
+        "needExp": 54965,
+        "luxMedal": 15,
+        "ap": 41,
+        "cost": 112,
+        "hp": 3110,
+        "rewardId": 0
+    },
+    {
+        "lv": 37,
+        "needExp": 57269,
+        "luxMedal": 0,
+        "ap": 42,
+        "cost": 114,
+        "hp": 3120,
+        "rewardId": 0
+    },
+    {
+        "lv": 38,
+        "needExp": 59613,
+        "luxMedal": 15,
+        "ap": 42,
+        "cost": 116,
+        "hp": 3120,
+        "rewardId": 0
+    },
+    {
+        "lv": 39,
+        "needExp": 61997,
+        "luxMedal": 15,
+        "ap": 43,
+        "cost": 118,
+        "hp": 3120,
+        "rewardId": 0
+    },
+    {
+        "lv": 40,
+        "needExp": 64421,
+        "luxMedal": 0,
+        "ap": 44,
+        "cost": 120,
+        "hp": 3120,
+        "rewardId": 0
+    },
+    {
+        "lv": 41,
+        "needExp": 66885,
+        "luxMedal": 15,
+        "ap": 45,
+        "cost": 122,
+        "hp": 3120,
+        "rewardId": 0
+    },
+    {
+        "lv": 42,
+        "needExp": 69389,
+        "luxMedal": 15,
+        "ap": 45,
+        "cost": 124,
+        "hp": 3130,
+        "rewardId": 0
+    },
+    {
+        "lv": 43,
+        "needExp": 71943,
+        "luxMedal": 0,
+        "ap": 46,
+        "cost": 126,
+        "hp": 3130,
+        "rewardId": 0
+    },
+    {
+        "lv": 44,
+        "needExp": 74547,
+        "luxMedal": 15,
+        "ap": 47,
+        "cost": 128,
+        "hp": 3130,
+        "rewardId": 0
+    },
+    {
+        "lv": 45,
+        "needExp": 77201,
+        "luxMedal": 15,
+        "ap": 48,
+        "cost": 130,
+        "hp": 3130,
+        "rewardId": 0
+    },
+    {
+        "lv": 46,
+        "needExp": 79905,
+        "luxMedal": 0,
+        "ap": 48,
+        "cost": 132,
+        "hp": 3130,
+        "rewardId": 0
+    },
+    {
+        "lv": 47,
+        "needExp": 82659,
+        "luxMedal": 15,
+        "ap": 49,
+        "cost": 134,
+        "hp": 3140,
+        "rewardId": 0
+    },
+    {
+        "lv": 48,
+        "needExp": 85463,
+        "luxMedal": 15,
+        "ap": 50,
+        "cost": 136,
+        "hp": 3140,
+        "rewardId": 0
+    },
+    {
+        "lv": 49,
+        "needExp": 88317,
+        "luxMedal": 15,
+        "ap": 51,
+        "cost": 138,
+        "hp": 3140,
+        "rewardId": 0
+    },
+    {
+        "lv": 50,
+        "needExp": 91221,
+        "luxMedal": 0,
+        "ap": 52,
+        "cost": 140,
+        "hp": 3140,
+        "rewardId": 0
+    },
+    {
+        "lv": 51,
+        "needExp": 94175,
+        "luxMedal": 20,
+        "ap": 53,
+        "cost": 142,
+        "hp": 3150,
+        "rewardId": 0
+    },
+    {
+        "lv": 52,
+        "needExp": 97179,
+        "luxMedal": 20,
+        "ap": 54,
+        "cost": 144,
+        "hp": 3150,
+        "rewardId": 0
+    },
+    {
+        "lv": 53,
+        "needExp": 100233,
+        "luxMedal": 20,
+        "ap": 55,
+        "cost": 146,
+        "hp": 3150,
+        "rewardId": 0
+    },
+    {
+        "lv": 54,
+        "needExp": 103337,
+        "luxMedal": 0,
+        "ap": 55,
+        "cost": 148,
+        "hp": 3150,
+        "rewardId": 0
+    },
+    {
+        "lv": 55,
+        "needExp": 106491,
+        "luxMedal": 20,
+        "ap": 56,
+        "cost": 150,
+        "hp": 3160,
+        "rewardId": 0
+    },
+    {
+        "lv": 56,
+        "needExp": 109695,
+        "luxMedal": 20,
+        "ap": 57,
+        "cost": 152,
+        "hp": 3160,
+        "rewardId": 0
+    },
+    {
+        "lv": 57,
+        "needExp": 112949,
+        "luxMedal": 20,
+        "ap": 58,
+        "cost": 154,
+        "hp": 3160,
+        "rewardId": 0
+    },
+    {
+        "lv": 58,
+        "needExp": 116253,
+        "luxMedal": 0,
+        "ap": 58,
+        "cost": 156,
+        "hp": 3170,
+        "rewardId": 0
+    },
+    {
+        "lv": 59,
+        "needExp": 119607,
+        "luxMedal": 20,
+        "ap": 59,
+        "cost": 158,
+        "hp": 3170,
+        "rewardId": 0
+    },
+    {
+        "lv": 60,
+        "needExp": 123011,
+        "luxMedal": 20,
+        "ap": 60,
+        "cost": 160,
+        "hp": 3170,
+        "rewardId": 0
+    },
+    {
+        "lv": 61,
+        "needExp": 126465,
+        "luxMedal": 20,
+        "ap": 61,
+        "cost": 162,
+        "hp": 3170,
+        "rewardId": 0
+    },
+    {
+        "lv": 62,
+        "needExp": 129969,
+        "luxMedal": 0,
+        "ap": 61,
+        "cost": 164,
+        "hp": 3180,
+        "rewardId": 0
+    },
+    {
+        "lv": 63,
+        "needExp": 133533,
+        "luxMedal": 20,
+        "ap": 62,
+        "cost": 166,
+        "hp": 3180,
+        "rewardId": 0
+    },
+    {
+        "lv": 64,
+        "needExp": 137157,
+        "luxMedal": 20,
+        "ap": 63,
+        "cost": 168,
+        "hp": 3180,
+        "rewardId": 0
+    },
+    {
+        "lv": 65,
+        "needExp": 140841,
+        "luxMedal": 20,
+        "ap": 64,
+        "cost": 170,
+        "hp": 3190,
+        "rewardId": 0
+    },
+    {
+        "lv": 66,
+        "needExp": 144585,
+        "luxMedal": 0,
+        "ap": 65,
+        "cost": 172,
+        "hp": 3190,
+        "rewardId": 0
+    },
+    {
+        "lv": 67,
+        "needExp": 148389,
+        "luxMedal": 20,
+        "ap": 65,
+        "cost": 174,
+        "hp": 3190,
+        "rewardId": 0
+    },
+    {
+        "lv": 68,
+        "needExp": 152253,
+        "luxMedal": 20,
+        "ap": 66,
+        "cost": 176,
+        "hp": 3190,
+        "rewardId": 0
+    },
+    {
+        "lv": 69,
+        "needExp": 156177,
+        "luxMedal": 20,
+        "ap": 67,
+        "cost": 178,
+        "hp": 3200,
+        "rewardId": 0
+    },
+    {
+        "lv": 70,
+        "needExp": 160161,
+        "luxMedal": 0,
+        "ap": 67,
+        "cost": 180,
+        "hp": 3200,
+        "rewardId": 0
+    },
+    {
+        "lv": 71,
+        "needExp": 164205,
+        "luxMedal": 20,
+        "ap": 68,
+        "cost": 182,
+        "hp": 3200,
+        "rewardId": 0
+    },
+    {
+        "lv": 72,
+        "needExp": 168319,
+        "luxMedal": 20,
+        "ap": 69,
+        "cost": 184,
+        "hp": 3200,
+        "rewardId": 0
+    },
+    {
+        "lv": 73,
+        "needExp": 172503,
+        "luxMedal": 20,
+        "ap": 70,
+        "cost": 186,
+        "hp": 3210,
+        "rewardId": 0
+    },
+    {
+        "lv": 74,
+        "needExp": 176757,
+        "luxMedal": 20,
+        "ap": 70,
+        "cost": 188,
+        "hp": 3210,
+        "rewardId": 0
+    },
+    {
+        "lv": 75,
+        "needExp": 181081,
+        "luxMedal": 0,
+        "ap": 71,
+        "cost": 190,
+        "hp": 3210,
+        "rewardId": 0
+    },
+    {
+        "lv": 76,
+        "needExp": 185475,
+        "luxMedal": 20,
+        "ap": 71,
+        "cost": 192,
+        "hp": 3210,
+        "rewardId": 0
+    },
+    {
+        "lv": 77,
+        "needExp": 189939,
+        "luxMedal": 20,
+        "ap": 72,
+        "cost": 194,
+        "hp": 3220,
+        "rewardId": 0
+    },
+    {
+        "lv": 78,
+        "needExp": 194473,
+        "luxMedal": 20,
+        "ap": 73,
+        "cost": 196,
+        "hp": 3220,
+        "rewardId": 0
+    },
+    {
+        "lv": 79,
+        "needExp": 199077,
+        "luxMedal": 20,
+        "ap": 74,
+        "cost": 198,
+        "hp": 3220,
+        "rewardId": 0
+    },
+    {
+        "lv": 80,
+        "needExp": 203751,
+        "luxMedal": 0,
+        "ap": 75,
+        "cost": 200,
+        "hp": 3220,
+        "rewardId": 0
+    },
+    {
+        "lv": 81,
+        "needExp": 208495,
+        "luxMedal": 20,
+        "ap": 75,
+        "cost": 202,
+        "hp": 3220,
+        "rewardId": 0
+    },
+    {
+        "lv": 82,
+        "needExp": 213339,
+        "luxMedal": 20,
+        "ap": 76,
+        "cost": 204,
+        "hp": 3230,
+        "rewardId": 0
+    },
+    {
+        "lv": 83,
+        "needExp": 218283,
+        "luxMedal": 20,
+        "ap": 77,
+        "cost": 206,
+        "hp": 3230,
+        "rewardId": 0
+    },
+    {
+        "lv": 84,
+        "needExp": 223327,
+        "luxMedal": 20,
+        "ap": 78,
+        "cost": 208,
+        "hp": 3230,
+        "rewardId": 0
+    },
+    {
+        "lv": 85,
+        "needExp": 228471,
+        "luxMedal": 0,
+        "ap": 79,
+        "cost": 210,
+        "hp": 3240,
+        "rewardId": 0
+    },
+    {
+        "lv": 86,
+        "needExp": 233715,
+        "luxMedal": 20,
+        "ap": 79,
+        "cost": 212,
+        "hp": 3240,
+        "rewardId": 0
+    },
+    {
+        "lv": 87,
+        "needExp": 239059,
+        "luxMedal": 20,
+        "ap": 80,
+        "cost": 214,
+        "hp": 3240,
+        "rewardId": 0
+    },
+    {
+        "lv": 88,
+        "needExp": 244503,
+        "luxMedal": 20,
+        "ap": 81,
+        "cost": 216,
+        "hp": 3250,
+        "rewardId": 0
+    },
+    {
+        "lv": 89,
+        "needExp": 250047,
+        "luxMedal": 20,
+        "ap": 81,
+        "cost": 218,
+        "hp": 3250,
+        "rewardId": 0
+    },
+    {
+        "lv": 90,
+        "needExp": 255691,
+        "luxMedal": 0,
+        "ap": 82,
+        "cost": 220,
+        "hp": 3250,
+        "rewardId": 0
+    },
+    {
+        "lv": 91,
+        "needExp": 261435,
+        "luxMedal": 20,
+        "ap": 83,
+        "cost": 222,
+        "hp": 3250,
+        "rewardId": 0
+    },
+    {
+        "lv": 92,
+        "needExp": 267319,
+        "luxMedal": 20,
+        "ap": 83,
+        "cost": 224,
+        "hp": 3260,
+        "rewardId": 0
+    },
+    {
+        "lv": 93,
+        "needExp": 273343,
+        "luxMedal": 20,
+        "ap": 84,
+        "cost": 226,
+        "hp": 3260,
+        "rewardId": 0
+    },
+    {
+        "lv": 94,
+        "needExp": 279507,
+        "luxMedal": 20,
+        "ap": 84,
+        "cost": 228,
+        "hp": 3260,
+        "rewardId": 0
+    },
+    {
+        "lv": 95,
+        "needExp": 285811,
+        "luxMedal": 0,
+        "ap": 85,
+        "cost": 230,
+        "hp": 3270,
+        "rewardId": 0
+    },
+    {
+        "lv": 96,
+        "needExp": 292255,
+        "luxMedal": 20,
+        "ap": 86,
+        "cost": 232,
+        "hp": 3270,
+        "rewardId": 0
+    },
+    {
+        "lv": 97,
+        "needExp": 298839,
+        "luxMedal": 20,
+        "ap": 86,
+        "cost": 234,
+        "hp": 3270,
+        "rewardId": 0
+    },
+    {
+        "lv": 98,
+        "needExp": 305563,
+        "luxMedal": 20,
+        "ap": 87,
+        "cost": 236,
+        "hp": 3270,
+        "rewardId": 0
+    },
+    {
+        "lv": 99,
+        "needExp": 312427,
+        "luxMedal": 20,
+        "ap": 88,
+        "cost": 238,
+        "hp": 3280,
+        "rewardId": 0
+    },
+    {
+        "lv": 100,
+        "needExp": 319431,
+        "luxMedal": 0,
+        "ap": 88,
+        "cost": 240,
+        "hp": 3280,
+        "rewardId": 0
+    },
+    {
+        "lv": 101,
+        "needExp": 326575,
+        "luxMedal": 25,
+        "ap": 89,
+        "cost": 242,
+        "hp": 3280,
+        "rewardId": 0
+    },
+    {
+        "lv": 102,
+        "needExp": 333909,
+        "luxMedal": 25,
+        "ap": 90,
+        "cost": 244,
+        "hp": 3280,
+        "rewardId": 0
+    },
+    {
+        "lv": 103,
+        "needExp": 341433,
+        "luxMedal": 25,
+        "ap": 91,
+        "cost": 246,
+        "hp": 3280,
+        "rewardId": 0
+    },
+    {
+        "lv": 104,
+        "needExp": 349147,
+        "luxMedal": 25,
+        "ap": 92,
+        "cost": 248,
+        "hp": 3290,
+        "rewardId": 0
+    },
+    {
+        "lv": 105,
+        "needExp": 357051,
+        "luxMedal": 25,
+        "ap": 93,
+        "cost": 250,
+        "hp": 3290,
+        "rewardId": 0
+    },
+    {
+        "lv": 106,
+        "needExp": 365145,
+        "luxMedal": 0,
+        "ap": 94,
+        "cost": 252,
+        "hp": 3290,
+        "rewardId": 0
+    },
+    {
+        "lv": 107,
+        "needExp": 373429,
+        "luxMedal": 25,
+        "ap": 94,
+        "cost": 254,
+        "hp": 3290,
+        "rewardId": 0
+    },
+    {
+        "lv": 108,
+        "needExp": 381903,
+        "luxMedal": 25,
+        "ap": 95,
+        "cost": 256,
+        "hp": 3300,
+        "rewardId": 0
+    },
+    {
+        "lv": 109,
+        "needExp": 390567,
+        "luxMedal": 25,
+        "ap": 95,
+        "cost": 258,
+        "hp": 3300,
+        "rewardId": 0
+    },
+    {
+        "lv": 110,
+        "needExp": 399421,
+        "luxMedal": 25,
+        "ap": 95,
+        "cost": 260,
+        "hp": 3300,
+        "rewardId": 0
+    },
+    {
+        "lv": 111,
+        "needExp": 408465,
+        "luxMedal": 25,
+        "ap": 96,
+        "cost": 262,
+        "hp": 3300,
+        "rewardId": 0
+    },
+    {
+        "lv": 112,
+        "needExp": 417699,
+        "luxMedal": 0,
+        "ap": 96,
+        "cost": 264,
+        "hp": 3300,
+        "rewardId": 0
+    },
+    {
+        "lv": 113,
+        "needExp": 427123,
+        "luxMedal": 25,
+        "ap": 97,
+        "cost": 266,
+        "hp": 3310,
+        "rewardId": 0
+    },
+    {
+        "lv": 114,
+        "needExp": 436737,
+        "luxMedal": 25,
+        "ap": 97,
+        "cost": 268,
+        "hp": 3310,
+        "rewardId": 0
+    },
+    {
+        "lv": 115,
+        "needExp": 446541,
+        "luxMedal": 25,
+        "ap": 98,
+        "cost": 270,
+        "hp": 3310,
+        "rewardId": 0
+    },
+    {
+        "lv": 116,
+        "needExp": 456535,
+        "luxMedal": 25,
+        "ap": 98,
+        "cost": 272,
+        "hp": 3310,
+        "rewardId": 0
+    },
+    {
+        "lv": 117,
+        "needExp": 466719,
+        "luxMedal": 25,
+        "ap": 99,
+        "cost": 274,
+        "hp": 3320,
+        "rewardId": 0
+    },
+    {
+        "lv": 118,
+        "needExp": 477093,
+        "luxMedal": 0,
+        "ap": 99,
+        "cost": 276,
+        "hp": 3320,
+        "rewardId": 0
+    },
+    {
+        "lv": 119,
+        "needExp": 487657,
+        "luxMedal": 25,
+        "ap": 100,
+        "cost": 278,
+        "hp": 3320,
+        "rewardId": 0
+    },
+    {
+        "lv": 120,
+        "needExp": 498411,
+        "luxMedal": 25,
+        "ap": 101,
+        "cost": 280,
+        "hp": 3330,
+        "rewardId": 0
+    },
+    {
+        "lv": 121,
+        "needExp": 509355,
+        "luxMedal": 25,
+        "ap": 102,
+        "cost": 282,
+        "hp": 3330,
+        "rewardId": 0
+    },
+    {
+        "lv": 122,
+        "needExp": 520549,
+        "luxMedal": 25,
+        "ap": 102,
+        "cost": 284,
+        "hp": 3330,
+        "rewardId": 0
+    },
+    {
+        "lv": 123,
+        "needExp": 531993,
+        "luxMedal": 25,
+        "ap": 103,
+        "cost": 286,
+        "hp": 3330,
+        "rewardId": 0
+    },
+    {
+        "lv": 124,
+        "needExp": 543687,
+        "luxMedal": 0,
+        "ap": 103,
+        "cost": 288,
+        "hp": 3330,
+        "rewardId": 0
+    },
+    {
+        "lv": 125,
+        "needExp": 555631,
+        "luxMedal": 25,
+        "ap": 104,
+        "cost": 290,
+        "hp": 3340,
+        "rewardId": 0
+    },
+    {
+        "lv": 126,
+        "needExp": 567825,
+        "luxMedal": 25,
+        "ap": 105,
+        "cost": 292,
+        "hp": 3340,
+        "rewardId": 0
+    },
+    {
+        "lv": 127,
+        "needExp": 580269,
+        "luxMedal": 25,
+        "ap": 106,
+        "cost": 294,
+        "hp": 3340,
+        "rewardId": 0
+    },
+    {
+        "lv": 128,
+        "needExp": 592963,
+        "luxMedal": 25,
+        "ap": 107,
+        "cost": 296,
+        "hp": 3350,
+        "rewardId": 0
+    },
+    {
+        "lv": 129,
+        "needExp": 605907,
+        "luxMedal": 25,
+        "ap": 108,
+        "cost": 298,
+        "hp": 3350,
+        "rewardId": 0
+    },
+    {
+        "lv": 130,
+        "needExp": 619101,
+        "luxMedal": 0,
+        "ap": 108,
+        "cost": 300,
+        "hp": 3350,
+        "rewardId": 0
+    },
+    {
+        "lv": 131,
+        "needExp": 632545,
+        "luxMedal": 25,
+        "ap": 108,
+        "cost": 302,
+        "hp": 3350,
+        "rewardId": 0
+    },
+    {
+        "lv": 132,
+        "needExp": 646239,
+        "luxMedal": 25,
+        "ap": 109,
+        "cost": 304,
+        "hp": 3360,
+        "rewardId": 0
+    },
+    {
+        "lv": 133,
+        "needExp": 660183,
+        "luxMedal": 25,
+        "ap": 110,
+        "cost": 306,
+        "hp": 3360,
+        "rewardId": 0
+    },
+    {
+        "lv": 134,
+        "needExp": 674377,
+        "luxMedal": 25,
+        "ap": 110,
+        "cost": 308,
+        "hp": 3360,
+        "rewardId": 0
+    },
+    {
+        "lv": 135,
+        "needExp": 688821,
+        "luxMedal": 25,
+        "ap": 111,
+        "cost": 310,
+        "hp": 3360,
+        "rewardId": 0
+    },
+    {
+        "lv": 136,
+        "needExp": 703515,
+        "luxMedal": 0,
+        "ap": 112,
+        "cost": 312,
+        "hp": 3370,
+        "rewardId": 0
+    },
+    {
+        "lv": 137,
+        "needExp": 718459,
+        "luxMedal": 25,
+        "ap": 113,
+        "cost": 314,
+        "hp": 3370,
+        "rewardId": 0
+    },
+    {
+        "lv": 138,
+        "needExp": 733653,
+        "luxMedal": 25,
+        "ap": 114,
+        "cost": 316,
+        "hp": 3370,
+        "rewardId": 0
+    },
+    {
+        "lv": 139,
+        "needExp": 749097,
+        "luxMedal": 25,
+        "ap": 114,
+        "cost": 318,
+        "hp": 3370,
+        "rewardId": 0
+    },
+    {
+        "lv": 140,
+        "needExp": 764791,
+        "luxMedal": 25,
+        "ap": 115,
+        "cost": 320,
+        "hp": 3370,
+        "rewardId": 0
+    },
+    {
+        "lv": 141,
+        "needExp": 780735,
+        "luxMedal": 25,
+        "ap": 116,
+        "cost": 322,
+        "hp": 3380,
+        "rewardId": 0
+    },
+    {
+        "lv": 142,
+        "needExp": 796989,
+        "luxMedal": 0,
+        "ap": 116,
+        "cost": 324,
+        "hp": 3380,
+        "rewardId": 0
+    },
+    {
+        "lv": 143,
+        "needExp": 813553,
+        "luxMedal": 25,
+        "ap": 117,
+        "cost": 326,
+        "hp": 3380,
+        "rewardId": 0
+    },
+    {
+        "lv": 144,
+        "needExp": 830427,
+        "luxMedal": 25,
+        "ap": 118,
+        "cost": 328,
+        "hp": 3390,
+        "rewardId": 0
+    },
+    {
+        "lv": 145,
+        "needExp": 847611,
+        "luxMedal": 25,
+        "ap": 119,
+        "cost": 330,
+        "hp": 3390,
+        "rewardId": 0
+    },
+    {
+        "lv": 146,
+        "needExp": 865105,
+        "luxMedal": 25,
+        "ap": 120,
+        "cost": 332,
+        "hp": 3390,
+        "rewardId": 0
+    },
+    {
+        "lv": 147,
+        "needExp": 882909,
+        "luxMedal": 25,
+        "ap": 121,
+        "cost": 334,
+        "hp": 3400,
+        "rewardId": 0
+    },
+    {
+        "lv": 148,
+        "needExp": 901023,
+        "luxMedal": 0,
+        "ap": 122,
+        "cost": 336,
+        "hp": 3400,
+        "rewardId": 0
+    },
+    {
+        "lv": 149,
+        "needExp": 919447,
+        "luxMedal": 25,
+        "ap": 123,
+        "cost": 338,
+        "hp": 3400,
+        "rewardId": 0
+    },
+    {
+        "lv": 150,
+        "needExp": 938181,
+        "luxMedal": 30,
+        "ap": 124,
+        "cost": 340,
+        "hp": 3400,
+        "rewardId": 0
+    },
+    {
+        "lv": 151,
+        "needExp": 957225,
+        "luxMedal": 30,
+        "ap": 125,
+        "cost": 342,
+        "hp": 3410,
+        "rewardId": 0
+    },
+    {
+        "lv": 152,
+        "needExp": 976579,
+        "luxMedal": 30,
+        "ap": 126,
+        "cost": 344,
+        "hp": 3410,
+        "rewardId": 0
+    },
+    {
+        "lv": 153,
+        "needExp": 996243,
+        "luxMedal": 30,
+        "ap": 127,
+        "cost": 346,
+        "hp": 3410,
+        "rewardId": 0
+    },
+    {
+        "lv": 154,
+        "needExp": 1016217,
+        "luxMedal": 0,
+        "ap": 128,
+        "cost": 348,
+        "hp": 3410,
+        "rewardId": 0
+    },
+    {
+        "lv": 155,
+        "needExp": 1036501,
+        "luxMedal": 30,
+        "ap": 128,
+        "cost": 350,
+        "hp": 3410,
+        "rewardId": 0
+    },
+    {
+        "lv": 156,
+        "needExp": 1057095,
+        "luxMedal": 30,
+        "ap": 128,
+        "cost": 352,
+        "hp": 3420,
+        "rewardId": 0
+    },
+    {
+        "lv": 157,
+        "needExp": 1077999,
+        "luxMedal": 30,
+        "ap": 129,
+        "cost": 354,
+        "hp": 3420,
+        "rewardId": 0
+    },
+    {
+        "lv": 158,
+        "needExp": 1099213,
+        "luxMedal": 30,
+        "ap": 130,
+        "cost": 356,
+        "hp": 3420,
+        "rewardId": 0
+    },
+    {
+        "lv": 159,
+        "needExp": 1120737,
+        "luxMedal": 30,
+        "ap": 130,
+        "cost": 358,
+        "hp": 3420,
+        "rewardId": 0
+    },
+    {
+        "lv": 160,
+        "needExp": 1142571,
+        "luxMedal": 0,
+        "ap": 131,
+        "cost": 360,
+        "hp": 3430,
+        "rewardId": 0
+    },
+    {
+        "lv": 161,
+        "needExp": 1164715,
+        "luxMedal": 30,
+        "ap": 132,
+        "cost": 362,
+        "hp": 3430,
+        "rewardId": 0
+    },
+    {
+        "lv": 162,
+        "needExp": 1187239,
+        "luxMedal": 30,
+        "ap": 133,
+        "cost": 364,
+        "hp": 3430,
+        "rewardId": 0
+    },
+    {
+        "lv": 163,
+        "needExp": 1210143,
+        "luxMedal": 30,
+        "ap": 134,
+        "cost": 366,
+        "hp": 3430,
+        "rewardId": 0
+    },
+    {
+        "lv": 164,
+        "needExp": 1233427,
+        "luxMedal": 30,
+        "ap": 135,
+        "cost": 368,
+        "hp": 3440,
+        "rewardId": 0
+    },
+    {
+        "lv": 165,
+        "needExp": 1257091,
+        "luxMedal": 30,
+        "ap": 136,
+        "cost": 370,
+        "hp": 3440,
+        "rewardId": 0
+    },
+    {
+        "lv": 166,
+        "needExp": 1281135,
+        "luxMedal": 0,
+        "ap": 137,
+        "cost": 372,
+        "hp": 3440,
+        "rewardId": 0
+    },
+    {
+        "lv": 167,
+        "needExp": 1305559,
+        "luxMedal": 30,
+        "ap": 138,
+        "cost": 374,
+        "hp": 3440,
+        "rewardId": 0
+    },
+    {
+        "lv": 168,
+        "needExp": 1330363,
+        "luxMedal": 30,
+        "ap": 138,
+        "cost": 376,
+        "hp": 3450,
+        "rewardId": 0
+    },
+    {
+        "lv": 169,
+        "needExp": 1355547,
+        "luxMedal": 30,
+        "ap": 139,
+        "cost": 378,
+        "hp": 3450,
+        "rewardId": 0
+    },
+    {
+        "lv": 170,
+        "needExp": 1381111,
+        "luxMedal": 30,
+        "ap": 139,
+        "cost": 380,
+        "hp": 3450,
+        "rewardId": 0
+    },
+    {
+        "lv": 171,
+        "needExp": 1407055,
+        "luxMedal": 30,
+        "ap": 140,
+        "cost": 382,
+        "hp": 3450,
+        "rewardId": 0
+    },
+    {
+        "lv": 172,
+        "needExp": 1433379,
+        "luxMedal": 0,
+        "ap": 140,
+        "cost": 384,
+        "hp": 3450,
+        "rewardId": 0
+    },
+    {
+        "lv": 173,
+        "needExp": 1460083,
+        "luxMedal": 30,
+        "ap": 141,
+        "cost": 386,
+        "hp": 3460,
+        "rewardId": 0
+    },
+    {
+        "lv": 174,
+        "needExp": 1487167,
+        "luxMedal": 30,
+        "ap": 142,
+        "cost": 388,
+        "hp": 3460,
+        "rewardId": 0
+    },
+    {
+        "lv": 175,
+        "needExp": 1514631,
+        "luxMedal": 30,
+        "ap": 143,
+        "cost": 390,
+        "hp": 3460,
+        "rewardId": 0
+    },
+    {
+        "lv": 176,
+        "needExp": 1542475,
+        "luxMedal": 30,
+        "ap": 144,
+        "cost": 392,
+        "hp": 3470,
+        "rewardId": 0
+    },
+    {
+        "lv": 177,
+        "needExp": 1570789,
+        "luxMedal": 30,
+        "ap": 144,
+        "cost": 394,
+        "hp": 3470,
+        "rewardId": 0
+    },
+    {
+        "lv": 178,
+        "needExp": 1599573,
+        "luxMedal": 30,
+        "ap": 145,
+        "cost": 396,
+        "hp": 3470,
+        "rewardId": 0
+    },
+    {
+        "lv": 179,
+        "needExp": 1628827,
+        "luxMedal": 0,
+        "ap": 146,
+        "cost": 398,
+        "hp": 3470,
+        "rewardId": 0
+    },
+    {
+        "lv": 180,
+        "needExp": 1658551,
+        "luxMedal": 30,
+        "ap": 147,
+        "cost": 400,
+        "hp": 3480,
+        "rewardId": 0
+    },
+    {
+        "lv": 181,
+        "needExp": 1688745,
+        "luxMedal": 30,
+        "ap": 147,
+        "cost": 402,
+        "hp": 3480,
+        "rewardId": 0
+    },
+    {
+        "lv": 182,
+        "needExp": 1719409,
+        "luxMedal": 30,
+        "ap": 148,
+        "cost": 404,
+        "hp": 3480,
+        "rewardId": 0
+    },
+    {
+        "lv": 183,
+        "needExp": 1750543,
+        "luxMedal": 30,
+        "ap": 149,
+        "cost": 406,
+        "hp": 3480,
+        "rewardId": 0
+    },
+    {
+        "lv": 184,
+        "needExp": 1782147,
+        "luxMedal": 30,
+        "ap": 150,
+        "cost": 408,
+        "hp": 3490,
+        "rewardId": 0
+    },
+    {
+        "lv": 185,
+        "needExp": 1814221,
+        "luxMedal": 30,
+        "ap": 151,
+        "cost": 410,
+        "hp": 3490,
+        "rewardId": 0
+    },
+    {
+        "lv": 186,
+        "needExp": 1846765,
+        "luxMedal": 0,
+        "ap": 152,
+        "cost": 412,
+        "hp": 3490,
+        "rewardId": 0
+    },
+    {
+        "lv": 187,
+        "needExp": 1879779,
+        "luxMedal": 30,
+        "ap": 153,
+        "cost": 414,
+        "hp": 3490,
+        "rewardId": 0
+    },
+    {
+        "lv": 188,
+        "needExp": 1913263,
+        "luxMedal": 30,
+        "ap": 153,
+        "cost": 416,
+        "hp": 3500,
+        "rewardId": 0
+    },
+    {
+        "lv": 189,
+        "needExp": 1947217,
+        "luxMedal": 30,
+        "ap": 154,
+        "cost": 418,
+        "hp": 3500,
+        "rewardId": 0
+    },
+    {
+        "lv": 190,
+        "needExp": 1981641,
+        "luxMedal": 30,
+        "ap": 155,
+        "cost": 420,
+        "hp": 3500,
+        "rewardId": 0
+    },
+    {
+        "lv": 191,
+        "needExp": 2016535,
+        "luxMedal": 30,
+        "ap": 156,
+        "cost": 422,
+        "hp": 3510,
+        "rewardId": 0
+    },
+    {
+        "lv": 192,
+        "needExp": 2051989,
+        "luxMedal": 30,
+        "ap": 156,
+        "cost": 424,
+        "hp": 3510,
+        "rewardId": 0
+    },
+    {
+        "lv": 193,
+        "needExp": 2088003,
+        "luxMedal": 0,
+        "ap": 157,
+        "cost": 426,
+        "hp": 3510,
+        "rewardId": 0
+    },
+    {
+        "lv": 194,
+        "needExp": 2124577,
+        "luxMedal": 30,
+        "ap": 157,
+        "cost": 428,
+        "hp": 3510,
+        "rewardId": 0
+    },
+    {
+        "lv": 195,
+        "needExp": 2161711,
+        "luxMedal": 30,
+        "ap": 158,
+        "cost": 430,
+        "hp": 3520,
+        "rewardId": 0
+    },
+    {
+        "lv": 196,
+        "needExp": 2199405,
+        "luxMedal": 30,
+        "ap": 158,
+        "cost": 432,
+        "hp": 3520,
+        "rewardId": 0
+    },
+    {
+        "lv": 197,
+        "needExp": 2237659,
+        "luxMedal": 30,
+        "ap": 159,
+        "cost": 434,
+        "hp": 3520,
+        "rewardId": 0
+    },
+    {
+        "lv": 198,
+        "needExp": 2276473,
+        "luxMedal": 30,
+        "ap": 159,
+        "cost": 436,
+        "hp": 3520,
+        "rewardId": 0
+    },
+    {
+        "lv": 199,
+        "needExp": 2315847,
+        "luxMedal": 30,
+        "ap": 160,
+        "cost": 438,
+        "hp": 3520,
+        "rewardId": 0
+    },
+    {
+        "lv": 200,
+        "needExp": 2355781,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 201,
+        "needExp": 2396275,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 202,
+        "needExp": 2445329,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 203,
+        "needExp": 2510943,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 204,
+        "needExp": 2601117,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 205,
+        "needExp": 2723851,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 206,
+        "needExp": 2887145,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 207,
+        "needExp": 3098999,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 208,
+        "needExp": 3367413,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 209,
+        "needExp": 3700387,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 210,
+        "needExp": 4105921,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 211,
+        "needExp": 4592015,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 212,
+        "needExp": 5083669,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 213,
+        "needExp": 5580883,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 214,
+        "needExp": 6083657,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 215,
+        "needExp": 6591991,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 216,
+        "needExp": 7105885,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 217,
+        "needExp": 7625339,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 218,
+        "needExp": 8150353,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 219,
+        "needExp": 8680927,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 220,
+        "needExp": 9217061,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 221,
+        "needExp": 9758755,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 222,
+        "needExp": 10300449,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 223,
+        "needExp": 10842143,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 224,
+        "needExp": 11383837,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 225,
+        "needExp": 11925531,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 226,
+        "needExp": 12467225,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 227,
+        "needExp": 13008919,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 228,
+        "needExp": 13550613,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 229,
+        "needExp": 14092307,
+        "luxMedal": 35,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 230,
+        "needExp": 14634001,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 231,
+        "needExp": 15175695,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 232,
+        "needExp": 15717389,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 233,
+        "needExp": 16259083,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 234,
+        "needExp": 16800777,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 235,
+        "needExp": 17342471,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 236,
+        "needExp": 17884165,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 237,
+        "needExp": 18425859,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 238,
+        "needExp": 18967553,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 239,
+        "needExp": 19509247,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 240,
+        "needExp": 20050941,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 241,
+        "needExp": 20592635,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 242,
+        "needExp": 21134329,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 243,
+        "needExp": 21676023,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 244,
+        "needExp": 22217717,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 245,
+        "needExp": 22759411,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 246,
+        "needExp": 23301105,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 247,
+        "needExp": 23842799,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 248,
+        "needExp": 24384493,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 249,
+        "needExp": 24926187,
+        "luxMedal": 40,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 250,
+        "needExp": 25467881,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 251,
+        "needExp": 26009575,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 252,
+        "needExp": 26576829,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 253,
+        "needExp": 27172483,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 254,
+        "needExp": 27799377,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 255,
+        "needExp": 28460351,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 256,
+        "needExp": 29158245,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 257,
+        "needExp": 29895899,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 258,
+        "needExp": 30676153,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 259,
+        "needExp": 31501847,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 260,
+        "needExp": 32375821,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 261,
+        "needExp": 33300915,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 262,
+        "needExp": 34279969,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 263,
+        "needExp": 35315823,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 264,
+        "needExp": 36411317,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 265,
+        "needExp": 37569291,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 266,
+        "needExp": 38792585,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 267,
+        "needExp": 40084039,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 268,
+        "needExp": 41446493,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 269,
+        "needExp": 42882787,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 270,
+        "needExp": 44395761,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 271,
+        "needExp": 45988255,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 272,
+        "needExp": 47663109,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 273,
+        "needExp": 49423163,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 274,
+        "needExp": 51271257,
+        "luxMedal": 45,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 275,
+        "needExp": 53210231,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 276,
+        "needExp": 55242925,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 277,
+        "needExp": 57372179,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 278,
+        "needExp": 59600833,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 279,
+        "needExp": 61931727,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 280,
+        "needExp": 64367701,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 281,
+        "needExp": 66911595,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 282,
+        "needExp": 69566249,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 283,
+        "needExp": 72334503,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 284,
+        "needExp": 75219197,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 285,
+        "needExp": 78223171,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 286,
+        "needExp": 81349265,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 287,
+        "needExp": 84600319,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 288,
+        "needExp": 87979173,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 289,
+        "needExp": 91488667,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 290,
+        "needExp": 95131641,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 291,
+        "needExp": 98910935,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 292,
+        "needExp": 102829389,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 293,
+        "needExp": 106889843,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 294,
+        "needExp": 111095137,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 295,
+        "needExp": 115448111,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 296,
+        "needExp": 119951605,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 297,
+        "needExp": 124608459,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 298,
+        "needExp": 129421513,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 299,
+        "needExp": 134393607,
+        "luxMedal": 50,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    },
+    {
+        "lv": 300,
+        "needExp": 139527581,
+        "luxMedal": 0,
+        "ap": 160,
+        "cost": 440,
+        "hp": 3530,
+        "rewardId": 0
+    }
+]

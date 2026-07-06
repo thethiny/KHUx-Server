@@ -385,16 +385,16 @@ async def game_api(
 
 
 MASTER_TABLE_NAMES = [
-    "albumChallenge", "avatarCombination", "avatarParts", "badstatus",
-    "battleMisc", "buff", "burst", "chapter", "colosseum", "colosseumStage",
-    "drawMedalList", "drawMedalType", "drawSkillList", "drawSkillType",
-    "enemyAttack", "enemy", "evCampaign", "evGroupPattern", "evResource",
-    "evStage", "guiltProb", "initItem", "keyblade", "loginBonus",
-    "material", "medal", "medalMisc", "misc", "mypageBackground", "player",
-    "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking",
-    "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",
-    "skill", "sphereArray", "sphere", "sphereMasu", "stage", "stamp",
-    "title", "tutorialMisc", "world",
+    "avatarParts", "badstatus", "battleMisc", "buff", "burst",           # 0-4
+    "colosseum", "colosseumStage", "drawMedalType", "enemyAttack", "enemy", # 5-9
+    "evCampaign", "evMedalList", "evResource", "evScoreReward", "evStage", # 10-14
+    "guiltProb", "initItem", "keyblade", "loginBonus", "material",       # 15-19
+    "medal", "medalMisc", "misc", "mypageBackground", "player",         # 20-24
+    "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking", # 25-29
+    "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",   # 30-34
+    "skill", "sphereArray", "sphere", "sphereMasu", "stage", "stamp",    # 35-40
+    "title", "tutorialMisc", "world",                                     # 41-43
+    "stage", "stamp", "title", "tutorialMisc", "world",                   # 44-48 (duplicates from 1.1.3)
 ]
 
 def _build_misc_data():
@@ -435,6 +435,7 @@ MASTER_JSON_DATA = {
     "medalMisc": _load_json("medalMisc"),
     "burst": _load_json("burst"),
     "tutorialMisc": _load_json("tutorialMisc"),
+    "player": _load_json("player"),
 }
 
 MASTER_KEY_HEX = "00" * 32

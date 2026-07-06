@@ -44,7 +44,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0 if (DEBUG_MODE or (user and user.tutorial_done)) else 1,  # game bug: resource_revision never saves, so skip for returning users
-        "versionDat": 200,   # triggers master data download if > saved master_revision (NOT saved itself)
+        "versionDat": 15,   # triggers master data download if > saved master_revision (NOT saved itself)
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -357,6 +357,57 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
     )
 
 
+def _user_detail(user: Optional[User]) -> dict:
+    return {
+        "level": 1, "exp": 0, "luxRank": 0, "luxGetRatio": 100,
+        "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
+        "maxDeckCost": user.max_deck_cost if user else 30,
+        "playTimezones": [0, 0, 0, 0, 0, 0],
+        "playFrequently": 0, "partyId": 0, "unionId": user.union_id if user else 1,
+        "maxMedal": 100, "mvpCount": 0, "equipCoordinateNo": 0,
+        "lastClearStageId": 0,
+        "lastPlayNormalSphereBoardId": 0, "lastPlayStageSphereBoardId": 0,
+        "lastPlayRaidSphereBoardId": 0, "lastPlayColosseumSphereBoardId": 0,
+        "isGuilt": 0,
+    }
+
+
+def _stage_resumption() -> dict:
+    return {
+        "resumptionStatus": 0,
+        "stageId": 0,
+        "raidId": 0,
+        "colosseumStageId": 0,
+    }
+
+
+@register(106)  # POST /stage/clear
+def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    stage_id = request_data.get("stageId", 1010)
+    logger.info("STAGE CLEAR: stageId=%s payload=%s", stage_id, request_data)
+    return build_response(user,
+        userData={
+            "userPoint": _user_point(user),
+            "userDetail": _user_detail(user),
+            "stageResumption": _stage_resumption(),
+        },
+        userStone={"freeStone": 3000, "payStone": 0},
+        stageRewardUserMedalIds=[],
+        firstClearFlag=1,
+        userMaterials=[],
+        userMedals=_STARTING_MEDALS,
+        userSkills=[],
+        userTitles=[],
+        userKeyblades=[{
+            "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
+            "deckMedals": [1, 2, 3],
+            "burst": 0,
+            "totalAttack": 3960, "totalDefense": 3747,
+            "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
+        }],
+    )
+
+
 @register(137)  # GET /user/option
 def handle_user_option(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user,
@@ -391,26 +442,10 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
                 "fleezedDatetime": "2000-01-01 00:00:00",
                 "nativeTagName": "player_tag",
             },
-            "userDetail": {
-                "level": 1, "exp": 0, "luxRank": 0, "luxGetRatio": 100,
-                "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
-                "maxDeckCost": user.max_deck_cost if user else 30,
-                "playTimezones": [0, 0, 0, 0, 0, 0],
-                "playFrequently": 0, "partyId": 0, "unionId": user.union_id if user else 1,
-                "maxMedal": 100, "mvpCount": 0, "equipCoordinateNo": 0,
-                "lastClearStageId": 0,
-                "lastPlayNormalSphereBoardId": 0, "lastPlayStageSphereBoardId": 0,
-                "lastPlayRaidSphereBoardId": 0, "lastPlayColosseumSphereBoardId": 0,
-                "isGuilt": 0,
-            },
+            "userDetail": _user_detail(user),
             "userPoint": _user_point(user),
             "lastActionDatetime": now,
-            "stageResumption": {
-                "resumptionStatus": 0,
-                "stageId": 0,
-                "raidId": 0,
-                "colosseumStageId": 0,
-            },
+            "stageResumption": _stage_resumption(),
         },
         "userMedals": _STARTING_MEDALS,
         "userSkills": [],
@@ -485,7 +520,7 @@ def handle_need_url(request_data: dict, user: Optional[User], db_session: DBSess
     )
 
 
-@register(24)  # GET /system/coppa
+@register(24)  # GET /system/coppa // TODO: Replace later with misc m table since these values exist, but doesn't make sense cuz these are before download so investigate // Update: It is because 4.3.1 removed the server completely so the game hardcoded every single server api response, so the misc m file is a server file
 def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     from datetime import datetime
     return build_response(user,
@@ -507,7 +542,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     from .app import MASTER_TABLE_NAMES, _get_master_encrypted, MASTER_KEY_HEX
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 200
+    master_rev = 15
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = _get_master_encrypted(name)
