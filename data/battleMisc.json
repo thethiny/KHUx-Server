@@ -9,7 +9,7 @@
   },
   {
     "battleMiscId": 102,
-    "value": 50000
+    "value": 15000
   },
   {
     "battleMiscId": 103,
@@ -77,11 +77,11 @@
   },
   {
     "battleMiscId": 131,
-    "value": 100000
+    "value": 1000
   },
   {
     "battleMiscId": 132,
-    "value": 4000000
+    "value": 20000
   },
   {
     "battleMiscId": 133,
