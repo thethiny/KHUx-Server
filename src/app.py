@@ -9,6 +9,8 @@ import hashlib
 import json
 import logging
 import os as _os_early
+import re
+import sys
 import time
 from base64 import b64encode
 from contextlib import asynccontextmanager
@@ -23,15 +25,21 @@ if _os_early.path.isfile(_env_file):
                 _k, _v = _line.split("=", 1)
                 _os_early.environ.setdefault(_k.strip(), _v.strip())
 
-from fastapi import Depends, FastAPI, Header, Request, Response
+import os
 
-logging.basicConfig(level=logging.DEBUG, stream=__import__('sys').stdout, force=True)
-logger = logging.getLogger("khux")
+from fastapi import Depends, FastAPI, Header, Request, Response
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session as DBSession
+from starlette.responses import Response as StarletteResponse
+from starlette.responses import StreamingResponse
+
+logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, force=True)
+logger = logging.getLogger("khux")
 
 from .bridge import bridge_login
-from .crypto import decrypt_request, encrypt_response
-from .handlers import build_ret, dispatch
+from .crypto import decrypt_request, encrypt
+from .handlers import _resource_md5_cache, _resource_md5_ready, dispatch
+from .master import MASTER_JSON_DATA, MASTER_TABLE_NAMES, get_master_encrypted
 from .models import Session, User, create_tables, get_engine, get_session
 
 # v1.0.1 path → action index (from server_api.json)
@@ -141,19 +149,15 @@ async def lifespan(app: FastAPI):
 # Application
 # ---------------------------------------------------------------------------
 
-import os as _os
-from fastapi.responses import FileResponse
-
 app = FastAPI(title="KHUx Private Server", lifespan=lifespan)
 
-_KHUX_DATA = _os.environ["KHUX_DATA_DIR"]
-MASTER_DATA_DIR = _os.path.join(_KHUX_DATA, "m")
+_KHUX_DATA = os.environ["KHUX_DATA_DIR"]
+MASTER_DATA_DIR = os.path.join(_KHUX_DATA, "m")
 _START_TIME = time.strftime("%Y-%m-%d %H:%M:%S")
 
 
 @app.get("/internal-healthcheck")
 async def healthcheck():
-    from .handlers import _resource_md5_ready, _resource_md5_cache
     return {
         "status": "ok",
         "started": _START_TIME,
@@ -203,7 +207,6 @@ async def system_status(request: Request):
     #   Cipher::Cipher uses this 32-byte hex string directly as AES-256-CBC key
     md5_hex = hashlib.md5(("SoRaRiKuKaiRi" + current_version).encode()).hexdigest()
     aes_key = md5_hex.encode("ascii")  # 32 bytes (hex chars, not raw digest)
-    from .crypto import encrypt
     encrypted_server = b64encode(encrypt(server_url.encode("utf-8"), aes_key)).decode("ascii")
 
     # The status callback checks: if (*(_DWORD *)(operator[]("maintenance") + 12))
@@ -238,7 +241,7 @@ async def login_token(request: Request):
     }
 
 
-from .information import router as html_router, mount_static
+from .information import mount_static, router as html_router
 app.include_router(html_router)
 mount_static(app)
 
@@ -366,13 +369,11 @@ async def game_api(
                 list(payload.keys()) if payload else [], session.security_key.hex() if isinstance(session.security_key, bytes) else session.security_key)
     response_data = dispatch(action_id, payload, user, db)
 
-    import json as _json
-    resp_json = _json.dumps(response_data, separators=(",", ":"))
+    resp_json = json.dumps(response_data, separators=(",", ":"))
     logger.info("<<< Response action=%d: %s", action_id, resp_json[:500])
 
     db.commit()
     resp_bytes = resp_json.encode("utf-8")
-    from starlette.responses import Response as StarletteResponse
     resp = StarletteResponse(
         content=resp_bytes,
         media_type="application/json",
@@ -384,98 +385,14 @@ async def game_api(
     return resp
 
 
-MASTER_TABLE_NAMES = [
-    "avatarParts", "badstatus", "battleMisc", "buff", "burst",           # 0-4
-    "colosseum", "colosseumStage", "drawMedalType", "enemyAttack", "enemy", # 5-9
-    "evCampaign", "evMedalList", "evResource", "evScoreReward", "evStage", # 10-14
-    "guiltProb", "initItem", "keyblade", "loginBonus", "material",       # 15-19
-    "medal", "medalMisc", "misc", "mypageBackground", "player",         # 20-24
-    "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking", # 25-29
-    "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",   # 30-34
-    "skill", "sphereArray", "sphere", "sphereMasu", "stage", "stamp",    # 35-40
-    "title", "tutorialMisc", "world",                                     # 41-43
-    "stage", "stamp", "title", "tutorialMisc", "world",                   # 44-48 (duplicates from 1.1.3)
-]
-
-def _build_misc_data():
-    entries = []
-    for i in range(1, 1001):
-        val = 0
-        if i == 804:
-            val = 16
-        entries.append({"miscId": i, "value": val})
-    return entries
-
-
-_DATA_DIR = _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), "data")
-
-def _load_json(name):
-    path = _os.path.join(_DATA_DIR, f"{name}.json")
-    if _os.path.isfile(path):
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    return []
-
-
-MASTER_JSON_DATA = {
-    "misc": _load_json("misc") or _build_misc_data(),
-    "world": _load_json("world") or [{"worldId": 1, "worldName": "Daybreak Town", "raidBackground": "", "instanceLwf": "", "instance": "", "xPos": 0, "yPos": 0, "rate": 100, "validParts": 0, "partsId": [], "xPostion": [], "yPostion": []}],
-    "chapter": [{"chapterId": 1, "name": "Prologue"}],
-    "battleMisc": _load_json("battleMisc") or [{"battleMiscId": i, "value": 0} for i in range(1, 101)],
-    "keyblade": _load_json("keyblade") or [],
-    "initItem": _load_json("initItem"),
-    "enemy": _load_json("enemy") or [],
-    "enemyAttack": _load_json("enemyAttack") or [],
-    "medal": _load_json("medal") or [],
-    "skill": _load_json("skill") or [],
-    "stage": _load_json("stage") or [],
-    "avatarParts": _load_json("avatarParts"),
-    "avatarCombination": _load_json("avatarCombination"),
-    "material": _load_json("material"),
-    "medalMisc": _load_json("medalMisc"),
-    "burst": _load_json("burst"),
-    "tutorialMisc": _load_json("tutorialMisc"),
-    "player": _load_json("player"),
-    "buff": _load_json("buff"),
-}
-
-MASTER_KEY_HEX = "00" * 32
-MASTER_AES_KEY = MASTER_KEY_HEX[:32].encode("ascii")
-
-
-def _encrypt_master_json(data: list, key: bytes = MASTER_AES_KEY) -> tuple[bytes, str]:
-    """Encrypt a JSON array for master data download.
-    The game's Cipher takes the first 32 ASCII bytes of the hex key string.
-    Returns (b64_response_body, md5_hex_of_response_body)."""
-    import json as _json
-    from .crypto import encrypt as aes_encrypt
-    plaintext = _json.dumps(data, separators=(",", ":")).encode("utf-8")
-    ciphertext = aes_encrypt(plaintext, key)
-    b64_data = b64encode(ciphertext)
-    md5_hex = hashlib.md5(b64_data).hexdigest()
-    return b64_data, md5_hex
-
-
-_master_cache: dict[str, tuple[bytes, str]] = {}
-
-
-def _get_master_encrypted(table_name: str) -> tuple[bytes, str]:
-    """Get encrypted+base64 master data and its MD5, with caching."""
-    if table_name not in _master_cache:
-        data = MASTER_JSON_DATA.get(table_name, [])
-        _master_cache[table_name] = _encrypt_master_json(data)
-    return _master_cache[table_name]
-
-
 @app.get("/data/master/{filename}")
 async def serve_master_data(filename: str):
-    import re
     match = re.match(r'm(\d+)\.jpg', filename)
     if match:
         idx = int(match.group(1))
         if idx < len(MASTER_TABLE_NAMES):
             table_name = MASTER_TABLE_NAMES[idx]
-            b64_data, md5_hex = _get_master_encrypted(table_name)
+            b64_data, md5_hex = get_master_encrypted(table_name)
             entries = len(MASTER_JSON_DATA.get(table_name, []))
             logger.info(">>> SERVING MASTER (encrypted): %s (%s, %d entries, %d bytes)",
                         filename, table_name, entries, len(b64_data))
@@ -484,14 +401,14 @@ async def serve_master_data(filename: str):
     return Response(content=b"", status_code=404)
 
 
-RESOURCE_DIR = _os.path.join(_KHUX_DATA, "R")
+RESOURCE_DIR = os.path.join(_KHUX_DATA, "R")
 
-_REPO_DIR = _os.getenv("KHUX_REPO_DIR", _os.path.join(_os.path.dirname(_os.path.dirname(__file__)), ".."))
+_REPO_DIR = os.getenv("KHUX_REPO_DIR", os.path.join(os.path.dirname(os.path.dirname(__file__)), ".."))
 _RESOURCE_PATHS = {
-    "misc.mp4": _os.path.join(_KHUX_DATA, "misc.mp4"),
-    "misc.png": _os.path.join(_REPO_DIR, "validate_data", "misc.png"),
-    "test.mp4": _os.path.join(_KHUX_DATA, "test.mp4"),
-    "test.png": _os.path.join(_KHUX_DATA, "test.png"),
+    "misc.mp4": os.path.join(_KHUX_DATA, "misc.mp4"),
+    "misc.png": os.path.join(_REPO_DIR, "validate_data", "misc.png"),
+    "test.mp4": os.path.join(_KHUX_DATA, "test.mp4"),
+    "test.png": os.path.join(_KHUX_DATA, "test.png"),
 }
 
 
@@ -503,11 +420,11 @@ async def serve_resource_data(filename: str, offset: int = 0, size: int = 0):
     if filename in _RESOURCE_PATHS:
         filepath = _RESOURCE_PATHS[filename]
     else:
-        filepath = _os.path.join(RESOURCE_DIR, filename)
-    if not _os.path.exists(filepath):
+        filepath = os.path.join(RESOURCE_DIR, filename)
+    if not os.path.exists(filepath):
         logger.warning("!!! RESOURCE NOT FOUND: %s", filename)
         return Response(status_code=404)
-    file_size = _os.path.getsize(filepath)
+    file_size = os.path.getsize(filepath)
     if size > 0 and offset >= 0:
         end = min(offset + size, file_size)
         logger.info(">>> SERVING RESOURCE CHUNK: %s [%d-%d] (%d bytes)",
@@ -524,7 +441,6 @@ async def serve_resource_data(filename: str, offset: int = 0, size: int = 0):
                     remaining -= len(chunk)
                     yield chunk
 
-        from starlette.responses import StreamingResponse
         return StreamingResponse(_stream(), media_type="application/octet-stream",
                                  headers={"Content-Length": str(end - offset)})
     logger.info(">>> SERVING RESOURCE: %s (%d bytes)", filename, file_size)
@@ -537,5 +453,6 @@ async def catch_all(request: Request, path: str = ""):
     headers = dict(request.headers)
     logger.warning("!!! UNMATCHED %s /%s headers=%s body=%s",
                     request.method, path, headers, body[:500])
+    # Inline to avoid circular import (handlers → master → crypto, app → handlers)
     from .handlers import build_response
     return build_response()

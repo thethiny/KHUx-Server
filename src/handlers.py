@@ -4,13 +4,19 @@ KHUx Private Server — Action handlers for v4.3.1.
 Based on decompiled libcocos2dcpp.so (arm64-v8a) analysis.
 """
 
+import hashlib
 import logging
 import os
+import threading
 import time
+from datetime import datetime
 from typing import Callable, Optional
 
 from sqlalchemy.orm import Session as DBSession
 
+from .enums import Misc
+from .information import CATEGORIES, NOTICES
+from .master import MASTER_KEY_HEX, MASTER_TABLE_NAMES, get_master_encrypted
 from .models import User
 
 logger = logging.getLogger(__name__)
@@ -44,7 +50,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0 if (DEBUG_MODE or (user and user.tutorial_done)) else 1,  # game bug: resource_revision never saves, so skip for returning users
-        "versionDat": 15,   # triggers master data download if > saved master_revision (NOT saved itself)
+        "versionDat": 19,   # triggers master data download if > saved master_revision (NOT saved itself)
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -238,10 +244,7 @@ def handle_avatar_update(request_data: dict, user: Optional[User], db_session: D
 
 @register(63)  # POST /tutorial/clear
 def handle_tutorial_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    logger.info("TUTORIAL CLEAR")
-    if user:
-        user.tutorial_done = True
-        db_session.add(user)
+    logger.info("TUTORIAL CLEAR: payload=%s", request_data)
     return build_response(user)
 
 
@@ -525,32 +528,30 @@ def handle_need_url(request_data: dict, user: Optional[User], db_session: DBSess
     )
 
 
-@register(24)  # GET /system/coppa // TODO: Replace later with misc m table since these values exist, but doesn't make sense cuz these are before download so investigate // Update: It is because 4.3.1 removed the server completely so the game hardcoded every single server api response, so the misc m file is a server file
+@register(24)  # GET /system/coppa — sent BEFORE master data download; misc IDs inline
 def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    from datetime import datetime
     return build_response(user,
         misc={
-            "116": 300,     # tutorial download jewel reward amount
-            "900": 15,      # COPPA minimum age (chat restriction threshold)
-            "901": 15,      # under-age bracket upper bound
-            "902": 18,      # adult age threshold
-            "903": 30,      # purchase limit $ for under-15
-            "904": 100,     # purchase limit $ for 15-17
-            "905": 1920,    # year picker start
-            "906": datetime.now().year,  # year picker end (current year)
-            "907": DEBUG_SKIP_TO,  # 0=show birthday page, nonzero=skip
+            Misc.TUTORIAL_DOWNLOAD_JEWEL_REWARD: 300,
+            Misc.COPPA_MIN_AGE: 13,
+            Misc.COPPA_UNDERAGE_UPPER: 16,
+            Misc.COPPA_ADULT_AGE: 20,
+            Misc.COPPA_PURCHASE_LIMIT_MINOR: 5000,
+            Misc.COPPA_PURCHASE_LIMIT_TEEN: 30000,
+            Misc.COPPA_YEAR_PICKER_START: 1910,
+            Misc.COPPA_YEAR_PICKER_END: datetime.now().year - Misc.COPPA_MIN_AGE,
+            Misc.COPPA_SKIP_BIRTHDAY: DEBUG_SKIP_TO,
         },
     )
 
 
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    from .app import MASTER_TABLE_NAMES, _get_master_encrypted, MASTER_KEY_HEX
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 15
+    master_rev = 19
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
-        _, md5_hex = _get_master_encrypted(name)
+        _, md5_hex = get_master_encrypted(name)
         rev = master_rev
         resp[name] = {
             "revision": rev,
@@ -562,15 +563,12 @@ def handle_master(request_data: dict, user: Optional[User], db_session: DBSessio
     return resp
 
 
-import threading as _threading
-
 _resource_md5_cache: dict = {}
-_resource_md5_lock = _threading.Lock()
-_resource_md5_ready = _threading.Event()
+_resource_md5_lock = threading.Lock()
+_resource_md5_ready = threading.Event()
 
 
 def _resource_md5(path: str) -> str:
-    import hashlib as _hashlib
     _resource_md5_ready.wait()
     mtime = os.path.getmtime(path)
     cache_key = f"{path}:{mtime}"
@@ -584,14 +582,13 @@ def _resource_md5(path: str) -> str:
 
 
 def _hash_resource(path: str):
-    import hashlib as _hashlib
     if not os.path.isfile(path):
         return
     mtime = os.path.getmtime(path)
     cache_key = f"{path}:{mtime}"
     size = os.path.getsize(path)
     logger.info("Hashing %s (%d MB)...", os.path.basename(path), size >> 20)
-    h = _hashlib.md5()
+    h = hashlib.md5()
     with open(path, "rb") as f:
         while chunk := f.read(1 << 20):
             h.update(chunk)
@@ -604,10 +601,9 @@ RESOURCE_CHUNK_SIZE = 250 * 1024 * 1024
 
 
 def _hash_resource_chunk(path: str, offset: int, end: int):
-    import hashlib as _hashlib
     mtime = os.path.getmtime(path)
     cache_key = f"{path}:{mtime}:{offset}:{end}"
-    h = _hashlib.md5()
+    h = hashlib.md5()
     with open(path, "rb") as f:
         f.seek(offset)
         remaining = end - offset
@@ -623,7 +619,6 @@ def _hash_resource_chunk(path: str, offset: int, end: int):
 
 def _hash_resource_chunks(path: str, chunk_size: int):
     """Hash a file in fixed-size chunks and store per-chunk MD5s."""
-    import hashlib as _hashlib
     if not os.path.isfile(path):
         return
     file_size = os.path.getsize(path)
@@ -635,7 +630,7 @@ def _hash_resource_chunks(path: str, chunk_size: int):
         chunk_idx = 0
         while offset < file_size:
             end = min(offset + chunk_size, file_size)
-            h = _hashlib.md5()
+            h = hashlib.md5()
             f.seek(offset)
             remaining = end - offset
             while remaining > 0:
@@ -665,7 +660,7 @@ def _prehash_resources():
     _resource_md5_ready.set()
 
 
-_hash_thread = _threading.Thread(target=_prehash_resources, daemon=True)
+_hash_thread = threading.Thread(target=_prehash_resources, daemon=True)
 _hash_thread.start()
 
 
@@ -748,7 +743,6 @@ def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_ses
 @register(28)  # GET /system/information/list
 @register(29)  # GET /system/information/list/151203
 def handle_information_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    from .information import NOTICES, CATEGORIES
     infos = []
     for n in NOTICES:
         cat_label, _ = CATEGORIES[n["cat"]]
