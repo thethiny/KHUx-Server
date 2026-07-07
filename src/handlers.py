@@ -77,7 +77,7 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
         raw_progression = DEBUG_SKIP_TO
     progression = clamp_progression(raw_progression)
     newcomer = progression == 0
-    tutorial = not user.tutorial_done if user else True
+    tutorial = not user.tutorial_done and progression < 6 if user else True
     logger.info("LOGIN HANDLER: user=%s tutorial_done=%s progression=%s newcomer=%s tutorial=%s",
                 user.id if user else None, user.tutorial_done if user else None,
                 progression, newcomer, tutorial)
@@ -248,9 +248,6 @@ def handle_avatar_update(request_data: dict, user: Optional[User], db_session: D
 @register(63)  # POST /tutorial/clear
 def handle_tutorial_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     logger.info("TUTORIAL CLEAR: payload=%s", request_data)
-    if user:
-        user.tutorial_done = True
-        db_session.add(user)
     return build_response(user,
         login={
             "newcomer": False,
@@ -340,7 +337,7 @@ def handle_tutorial_status_put(request_data: dict, user: Optional[User], db_sess
     if user and phase >= 995:
         user.tutorial_done = True
         db_session.add(user)
-    return build_response(user)
+    return build_response(user, phase=phase, popupFlag=0, isFinished=0)
 
 
 @register(100)  # GET /stage/160310
@@ -359,6 +356,23 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
     )
 
 
+@register(80)  # GET /party/member/list
+def handle_party_member_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    uid = user.id if user else 1
+    return build_response(user,
+        userParty={
+            "userId": uid,
+            "partyId": 0,
+            "isJoin": 0,
+            "isLeader": 0,
+            "isAdmin": 0,
+            "flagFirstReward": 0,
+            "joinDate": "2026-01-01 00:00:00",
+        },
+        partyMembers=[],
+    )
+
+
 @register(107)  # GET /raid
 def handle_raid(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user,
@@ -369,6 +383,14 @@ def handle_raid(request_data: dict, user: Optional[User], db_session: DBSession)
             "feverFlag": 0, "feverTime": "2099-01-01 00:00:00",
             "stageId": 0, "parts": [],
         })
+
+
+@register(110)  # GET /raid/reward/151101
+def handle_raid_reward(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user,
+        userData={"userPoint": _user_point(user)},
+        raidRewards=[],
+    )
 
 
 @register(103)  # POST /stage/start
@@ -408,7 +430,14 @@ def _user_detail(user: Optional[User]) -> dict:
     }
 
 
-def _stage_resumption() -> dict:
+def _stage_resumption(user=None) -> dict:
+    if user and user.tutorial_stage_reached and not user.tutorial_done:
+        return {
+            "resumptionStatus": 1,
+            "stageId": 1010,
+            "raidId": 0,
+            "colosseumStageId": 0,
+        }
     return {
         "resumptionStatus": 0,
         "stageId": 0,
@@ -425,7 +454,7 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
         userData={
             "userPoint": _user_point(user),
             "userDetail": _user_detail(user),
-            "stageResumption": _stage_resumption(),
+            "stageResumption": _stage_resumption(user),
         },
         userStone={"freeStone": 3000, "payStone": 0},
         stageRewardUserMedalIds=[],
@@ -481,7 +510,7 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
             "userDetail": _user_detail(user),
             "userPoint": _user_point(user),
             "lastActionDatetime": now,
-            "stageResumption": _stage_resumption(),
+            "stageResumption": _stage_resumption(user),
         },
         "userMedals": _STARTING_MEDALS,
         "userSkills": [],
@@ -808,7 +837,7 @@ def handle_information_list(request_data: dict, user: Optional[User], db_session
             "date": f"2026/{n['date']}",
             "isNew": 0,
         })
-    return build_response(user, informations=infos)
+    return build_response(user, informations=infos, popUpViewUrl=[])
 
 
 @register(30)  # GET /system/information/detail
@@ -827,12 +856,12 @@ def handle_party_notice(request_data: dict, user: Optional[User], db_session: DB
 
 @register(108)  # GET /raid/list
 def handle_raid_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, raidList=[], raidBossList=[])
+    return build_response(user, raids=[], raidList=[], raidBossList=[])
 
 
 @register(129)  # GET /ranking/parade
 def handle_ranking_parade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, parades=[])
+    return build_response(user, unionParade={"rankingUnionResult": [], "rankingUnionTopRanker": []})
 
 
 @register(131)  # GET /campaign
