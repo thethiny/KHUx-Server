@@ -251,7 +251,15 @@ def handle_tutorial_clear(request_data: dict, user: Optional[User], db_session: 
     if user:
         user.tutorial_done = True
         db_session.add(user)
-    return build_response(user)
+    return build_response(user,
+        login={
+            "newcomer": False,
+            "tutorial": False,
+            "acquirableLoginBonus": False,
+            "progression": 995,
+        },
+        partyId=0,
+    )
 
 
 @register(69)  # POST /union/change
@@ -279,18 +287,44 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
     if user:
         if name:
             user.user_name = name
+        avatar_data = request_data.get("updateAvatarData")
+        if avatar_data:
+            user.gender = avatar_data.get("gender", user.gender)
+            user.hair_parts_id = avatar_data.get("hairPartsId", user.hair_parts_id)
+            user.hair_color_parts_id = avatar_data.get("hairColorPartsId", user.hair_color_parts_id)
+            user.face_parts_id = avatar_data.get("facePartsId", user.face_parts_id)
+            user.body_parts_id = avatar_data.get("bodyPartsId", user.body_parts_id)
+            user.skin_parts_id = avatar_data.get("skinPartsId", user.skin_parts_id)
+            acc = avatar_data.get("accessoriesPartsIds", [])
+            user.accessories_parts_ids = ",".join(str(x) for x in acc) if acc else ""
+        union_id = request_data.get("unionId")
+        if union_id is not None:
+            user.union_id = union_id
         if progression > user.tutorial_progression:
             user.tutorial_progression = progression
         if raw_progression >= 995: # Union is at 6, tutorial at 995. Must be set to 6 to avoid re-download on failed tutorial.
             user.tutorial_done = True
         db_session.add(user)
+    tutorial_resp = {
+        "userTutorialId": 1,
+        "progression": progression,
+        "name": name or (user.user_name if user else ""),
+        "inviteCode": "",
+    }
+    if progression >= 4:
+        tutorial_resp["unionId"] = user.union_id if user else 0
+    if progression >= 5:
+        tutorial_resp["avatar"] = _user_avatar(user)
+    newcomer = progression == 0
+    tutorial_active = not user.tutorial_done if user else True
     return build_response(user,
-        tutorial={
-            "userTutorialId": 1,
+        login={
+            "newcomer": newcomer,
+            "tutorial": tutorial_active,
+            "acquirableLoginBonus": False,
             "progression": progression,
-            "name": name or (user.user_name if user else ""),
-            "inviteCode": "",
         },
+        tutorial=tutorial_resp,
     )
 
 
@@ -314,31 +348,14 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
     if user and not user.tutorial_stage_reached:
         user.tutorial_stage_reached = True
         db_session.add(user)
-    uid = user.id if user else 1
-    avatar = {"avatarParts": [
-        {"partsId": 50001, "partsType": 2},
-        {"partsId": 50101, "partsType": 3},
-        {"partsId": 50201, "partsType": 4},
-    ], "coordinate": {"no": 0, "x": 0, "y": 0, "scale": 100}}
-    raid_user = {"userId": uid, "name": user.user_name if user else "Player",
-                 "level": 1, "userAvatar": avatar}
     return build_response(user,
         stories=[
             {"stageId": 1010, "useAp": 0, "score": 0, "clearMissionIds": []},
         ],
         newStageId=1010,
         raidStatus=0,
-        raid={
-            "raidId": 0, "level": 0, "useAp": 0,
-            "timeLeft": "2099-01-01 00:00:00",
-            "feverFlag": 0, "feverTime": "2099-01-01 00:00:00",
-            "stageId": 0, "parts": [],
-        },
-        discoverer=raid_user,
-        mvp=raid_user,
         events=[],
         supportUsers=[],
-        colosseum={"ranking": 0, "round": 0},
     )
 
 
@@ -433,7 +450,7 @@ def handle_user_option(request_data: dict, user: Optional[User], db_session: DBS
         userOption={"isNoticeAp": 0, "isNoticeHelp": 0, "isNoticeEvent": 0})
 
 
-@register(141)  # GET /user/link
+@register(140)  # GET /user/link
 def handle_user_link(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user, linkInfos=[])
 
@@ -508,10 +525,12 @@ def handle_user_chat(request_data: dict, user: Optional[User], db_session: DBSes
 
 @register(78)  # GET /party
 def handle_party(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    uid = user.id if user else 1
     return build_response(user,
+        partyId=0,
         party={
             "partyId": 0,
-            "unionId": 0,
+            "unionId": user.union_id if user else 0,
             "rank": 0,
             "name": "",
             "playStyle": 0,
@@ -524,6 +543,30 @@ def handle_party(request_data: dict, user: Optional[User], db_session: DBSession
             "newcomerDate": "2000-01-01 00:00:00",
             "chatId": 0,
             "chatEndpointUrl": "",
+        },
+        partyLeader={
+            "supportUserId": uid,
+            "level": 1,
+            "userName": user.user_name if user else "Player",
+            "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
+            "addKizunaPoint": 0,
+            "keybladeId": 1000,
+            "isParty": 0,
+            "isGuilt": 0,
+            "userMedal": _STARTING_MEDALS[0],
+            "userSkills": [],
+            "userAvatar": _user_avatar(user),
+            "lastActionDatetime": "2026-01-01 00:00:00",
+            "earnLuxRank": 0,
+        },
+        userParty={
+            "userId": uid,
+            "partyId": 0,
+            "isJoin": 0,
+            "isLeader": 0,
+            "isAdmin": 0,
+            "flagFirstReward": 0,
+            "joinDate": "2026-01-01 00:00:00",
         },
         supportUsers=[],
     )
