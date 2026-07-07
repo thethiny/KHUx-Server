@@ -851,7 +851,8 @@ def handle_information_detail(request_data: dict, user: Optional[User], db_sessi
 
 @register(76)  # GET /party/notice
 def handle_party_notice(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, notice="")
+    return build_response(user,
+        hasNewOffer=0, isApply=0, hasNewApplicant=0, isNewLeader=0, newcomerUsers=[])
 
 
 @register(108)  # GET /raid/list
@@ -872,6 +873,16 @@ def handle_campaign(request_data: dict, user: Optional[User], db_session: DBSess
 @register(56)  # GET /mypage
 def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user,
+        adminMypageTexts=[],
+        openBanners=[],
+        userPresentCount=0,
+        isChangeCoordinate=0,
+        rankingRewards={
+            "rankingColosseum": 0, "rankingParty": 0,
+            "rankingLuxWeekly": 0, "rankingLuxMonthly": 0, "rankingLux": 0,
+        },
+        backgroundId=0,
+        isNewAlbumChallenge=0,
         loginBonus=[],
         events=[],
         notifications=[],
