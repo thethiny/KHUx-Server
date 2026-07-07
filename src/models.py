@@ -68,6 +68,8 @@ class User(Base):
     accessories_parts_ids: Mapped[str] = mapped_column(String, default="")
     is_guilt: Mapped[bool] = mapped_column(Boolean, default=False)
     tutorial_done: Mapped[bool] = mapped_column(Boolean, default=False)
+    tutorial_stage_reached: Mapped[bool] = mapped_column(Boolean, default=False)
+    tutorial_progression: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 

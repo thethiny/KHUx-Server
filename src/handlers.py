@@ -14,7 +14,7 @@ from typing import Callable, Optional
 
 from sqlalchemy.orm import Session as DBSession
 
-from .enums import Misc
+from .enums import Misc, clamp_progression
 from .information import CATEGORIES, NOTICES
 from .master import MASTER_KEY_HEX, MASTER_TABLE_NAMES, get_master_encrypted
 from .models import User
@@ -72,16 +72,19 @@ DEBUG_MODE = bool(os.getenv("KHUX_DEBUG_MODE", ""))
 # ---------------------------------------------------------------------------
 @register(59)  # POST /login
 def handle_login(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    is_new = not user.tutorial_done if user else True
-    progression = DEBUG_SKIP_TO if (is_new and DEBUG_SKIP_TO) else 0
-    if DEBUG_SKIP_TO:
-        is_new = True
-    logger.info("LOGIN HANDLER: user=%s tutorial_done=%s is_new=%s progression=%s",
-                user.id if user else None, user.tutorial_done if user else None, is_new, progression)
+    raw_progression = user.tutorial_progression if user else 0
+    if DEBUG_SKIP_TO and raw_progression < DEBUG_SKIP_TO:
+        raw_progression = DEBUG_SKIP_TO
+    progression = clamp_progression(raw_progression)
+    newcomer = progression == 0
+    tutorial = not user.tutorial_done if user else True
+    logger.info("LOGIN HANDLER: user=%s tutorial_done=%s progression=%s newcomer=%s tutorial=%s",
+                user.id if user else None, user.tutorial_done if user else None,
+                progression, newcomer, tutorial)
     return build_response(user,
         login={
-            "newcomer": is_new,
-            "tutorial": is_new,
+            "newcomer": newcomer,
+            "tutorial": tutorial,
             "acquirableLoginBonus": False,
             "progression": progression,
         },
@@ -245,6 +248,9 @@ def handle_avatar_update(request_data: dict, user: Optional[User], db_session: D
 @register(63)  # POST /tutorial/clear
 def handle_tutorial_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     logger.info("TUTORIAL CLEAR: payload=%s", request_data)
+    if user:
+        user.tutorial_done = True
+        db_session.add(user)
     return build_response(user)
 
 
@@ -273,6 +279,8 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
     if user:
         if name:
             user.user_name = name
+        if progression > user.tutorial_progression:
+            user.tutorial_progression = progression
         if raw_progression >= 995: # Union is at 6, tutorial at 995. Must be set to 6 to avoid re-download on failed tutorial.
             user.tutorial_done = True
         db_session.add(user)
@@ -303,6 +311,9 @@ def handle_tutorial_status_put(request_data: dict, user: Optional[User], db_sess
 
 @register(100)  # GET /stage/160310
 def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    if user and not user.tutorial_stage_reached:
+        user.tutorial_stage_reached = True
+        db_session.add(user)
     uid = user.id if user else 1
     avatar = {"avatarParts": [
         {"partsId": 50001, "partsType": 2},
@@ -540,7 +551,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
             Misc.COPPA_PURCHASE_LIMIT_TEEN: 30000,
             Misc.COPPA_YEAR_PICKER_START: 1910,
             Misc.COPPA_YEAR_PICKER_END: datetime.now().year - Misc.COPPA_MIN_AGE,
-            Misc.COPPA_SKIP_BIRTHDAY: DEBUG_SKIP_TO,
+            Misc.COPPA_UNKNOWN_907: 30,
         },
     )
 

@@ -76,11 +76,11 @@ class Misc(IntEnum):
     COPPA_MIN_AGE = 900                 # 13 — Chat restriction age threshold
     COPPA_UNDERAGE_UPPER = 901          # 16 — Under-age bracket upper bound
     COPPA_ADULT_AGE = 902               # 20 — Adult age threshold
-    COPPA_PURCHASE_LIMIT_MINOR = 903    # 5000 — Purchase limit for minors (cents/yen)
-    COPPA_PURCHASE_LIMIT_TEEN = 904     # 30000 — Purchase limit for teens (cents/yen)
+    COPPA_PURCHASE_LIMIT_MINOR = 903    # 5000 — Purchase limit $ for minors
+    COPPA_PURCHASE_LIMIT_TEEN = 904     # 30000 — Purchase limit $ for teens
     COPPA_YEAR_PICKER_START = 905       # 1910 — Year picker start year
     COPPA_YEAR_PICKER_END = 906         # 2016 — Year picker end year (game launch year)
-    COPPA_SKIP_BIRTHDAY = 907           # 30 — Tutorial state; nonzero side-effect skips birthday page
+    COPPA_UNKNOWN_907 = 907             # 30 — Purpose unknown; tested 9 and 30, neither skips birthday
 
     # ── Tutorial reward (116) ────────────────────────────────────────
     TUTORIAL_DOWNLOAD_JEWEL_REWARD = 116  # 300 — Jewels awarded after tutorial download
