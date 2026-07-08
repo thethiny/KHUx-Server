@@ -546,6 +546,9 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
     stage_id = request_data.get("stageId", 1010)
     keyblade_id = request_data.get("userKeybladeId", 1)
     logger.info("STAGE START: stageId=%s keybladeId=%s payload=%s", stage_id, keyblade_id, request_data)
+    if user:
+        user.current_stage_id = stage_id
+        db_session.add(user)
     return build_response(user,
         userData={"userPoint": _user_point(user)},
         userRandomEnemies=[],
@@ -604,7 +607,7 @@ def _stage_resumption(user=None) -> dict:
 
 @register(106)  # POST /stage/clear
 def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    stage_id = request_data.get("stageId", 1010)
+    stage_id = user.current_stage_id if user and user.current_stage_id else 1010
     logger.info("STAGE CLEAR: stageId=%s payload=%s", stage_id, request_data)
     if user:
         get_point = request_data.get("getPoint", {})

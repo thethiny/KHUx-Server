@@ -71,6 +71,7 @@ class User(Base):
     tutorial_stage_reached: Mapped[bool] = mapped_column(Boolean, default=False)
     tutorial_progression: Mapped[int] = mapped_column(Integer, default=0)
     tutorial_phase: Mapped[int] = mapped_column(Integer, default=50)
+    current_stage_id: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
