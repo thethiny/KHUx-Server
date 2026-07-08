@@ -49,8 +49,8 @@ def build_ret(user: Optional[User] = None) -> dict:
         "sessionTO": False,
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
-        "versionRes": 0 if (DEBUG_MODE or (user and user.tutorial_done)) else 1,  # game bug: resource_revision never saves, so skip for returning users
-        "versionDat": 22,   # triggers master data download if > saved master_revision (NOT saved itself)
+        "versionRes": 0,  # tutorial flow handles initial download; >0 causes re-download every session (game never saves resource_revision)
+        "versionDat": 23,   # must match master_rev; bumping forces re-download + "update detected" popup
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -99,7 +99,7 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
 # ---------------------------------------------------------------------------
 @register(6)  # GET /user/stone
 def handle_user_stone(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userStone={"freeStone": 3000, "payStone": 0})
+    return build_response(user, userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0})
 
 
 @register(7)  # GET /user/shop
@@ -113,13 +113,33 @@ def handle_user_sphere(request_data: dict, user: Optional[User], db_session: DBS
         userSphere={"userSphereDatas": [], "notChargedSphereBoardIds": []})
 
 
+def _get_player_stats(level: int) -> dict:
+    from .master import MASTER_JSON_DATA
+    players = MASTER_JSON_DATA.get("player", [])
+    for p in players:
+        if p.get("lv") == level:
+            return p
+    return {"lv": level, "needExp": 999999, "ap": 16, "cost": 42, "hp": 3000}
+
+
 def _user_point(user: Optional[User]) -> dict:
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+    if user:
+        stats = _get_player_stats(user.level)
+        return {
+            "money": user.money, "lux": user.lux, "totalLux": user.total_lux,
+            "spherePoint": 0, "kizunaPoint": 0, "raidPoint": 0,
+            "attack": user.attack, "defense": user.defense, "baseHp": stats["hp"],
+            "hp": stats["hp"], "ap": stats["ap"], "maxHp": stats["hp"], "maxAp": stats["ap"],
+            "lastApDatetime": now,
+            "stageSpherePoint": 0, "raidSpherePoint": 0,
+            "colosseumSpherePoint": 0, "stageSkipTicket": 0,
+        }
     return {
         "money": 0, "lux": 0, "totalLux": 0,
         "spherePoint": 0, "kizunaPoint": 0, "raidPoint": 0,
         "attack": 0, "defense": 0, "baseHp": 3000,
-        "hp": 3000, "ap": 50, "maxHp": 3000, "maxAp": 50,
+        "hp": 3000, "ap": 16, "maxHp": 3000, "maxAp": 16,
         "lastApDatetime": now,
         "stageSpherePoint": 0, "raidSpherePoint": 0,
         "colosseumSpherePoint": 0, "stageSkipTicket": 0,
@@ -417,13 +437,16 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
 
 def _user_detail(user: Optional[User]) -> dict:
     return {
-        "level": 1, "exp": 0, "luxRank": 0, "luxGetRatio": 100,
+        "level": user.level if user else 1,
+        "exp": user.exp if user else 0,
+        "luxRank": user.lux_rank if user else 0,
+        "luxGetRatio": 100,
         "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
         "maxDeckCost": user.max_deck_cost if user else 30,
         "playTimezones": [0, 0, 0, 0, 0, 0],
         "playFrequently": 0, "partyId": 0, "unionId": user.union_id if user else 1,
         "maxMedal": 100, "mvpCount": 0, "equipCoordinateNo": 0,
-        "lastClearStageId": 0,
+        "lastClearStageId": user.last_clear_stage_id if user else 0,
         "lastPlayNormalSphereBoardId": 0, "lastPlayStageSphereBoardId": 0,
         "lastPlayRaidSphereBoardId": 0, "lastPlayColosseumSphereBoardId": 0,
         "isGuilt": 0,
@@ -431,13 +454,8 @@ def _user_detail(user: Optional[User]) -> dict:
 
 
 def _stage_resumption(user=None) -> dict:
-    if user and user.tutorial_stage_reached and not user.tutorial_done:
-        return {
-            "resumptionStatus": 1,
-            "stageId": 1010,
-            "raidId": 0,
-            "colosseumStageId": 0,
-        }
+    # resumptionStatus=1 causes auto-battle-start with stageId=0 (broken)
+    # until proper battle resumption is implemented, always return 0
     return {
         "resumptionStatus": 0,
         "stageId": 0,
@@ -450,13 +468,28 @@ def _stage_resumption(user=None) -> dict:
 def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     stage_id = request_data.get("stageId", 1010)
     logger.info("STAGE CLEAR: stageId=%s payload=%s", stage_id, request_data)
+    if user:
+        get_point = request_data.get("getPoint", {})
+        user.exp += get_point.get("exp", 0)
+        user.money += get_point.get("money", 0)
+        user.lux += get_point.get("lux", 0)
+        user.total_lux += get_point.get("lux", 0)
+        user.last_clear_stage_id = stage_id
+        while True:
+            next_stats = _get_player_stats(user.level + 1)
+            need = next_stats.get("needExp", 999999)
+            if user.exp < need:
+                break
+            user.level += 1
+            logger.info("LEVEL UP: -> %d (exp=%d, need=%d)", user.level, user.exp, need)
+        db_session.add(user)
     return build_response(user,
         userData={
             "userPoint": _user_point(user),
             "userDetail": _user_detail(user),
             "stageResumption": _stage_resumption(user),
         },
-        userStone={"freeStone": 3000, "payStone": 0},
+        userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0},
         stageRewardUserMedalIds=[],
         firstClearFlag=1,
         userMaterials=[],
@@ -631,7 +664,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 22
+    master_rev = 23
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = get_master_encrypted(name)
@@ -868,6 +901,16 @@ def handle_ranking_parade(request_data: dict, user: Optional[User], db_session: 
 @register(131)  # GET /campaign
 def handle_campaign(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user, campaigns=[])
+
+
+@register(57)  # POST /user/sphere/check
+def handle_sphere_check(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    check_type = request_data.get("checkType", 1)
+    return build_response(user,
+        checkType=check_type,
+        notChargedSphereBoardIds=[],
+        userSphere={"userSphereDatas": [], "notChargedSphereBoardIds": []},
+    )
 
 
 @register(56)  # GET /mypage
