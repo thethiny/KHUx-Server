@@ -69,6 +69,7 @@ MASTER_JSON_DATA = {
     "tutorialMisc": _load_json("tutorialMisc"),
     "player": _load_json("player"),
     "buff": _load_json("buff"),
+    "reward": _load_json("reward"),
     "mypageBackground": _load_json("mypageBackground"),
 }
 

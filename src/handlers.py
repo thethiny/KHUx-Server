@@ -50,7 +50,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0,  # tutorial flow handles initial download; >0 causes re-download every session (game never saves resource_revision)
-        "versionDat": 23,   # must match master_rev; bumping forces re-download + "update detected" popup
+        "versionDat": 24,   # must match master_rev; bumping forces re-download + "update detected" popup
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -421,8 +421,18 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
     return build_response(user,
         userData={"userPoint": _user_point(user)},
         userRandomEnemies=[],
-        userEnemyDropItems=[],
-        userTreasures=[],
+        userEnemyDropItems=[
+            {"uniqueEnemyId": 2, "dropItemTypeIds": [11, 13]},
+            {"uniqueEnemyId": 3, "dropItemTypeIds": [11, 13]},
+            {"uniqueEnemyId": 5, "dropItemTypeIds": [11, 13]},
+            {"uniqueEnemyId": 6, "dropItemTypeIds": [11, 13]},
+            {"uniqueEnemyId": 8, "dropItemTypeIds": [11, 13]},
+            {"uniqueEnemyId": 9, "dropItemTypeIds": [11, 13]},
+            {"uniqueEnemyId": 10, "dropItemTypeIds": [11, 13]},
+        ],
+        userTreasures=[
+            {"uniqueTreasureId": 11, "dropItemTypeIds": [11, 13]},
+        ],
         startStageData={
             "stageId": stage_id,
             "supportUserId": 0,
@@ -664,7 +674,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 23
+    master_rev = 24
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = get_master_encrypted(name)
