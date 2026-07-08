@@ -17,6 +17,7 @@ venv/
 # Generated data dirs
 data/master/
 data/assets/
+data_113
 data_431
 data_501
 

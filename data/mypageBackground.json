@@ -1,0 +1,17 @@
+[
+  {
+    "id": 150911,
+    "backgroundId": 150911,
+    "sortId": 1,
+    "validChild": 0,
+    "startTime": "2015-09-01 00:00:00",
+    "endTime": "2099-12-31 23:59:59",
+    "viewType": 100,
+    "validParts": 2,
+    "partsId": [150911, 150911],
+    "dataType": [1, 2],
+    "xPostion": [0, 0],
+    "yPostion": [0, 0],
+    "zSort": [1, 1]
+  }
+]

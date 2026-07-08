@@ -50,7 +50,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0 if (DEBUG_MODE or (user and user.tutorial_done)) else 1,  # game bug: resource_revision never saves, so skip for returning users
-        "versionDat": 19,   # triggers master data download if > saved master_revision (NOT saved itself)
+        "versionDat": 22,   # triggers master data download if > saved master_revision (NOT saved itself)
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -631,7 +631,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 19
+    master_rev = 22
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = get_master_encrypted(name)
@@ -881,7 +881,7 @@ def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSessio
             "rankingColosseum": 0, "rankingParty": 0,
             "rankingLuxWeekly": 0, "rankingLuxMonthly": 0, "rankingLux": 0,
         },
-        backgroundId=0,
+        backgroundId=150911,
         isNewAlbumChallenge=0,
         loginBonus=[],
         events=[],

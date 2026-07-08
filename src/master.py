@@ -12,16 +12,16 @@ from base64 import b64encode
 from .crypto import encrypt
 
 MASTER_TABLE_NAMES = [
-    "avatarParts", "badstatus", "battleMisc", "buff", "burst",           # 0-4
-    "colosseum", "colosseumStage", "drawMedalType", "enemyAttack", "enemy", # 5-9
-    "evCampaign", "evMedalList", "evResource", "evScoreReward", "evStage", # 10-14
-    "guiltProb", "initItem", "keyblade", "loginBonus", "material",       # 15-19
-    "medal", "medalMisc", "misc", "mypageBackground", "player",         # 20-24
-    "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking", # 25-29
-    "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",   # 30-34
-    "skill", "sphereArray", "sphere", "sphereMasu", "stage", "stamp",    # 35-40
-    "title", "tutorialMisc", "world",                                     # 41-43
-    "stage", "stamp", "title", "tutorialMisc", "world",                   # 44-48 (duplicates from 1.1.3)
+    "albumChallenge", "avatarCombination", "avatarParts", "badstatus", "battleMisc",  # 0-4
+    "buff", "burst", "chapter", "colosseum", "colosseumStage",                        # 5-9
+    "drawMedalList", "drawMedalType", "drawSkillList", "drawSkillType", "enemyAttack", # 10-14
+    "enemy", "evCampaign", "evGroupPattern", "evResource", "evStage",                 # 15-19
+    "guiltProb", "initItem", "keyblade", "loginBonus", "material",                    # 20-24
+    "medal", "medalMisc", "misc", "mypageBackground", "player",                      # 25-29
+    "raidEnemyAttack", "raidEnemy", "raidReward", "raidSetting", "ranking",           # 30-34
+    "rankingReward", "reward", "serialcodeReward", "shop", "skillExp",                # 35-39
+    "skill", "sphereArray", "sphere", "sphereMasu", "stage",                          # 40-44
+    "stamp", "title", "tutorialMisc", "world",                                        # 45-48
 ]
 
 MASTER_KEY_HEX = "00" * 32
@@ -52,7 +52,7 @@ def _build_misc_data():
 MASTER_JSON_DATA = {
     "misc": _load_json("misc") or _build_misc_data(),
     "world": _load_json("world") or [{"worldId": 1, "worldName": "Daybreak Town", "raidBackground": "", "instanceLwf": "", "instance": "", "xPos": 0, "yPos": 0, "rate": 100, "validParts": 0, "partsId": [], "xPostion": [], "yPostion": []}],
-    "chapter": [{"chapterId": 1, "name": "Prologue"}],
+    "chapter": _load_json("chapter") or [{"chapterId": 1, "worldId": 1, "name": "Prologue"}],
     "battleMisc": _load_json("battleMisc") or [{"battleMiscId": i, "value": 0} for i in range(1, 101)],
     "keyblade": _load_json("keyblade") or [],
     "initItem": _load_json("initItem"),
@@ -69,6 +69,7 @@ MASTER_JSON_DATA = {
     "tutorialMisc": _load_json("tutorialMisc"),
     "player": _load_json("player"),
     "buff": _load_json("buff"),
+    "mypageBackground": _load_json("mypageBackground"),
 }
 
 
