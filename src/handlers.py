@@ -50,7 +50,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
         "versionRes": 0,  # tutorial flow handles initial download; >0 causes re-download every session (game never saves resource_revision)
-        "versionDat": 24,   # must match master_rev; bumping forces re-download + "update detected" popup
+        "versionDat": 27,   # must match master_rev; bumping forces re-download + "update detected" popup
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -169,6 +169,10 @@ _STARTING_MEDALS = [
      "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
      "getDatetime": "2026-01-01 00:00:00"},
     {"userMedalId": 3, "medalId": 13031, "level": 1, "exp": 0,
+     "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
+     "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
+     "getDatetime": "2026-01-01 00:00:00"},
+    {"userMedalId": 4, "medalId": 33043, "level": 1, "exp": 0,
      "attackUpperNumber": 0, "defenseUpperNumber": 0, "burstUpperNumber": 0,
      "lock": 0, "upperCost": 0, "guiltFactor": 0, "userSkills": [],
      "getDatetime": "2026-01-01 00:00:00"},
@@ -347,17 +351,131 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
 
 @register(64)  # GET /tutorial/status
 def handle_tutorial_status(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, phase=50, popupFlag=0, isFinished=0)
+    phase = user.tutorial_phase if user else 50
+    return build_response(user, phase=phase, popupFlag=0, isFinished=0)
 
 
 @register(65)  # PUT /tutorial/status
 def handle_tutorial_status_put(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     phase = request_data.get("phase", 0)
     logger.info("TUTORIAL STATUS PUT: phase=%s", phase)
-    if user and phase >= 995:
-        user.tutorial_done = True
+    if user:
+        if phase > user.tutorial_phase:
+            user.tutorial_phase = phase
+        if phase >= 995:
+            user.tutorial_done = True
         db_session.add(user)
     return build_response(user, phase=phase, popupFlag=0, isFinished=0)
+
+
+_STAGE_ORDER = [1010, 1013, 1016, 1019, 1020, 1030, 1040, 1050]
+
+
+@register(43)  # PUT /user/keyblade/deck
+def handle_keyblade_deck(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    keyblades = request_data.get("userKeyblades", [])
+    logger.info("KEYBLADE DECK: %s", keyblades)
+    deck_medals = [4, 2, 3]
+    if keyblades:
+        deck_medals = keyblades[0].get("userMedalIds", deck_medals)
+    return build_response(user, userKeyblades=[{
+        "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
+        "deckMedals": deck_medals,
+        "burst": 0,
+        "totalAttack": 3960, "totalDefense": 3747,
+        "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
+    }])
+
+
+@register(70)  # GET /gacha/list
+def handle_gacha_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, gachaList=[
+        {
+            "validAdd": 1,
+            "drawMedalTypeId": 10,
+            "drawType": 1,
+            "sortId": 1,
+            "payType": 1,
+            "price": 3000,
+            "lotCount": 10,
+            "isDayLimited": 0,
+            "userLimitedCount": 0,
+            "name": "Get at least one 5★ Medal!",
+            "description": "Spend 3000 Jewels to get 10 Medals!",
+            "bannerUrl": "http://api.sp.kingdomhearts.com",
+        },
+        {
+            "validAdd": 1,
+            "drawMedalTypeId": 11,
+            "drawType": 1,
+            "sortId": 2,
+            "payType": 1,
+            "price": 300,
+            "lotCount": 1,
+            "isDayLimited": 0,
+            "userLimitedCount": 0,
+            "name": "Strengthen your equipment!",
+            "description": "Get a 3★ Medal or better!",
+            "bannerUrl": "http://api.sp.kingdomhearts.com",
+        },
+    ])
+
+
+@register(71)  # POST /gacha/draw
+def handle_gacha_draw(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    draw_type_id = request_data.get("drawMedalTypeId", 10)
+    count = request_data.get("count", 1)
+    logger.info("GACHA DRAW: typeId=%s count=%s", draw_type_id, count)
+    drawn_medals = []
+    for i in range(count):
+        drawn_medals.append({
+            "userMedalId": 100 + i,
+            "medalId": 33043,
+            "level": 1,
+            "exp": 0,
+            "attackUpperNumber": 0,
+            "defenseUpperNumber": 0,
+            "burstUpperNumber": 0,
+            "lock": 0,
+            "upperCost": 0,
+            "guiltFactor": 0,
+            "userSkills": [],
+            "getDatetime": "2026-01-01 00:00:00",
+        })
+    return build_response(user,
+        userData={"userPoint": _user_point(user)},
+        userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0},
+        userMedals=drawn_medals,
+        userSkills=[],
+        userMaterials=[],
+        gachaBonus={"addType": 0, "userMedalIds": []},
+        firstGetUserMedalIds=[],
+    )
+
+
+@register(101)  # GET /stage/event
+def handle_stage_event(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, events=[], supportUsers=[])
+
+
+@register(102)  # GET /stage/support/list
+def handle_stage_support_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    uid = user.id if user else 1
+    return build_response(user, supportUsers=[{
+        "supportUserId": uid,
+        "level": user.level if user else 1,
+        "userName": user.user_name if user else "Player",
+        "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
+        "addKizunaPoint": 0,
+        "keybladeId": 1000,
+        "isParty": 0,
+        "isGuilt": 0,
+        "userMedal": _STARTING_MEDALS[0],
+        "userSkills": [],
+        "userAvatar": _user_avatar(user),
+        "lastActionDatetime": "2026-01-01 00:00:00",
+        "earnLuxRank": 0,
+    }])
 
 
 @register(100)  # GET /stage/160310
@@ -365,11 +483,21 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
     if user and not user.tutorial_stage_reached:
         user.tutorial_stage_reached = True
         db_session.add(user)
+    last_cleared = user.last_clear_stage_id if user else 0
+    stories = []
+    new_stage_id = _STAGE_ORDER[0]
+    for sid in _STAGE_ORDER:
+        if sid <= last_cleared:
+            stories.append({"stageId": sid, "useAp": 0, "score": 1, "clearMissionIds": [2, 3]})
+            idx = _STAGE_ORDER.index(sid)
+            if idx + 1 < len(_STAGE_ORDER):
+                new_stage_id = _STAGE_ORDER[idx + 1]
+        else:
+            stories.append({"stageId": sid, "useAp": 0, "score": 0, "clearMissionIds": []})
+            break
     return build_response(user,
-        stories=[
-            {"stageId": 1010, "useAp": 0, "score": 0, "clearMissionIds": []},
-        ],
-        newStageId=1010,
+        stories=stories,
+        newStageId=new_stage_id,
         raidStatus=0,
         events=[],
         supportUsers=[],
@@ -674,7 +802,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 24
+    master_rev = 27
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = get_master_encrypted(name)

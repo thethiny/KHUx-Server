@@ -70,6 +70,7 @@ class User(Base):
     tutorial_done: Mapped[bool] = mapped_column(Boolean, default=False)
     tutorial_stage_reached: Mapped[bool] = mapped_column(Boolean, default=False)
     tutorial_progression: Mapped[int] = mapped_column(Integer, default=0)
+    tutorial_phase: Mapped[int] = mapped_column(Integer, default=50)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
@@ -169,6 +170,7 @@ def _migrate(engine, inspector):
         "body_parts_id": "INTEGER DEFAULT 30001",
         "skin_parts_id": "INTEGER DEFAULT 0",
         "accessories_parts_ids": "VARCHAR DEFAULT ''",
+        "tutorial_phase": "INTEGER DEFAULT 50",
     }
     added = []
     with engine.connect() as conn:
