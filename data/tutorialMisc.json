@@ -101,11 +101,11 @@
     },
     {
         "tutorialId": 11,
-        "startClearQuest": 65000,
+    "startClearQuest": 25,
         "startMiscId": 0,
         "num1": 0,
         "num2": 0,
-        "setClearQuest": 65000,
+    "setClearQuest": 25,
         "setMiscId": 0,
         "valid": 1
     },

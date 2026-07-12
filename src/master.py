@@ -70,6 +70,9 @@ MASTER_JSON_DATA = {
     "player": _load_json("player"),
     "buff": _load_json("buff"),
     "reward": _load_json("reward"),
+    "raidEnemy": _load_json("raidEnemy"),
+    "raidEnemyAttack": _load_json("raidEnemyAttack"),
+    "raidSetting": _load_json("raidSetting"),
     "mypageBackground": _load_json("mypageBackground"),
 }
 

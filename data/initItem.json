@@ -630,6 +630,24 @@
     "skillId": 0
   },
   {
+    "id": 164,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30011,
+    "skillId": 0
+  },
+  {
+    "id": 165,
+    "category": 100,
+    "equipType": 2,
+    "equipNo": 0,
+    "param": 0,
+    "itemId": 30012,
+    "skillId": 0
+  },
+  {
     "id": 200,
     "category": 24,
     "equipType": 2,
