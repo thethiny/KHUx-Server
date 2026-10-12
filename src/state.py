@@ -21,6 +21,21 @@ ITEM_MATERIAL = 5
 ITEM_KEYBLADE = 13
 
 
+def deck_slots(keyblade_id):
+    """Medal slots of a keyblade: keyblade.validConsist (3-5). The client sizes the deck from the length of
+    UserKeyblade.deckMedals (Keyblade::init, capped at 5), so a keyblade sent with [] shows no slots and cannot
+    take medals; empty slots are 0."""
+    row = next((k for k in MASTER_JSON_DATA.get("keyblade") or [] if k["keybladeId"] == keyblade_id), None)
+    return min(max(row.get("validConsist", 3), 1), 5) if row else 3
+
+
+def fit_deck(medal_ids, keyblade_id):
+    """A deck list padded with 0 (or trimmed) to the keyblade's slot count."""
+    n = deck_slots(keyblade_id)
+    ids = [int(m) for m in medal_ids][:n]
+    return ids + [0] * (n - len(ids))
+
+
 def _now():
     return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
 
@@ -79,6 +94,8 @@ class State:
         else:
             self.row = row
             self.data = json.loads(row.data)
+        for kb in self.data.get("keyblades", []):          # older saves have unsized decks
+            kb["deckMedals"] = fit_deck(kb.get("deckMedals", []), kb["keybladeId"])
         return self.data
 
     def __exit__(self, *exc):
@@ -104,7 +121,8 @@ def add_medal(st, medal_id):
 
 def add_keyblade(st, keyblade_id):
     """A new keyblade with an empty deck (the player equips medals in deck edit; /user/keyblade/update)."""
-    kb = {"userKeybladeId": st["next_keyblade"], "category": 0, "keybladeId": keyblade_id, "deckMedals": [],
+    kb = {"userKeybladeId": st["next_keyblade"], "category": 0, "keybladeId": keyblade_id,
+          "deckMedals": fit_deck([], keyblade_id),
           "burst": 0, "totalAttack": 0, "totalDefense": 0, "isFavorite": 0, "getDatetime": _now()}
     st["next_keyblade"] += 1
     st["keyblades"].append(kb)

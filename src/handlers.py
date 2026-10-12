@@ -472,7 +472,7 @@ def handle_keyblade_update(request_data: dict, user: Optional[User], db_session:
             if kb is None:
                 continue
             if "userMedalIds" in c:
-                kb["deckMedals"] = list(c["userMedalIds"])
+                kb["deckMedals"] = gstate.fit_deck(c["userMedalIds"], kb["keybladeId"])
             if "isFavorite" in c:
                 kb["isFavorite"] = int(c["isFavorite"])
         keyblades = st["keyblades"]
@@ -1165,6 +1165,7 @@ def handle_keyblade_enhance(request_data: dict, user: Optional[User], db_session
                 st["materials"][str(m)] -= n
             logger.info("KEYBLADE ENHANCE: %s %s -> %s", kid, kb["keybladeId"], row["evolveId"])
             kb["keybladeId"] = row["evolveId"]
+            kb["deckMedals"] = gstate.fit_deck(kb["deckMedals"], kb["keybladeId"])   # may gain slots
         else:
             logger.warning("KEYBLADE ENHANCE refused: %s (evolveId %s, need %s)", kid, row.get("evolveId"), need)
         keyblades, materials = st["keyblades"], gstate.materials_list(st)
@@ -1210,6 +1211,120 @@ def handle_stage_retire(request_data: dict, user: Optional[User], db_session: DB
         keyblades = st["keyblades"]
     return build_response(user, userKeyblades=keyblades,
                           userData={"stageResumption": _stage_resumption(user)})
+
+
+# UserProfile::Record::init needs all 53 keys (uint64); values are what we track, else 0.
+_RECORD_KEYS = (
+    "login continueLogin getMoney getSpherePoint useMoney sellMedal sellMedalCount sellMaterial sellMaterialCount "
+    "getKizunaPoint useKizunaPoint zukanMedal yamiSpeedZukan yamiPowerZukan yamiMagicZukan hikariSpeedZukan "
+    "hikariPowerZukan hikariMagicZukan getMedal medalEnhanceSuccess medalEnhanceBigSuccess medalEnhanceGreatSuccess "
+    "medalEvolveSuccess keybladeEnhance useMaterial kizunaDraw raiseDraw getStar1Medal getStar2Medal getStar3Medal "
+    "getStar4Medal getStar5Medal getStar6Medal stageClear challengeClear dropEnemy dropMimic dropRareEnemy "
+    "bossBattleJoinMe bossBattleJoinOther dropBoss getLux getLuxMax dropParts maxDamageOneTurn openTreasure "
+    "getMaterial openAllSphere openGrid unionPersonalRankingHighest unionPartyRankingHighest "
+    "totalPersonalRankingHighest colosseumRankingHighest").split()
+
+
+def _user_record(user: Optional[User], st: dict) -> dict:
+    rec = dict.fromkeys(_RECORD_KEYS, 0)
+    if user:
+        rec.update(login=1, continueLogin=1, getMoney=max(user.money or 0, 0), getLux=user.total_lux or 0,
+                   getMedal=len(st.get("medals", [])), stageClear=sum(r.get("clears", 0) for r in st.get("stages", {}).values()))
+    return rec
+
+
+@register(4)  # GET /user/profile (AvatarInfoDialog: tapping an avatar)
+def handle_user_profile(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {userId, platformType}; response = UserProfile::parse: userData.{user, userDetail, userPoint,
+    # lastActionDatetime}, userMedals[], userSkills[], userAvatar, userKeyblade, userRecord (53 uint64),
+    # userRanking {lux, rank}, linkPlatformId; party only when userDetail.partyId != 0 (we never set one).
+    target = user
+    req_id = request_data.get("userId")
+    if req_id and user and int(req_id) != user.id:
+        target = db_session.get(User, int(req_id))
+    now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+    if target is None:                       # the default friend "Sora" (or an unknown id)
+        sora = _sora_support(user, db_session)
+        kb = {"userKeybladeId": 0, "category": 0, "keybladeId": 1000, "deckMedals": [sora["userMedal"]["userMedalId"]],
+              "burst": 0, "totalAttack": 0, "totalDefense": 0, "isFavorite": 1, "getDatetime": now}
+        uid, name, detail, point = _SORA_SUPPORT_ID, "Sora", _user_detail(None), _user_point(None)
+        detail = dict(detail, level=sora["level"], luxRank=sora["level"])
+        medals, avatar, record = [sora["userMedal"]], _user_avatar(None), _user_record(None, {})
+        comment, gender = "", 0
+    else:
+        st = gstate.load(target, db_session)
+        kb = next((k for k in st["keyblades"] if k.get("isFavorite")), st["keyblades"][0])
+        deck = set(kb["deckMedals"])
+        uid, name, detail, point = target.id, target.user_name or "Player", _user_detail(target), _user_point(target)
+        medals = [m for m in st["medals"] if m["userMedalId"] in deck]
+        avatar, record = _user_avatar(target), _user_record(target, st)
+        comment, gender = target.comment or "", target.gender or 0
+    return build_response(user,
+        userData={
+            "user": {"userId": uid, "nativeUserId": uid, "platformId": 2, "userName": name, "gender": gender,
+                     "comment": comment, "deviceType": 2, "continueLoginCount": 1, "isFleeze": 0,
+                     "fleezedDatetime": "2000-01-01 00:00:00"},
+            "userDetail": detail, "userPoint": point, "lastActionDatetime": now,
+        },
+        userMedals=medals, userSkills=[], userAvatar=avatar, userKeyblade=kb, userRecord=record,
+        userRanking={"lux": point.get("totalLux", 0), "rank": 0}, linkPlatformId="",
+    )
+
+
+def _present_list(st: dict) -> list:
+    return sorted(st.get("presents", []), key=lambda x: x["userPresentId"])
+
+
+@register(18)  # GET /user/present (present box)
+def handle_user_present(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserPresent::parse: userPresent {userPresentDatas[{userPresentId, resourceType, resourceId, number,
+    # limitDatetime ("0000-00-00 00:00:00" = no expiry), comment, created}], presentCount, presentCountMax}
+    st = gstate.load(user, db_session)
+    presents = _present_list(st)
+    return build_response(user, userPresent={
+        "userPresentDatas": presents, "presentCount": len(presents), "presentCountMax": 999})
+
+
+def add_present(st: dict, rtype: int, rid: int, num: int, comment: str, limit: str = "0000-00-00 00:00:00") -> dict:
+    """Put an item in the player's present box (resourceType = item type: 2 Jewel, 3 Medal, 4 Munny, ...)."""
+    st.setdefault("presents", [])
+    pid = st.get("next_present", 1)
+    st["next_present"] = pid + 1
+    pr = {"userPresentId": pid, "resourceType": rtype, "resourceId": rid, "number": num,
+          "limitDatetime": limit, "comment": comment,
+          "created": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())}
+    st["presents"].append(pr)
+    return pr
+
+
+@register(47)  # POST /user/present/receive
+def handle_present_receive(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {receivePresentIds: [...]} (one, or every listed id for "receive all").
+    # response: userData.userPoint, userStone, userMaterials, userMedals, userSkills, userKeyblades,
+    # userAvatarParts, userTitles, lastUserPresentIds = the ids STILL in the box (the client marks every other
+    # present as received). Medals stay in the box when the medal box is full (userDetail maxMedal).
+    ids = set(request_data.get("receivePresentIds", []))
+    with gstate.State(user, db_session) as st:
+        kb_before = {k["userKeybladeId"] for k in st["keyblades"]}
+        new_medals, kept = [], []
+        for pr in _present_list(st):
+            if pr["userPresentId"] not in ids:
+                kept.append(pr)
+                continue
+            if pr["resourceType"] == gstate.ITEM_MEDAL and len(st["medals"]) + pr["number"] > 100:
+                kept.append(pr)                     # medal box full
+                continue
+            new_medals += _grant(user, st, pr["resourceType"], pr["resourceId"], pr["number"])
+        st["presents"] = kept
+        new_keyblades = [k for k in st["keyblades"] if k["userKeybladeId"] not in kb_before]
+        materials = gstate.materials_list(st)
+    if user:
+        db_session.add(user)
+    logger.info("PRESENT RECEIVE: %s -> %d left", sorted(ids), len(kept))
+    return build_response(user,
+        userData={"userPoint": _user_point(user)}, userStone=_user_stone(user),
+        userMaterials=materials, userMedals=new_medals, userSkills=[], userKeyblades=new_keyblades,
+        userAvatarParts=[], userTitles=[], lastUserPresentIds=[pr["userPresentId"] for pr in kept])
 
 
 @register(137)  # GET /user/option
@@ -1661,7 +1776,7 @@ def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSessio
     return build_response(user,
         adminMypageTexts=_ticker_texts(),
         openBanners=[],
-        userPresentCount=0,
+        userPresentCount=len(gstate.load(user, db_session).get("presents", [])) if user else 0,
         isChangeCoordinate=0,
         rankingRewards={
             "rankingColosseum": 0, "rankingParty": 0,
