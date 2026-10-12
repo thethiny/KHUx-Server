@@ -1,0 +1,90 @@
+[
+  {
+    "badstatusId": 101,
+    "name": "Poison",
+    "iconId": 0,
+    "effect": 1,
+    "target": 0,
+    "power": [
+      1500,
+      200
+    ]
+  },
+  {
+    "badstatusId": 102,
+    "name": "Poison",
+    "iconId": 0,
+    "effect": 1,
+    "target": 1,
+    "power": [
+      1000,
+      200
+    ]
+  },
+  {
+    "badstatusId": 103,
+    "name": "Virus",
+    "iconId": 0,
+    "effect": 1,
+    "target": 0,
+    "power": [
+      3333,
+      200
+    ]
+  },
+  {
+    "badstatusId": 104,
+    "name": "Virus",
+    "iconId": 0,
+    "effect": 1,
+    "target": 1,
+    "power": [
+      2000,
+      200
+    ]
+  },
+  {
+    "badstatusId": 111,
+    "name": "Sleep",
+    "iconId": 0,
+    "effect": 2,
+    "target": 0,
+    "power": [
+      0,
+      0
+    ]
+  },
+  {
+    "badstatusId": 112,
+    "name": "Sleep",
+    "iconId": 0,
+    "effect": 2,
+    "target": 1,
+    "power": [
+      0,
+      0
+    ]
+  },
+  {
+    "badstatusId": 121,
+    "name": "Paralysis",
+    "iconId": 0,
+    "effect": 3,
+    "target": 0,
+    "power": [
+      2500,
+      0
+    ]
+  },
+  {
+    "badstatusId": 122,
+    "name": "Paralysis",
+    "iconId": 0,
+    "effect": 3,
+    "target": 1,
+    "power": [
+      5000,
+      0
+    ]
+  }
+]

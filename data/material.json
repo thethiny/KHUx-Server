@@ -382,45 +382,5 @@
     "name": "Electrum Ore",
     "description": "sMte_55",
     "sell": 0
-  },
-  {
-    "materialId": 56,
-    "category": 3,
-    "sortId": 234,
-    "name": "Small Buttons",
-    "description": "Buttons that came off a dress.",
-    "sell": 10
-  },
-  {
-    "materialId": 57,
-    "category": 3,
-    "sortId": 235,
-    "name": "Silk Handkerchief",
-    "description": "A soft, smooth handkerchief made from silk.",
-    "sell": 10
-  },
-  {
-    "materialId": 58,
-    "category": 1,
-    "sortId": 92,
-    "name": "Dark Matter",
-    "description": "A mysterious substance that neither emits nor reflects light.",
-    "sell": 0
-  },
-  {
-    "materialId": 59,
-    "category": 3,
-    "sortId": 236,
-    "name": "Herb Vine",
-    "description": "An oddly tangled vine of herbs.",
-    "sell": 10
-  },
-  {
-    "materialId": 60,
-    "category": 3,
-    "sortId": 237,
-    "name": "Luminous Moss",
-    "description": "A unique moss that glows faintly in the dark.",
-    "sell": 10
   }
 ]

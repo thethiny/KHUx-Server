@@ -1,0 +1,7 @@
+{
+  "_comment": "Main-menu (town) scrolling marquee: MypageInfo.adminMypageTexts -> SceneManager::changeTickerMessage. Each entry: type (int), priority (int), text. The town shows only the FIRST entry. The first text is the original server's message (as remembered by the user; it is not in the client or its resources, so the server sent it). Read on every /mypage, so edits need no restart.",
+  "texts": [
+    {"type": 1, "priority": 1, "text": "Tap the face icon to customize your avatar. Tap the screen to view party members' progress."},
+    {"type": 1, "priority": 2, "text": "Welcome back to Kingdom Hearts Unchained χ! This private server keeps the game alive - may your heart be your guiding key."}
+  ]
+}

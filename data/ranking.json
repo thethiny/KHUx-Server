@@ -1,0 +1,4050 @@
+[
+  {
+    "rankingId": 1000,
+    "category": 1,
+    "startDatetime": "2015-06-22 07:00:00",
+    "endDatetime": "2015-06-28 07:00:00",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1001,
+    "category": 1,
+    "startDatetime": "2015-06-29 07:00:00",
+    "endDatetime": "2015-07-06 06:59:59",
+    "startRank": 1010,
+    "endRank": 1013,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1002,
+    "category": 1,
+    "startDatetime": "2015-07-06 07:00:00",
+    "endDatetime": "2015-07-13 06:59:59",
+    "startRank": 1020,
+    "endRank": 1023,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1003,
+    "category": 1,
+    "startDatetime": "2015-07-13 07:00:00",
+    "endDatetime": "2015-07-20 06:59:59",
+    "startRank": 1030,
+    "endRank": 1033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1004,
+    "category": 1,
+    "startDatetime": "2015-07-20 07:00:00",
+    "endDatetime": "2015-07-27 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1005,
+    "category": 1,
+    "startDatetime": "2015-07-27 07:00:00",
+    "endDatetime": "2015-08-03 06:59:59",
+    "startRank": 1010,
+    "endRank": 1013,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1006,
+    "category": 1,
+    "startDatetime": "2015-08-03 07:00:00",
+    "endDatetime": "2015-08-10 06:59:59",
+    "startRank": 1020,
+    "endRank": 1023,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1007,
+    "category": 1,
+    "startDatetime": "2015-08-10 07:00:00",
+    "endDatetime": "2015-08-17 06:59:59",
+    "startRank": 1030,
+    "endRank": 1033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1008,
+    "category": 1,
+    "startDatetime": "2015-08-17 07:00:00",
+    "endDatetime": "2015-08-24 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1009,
+    "category": 1,
+    "startDatetime": "2015-08-24 07:00:00",
+    "endDatetime": "2015-08-31 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1010,
+    "category": 1,
+    "startDatetime": "2015-08-31 07:00:00",
+    "endDatetime": "2015-09-07 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1011,
+    "category": 1,
+    "startDatetime": "2015-09-07 07:00:00",
+    "endDatetime": "2015-09-14 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1012,
+    "category": 1,
+    "startDatetime": "2015-09-14 07:00:00",
+    "endDatetime": "2015-09-21 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1013,
+    "category": 1,
+    "startDatetime": "2015-09-21 07:00:00",
+    "endDatetime": "2015-09-28 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1014,
+    "category": 1,
+    "startDatetime": "2015-09-28 07:00:00",
+    "endDatetime": "2015-10-05 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1015,
+    "category": 1,
+    "startDatetime": "2015-10-05 07:00:00",
+    "endDatetime": "2015-10-12 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1016,
+    "category": 1,
+    "startDatetime": "2015-10-12 07:00:00",
+    "endDatetime": "2015-10-19 06:59:59",
+    "startRank": 1010,
+    "endRank": 1013,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1017,
+    "category": 1,
+    "startDatetime": "2015-10-19 07:00:00",
+    "endDatetime": "2015-10-26 06:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1018,
+    "category": 1,
+    "startDatetime": "2015-10-26 07:00:00",
+    "endDatetime": "2015-11-02 07:59:59",
+    "startRank": 1020,
+    "endRank": 1025,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 1019,
+    "category": 1,
+    "startDatetime": "2015-11-02 08:00:00",
+    "endDatetime": "2015-11-09 07:59:59",
+    "startRank": 1000,
+    "endRank": 1003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 2000,
+    "category": 2,
+    "startDatetime": "2015-06-01 07:00:00",
+    "endDatetime": "2015-07-01 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 2001,
+    "category": 2,
+    "startDatetime": "2015-07-01 07:00:00",
+    "endDatetime": "2015-08-01 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 2002,
+    "category": 2,
+    "startDatetime": "2015-08-01 07:00:00",
+    "endDatetime": "2015-09-01 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 2010,
+    "category": 2,
+    "startDatetime": "2015-09-01 07:00:00",
+    "endDatetime": "2015-10-01 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 2011,
+    "category": 2,
+    "startDatetime": "2015-10-01 07:00:00",
+    "endDatetime": "2015-11-01 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 2012,
+    "category": 2,
+    "startDatetime": "2015-11-01 07:00:00",
+    "endDatetime": "2015-12-01 07:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3000,
+    "category": 3,
+    "startDatetime": "2015-06-22 07:00:00",
+    "endDatetime": "2015-06-28 07:00:00",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3001,
+    "category": 3,
+    "startDatetime": "2015-06-29 07:00:00",
+    "endDatetime": "2015-07-06 06:59:59",
+    "startRank": 20010,
+    "endRank": 20013,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3002,
+    "category": 3,
+    "startDatetime": "2015-07-06 07:00:00",
+    "endDatetime": "2015-07-13 06:59:59",
+    "startRank": 20020,
+    "endRank": 20023,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3003,
+    "category": 3,
+    "startDatetime": "2015-07-13 07:00:00",
+    "endDatetime": "2015-07-20 06:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3004,
+    "category": 3,
+    "startDatetime": "2015-07-20 07:00:00",
+    "endDatetime": "2015-07-27 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3005,
+    "category": 3,
+    "startDatetime": "2015-07-27 07:00:00",
+    "endDatetime": "2015-08-03 06:59:59",
+    "startRank": 20010,
+    "endRank": 20013,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3006,
+    "category": 3,
+    "startDatetime": "2015-08-03 07:00:00",
+    "endDatetime": "2015-08-10 06:59:59",
+    "startRank": 20020,
+    "endRank": 20023,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3007,
+    "category": 3,
+    "startDatetime": "2015-08-10 07:00:00",
+    "endDatetime": "2015-08-17 06:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3008,
+    "category": 3,
+    "startDatetime": "2015-08-17 07:00:00",
+    "endDatetime": "2015-08-24 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3009,
+    "category": 3,
+    "startDatetime": "2015-08-24 07:00:00",
+    "endDatetime": "2015-08-31 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3010,
+    "category": 3,
+    "startDatetime": "2015-08-31 07:00:00",
+    "endDatetime": "2015-09-07 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3011,
+    "category": 3,
+    "startDatetime": "2015-09-07 07:00:00",
+    "endDatetime": "2015-09-14 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3012,
+    "category": 3,
+    "startDatetime": "2015-09-14 07:00:00",
+    "endDatetime": "2015-09-21 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3013,
+    "category": 3,
+    "startDatetime": "2015-09-21 07:00:00",
+    "endDatetime": "2015-09-28 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3014,
+    "category": 3,
+    "startDatetime": "2015-09-28 07:00:00",
+    "endDatetime": "2015-10-05 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3015,
+    "category": 3,
+    "startDatetime": "2015-10-05 07:00:00",
+    "endDatetime": "2015-10-12 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3016,
+    "category": 3,
+    "startDatetime": "2015-10-12 07:00:00",
+    "endDatetime": "2015-10-19 06:59:59",
+    "startRank": 20010,
+    "endRank": 20013,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3017,
+    "category": 3,
+    "startDatetime": "2015-10-19 07:00:00",
+    "endDatetime": "2015-10-26 06:59:59",
+    "startRank": 20000,
+    "endRank": 20003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3018,
+    "category": 3,
+    "startDatetime": "2015-10-26 07:00:00",
+    "endDatetime": "2015-11-02 07:59:59",
+    "startRank": 20020,
+    "endRank": 20023,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3019,
+    "category": 3,
+    "startDatetime": "2015-11-02 08:00:00",
+    "endDatetime": "2015-11-09 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3020,
+    "category": 3,
+    "startDatetime": "2015-11-09 08:00:00",
+    "endDatetime": "2015-11-16 07:59:59",
+    "startRank": 20040,
+    "endRank": 20043,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3021,
+    "category": 3,
+    "startDatetime": "2015-11-16 08:00:00",
+    "endDatetime": "2015-11-23 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3022,
+    "category": 3,
+    "startDatetime": "2015-11-23 08:00:00",
+    "endDatetime": "2015-11-30 07:59:59",
+    "startRank": 20050,
+    "endRank": 20053,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3023,
+    "category": 3,
+    "startDatetime": "2015-11-30 08:00:00",
+    "endDatetime": "2015-12-07 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3024,
+    "category": 3,
+    "startDatetime": "2015-12-07 08:00:00",
+    "endDatetime": "2015-12-14 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3025,
+    "category": 3,
+    "startDatetime": "2015-12-14 08:00:00",
+    "endDatetime": "2015-12-21 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3026,
+    "category": 3,
+    "startDatetime": "2015-12-21 08:00:00",
+    "endDatetime": "2015-12-28 07:59:59",
+    "startRank": 20060,
+    "endRank": 20063,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3027,
+    "category": 3,
+    "startDatetime": "2015-12-28 08:00:00",
+    "endDatetime": "2016-01-04 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3028,
+    "category": 3,
+    "startDatetime": "2016-01-04 08:00:00",
+    "endDatetime": "2016-01-11 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3029,
+    "category": 3,
+    "startDatetime": "2016-01-11 08:00:00",
+    "endDatetime": "2016-01-18 07:59:59",
+    "startRank": 20030,
+    "endRank": 20033,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3030,
+    "category": 3,
+    "startDatetime": "2016-01-18 08:00:00",
+    "endDatetime": "2016-01-25 07:59:59",
+    "startRank": 20070,
+    "endRank": 20073,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3031,
+    "category": 3,
+    "startDatetime": "2016-01-25 08:00:00",
+    "endDatetime": "2016-02-01 07:59:59",
+    "startRank": 20080,
+    "endRank": 20083,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3032,
+    "category": 3,
+    "startDatetime": "2016-02-01 08:00:00",
+    "endDatetime": "2016-02-08 07:59:59",
+    "startRank": 20080,
+    "endRank": 20083,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3033,
+    "category": 3,
+    "startDatetime": "2016-02-08 08:00:00",
+    "endDatetime": "2016-02-15 07:59:59",
+    "startRank": 20090,
+    "endRank": 20093,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3034,
+    "category": 3,
+    "startDatetime": "2016-02-15 08:00:00",
+    "endDatetime": "2016-02-22 07:59:59",
+    "startRank": 20100,
+    "endRank": 20103,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3035,
+    "category": 3,
+    "startDatetime": "2016-02-22 08:00:00",
+    "endDatetime": "2016-02-29 07:59:59",
+    "startRank": 20080,
+    "endRank": 20083,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3036,
+    "category": 3,
+    "startDatetime": "2016-02-29 08:00:00",
+    "endDatetime": "2016-03-07 07:59:59",
+    "startRank": 20080,
+    "endRank": 20083,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3037,
+    "category": 3,
+    "startDatetime": "2016-03-07 08:00:00",
+    "endDatetime": "2016-03-14 06:59:59",
+    "startRank": 20110,
+    "endRank": 20113,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3038,
+    "category": 3,
+    "startDatetime": "2016-03-14 07:00:00",
+    "endDatetime": "2016-03-21 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3039,
+    "category": 3,
+    "startDatetime": "2016-03-21 07:00:00",
+    "endDatetime": "2016-03-28 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3040,
+    "category": 3,
+    "startDatetime": "2016-03-28 07:00:00",
+    "endDatetime": "2016-04-04 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3041,
+    "category": 3,
+    "startDatetime": "2016-04-04 07:00:00",
+    "endDatetime": "2016-04-11 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3042,
+    "category": 3,
+    "startDatetime": "2016-04-11 07:00:00",
+    "endDatetime": "2016-04-18 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3043,
+    "category": 3,
+    "startDatetime": "2016-04-18 07:00:00",
+    "endDatetime": "2016-04-25 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3044,
+    "category": 3,
+    "startDatetime": "2016-04-25 07:00:00",
+    "endDatetime": "2016-05-02 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3045,
+    "category": 3,
+    "startDatetime": "2016-05-02 07:00:00",
+    "endDatetime": "2016-05-09 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3046,
+    "category": 3,
+    "startDatetime": "2016-05-09 07:00:00",
+    "endDatetime": "2016-05-16 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3047,
+    "category": 3,
+    "startDatetime": "2016-05-16 07:00:00",
+    "endDatetime": "2016-05-23 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3048,
+    "category": 3,
+    "startDatetime": "2016-05-23 07:00:00",
+    "endDatetime": "2016-05-30 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3049,
+    "category": 3,
+    "startDatetime": "2016-05-30 07:00:00",
+    "endDatetime": "2016-06-06 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3050,
+    "category": 3,
+    "startDatetime": "2016-06-06 07:00:00",
+    "endDatetime": "2016-06-13 06:59:59",
+    "startRank": 20140,
+    "endRank": 20144,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3051,
+    "category": 3,
+    "startDatetime": "2016-06-13 07:00:00",
+    "endDatetime": "2016-06-20 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3052,
+    "category": 3,
+    "startDatetime": "2016-06-20 07:00:00",
+    "endDatetime": "2016-06-27 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3053,
+    "category": 3,
+    "startDatetime": "2016-06-27 07:00:00",
+    "endDatetime": "2016-07-04 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3054,
+    "category": 3,
+    "startDatetime": "2016-07-04 07:00:00",
+    "endDatetime": "2016-07-11 06:59:59",
+    "startRank": 20150,
+    "endRank": 20154,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3055,
+    "category": 3,
+    "startDatetime": "2016-07-11 07:00:00",
+    "endDatetime": "2016-07-18 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3056,
+    "category": 3,
+    "startDatetime": "2016-07-18 07:00:00",
+    "endDatetime": "2016-07-25 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3057,
+    "category": 3,
+    "startDatetime": "2016-07-25 07:00:00",
+    "endDatetime": "2016-08-01 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3058,
+    "category": 3,
+    "startDatetime": "2016-08-01 07:00:00",
+    "endDatetime": "2016-08-08 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3059,
+    "category": 3,
+    "startDatetime": "2016-08-08 07:00:00",
+    "endDatetime": "2016-08-15 06:59:59",
+    "startRank": 20160,
+    "endRank": 20164,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3060,
+    "category": 3,
+    "startDatetime": "2016-08-15 07:00:00",
+    "endDatetime": "2016-08-22 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3061,
+    "category": 3,
+    "startDatetime": "2016-08-22 07:00:00",
+    "endDatetime": "2016-08-29 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3062,
+    "category": 3,
+    "startDatetime": "2016-08-29 07:00:00",
+    "endDatetime": "2016-09-05 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3063,
+    "category": 3,
+    "startDatetime": "2016-09-05 07:00:00",
+    "endDatetime": "2016-09-12 06:59:59",
+    "startRank": 20170,
+    "endRank": 20174,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3064,
+    "category": 3,
+    "startDatetime": "2016-09-12 07:00:00",
+    "endDatetime": "2016-09-19 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3065,
+    "category": 3,
+    "startDatetime": "2016-09-19 07:00:00",
+    "endDatetime": "2016-09-26 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3066,
+    "category": 3,
+    "startDatetime": "2016-09-26 07:00:00",
+    "endDatetime": "2016-10-03 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3067,
+    "category": 3,
+    "startDatetime": "2016-10-03 07:00:00",
+    "endDatetime": "2016-10-10 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3068,
+    "category": 3,
+    "startDatetime": "2016-10-10 07:00:00",
+    "endDatetime": "2016-10-17 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 3069,
+    "category": 3,
+    "startDatetime": "2016-10-17 07:00:00",
+    "endDatetime": "2016-10-24 06:59:59",
+    "startRank": 20130,
+    "endRank": 20133,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4000,
+    "category": 4,
+    "startDatetime": "2015-06-29 07:00:00",
+    "endDatetime": "2015-08-03 22:59:59",
+    "startRank": 30000,
+    "endRank": 30003,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4001,
+    "category": 4,
+    "startDatetime": "2015-08-03 23:00:00",
+    "endDatetime": "2015-09-01 06:59:59",
+    "startRank": 30100,
+    "endRank": 30103,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4002,
+    "category": 4,
+    "startDatetime": "2015-09-01 07:00:00",
+    "endDatetime": "2015-10-01 06:59:59",
+    "startRank": 30100,
+    "endRank": 30103,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4003,
+    "category": 4,
+    "startDatetime": "2015-10-01 07:00:00",
+    "endDatetime": "2015-11-01 06:59:59",
+    "startRank": 30200,
+    "endRank": 30203,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4004,
+    "category": 4,
+    "startDatetime": "2015-11-01 07:00:00",
+    "endDatetime": "2015-12-01 07:59:59",
+    "startRank": 30300,
+    "endRank": 30307,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4005,
+    "category": 4,
+    "startDatetime": "2015-12-01 08:00:00",
+    "endDatetime": "2016-01-01 07:59:59",
+    "startRank": 30400,
+    "endRank": 30408,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4006,
+    "category": 4,
+    "startDatetime": "2016-01-01 08:00:00",
+    "endDatetime": "2016-02-01 07:59:59",
+    "startRank": 30500,
+    "endRank": 30507,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4007,
+    "category": 4,
+    "startDatetime": "2016-02-01 08:00:00",
+    "endDatetime": "2016-03-01 07:59:59",
+    "startRank": 30600,
+    "endRank": 30607,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4008,
+    "category": 4,
+    "startDatetime": "2016-03-01 08:00:00",
+    "endDatetime": "2016-04-01 06:59:59",
+    "startRank": 30100,
+    "endRank": 30103,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4009,
+    "category": 4,
+    "startDatetime": "2016-04-01 07:00:00",
+    "endDatetime": "2016-05-01 06:59:59",
+    "startRank": 30100,
+    "endRank": 30103,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4010,
+    "category": 4,
+    "startDatetime": "2016-05-01 07:00:00",
+    "endDatetime": "2016-06-01 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4011,
+    "category": 4,
+    "startDatetime": "2016-06-01 07:00:00",
+    "endDatetime": "2016-07-01 06:59:59",
+    "startRank": 30900,
+    "endRank": 30907,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4012,
+    "category": 4,
+    "startDatetime": "2016-07-01 07:00:00",
+    "endDatetime": "2016-08-01 06:59:59",
+    "startRank": 31000,
+    "endRank": 31007,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4013,
+    "category": 4,
+    "startDatetime": "2016-08-01 07:00:00",
+    "endDatetime": "2016-09-01 06:59:59",
+    "startRank": 32000,
+    "endRank": 32007,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4014,
+    "category": 4,
+    "startDatetime": "2016-09-01 07:00:00",
+    "endDatetime": "2016-10-01 06:59:59",
+    "startRank": 33000,
+    "endRank": 33007,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4015,
+    "category": 4,
+    "startDatetime": "2016-10-01 07:00:00",
+    "endDatetime": "2016-11-01 06:59:59",
+    "startRank": 34000,
+    "endRank": 34007,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 4016,
+    "category": 4,
+    "startDatetime": "2016-11-01 07:00:00",
+    "endDatetime": "2016-12-01 07:59:59",
+    "startRank": 34000,
+    "endRank": 34007,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5000,
+    "category": 5,
+    "startDatetime": "2015-09-28 07:00:00",
+    "endDatetime": "2015-10-05 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5001,
+    "category": 5,
+    "startDatetime": "2015-10-05 07:00:00",
+    "endDatetime": "2015-10-12 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5002,
+    "category": 5,
+    "startDatetime": "2015-10-12 07:00:00",
+    "endDatetime": "2015-10-19 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5003,
+    "category": 5,
+    "startDatetime": "2015-10-19 07:00:00",
+    "endDatetime": "2015-10-26 06:59:59",
+    "startRank": 10000,
+    "endRank": 10003,
+    "unionStartRank": [
+      10000,
+      10004,
+      10008,
+      10012,
+      10016
+    ],
+    "unionEndRank": [
+      10003,
+      10007,
+      10011,
+      10015,
+      10019
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5004,
+    "category": 5,
+    "startDatetime": "2015-10-26 07:00:00",
+    "endDatetime": "2015-11-02 07:59:59",
+    "startRank": 1020,
+    "endRank": 1025,
+    "unionStartRank": [
+      1020,
+      1020,
+      1020,
+      1020,
+      1020
+    ],
+    "unionEndRank": [
+      1025,
+      1025,
+      1025,
+      1025,
+      1025
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5005,
+    "category": 5,
+    "startDatetime": "2015-11-02 08:00:00",
+    "endDatetime": "2015-11-09 07:59:59",
+    "startRank": 40000,
+    "endRank": 40005,
+    "unionStartRank": [
+      40000,
+      40006,
+      40012,
+      40018,
+      40024
+    ],
+    "unionEndRank": [
+      40005,
+      40011,
+      40017,
+      40023,
+      40029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5006,
+    "category": 5,
+    "startDatetime": "2015-11-09 08:00:00",
+    "endDatetime": "2015-11-16 07:59:59",
+    "startRank": 41000,
+    "endRank": 41005,
+    "unionStartRank": [
+      41000,
+      41006,
+      41012,
+      41018,
+      41024
+    ],
+    "unionEndRank": [
+      41005,
+      41011,
+      41017,
+      41023,
+      41029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5007,
+    "category": 5,
+    "startDatetime": "2015-11-16 08:00:00",
+    "endDatetime": "2015-11-23 07:59:59",
+    "startRank": 42000,
+    "endRank": 42005,
+    "unionStartRank": [
+      42000,
+      42006,
+      42012,
+      42018,
+      42024
+    ],
+    "unionEndRank": [
+      42005,
+      42011,
+      42017,
+      42023,
+      42029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5008,
+    "category": 5,
+    "startDatetime": "2015-11-23 08:00:00",
+    "endDatetime": "2015-11-30 07:59:59",
+    "startRank": 43000,
+    "endRank": 43005,
+    "unionStartRank": [
+      43000,
+      43006,
+      43012,
+      43018,
+      43024
+    ],
+    "unionEndRank": [
+      43005,
+      43011,
+      43017,
+      43023,
+      43029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5009,
+    "category": 5,
+    "startDatetime": "2015-11-30 08:00:00",
+    "endDatetime": "2015-12-07 07:59:59",
+    "startRank": 42000,
+    "endRank": 42005,
+    "unionStartRank": [
+      42000,
+      42006,
+      42012,
+      42018,
+      42024
+    ],
+    "unionEndRank": [
+      42005,
+      42011,
+      42017,
+      42023,
+      42029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5010,
+    "category": 5,
+    "startDatetime": "2015-12-07 08:00:00",
+    "endDatetime": "2015-12-14 07:59:59",
+    "startRank": 42000,
+    "endRank": 42005,
+    "unionStartRank": [
+      42000,
+      42006,
+      42012,
+      42018,
+      42024
+    ],
+    "unionEndRank": [
+      42005,
+      42011,
+      42017,
+      42023,
+      42029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5011,
+    "category": 5,
+    "startDatetime": "2015-12-14 08:00:00",
+    "endDatetime": "2015-12-21 07:59:59",
+    "startRank": 42000,
+    "endRank": 42005,
+    "unionStartRank": [
+      42000,
+      42006,
+      42012,
+      42018,
+      42024
+    ],
+    "unionEndRank": [
+      42005,
+      42011,
+      42017,
+      42023,
+      42029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5012,
+    "category": 5,
+    "startDatetime": "2015-12-21 08:00:00",
+    "endDatetime": "2015-12-28 07:59:59",
+    "startRank": 44000,
+    "endRank": 44005,
+    "unionStartRank": [
+      44000,
+      44006,
+      44012,
+      44018,
+      44024
+    ],
+    "unionEndRank": [
+      44005,
+      44011,
+      44017,
+      44023,
+      44029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5013,
+    "category": 5,
+    "startDatetime": "2015-12-28 08:00:00",
+    "endDatetime": "2016-01-04 07:59:59",
+    "startRank": 45000,
+    "endRank": 45005,
+    "unionStartRank": [
+      45000,
+      45006,
+      45012,
+      45018,
+      45024
+    ],
+    "unionEndRank": [
+      45005,
+      45011,
+      45017,
+      45023,
+      45029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5014,
+    "category": 5,
+    "startDatetime": "2016-01-04 08:00:00",
+    "endDatetime": "2016-01-11 07:59:59",
+    "startRank": 45000,
+    "endRank": 45005,
+    "unionStartRank": [
+      45000,
+      45006,
+      45012,
+      45018,
+      45024
+    ],
+    "unionEndRank": [
+      45005,
+      45011,
+      45017,
+      45023,
+      45029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5015,
+    "category": 5,
+    "startDatetime": "2016-01-11 08:00:00",
+    "endDatetime": "2016-01-18 07:59:59",
+    "startRank": 45000,
+    "endRank": 45005,
+    "unionStartRank": [
+      45000,
+      45006,
+      45012,
+      45018,
+      45024
+    ],
+    "unionEndRank": [
+      45005,
+      45011,
+      45017,
+      45023,
+      45029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5016,
+    "category": 5,
+    "startDatetime": "2016-01-18 08:00:00",
+    "endDatetime": "2016-01-25 07:59:59",
+    "startRank": 46000,
+    "endRank": 46005,
+    "unionStartRank": [
+      46000,
+      46006,
+      46012,
+      46018,
+      46024
+    ],
+    "unionEndRank": [
+      46005,
+      46011,
+      46017,
+      46023,
+      46029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5017,
+    "category": 5,
+    "startDatetime": "2016-01-25 08:00:00",
+    "endDatetime": "2016-02-01 07:59:59",
+    "startRank": 47000,
+    "endRank": 47005,
+    "unionStartRank": [
+      47000,
+      47006,
+      47012,
+      47018,
+      47024
+    ],
+    "unionEndRank": [
+      47005,
+      47011,
+      47017,
+      47023,
+      47029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5018,
+    "category": 5,
+    "startDatetime": "2016-02-01 08:00:00",
+    "endDatetime": "2016-02-08 07:59:59",
+    "startRank": 47000,
+    "endRank": 47005,
+    "unionStartRank": [
+      47000,
+      47006,
+      47012,
+      47018,
+      47024
+    ],
+    "unionEndRank": [
+      47005,
+      47011,
+      47017,
+      47023,
+      47029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5019,
+    "category": 5,
+    "startDatetime": "2016-02-08 08:00:00",
+    "endDatetime": "2016-02-15 07:59:59",
+    "startRank": 48000,
+    "endRank": 48005,
+    "unionStartRank": [
+      48000,
+      48006,
+      48012,
+      48018,
+      48024
+    ],
+    "unionEndRank": [
+      48005,
+      48011,
+      48017,
+      48023,
+      48029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5020,
+    "category": 5,
+    "startDatetime": "2016-02-15 08:00:00",
+    "endDatetime": "2016-02-22 07:59:59",
+    "startRank": 49000,
+    "endRank": 49005,
+    "unionStartRank": [
+      49000,
+      49006,
+      49012,
+      49018,
+      49024
+    ],
+    "unionEndRank": [
+      49005,
+      49011,
+      49017,
+      49023,
+      49029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5021,
+    "category": 5,
+    "startDatetime": "2016-02-22 08:00:00",
+    "endDatetime": "2016-02-29 07:59:59",
+    "startRank": 47000,
+    "endRank": 47005,
+    "unionStartRank": [
+      47000,
+      47006,
+      47012,
+      47018,
+      47024
+    ],
+    "unionEndRank": [
+      47005,
+      47011,
+      47017,
+      47023,
+      47029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5022,
+    "category": 5,
+    "startDatetime": "2016-02-29 08:00:00",
+    "endDatetime": "2016-03-07 07:59:59",
+    "startRank": 47000,
+    "endRank": 47005,
+    "unionStartRank": [
+      47000,
+      47006,
+      47012,
+      47018,
+      47024
+    ],
+    "unionEndRank": [
+      47005,
+      47011,
+      47017,
+      47023,
+      47029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5023,
+    "category": 5,
+    "startDatetime": "2016-03-07 08:00:00",
+    "endDatetime": "2016-03-14 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5024,
+    "category": 5,
+    "startDatetime": "2016-03-14 07:00:00",
+    "endDatetime": "2016-03-21 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5025,
+    "category": 5,
+    "startDatetime": "2016-03-21 07:00:00",
+    "endDatetime": "2016-03-28 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5026,
+    "category": 5,
+    "startDatetime": "2016-03-28 07:00:00",
+    "endDatetime": "2016-04-04 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5027,
+    "category": 5,
+    "startDatetime": "2016-04-04 07:00:00",
+    "endDatetime": "2016-04-11 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5028,
+    "category": 5,
+    "startDatetime": "2016-04-11 07:00:00",
+    "endDatetime": "2016-04-18 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5029,
+    "category": 5,
+    "startDatetime": "2016-04-18 07:00:00",
+    "endDatetime": "2016-04-25 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5030,
+    "category": 5,
+    "startDatetime": "2016-04-25 07:00:00",
+    "endDatetime": "2016-05-02 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5031,
+    "category": 5,
+    "startDatetime": "2016-05-02 07:00:00",
+    "endDatetime": "2016-05-09 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      30800,
+      30800,
+      30800,
+      30800,
+      30800
+    ],
+    "unionEndRank": [
+      30801,
+      30801,
+      30801,
+      30801,
+      30801
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5032,
+    "category": 5,
+    "startDatetime": "2016-05-09 07:00:00",
+    "endDatetime": "2016-05-16 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      30800,
+      30800,
+      30800,
+      30800,
+      30800
+    ],
+    "unionEndRank": [
+      30801,
+      30801,
+      30801,
+      30801,
+      30801
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5033,
+    "category": 5,
+    "startDatetime": "2016-05-16 07:00:00",
+    "endDatetime": "2016-05-23 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      30800,
+      30800,
+      30800,
+      30800,
+      30800
+    ],
+    "unionEndRank": [
+      30801,
+      30801,
+      30801,
+      30801,
+      30801
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5034,
+    "category": 5,
+    "startDatetime": "2016-05-23 07:00:00",
+    "endDatetime": "2016-05-30 06:59:59",
+    "startRank": 30800,
+    "endRank": 30801,
+    "unionStartRank": [
+      30800,
+      30800,
+      30800,
+      30800,
+      30800
+    ],
+    "unionEndRank": [
+      30801,
+      30801,
+      30801,
+      30801,
+      30801
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5035,
+    "category": 5,
+    "startDatetime": "2016-05-30 07:00:00",
+    "endDatetime": "2016-06-06 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5036,
+    "category": 5,
+    "startDatetime": "2016-06-06 07:00:00",
+    "endDatetime": "2016-06-13 06:59:59",
+    "startRank": 53000,
+    "endRank": 53005,
+    "unionStartRank": [
+      53000,
+      53006,
+      53012,
+      53018,
+      53024
+    ],
+    "unionEndRank": [
+      53005,
+      53011,
+      53017,
+      53023,
+      53029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5037,
+    "category": 5,
+    "startDatetime": "2016-06-13 07:00:00",
+    "endDatetime": "2016-06-20 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5038,
+    "category": 5,
+    "startDatetime": "2016-06-20 07:00:00",
+    "endDatetime": "2016-06-27 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5039,
+    "category": 5,
+    "startDatetime": "2016-06-27 07:00:00",
+    "endDatetime": "2016-07-04 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5040,
+    "category": 5,
+    "startDatetime": "2016-07-04 07:00:00",
+    "endDatetime": "2016-07-11 06:59:59",
+    "startRank": 53000,
+    "endRank": 53005,
+    "unionStartRank": [
+      53000,
+      53006,
+      53012,
+      53018,
+      53024
+    ],
+    "unionEndRank": [
+      53005,
+      53011,
+      53017,
+      53023,
+      53029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5041,
+    "category": 5,
+    "startDatetime": "2016-07-11 07:00:00",
+    "endDatetime": "2016-07-18 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5042,
+    "category": 5,
+    "startDatetime": "2016-07-18 07:00:00",
+    "endDatetime": "2016-07-25 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5043,
+    "category": 5,
+    "startDatetime": "2016-07-25 07:00:00",
+    "endDatetime": "2016-08-01 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5044,
+    "category": 5,
+    "startDatetime": "2016-08-01 07:00:00",
+    "endDatetime": "2016-08-08 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5045,
+    "category": 5,
+    "startDatetime": "2016-08-08 07:00:00",
+    "endDatetime": "2016-08-15 06:59:59",
+    "startRank": 54000,
+    "endRank": 54006,
+    "unionStartRank": [
+      54000,
+      54007,
+      54014,
+      54021,
+      54028
+    ],
+    "unionEndRank": [
+      54006,
+      54013,
+      54020,
+      54027,
+      54034
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5046,
+    "category": 5,
+    "startDatetime": "2016-08-15 07:00:00",
+    "endDatetime": "2016-08-22 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5047,
+    "category": 5,
+    "startDatetime": "2016-08-22 07:00:00",
+    "endDatetime": "2016-08-29 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5048,
+    "category": 5,
+    "startDatetime": "2016-08-29 07:00:00",
+    "endDatetime": "2016-09-05 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5049,
+    "category": 5,
+    "startDatetime": "2016-09-05 07:00:00",
+    "endDatetime": "2016-09-12 06:59:59",
+    "startRank": 55000,
+    "endRank": 55006,
+    "unionStartRank": [
+      55000,
+      55007,
+      55014,
+      55021,
+      55028
+    ],
+    "unionEndRank": [
+      55006,
+      55013,
+      55020,
+      55027,
+      55034
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5050,
+    "category": 5,
+    "startDatetime": "2016-09-12 07:00:00",
+    "endDatetime": "2016-09-19 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5051,
+    "category": 5,
+    "startDatetime": "2016-09-19 07:00:00",
+    "endDatetime": "2016-09-26 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5052,
+    "category": 5,
+    "startDatetime": "2016-09-26 07:00:00",
+    "endDatetime": "2016-10-03 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5053,
+    "category": 5,
+    "startDatetime": "2016-10-03 07:00:00",
+    "endDatetime": "2016-10-10 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5054,
+    "category": 5,
+    "startDatetime": "2016-10-10 07:00:00",
+    "endDatetime": "2016-10-17 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 5055,
+    "category": 5,
+    "startDatetime": "2016-10-17 07:00:00",
+    "endDatetime": "2016-10-24 06:59:59",
+    "startRank": 52000,
+    "endRank": 52005,
+    "unionStartRank": [
+      52000,
+      52006,
+      52012,
+      52018,
+      52024
+    ],
+    "unionEndRank": [
+      52005,
+      52011,
+      52017,
+      52023,
+      52029
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 6000,
+    "category": 6,
+    "startDatetime": "2016-07-08 07:00:00",
+    "endDatetime": "2016-07-15 06:59:59",
+    "startRank": 60100,
+    "endRank": 60107,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 6001,
+    "category": 6,
+    "startDatetime": "2016-07-22 07:00:00",
+    "endDatetime": "2016-07-29 06:59:59",
+    "startRank": 60200,
+    "endRank": 60207,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 6002,
+    "category": 6,
+    "startDatetime": "2016-08-05 07:00:00",
+    "endDatetime": "2016-08-12 06:59:59",
+    "startRank": 60300,
+    "endRank": 60307,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 6003,
+    "category": 6,
+    "startDatetime": "2016-08-19 07:00:00",
+    "endDatetime": "2016-08-26 06:59:59",
+    "startRank": 60400,
+    "endRank": 60407,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 6004,
+    "category": 6,
+    "startDatetime": "2016-09-02 07:00:00",
+    "endDatetime": "2016-09-09 06:59:59",
+    "startRank": 60500,
+    "endRank": 60507,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 6005,
+    "category": 6,
+    "startDatetime": "2016-09-16 07:00:00",
+    "endDatetime": "2016-09-23 06:59:59",
+    "startRank": 60600,
+    "endRank": 60607,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  },
+  {
+    "rankingId": 6006,
+    "category": 6,
+    "startDatetime": "2016-09-30 07:00:00",
+    "endDatetime": "2016-10-07 06:59:59",
+    "startRank": 60600,
+    "endRank": 60607,
+    "unionStartRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "unionEndRank": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "validReward": 1
+  }
+]

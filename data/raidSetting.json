@@ -1,0 +1,807 @@
+[
+  {
+    "raidSettingId": 1000,
+    "bossId": 1,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 2,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 10000,
+    "rareUpTriggerBossId": 1,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1785268872,
+      -1423925384,
+      -5212
+    ],
+    "unlockRareNum": [
+      -1785268872,
+      -1423925384,
+      -5212
+    ]
+  },
+  {
+    "raidSettingId": 1010,
+    "bossId": 1,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 2,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 2,
+    "rareUpTriggerBossId": 1,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 1020,
+    "bossId": 1,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 2,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 3,
+    "rareUpTriggerBossId": 1,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 2000,
+    "bossId": 3,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 4,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 10000,
+    "rareUpTriggerBossId": 3,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 2010,
+    "bossId": 3,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 4,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 2,
+    "rareUpTriggerBossId": 3,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 2020,
+    "bossId": 3,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 4,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 3,
+    "rareUpTriggerBossId": 3,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 3000,
+    "bossId": 5,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 6,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 10000,
+    "rareUpTriggerBossId": 5,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 3010,
+    "bossId": 5,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 6,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 2,
+    "rareUpTypeArg": 6,
+    "rareUpTriggerBossId": 5,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 3011,
+    "bossId": 5,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 6,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 2,
+    "rareUpTriggerBossId": 5,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 4000,
+    "bossId": 7,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 8,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 10000,
+    "rareUpTriggerBossId": 7,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 4010,
+    "bossId": 7,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 8,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 2,
+    "rareUpTriggerBossId": 7,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 4020,
+    "bossId": 7,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 8,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 3,
+    "rareUpTriggerBossId": 7,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 5000,
+    "bossId": 9,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 10,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 10000,
+    "rareUpTriggerBossId": 9,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 5010,
+    "bossId": 9,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 10,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 2,
+    "rareUpTriggerBossId": 9,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 5015,
+    "bossId": 9,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 10,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 5,
+    "rareUpTriggerBossId": 9,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 5020,
+    "bossId": 9,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 1001,
+    "rareBossUpTime": 10,
+    "rareUseAp": 10,
+    "rareUpType": 2,
+    "rareUpTypeArg": 4,
+    "rareUpTriggerBossId": 9,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 5030,
+    "bossId": 9,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 1002,
+    "rareBossUpTime": 10,
+    "rareUseAp": 10,
+    "rareUpType": 2,
+    "rareUpTypeArg": 4,
+    "rareUpTriggerBossId": 9,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 5040,
+    "bossId": 9,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 1003,
+    "rareBossUpTime": 10,
+    "rareUseAp": 10,
+    "rareUpType": 2,
+    "rareUpTypeArg": 4,
+    "rareUpTriggerBossId": 9,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 6000,
+    "bossId": 11,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 12,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 10000,
+    "rareUpTriggerBossId": 11,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 6010,
+    "bossId": 11,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 12,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 2,
+    "rareUpTriggerBossId": 11,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 7000,
+    "bossId": 13,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 13,
+    "rareBossUpTime": 10,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 13,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 7010,
+    "bossId": 13,
+    "bossUpTime": 10,
+    "useAp": 1,
+    "rareBossId": 14,
+    "rareBossUpTime": 120,
+    "rareUseAp": 1,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 13,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 15000,
+    "bossId": 15,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 16,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 5,
+    "rareUpTriggerBossId": 15,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 50000000,
+    "bossId": 5000,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 12,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 1,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 0,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 151022000,
+    "bossId": 1000,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 1000,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1000,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 151214000,
+    "bossId": 1004,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 1004,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 1,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1004,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160101000,
+    "bossId": 1005,
+    "bossUpTime": 20,
+    "useAp": 10,
+    "rareBossId": 1005,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1005,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160208000,
+    "bossId": 1006,
+    "bossUpTime": 20,
+    "useAp": 10,
+    "rareBossId": 1006,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1006,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160307000,
+    "bossId": 1007,
+    "bossUpTime": 20,
+    "useAp": 10,
+    "rareBossId": 1007,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1007,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160602000,
+    "bossId": 1002,
+    "bossUpTime": 10,
+    "useAp": 10,
+    "rareBossId": 1002,
+    "rareBossUpTime": 10,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1002,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160808000,
+    "bossId": 1009,
+    "bossUpTime": 20,
+    "useAp": 10,
+    "rareBossId": 1009,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1009,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160900000,
+    "bossId": 1010,
+    "bossUpTime": 10,
+    "useAp": 1,
+    "rareBossId": 1010,
+    "rareBossUpTime": 180,
+    "rareUseAp": 1,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1010,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160902000,
+    "bossId": 160902,
+    "bossUpTime": 10,
+    "useAp": 1,
+    "rareBossId": 160902,
+    "rareBossUpTime": 180,
+    "rareUseAp": 1,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 160902,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954472,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160903000,
+    "bossId": 160903,
+    "bossUpTime": 10,
+    "useAp": 1,
+    "rareBossId": 160903,
+    "rareBossUpTime": 180,
+    "rareUseAp": 1,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 160903,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  },
+  {
+    "raidSettingId": 160905000,
+    "bossId": 1003,
+    "bossUpTime": 20,
+    "useAp": 10,
+    "rareBossId": 1003,
+    "rareBossUpTime": 20,
+    "rareUseAp": 10,
+    "rareUpType": 3,
+    "rareUpTypeArg": 1,
+    "rareUpTriggerBossId": 1003,
+    "validUnlockRare": 0,
+    "unlockRareBossId": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ],
+    "unlockRareNum": [
+      -1989954488,
+      -1879416568,
+      -1978600312
+    ]
+  }
+]

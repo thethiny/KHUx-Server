@@ -1,0 +1,37 @@
+{
+  "_comment": "Private-server gacha banners (our own design; the original per-banner medal lists were server-only and are lost). Each banner: lots = list of {count, rates} where rates maps medal rarity (1-6 stars) to a weight; pool = 'standard' (regular character medals, series 1x-3x), 'illustrated' (4x/14x specials), 'organization' (13x), or an explicit medal id list (a 'store' banner: one id = buy that medal). unlockQuests = story quests cleared before it shows. payType 1 = Jewels (free Jewels are spent first). Rates for 3-5 stars and the 10-pull 5-star guarantee come from the 2016 drawMedalType rows; 6-star odds and unlock points are ours to tune.",
+  "banners": [
+    {
+      "id": 1001, "sortId": 1, "name": "Standard Draw", "description": "Get a 3★ Medal or better!",
+      "price": 300, "payType": 1, "pool": "standard", "unlockQuests": 0,
+      "lots": [{"count": 1, "rates": {"5": 2000, "4": 3500, "3": 4500}}]
+    },
+    {
+      "id": 1002, "sortId": 2, "name": "Standard Draw x10", "description": "10 Medals, at least one 5★!",
+      "price": 3000, "payType": 1, "pool": "standard", "unlockQuests": 0,
+      "lots": [{"count": 9, "rates": {"5": 2000, "4": 3500, "3": 4500}},
+               {"count": 1, "rates": {"5": 10000}}]
+    },
+    {
+      "id": 1101, "sortId": 3, "name": "Premium Draw", "description": "Now with 6★ Medals!",
+      "price": 300, "payType": 1, "pool": "standard", "unlockQuests": 20,
+      "lots": [{"count": 1, "rates": {"6": 500, "5": 2000, "4": 3500, "3": 4000}}]
+    },
+    {
+      "id": 1102, "sortId": 4, "name": "Premium Draw x10", "description": "10 Medals, at least one 5★ or better!",
+      "price": 3000, "payType": 1, "pool": "standard", "unlockQuests": 20,
+      "lots": [{"count": 9, "rates": {"6": 500, "5": 2000, "4": 3500, "3": 4000}},
+               {"count": 1, "rates": {"6": 2000, "5": 8000}}]
+    },
+    {
+      "id": 1201, "sortId": 5, "name": "Illustrated Medals", "description": "A special 6★ Medal!",
+      "price": 3000, "payType": 1, "pool": "illustrated", "unlockQuests": 40,
+      "lots": [{"count": 1, "rates": {"6": 10000}}]
+    },
+    {
+      "id": 1301, "sortId": 6, "name": "Organization XIII", "description": "A 6★ Organization Medal!",
+      "price": 3000, "payType": 1, "pool": "organization", "unlockQuests": 60,
+      "lots": [{"count": 1, "rates": {"6": 10000}}]
+    }
+  ]
+}

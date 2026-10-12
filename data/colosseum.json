@@ -1,0 +1,9330 @@
+[
+  {
+    "colosseumId": 1,
+    "colosseumStageId": 1,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 2,
+    "colosseumStageId": 1,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      15,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 3,
+    "colosseumStageId": 1,
+    "round": 3,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      25,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 4,
+    "colosseumStageId": 1,
+    "round": 4,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 14,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 5,
+    "colosseumStageId": 1,
+    "round": 5,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 9,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      35,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 6,
+    "colosseumStageId": 1,
+    "round": 6,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 7,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 7,
+    "colosseumStageId": 1,
+    "round": 7,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 8,
+    "colosseumStageId": 1,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 5,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 15,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 9,
+    "colosseumStageId": 1,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 5,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 15,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      150,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 10,
+    "colosseumStageId": 1,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 11,
+    "colosseumStageId": 1,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 21,
+    "colosseumStageId": 2,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 22,
+    "colosseumStageId": 2,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 23,
+    "colosseumStageId": 2,
+    "round": 3,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 24,
+    "colosseumStageId": 2,
+    "round": 4,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 25,
+    "colosseumStageId": 2,
+    "round": 5,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 26,
+    "colosseumStageId": 2,
+    "round": 6,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 27,
+    "colosseumStageId": 2,
+    "round": 7,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 28,
+    "colosseumStageId": 2,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 5,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 29,
+    "colosseumStageId": 2,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 5,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 1,
+    "rewardType": [
+      17,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      10,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 30,
+    "colosseumStageId": 2,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 31,
+    "colosseumStageId": 2,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 101,
+    "colosseumStageId": 100,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 102,
+    "colosseumStageId": 100,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 15,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 103,
+    "colosseumStageId": 100,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 9,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 104,
+    "colosseumStageId": 100,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 105,
+    "colosseumStageId": 100,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 106,
+    "colosseumStageId": 100,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 107,
+    "colosseumStageId": 100,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 201,
+    "colosseumStageId": 200,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 202,
+    "colosseumStageId": 200,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 15,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 203,
+    "colosseumStageId": 200,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 9,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 204,
+    "colosseumStageId": 200,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 205,
+    "colosseumStageId": 200,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 206,
+    "colosseumStageId": 200,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 207,
+    "colosseumStageId": 200,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 301,
+    "colosseumStageId": 300,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 302,
+    "colosseumStageId": 300,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 303,
+    "colosseumStageId": 300,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 304,
+    "colosseumStageId": 300,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 9,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 305,
+    "colosseumStageId": 300,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 306,
+    "colosseumStageId": 300,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 307,
+    "colosseumStageId": 300,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 308,
+    "colosseumStageId": 300,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      150,
+      3,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 309,
+    "colosseumStageId": 300,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 310,
+    "colosseumStageId": 300,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 401,
+    "colosseumStageId": 400,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 402,
+    "colosseumStageId": 400,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 403,
+    "colosseumStageId": 400,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 404,
+    "colosseumStageId": 400,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 9,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 405,
+    "colosseumStageId": 400,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 406,
+    "colosseumStageId": 400,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 407,
+    "colosseumStageId": 400,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 408,
+    "colosseumStageId": 400,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      150,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 409,
+    "colosseumStageId": 400,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      150,
+      2,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 410,
+    "colosseumStageId": 400,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      600,
+      3,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 411,
+    "colosseumStageId": 400,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 50,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      900,
+      3,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 412,
+    "colosseumStageId": 400,
+    "round": 12,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 413,
+    "colosseumStageId": 400,
+    "round": 13,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 501,
+    "colosseumStageId": 500,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 502,
+    "colosseumStageId": 500,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 503,
+    "colosseumStageId": 500,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 504,
+    "colosseumStageId": 500,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 11,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 505,
+    "colosseumStageId": 500,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 506,
+    "colosseumStageId": 500,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 7,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 507,
+    "colosseumStageId": 500,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 508,
+    "colosseumStageId": 500,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      150,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 509,
+    "colosseumStageId": 500,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      150,
+      2,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 510,
+    "colosseumStageId": 500,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      600,
+      3,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 511,
+    "colosseumStageId": 500,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 50,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      900,
+      3,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 512,
+    "colosseumStageId": 500,
+    "round": 12,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 513,
+    "colosseumStageId": 500,
+    "round": 13,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 601,
+    "colosseumStageId": 600,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 602,
+    "colosseumStageId": 600,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 603,
+    "colosseumStageId": 600,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 604,
+    "colosseumStageId": 600,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 11,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 605,
+    "colosseumStageId": 600,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 606,
+    "colosseumStageId": 600,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 7,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 607,
+    "colosseumStageId": 600,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 608,
+    "colosseumStageId": 600,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      150,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 609,
+    "colosseumStageId": 600,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      150,
+      2,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 610,
+    "colosseumStageId": 600,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      600,
+      3,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 611,
+    "colosseumStageId": 600,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 50,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      900,
+      3,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 612,
+    "colosseumStageId": 600,
+    "round": 12,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 613,
+    "colosseumStageId": 600,
+    "round": 13,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 701,
+    "colosseumStageId": 700,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 702,
+    "colosseumStageId": 700,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 15,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 703,
+    "colosseumStageId": 700,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 9,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 704,
+    "colosseumStageId": 700,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 705,
+    "colosseumStageId": 700,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 706,
+    "colosseumStageId": 700,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 707,
+    "colosseumStageId": 700,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 801,
+    "colosseumStageId": 800,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 802,
+    "colosseumStageId": 800,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 15,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 803,
+    "colosseumStageId": 800,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 9,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 804,
+    "colosseumStageId": 800,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 805,
+    "colosseumStageId": 800,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 806,
+    "colosseumStageId": 800,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 807,
+    "colosseumStageId": 800,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 901,
+    "colosseumStageId": 900,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 902,
+    "colosseumStageId": 900,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 903,
+    "colosseumStageId": 900,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 904,
+    "colosseumStageId": 900,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 905,
+    "colosseumStageId": 900,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 906,
+    "colosseumStageId": 900,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 907,
+    "colosseumStageId": 900,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90013,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 908,
+    "colosseumStageId": 900,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 909,
+    "colosseumStageId": 900,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      600,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 910,
+    "colosseumStageId": 900,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 911,
+    "colosseumStageId": 900,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1001,
+    "colosseumStageId": 1000,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1002,
+    "colosseumStageId": 1000,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1003,
+    "colosseumStageId": 1000,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1004,
+    "colosseumStageId": 1000,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1005,
+    "colosseumStageId": 1000,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1006,
+    "colosseumStageId": 1000,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1007,
+    "colosseumStageId": 1000,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90013,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1008,
+    "colosseumStageId": 1000,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1009,
+    "colosseumStageId": 1000,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      900,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1010,
+    "colosseumStageId": 1000,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1011,
+    "colosseumStageId": 1000,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1101,
+    "colosseumStageId": 1100,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1102,
+    "colosseumStageId": 1100,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1103,
+    "colosseumStageId": 1100,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1104,
+    "colosseumStageId": 1100,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1105,
+    "colosseumStageId": 1100,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1106,
+    "colosseumStageId": 1100,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1107,
+    "colosseumStageId": 1100,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90013,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1108,
+    "colosseumStageId": 1100,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1109,
+    "colosseumStageId": 1100,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      600,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1110,
+    "colosseumStageId": 1100,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1111,
+    "colosseumStageId": 1100,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1201,
+    "colosseumStageId": 1200,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1202,
+    "colosseumStageId": 1200,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1203,
+    "colosseumStageId": 1200,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1204,
+    "colosseumStageId": 1200,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1205,
+    "colosseumStageId": 1200,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1206,
+    "colosseumStageId": 1200,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1207,
+    "colosseumStageId": 1200,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90013,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1208,
+    "colosseumStageId": 1200,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1209,
+    "colosseumStageId": 1200,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      600,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1210,
+    "colosseumStageId": 1200,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1211,
+    "colosseumStageId": 1200,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1301,
+    "colosseumStageId": 1300,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1302,
+    "colosseumStageId": 1300,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1303,
+    "colosseumStageId": 1300,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1304,
+    "colosseumStageId": 1300,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1305,
+    "colosseumStageId": 1300,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1306,
+    "colosseumStageId": 1300,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1307,
+    "colosseumStageId": 1300,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90013,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1308,
+    "colosseumStageId": 1300,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1309,
+    "colosseumStageId": 1300,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      600,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1310,
+    "colosseumStageId": 1300,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1311,
+    "colosseumStageId": 1300,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1401,
+    "colosseumStageId": 1400,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1402,
+    "colosseumStageId": 1400,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1403,
+    "colosseumStageId": 1400,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1404,
+    "colosseumStageId": 1400,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1405,
+    "colosseumStageId": 1400,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1406,
+    "colosseumStageId": 1400,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1407,
+    "colosseumStageId": 1400,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90013,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1408,
+    "colosseumStageId": 1400,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1409,
+    "colosseumStageId": 1400,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      600,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1410,
+    "colosseumStageId": 1400,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1411,
+    "colosseumStageId": 1400,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1501,
+    "colosseumStageId": 1500,
+    "round": 1,
+    "ap": 3,
+    "arrivalStageCount": 20,
+    "rankId": " ",
+    "excellentUnlockCount": 18,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 1,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90013,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      30,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1502,
+    "colosseumStageId": 1500,
+    "round": 2,
+    "ap": 3,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 16,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 3,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      40,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1503,
+    "colosseumStageId": 1500,
+    "round": 3,
+    "ap": 4,
+    "arrivalStageCount": 15,
+    "rankId": " ",
+    "excellentUnlockCount": 12,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 5,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90015,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      50,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1504,
+    "colosseumStageId": 1500,
+    "round": 4,
+    "ap": 4,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 10,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 7,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      70,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1505,
+    "colosseumStageId": 1500,
+    "round": 5,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 8,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90016,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      2,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1506,
+    "colosseumStageId": 1500,
+    "round": 6,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 6,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 2,
+    "rewardType": [
+      17,
+      3,
+      0,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1507,
+    "colosseumStageId": 1500,
+    "round": 7,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 5,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90013,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1508,
+    "colosseumStageId": 1500,
+    "round": 8,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 4,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90015,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      100,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1509,
+    "colosseumStageId": 1500,
+    "round": 9,
+    "ap": 5,
+    "arrivalStageCount": 10,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 3,
+    "rewardType": [
+      17,
+      3,
+      3,
+      0
+    ],
+    "rewardId": [
+      0,
+      90076,
+      90016,
+      0
+    ],
+    "rewardAssignType": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardSkillId": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "rewardNum": [
+      600,
+      1,
+      1,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1510,
+    "colosseumStageId": 1500,
+    "round": 10,
+    "ap": 5,
+    "arrivalStageCount": 999,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 1,
+    "stageRewardType": 17,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 10,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "colosseumId": 1511,
+    "colosseumStageId": 1500,
+    "round": 11,
+    "ap": 5,
+    "arrivalStageCount": 0,
+    "rankId": " ",
+    "excellentUnlockCount": 3,
+    "validStageReward": 0,
+    "stageRewardType": 0,
+    "stageRewardId": 0,
+    "stageRewardAssignType": 1,
+    "stageRewardSkillId": 0,
+    "stageRewardSkillLv": 1,
+    "stageRewardNum": 0,
+    "validReward": 0,
+    "rewardType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardAssignType": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillId": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardSkillLv": [
+      32,
+      0,
+      0,
+      0
+    ],
+    "rewardNum": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]

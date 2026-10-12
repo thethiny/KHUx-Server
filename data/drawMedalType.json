@@ -1,0 +1,7049 @@
+[
+  {
+    "drawMedalTypeId": 1,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      9,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      10000,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1604071,
+      1604072,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oehGNR02L",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-01-01 08:00:00",
+    "endDate": "2016-04-15 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 2,
+    "drawType": 1,
+    "sortId": 2101,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1604071,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oehpNguWq",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-01-01 08:00:00",
+    "endDate": "2016-04-15 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 3,
+    "drawType": 1,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      3,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1604071,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oehANe1LY",
+    "mypageBanner": 7999,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-01-01 08:00:00",
+    "endDate": "2016-04-15 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 4,
+    "drawType": 1,
+    "sortId": 2005,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1604141,
+      1604146,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-15 07:00:00",
+    "endDate": "2016-04-29 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 5,
+    "drawType": 1,
+    "sortId": 2101,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1604141,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-15 07:00:00",
+    "endDate": "2016-04-29 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 6,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1604142,
+      1604147,
+      1604143
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZwhNx4xs",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-15 07:00:00",
+    "endDate": "2016-04-22 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 7,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1604144,
+      1604148,
+      1604145
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZwnNmKKu",
+    "mypageBanner": 7999,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-15 07:00:00",
+    "endDate": "2016-04-22 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 8,
+    "drawType": 3,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      4,
+      4,
+      2
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1604141,
+      1604146,
+      1604211
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90076,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 3,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZp4N7D7x",
+    "mypageBanner": 7998,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-22 07:00:00",
+    "endDate": "2016-04-29 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 9,
+    "drawType": 3,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1604141,
+      1604146,
+      1604211
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZpMN8Cvh",
+    "mypageBanner": 7999,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-22 07:00:00",
+    "endDate": "2016-04-29 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 10,
+    "drawType": 5,
+    "sortId": 9000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      10000,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      10000,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oehONK3Wq",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2015-12-04 18:00:00",
+    "endDate": "2037-12-31 11:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 11,
+    "drawType": 5,
+    "sortId": 8000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      9,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      10000,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      2001,
+      2001,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oehGNR02L",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2015-12-04 18:00:00",
+    "endDate": "2037-12-31 11:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 12,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1604294,
+      1604295,
+      1604292
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oBwlNGFvs",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-29 07:00:00",
+    "endDate": "2016-05-06 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 13,
+    "drawType": 1,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1604291,
+      1604293,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 7999,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-29 07:00:00",
+    "endDate": "2016-05-13 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 14,
+    "drawType": 1,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1604291,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-04-29 07:00:00",
+    "endDate": "2016-05-13 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 15,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 2250,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1604291,
+      1604293,
+      1605021
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90146,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oBujNTlQ2",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-06 07:00:00",
+    "endDate": "2016-05-13 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 16,
+    "drawType": 1,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1605134,
+      1605135,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 7999,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-13 07:00:00",
+    "endDate": "2016-05-20 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 17,
+    "drawType": 1,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1605134,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-13 07:00:00",
+    "endDate": "2016-05-20 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 18,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1605131,
+      1605132,
+      1605133
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/o4rdNWC9v",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-13 07:00:00",
+    "endDate": "2016-05-20 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 19,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1605201,
+      1605202,
+      1605203
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 21075,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/o4IrNtZ6G",
+    "mypageBanner": 7999,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-20 07:00:00",
+    "endDate": "2016-05-27 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 20,
+    "drawType": 3,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1605204,
+      1605205,
+      1605206
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 32055,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/o4IWNKr6f",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-20 07:00:00",
+    "endDate": "2016-05-27 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 21,
+    "drawType": 3,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1605207,
+      1605208,
+      1605209
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 33015,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/o4IaNfUYl",
+    "mypageBanner": 7997,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-20 07:00:00",
+    "endDate": "2016-05-27 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 22,
+    "drawType": 1,
+    "sortId": 2005,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1605191,
+      1605192,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-20 07:00:00",
+    "endDate": "2016-05-27 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 23,
+    "drawType": 1,
+    "sortId": 2006,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1605191,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-20 07:00:00",
+    "endDate": "2016-05-27 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 24,
+    "drawType": 3,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      100,
+      100,
+      100
+    ],
+    "lotSr": [
+      1900,
+      3600,
+      9900
+    ],
+    "lotPr": [
+      3500,
+      6300,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1605273,
+      1605272,
+      1605271
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oMHzN7o1si",
+    "mypageBanner": 7997,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-27 07:00:00",
+    "endDate": "2016-06-03 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 25,
+    "drawType": 1,
+    "sortId": 2005,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1605275,
+      1605274,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-27 07:00:00",
+    "endDate": "2016-06-10 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 26,
+    "drawType": 1,
+    "sortId": 2006,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1605275,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-05-27 07:00:00",
+    "endDate": "2016-06-10 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 27,
+    "drawType": 3,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      4,
+      4,
+      2
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1605275,
+      1605274,
+      1606031
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90076,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 3,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZp4N7D7x",
+    "mypageBanner": 7999,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-03 07:00:00",
+    "endDate": "2016-06-10 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 28,
+    "drawType": 3,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1605275,
+      1605274,
+      1606032
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oMnQNLasY",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-03 07:00:00",
+    "endDate": "2016-06-10 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 29,
+    "drawType": 3,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      100,
+      100,
+      100
+    ],
+    "lotSr": [
+      1900,
+      3600,
+      9900
+    ],
+    "lotPr": [
+      3500,
+      6300,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1606103,
+      1606102,
+      1606101
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owoENcQkF",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-10 07:00:00",
+    "endDate": "2016-06-17 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 30,
+    "drawType": 3,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      10000,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1606106,
+      1606105,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owohN7Fjz6",
+    "mypageBanner": 7999,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-16 07:00:00",
+    "endDate": "2016-06-24 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 31,
+    "drawType": 1,
+    "sortId": 2005,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1606106,
+      1606104,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-10 07:00:00",
+    "endDate": "2016-06-16 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 32,
+    "drawType": 1,
+    "sortId": 2006,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1606106,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-10 07:00:00",
+    "endDate": "2016-06-24 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 33,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      4,
+      4,
+      2
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1606106,
+      1606104,
+      1606105
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90056,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owUPNSXlP",
+    "mypageBanner": 8000,
+    "dayCount": 3,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-17 07:00:00",
+    "endDate": "2016-06-24 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 34,
+    "drawType": 3,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1500,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      4,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      10000,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1606106,
+      1606171,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owUVNH4fu",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-17 07:00:00",
+    "endDate": "2016-06-24 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 35,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      4,
+      1
+    ],
+    "lotPsr": [
+      150,
+      150,
+      150
+    ],
+    "lotSr": [
+      1850,
+      3550,
+      9850
+    ],
+    "lotPr": [
+      3500,
+      6300,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1606243,
+      1606242,
+      1606241
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owTgNIw3",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1606241026,
+      1606242150,
+      1606243212,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-24 07:00:00",
+    "endDate": "2016-07-01 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 36,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      35,
+      35,
+      1293976984
+    ],
+    "lotSr": [
+      1965,
+      9965,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1606245,
+      1606244,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owTsNCWUd",
+    "mypageBanner": 7999,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-24 07:00:00",
+    "endDate": "2016-07-01 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 37,
+    "drawType": 3,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      35,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1965,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1606245,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owTTNEDna",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-06-24 07:00:00",
+    "endDate": "2016-07-01 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 38,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      3,
+      5,
+      2
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607013,
+      1607012,
+      1607011
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90076,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 3,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oEBvNLjn8",
+    "mypageBanner": 7999,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-01 07:00:00",
+    "endDate": "2016-07-08 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 39,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1500,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      4,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      3600,
+      10000,
+      1293976984
+    ],
+    "lotPr": [
+      6400,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1607015,
+      1607014,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oEBqNHUIy",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-01 07:00:00",
+    "endDate": "2016-07-08 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 40,
+    "drawType": 1,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1607013,
+      1607012,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-01 07:00:00",
+    "endDate": "2016-07-08 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 41,
+    "drawType": 1,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1607013,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-01 07:00:00",
+    "endDate": "2016-07-08 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 42,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      2,
+      2,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607013,
+      1607012,
+      1607011
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oEUxN75Xzn",
+    "mypageBanner": 8000,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-03 07:00:00",
+    "endDate": "2016-07-04 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 43,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      8,
+      1,
+      1
+    ],
+    "lotPsr": [
+      37,
+      150,
+      150
+    ],
+    "lotSr": [
+      3563,
+      9850,
+      9850
+    ],
+    "lotPr": [
+      6400,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607083,
+      1607082,
+      1607081
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oEOLNiuhW",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1607081031,
+      1607082005,
+      1607083155,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-08 07:00:00",
+    "endDate": "2016-07-15 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 44,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      3563,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1607085,
+      1607084,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oh70NYxR8",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-08 07:00:00",
+    "endDate": "2016-07-15 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 45,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1607085,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owTTNEDna",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-08 07:00:00",
+    "endDate": "2016-07-15 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 46,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      3,
+      5,
+      2
+    ],
+    "lotPsr": [
+      0,
+      0,
+      10000
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      0
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607151,
+      1607151,
+      1607151
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90076,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 3,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/ohqVNqQ3L",
+    "mypageBanner": 7999,
+    "dayCount": 3,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-15 07:00:00",
+    "endDate": "2016-07-22 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 47,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1500,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      1,
+      3,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      10000
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      0
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607151,
+      1607151,
+      1607151
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/ohqPNpsrV",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-15 07:00:00",
+    "endDate": "2016-07-22 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 48,
+    "drawType": 1,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1607152,
+      1607152,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-15 07:00:00",
+    "endDate": "2016-07-22 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 49,
+    "drawType": 1,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1607152,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-15 07:00:00",
+    "endDate": "2016-07-22 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 50,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      8,
+      1,
+      1
+    ],
+    "lotPsr": [
+      150,
+      150,
+      150
+    ],
+    "lotSr": [
+      1850,
+      9850,
+      9850
+    ],
+    "lotPr": [
+      8000,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607223,
+      1607222,
+      1607221
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oh2sN5W3A",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1607221035,
+      1607222011,
+      1607223159,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-22 07:00:00",
+    "endDate": "2016-07-29 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 51,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      3563,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1607224,
+      1607224,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-22 07:00:00",
+    "endDate": "2016-07-29 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 52,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1607224,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-22 07:00:00",
+    "endDate": "2016-07-29 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 53,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      7,
+      2,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      3600,
+      10000,
+      10000
+    ],
+    "lotPr": [
+      6400,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607292,
+      1607292,
+      1607291
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90056,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/onwrNzRWO",
+    "mypageBanner": 7999,
+    "dayCount": 3,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-29 07:00:00",
+    "endDate": "2016-08-05 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 54,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1500,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      5,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      10000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1607292,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/onMdNoqYq",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-29 07:00:00",
+    "endDate": "2016-08-05 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 55,
+    "drawType": 1,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1607292,
+      1607292,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-29 07:00:00",
+    "endDate": "2016-08-05 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 56,
+    "drawType": 1,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1607292,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-29 07:00:00",
+    "endDate": "2016-08-05 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 57,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      2,
+      2,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      0
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      10000
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1607292,
+      1607292,
+      1607292
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90056,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/onnYN5P8U",
+    "mypageBanner": 8000,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-07-30 07:00:00",
+    "endDate": "2016-07-31 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 58,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      8,
+      1,
+      1
+    ],
+    "lotPsr": [
+      150,
+      150,
+      150
+    ],
+    "lotSr": [
+      1850,
+      9850,
+      9850
+    ],
+    "lotPr": [
+      8000,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1608053,
+      1608052,
+      1608051
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/onRfNsHs",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1608051004,
+      1608052041,
+      1608053165,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-05 07:00:00",
+    "endDate": "2016-08-12 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 59,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      3563,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1608054,
+      1608054,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oh70NYxR8",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-05 07:00:00",
+    "endDate": "2016-08-12 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 60,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1608054,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/owTTNEDna",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-05 07:00:00",
+    "endDate": "2016-08-12 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 61,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      3,
+      5,
+      2
+    ],
+    "lotPsr": [
+      0,
+      0,
+      10000
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      0
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1608121,
+      1608121,
+      1608121
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90056,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/onz9NXJzC",
+    "mypageBanner": 7999,
+    "dayCount": 3,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-12 07:00:00",
+    "endDate": "2016-08-19 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 62,
+    "drawType": 3,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1500,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      1,
+      3,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      10000
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      0
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1608121,
+      1608121,
+      1608121
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/ohqPNpsrV",
+    "mypageBanner": 7998,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-12 07:00:00",
+    "endDate": "2016-08-19 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 63,
+    "drawType": 1,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1608122,
+      1608122,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ47NB1UE",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-12 07:00:00",
+    "endDate": "2016-08-19 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 64,
+    "drawType": 1,
+    "sortId": 2004,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1608122,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oZ40NLmDV",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-12 07:00:00",
+    "endDate": "2016-08-19 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 65,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      8,
+      1,
+      1
+    ],
+    "lotPsr": [
+      150,
+      150,
+      80
+    ],
+    "lotSr": [
+      1850,
+      9850,
+      9920
+    ],
+    "lotPr": [
+      8000,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1608193,
+      1608192,
+      1608191
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oiYUNFEsp",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1608191004,
+      1608191005,
+      1608192046,
+      1608192047,
+      1608193170,
+      1608193171,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-19 07:00:00",
+    "endDate": "2016-08-26 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 66,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      3563,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1608194,
+      1608194,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oiV2N3gy2",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-19 07:00:00",
+    "endDate": "2016-08-22 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 67,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      10000,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      0,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1608194,
+      1608195,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oiVyNH2td",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-22 07:00:00",
+    "endDate": "2016-08-26 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 68,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1608194,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oiYXN8BBe",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-19 07:00:00",
+    "endDate": "2016-08-26 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 69,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      8,
+      1,
+      1
+    ],
+    "lotPsr": [
+      150,
+      150,
+      80
+    ],
+    "lotSr": [
+      1850,
+      9850,
+      9920
+    ],
+    "lotPr": [
+      8000,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1608263,
+      1608262,
+      1608261
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oDksN5hRe",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1608261004,
+      1608261005,
+      1608262050,
+      1608262051,
+      1608263174,
+      1608263175,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-26 07:00:00",
+    "endDate": "2016-09-02 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 70,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      3563,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1608264,
+      1608264,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oiV2N3gy2",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-01 07:00:00",
+    "endDate": "2016-09-02 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 71,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      10000,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      0,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1608264,
+      1608265,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oiVyNH2td",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-26 07:00:00",
+    "endDate": "2016-09-01 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 72,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1608264,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oiYXN8BBe",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-08-26 07:00:00",
+    "endDate": "2016-09-02 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 73,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      8,
+      1,
+      1
+    ],
+    "lotPsr": [
+      150,
+      150,
+      80
+    ],
+    "lotSr": [
+      1850,
+      9850,
+      9920
+    ],
+    "lotPr": [
+      8000,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1609023,
+      1609022,
+      1609021
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oDbSNOYV2",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1609021004,
+      1609021005,
+      1609022054,
+      1609022055,
+      1609023148,
+      1609023149,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-02 07:00:00",
+    "endDate": "2016-09-09 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 74,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      3563,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1609024,
+      1609024,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD3cNPyBw",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-02 07:00:00",
+    "endDate": "2016-09-05 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 75,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      9963,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1609024,
+      1609024,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oqZ9N7gDZ",
+    "mypageBanner": 0,
+    "dayCount": 3,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-05 07:00:00",
+    "endDate": "2016-09-09 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 76,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1609024,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD35NP3qL",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-02 07:00:00",
+    "endDate": "2016-09-09 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 77,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      5,
+      3,
+      2
+    ],
+    "lotPsr": [
+      0,
+      0,
+      10000
+    ],
+    "lotSr": [
+      2000,
+      10000,
+      0
+    ],
+    "lotPr": [
+      3500,
+      0,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1609092,
+      1609091,
+      1609091
+    ],
+    "validAdd": 1,
+    "addType": 3,
+    "addId": 90146,
+    "addSkillType": 1,
+    "addSkillId": 0,
+    "addSkillLv": 1,
+    "addNum": 1,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oqMBNkn4e",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-09 07:00:00",
+    "endDate": "2016-09-16 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 78,
+    "drawType": 3,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1500,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      3,
+      1,
+      1
+    ],
+    "lotPsr": [
+      0,
+      0,
+      10000
+    ],
+    "lotSr": [
+      2000,
+      10000,
+      0
+    ],
+    "lotPr": [
+      3500,
+      0,
+      0
+    ],
+    "lotR": [
+      4500,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1609092,
+      1609091,
+      1609091
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oqM4N4fF7",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-09 07:00:00",
+    "endDate": "2016-09-16 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 79,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1609092,
+      1609092,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD3kN70KLZ",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-09 07:00:00",
+    "endDate": "2016-09-16 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 80,
+    "drawType": 1,
+    "sortId": 2003,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1609092,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD3FN7I7V",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-09 07:00:00",
+    "endDate": "2016-09-16 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 81,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 3000,
+    "tableId": 151103,
+    "validLot": 3,
+    "lotCount": [
+      8,
+      1,
+      1
+    ],
+    "lotPsr": [
+      150,
+      150,
+      80
+    ],
+    "lotSr": [
+      1850,
+      9850,
+      9920
+    ],
+    "lotPr": [
+      8000,
+      0,
+      0
+    ],
+    "lotR": [
+      0,
+      0,
+      0
+    ],
+    "lotPn": [
+      0,
+      0,
+      0
+    ],
+    "lotN": [
+      0,
+      0,
+      0
+    ],
+    "tableIds": [
+      1609163,
+      1609162,
+      1609161
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oqIGNdPwt",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 10,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 1,
+    "warrantResetMedalListIds": [
+      1609161004,
+      1609161005,
+      1609162058,
+      1609162059,
+      1609163152,
+      1609163153,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-16 07:00:00",
+    "endDate": "2016-09-23 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 82,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      37,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      3563,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1609164,
+      1609164,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oqZ0N64sk",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-16 07:00:00",
+    "endDate": "2016-09-23 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 83,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      37,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      1963,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1609164,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD35NP3qL",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-16 07:00:00",
+    "endDate": "2016-09-23 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 84,
+    "drawType": 3,
+    "sortId": 2000,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 1500,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      4,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      10000,
+      1293976984
+    ],
+    "lotSr": [
+      10000,
+      0,
+      1293976984
+    ],
+    "lotPr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotR": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1609232,
+      1609231,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oqpXN75pUI",
+    "mypageBanner": 8000,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-23 07:00:00",
+    "endDate": "2016-09-30 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 85,
+    "drawType": 1,
+    "sortId": 2001,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 600,
+    "tableId": 151103,
+    "validLot": 2,
+    "lotCount": [
+      2,
+      1,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      3600,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      6400,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      0,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      0,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      0,
+      1293976984
+    ],
+    "tableIds": [
+      1609233,
+      1609233,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD3kN70KLZ",
+    "mypageBanner": 0,
+    "dayCount": 1,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-23 07:00:00",
+    "endDate": "2016-09-30 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 86,
+    "drawType": 1,
+    "sortId": 2002,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1609233,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD3FN7I7V",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-23 07:00:00",
+    "endDate": "2016-09-30 06:59:59",
+    "isDeleted": 0
+  },
+  {
+    "drawMedalTypeId": 87,
+    "drawType": 1,
+    "sortId": 2005,
+    "name": "Jewel Draw",
+    "description": "Get a 3★ Medal or better!",
+    "payType": 1,
+    "price": 300,
+    "tableId": 151103,
+    "validLot": 1,
+    "lotCount": [
+      1,
+      -499965855,
+      1293976984
+    ],
+    "lotPsr": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotSr": [
+      2000,
+      -499965855,
+      1293976984
+    ],
+    "lotPr": [
+      3500,
+      -499965855,
+      1293976984
+    ],
+    "lotR": [
+      4500,
+      -499965855,
+      1293976984
+    ],
+    "lotPn": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "lotN": [
+      0,
+      -499965855,
+      1293976984
+    ],
+    "tableIds": [
+      1609233,
+      -499965855,
+      1293976984
+    ],
+    "validAdd": 0,
+    "addType": 1,
+    "addId": 0,
+    "addSkillType": 0,
+    "addSkillId": 0,
+    "addSkillLv": 0,
+    "addNum": 0,
+    "bannerUrl": "http://cache.sqex-bridge.jp/img/oD3FN7I7V",
+    "mypageBanner": 0,
+    "dayCount": 0,
+    "warrantNumberOfTime": 0,
+    "warrantMedalListIds": [
+      0
+    ],
+    "warrantMedalRepeat": 0,
+    "warrantResetMedalListIds": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "startDate": "2016-09-30 07:00:00",
+    "endDate": "2037-12-31 11:59:59",
+    "isDeleted": 0
+  }
+]

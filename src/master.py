@@ -76,6 +76,15 @@ MASTER_JSON_DATA = {
     "mypageBackground": _load_json("mypageBackground"),
 }
 
+# Every other table with a data file is served too. Before this, tables missing from the dict above were sent
+# to the client EMPTY (get_master_encrypted reads only this dict) - raidReward, loginBonus, shop, title, sphere*,
+# stamp, skillExp, ... Held back: evStage (its 1.1.3 record layout differs, never regenerated) and
+# evGroupPattern (no 1.1.3 parser was found and m011 holds medal ids where its Time fields should be).
+_NOT_SERVED = {"evStage", "evGroupPattern"}
+for _t in MASTER_TABLE_NAMES:
+    if _t not in MASTER_JSON_DATA and _t not in _NOT_SERVED:
+        MASTER_JSON_DATA[_t] = _load_json(_t)
+
 
 def encrypt_master_json(data: list, key: bytes = MASTER_AES_KEY) -> tuple[bytes, str]:
     """Encrypt a JSON array for master data download.

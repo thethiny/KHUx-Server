@@ -5,9 +5,13 @@ __pycache__/
 venv/
 .env
 
-# Database
+# Database (and backups)
 *.db
+*.db.bak*
 *.sqlite
+
+# Logs
+*.log
 
 # SSL/TLS certs
 *.pem
@@ -15,6 +19,7 @@ venv/
 *.0
 
 # Generated data dirs
+data_prev/
 data/master/
 data/assets/
 data_113

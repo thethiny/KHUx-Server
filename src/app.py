@@ -339,6 +339,14 @@ async def game_api(
         .first()
     )
     if session is None:
+        # libcurl only writes the new cookie_user_session_code to cookieFile.txt when a handle is cleaned up,
+        # so right after a re-login the client can still send the previous nsid (seen on POST
+        # /user/keyblade/update and PUT /tutorial/status after a relaunch) - and it encrypts those requests
+        # with that old session's key too. Accept the superseded session as-is.
+        session = db.query(Session).filter(Session.session_id == x_sqex_hole_nsid).first()
+        if session is not None:
+            logger.info("    superseded nsid %s accepted", x_sqex_hole_nsid)
+    if session is None:
         return Response(content="Invalid session", status_code=401)
 
     session.last_active_at = datetime.utcnow()
@@ -370,7 +378,7 @@ async def game_api(
     response_data = dispatch(action_id, payload, user, db)
 
     resp_json = json.dumps(response_data, separators=(",", ":"))
-    logger.info("<<< Response action=%d: %s", action_id, resp_json[:500])
+    logger.info("<<< Response action=%d: %s", action_id, resp_json[:4000])
 
     db.commit()
     resp_bytes = resp_json.encode("utf-8")

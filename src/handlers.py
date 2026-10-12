@@ -7,6 +7,7 @@ Based on decompiled libcocos2dcpp.so (arm64-v8a) analysis.
 import hashlib
 import logging
 import os
+import random
 import threading
 import time
 from datetime import datetime
@@ -18,6 +19,10 @@ from .enums import Misc, clamp_progression
 from .information import CATEGORIES, NOTICES
 from .master import MASTER_KEY_HEX, MASTER_TABLE_NAMES, get_master_encrypted
 from .models import User
+from . import state as gstate
+from . import raid as graid
+from . import stagemap
+from . import gacha
 
 logger = logging.getLogger(__name__)
 
@@ -49,8 +54,12 @@ def build_ret(user: Optional[User] = None) -> dict:
         "sessionTO": False,
         "isNewDayPeriod": 0,
         "versionApp": "1.0.1",
-        "versionRes": 0,  # tutorial flow handles initial download; >0 causes re-download every session (game never saves resource_revision)
-        "versionDat": 27,   # must match master_rev; bumping forces re-download + "update detected" popup
+        # DataDownloader downloads resources (misc.mp4/png via /system/resource) only when versionRes !=
+        # AppState's saved resource revision. A fresh install has revision 0, so 0 here means a fresh
+        # install never gets the resources (later screens miss their layouts) - run with KHUX_VERSION_RES=1.
+        # The old ">0 re-downloads every session" was /system/resource sending minVersion 0 (fixed there).
+        "versionRes": int(os.environ.get("KHUX_VERSION_RES", "0")),
+        "versionDat": 53,   # must match master_rev; bumping forces re-download + "update detected" popup
         "functionFlags": 0,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
@@ -77,6 +86,11 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
         raw_progression = DEBUG_SKIP_TO
     progression = clamp_progression(raw_progression)
     newcomer = progression == 0
+    # Report the tutorial as finished once the union is joined (progression 6). A relaunch with
+    # tutorial=true at 6 makes the client send /tutorial/clear (63) and jump to the stage/raid flow
+    # (100, 107) assuming user data is already loaded; its callback then reads the never-loaded keyblade
+    # buffer (APIManager+236, filled by actions 9/10) and crashes (sub_71CAC0, seen on the emulator).
+    # The tutorial battle itself runs in the same session right after the union selection.
     tutorial = not user.tutorial_done and progression < 6 if user else True
     logger.info("LOGIN HANDLER: user=%s tutorial_done=%s progression=%s newcomer=%s tutorial=%s",
                 user.id if user else None, user.tutorial_done if user else None,
@@ -89,7 +103,7 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
             "progression": progression,
         },
         phase=50,
-        popupFlag=0,
+        popupFlag=_popup_flag(user, db_session),
         isFinished=0,
     )
 
@@ -122,18 +136,52 @@ def _get_player_stats(level: int) -> dict:
     return {"lv": level, "needExp": 999999, "ap": 16, "cost": 42, "hp": 3000}
 
 
+def _lux_rank(user: Optional[User]) -> int:
+    """The player level shown everywhere is the Lux rank (UserDetail.luxRank): the highest `player` row whose
+    needExp (cumulative Lux) totalLux has reached - SceneUtil::calcLuxGaugePer(luxRank, totalLux) draws the
+    gauge from player[rank].needExp to player[rank+1].needExp, capped at misc 100 (300). Rank 0 is invalid
+    (it makes "to next level" = player[1].needExp - totalLux = negative)."""
+    from .master import MASTER_JSON_DATA
+    total = (user.total_lux or 0) if user else 0
+    cap = _misc(100, 300)
+    rank = 1
+    for p in MASTER_JSON_DATA.get("player", []):
+        if p["lv"] <= cap and p["needExp"] <= total:
+            rank = max(rank, p["lv"])
+    return rank
+
+
+def _add_lux(user: Optional[User], lux: int) -> None:
+    """Add Lux and apply rank-ups: each new rank grants that player row's luxMedal as Avatar Coins (the
+    result screen's level-up popup sums player[r].luxMedal into Txt_Coin_Label = TextData 103100038 "You got
+    %d Avatar Coins!", and shows 103100049 "AP fully restored!")."""
+    if not user:
+        return
+    before = _lux_rank(user)
+    user.lux = (user.lux or 0) + lux
+    user.total_lux = (user.total_lux or 0) + lux
+    after = _lux_rank(user)
+    if after > before:
+        coins = sum(_get_player_stats(r).get("luxMedal", 0) for r in range(before + 1, after + 1))
+        user.sphere_point = (user.sphere_point or 0) + coins
+        logger.info("LUX RANK UP: %d -> %d (totalLux=%d, +%d avatar coins)", before, after, user.total_lux, coins)
+    user.lux_rank = user.level = after
+
+
 def _user_point(user: Optional[User]) -> dict:
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
     if user:
-        stats = _get_player_stats(user.level)
+        stats = _get_player_stats(_lux_rank(user))
+        hp = stats["hp"] + (user.hp_prize or 0)
         return {
             "money": user.money, "lux": user.lux, "totalLux": user.total_lux,
-            "spherePoint": 0, "kizunaPoint": 0, "raidPoint": 0,
-            "attack": user.attack, "defense": user.defense, "baseHp": stats["hp"],
-            "hp": stats["hp"], "ap": stats["ap"], "maxHp": stats["hp"], "maxAp": stats["ap"],
+            "spherePoint": user.sphere_point or 0, "kizunaPoint": user.kizuna_point or 0,
+            "raidPoint": user.raid_point or 0,
+            "attack": user.attack, "defense": user.defense, "baseHp": hp,
+            "hp": hp, "ap": stats["ap"], "maxHp": hp, "maxAp": stats["ap"],
             "lastApDatetime": now,
-            "stageSpherePoint": 0, "raidSpherePoint": 0,
-            "colosseumSpherePoint": 0, "stageSkipTicket": 0,
+            "stageSpherePoint": user.stage_sphere_point or 0, "raidSpherePoint": user.raid_sphere_point or 0,
+            "colosseumSpherePoint": user.colosseum_sphere_point or 0, "stageSkipTicket": 0,
         }
     return {
         "money": 0, "lux": 0, "totalLux": 0,
@@ -179,15 +227,38 @@ _STARTING_MEDALS = [
 ]
 
 
+def _user_keyblades(user: Optional[User], db_session: DBSession) -> list:
+    return gstate.load(user, db_session)["keyblades"]
+
+
+def _user_medals(user: Optional[User], db_session: DBSession) -> list:
+    return gstate.load(user, db_session)["medals"]
+
+
+def _lead_medal(user: Optional[User], db_session: DBSession) -> dict:
+    """The medal shown for this user as a support/party leader: slot 1 of the favourite keyblade's deck."""
+    st = gstate.load(user, db_session)
+    kb = next((k for k in st["keyblades"] if k.get("isFavorite")), st["keyblades"][0] if st["keyblades"] else None)
+    mid = kb["deckMedals"][0] if kb and kb["deckMedals"] else None
+    return next((m for m in st["medals"] if m["userMedalId"] == mid), st["medals"][0] if st["medals"] else
+                _STARTING_MEDALS[0])
+
+
 @register(10)  # GET /user/keyblade
 def handle_user_keyblade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userKeyblades=[{
-        "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-        "deckMedals": [1, 2, 3],
-        "burst": 0,
-        "totalAttack": 3960, "totalDefense": 3747,
-        "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
-    }])
+    return build_response(user, userKeyblades=_user_keyblades(user, db_session))
+
+
+@register(105)  # POST /stage/continue
+def handle_stage_continue(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # onRespond case 105 runs UserStone::parse + UserKeyblade::parse (needs >= 1 keyblade, each fed to
+    # APIManager::updateKeyblade). Without them the continue fails and the client retries forever.
+    # Continues are free for now (the real jewel price is unknown).
+    logger.info("STAGE CONTINUE: user=%s", user.id if user else None)
+    return build_response(user,
+        userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0},
+        userKeyblades=_user_keyblades(user, db_session),
+    )
 
 
 @register(11)  # GET /user/skill
@@ -197,12 +268,12 @@ def handle_user_skill(request_data: dict, user: Optional[User], db_session: DBSe
 
 @register(13)  # GET /user/medal
 def handle_user_medal(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userMedals=_STARTING_MEDALS)
+    return build_response(user, userMedals=_user_medals(user, db_session))
 
 
 @register(14)  # GET /user/material
 def handle_user_material(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userMaterials=[])
+    return build_response(user, userMaterials=gstate.materials_list(gstate.load(user, db_session)))
 
 
 @register(16)  # GET /user/title
@@ -352,104 +423,194 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
 @register(64)  # GET /tutorial/status
 def handle_tutorial_status(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     phase = user.tutorial_phase if user else 50
-    return build_response(user, phase=phase, popupFlag=0, isFinished=0)
+    return build_response(user, phase=phase, popupFlag=_popup_flag(user, db_session), isFinished=0)
+
+
+def _popup_flag(user: Optional[User], db_session: DBSession, add: int = 0) -> int:
+    """Guide popups already shown, as the client's bitmask (PUT /tutorial/status {popupFlag}: one bit per
+    tutorialMisc guide). Sent back so a guide is not shown again every session."""
+    if not user:
+        return 0
+    with gstate.State(user, db_session) as st:
+        st["popup_flag"] = st.get("popup_flag", 0) | add
+        flag = st["popup_flag"]
+    # Post-tutorial guide 17 (= StageUI tutorial widget 103, the treasure-chest guide shown on entering a map's
+    # second area, tutorialMisc 10061) can fire in an area with no treasure (stage 1060 area 2: empty map treasure
+    # list) and then never completes (executingTutorial1006 waits for getCurrentEventMapTreasure) - the battle is
+    # stuck under the mask. Mark it seen (bit 1 << (17 - 1)) once the tutorial is done. OPEN: find the 1.0.1
+    # trigger semantics (StageManager+96 / +328 vs num2 / num1) and let it show where a treasure exists.
+    if user.tutorial_done:
+        flag |= 1 << 16
+    return flag
 
 
 @register(65)  # PUT /tutorial/status
 def handle_tutorial_status_put(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    phase = request_data.get("phase", 0)
-    logger.info("TUTORIAL STATUS PUT: phase=%s", phase)
-    if user:
+    # body is {phase} (tutorial step; order 50,100,200,210,220,300,400,410,500,600,700,710,995 per the
+    # client's table at 0xDEC5F0) or {popupFlag} (a guide popup seen)
+    phase = request_data.get("phase")
+    flag = request_data.get("popupFlag", 0)
+    logger.info("TUTORIAL STATUS PUT: phase=%s popupFlag=%s", phase, flag)
+    if user and phase is not None:
         if phase > user.tutorial_phase:
             user.tutorial_phase = phase
         if phase >= 995:
             user.tutorial_done = True
         db_session.add(user)
-    return build_response(user, phase=phase, popupFlag=0, isFinished=0)
+    return build_response(user, phase=user.tutorial_phase if user else (phase or 0),
+                          popupFlag=_popup_flag(user, db_session, flag), isFinished=0)
 
 
-_STAGE_ORDER = [1010, 1013, 1016, 1019, 1020, 1030, 1040, 1050]
+@register(43)  # POST /user/keyblade/update
+def handle_keyblade_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # APIManager::executeUserKeybladeUpdate sends {"userKeyblades": [{userKeybladeId, userMedalIds, isFavorite}]}
+    changes = request_data.get("userKeyblades", [])
+    logger.info("KEYBLADE UPDATE: %s", changes)
+    with gstate.State(user, db_session) as st:
+        for c in changes:
+            kb = next((k for k in st["keyblades"] if k["userKeybladeId"] == c.get("userKeybladeId")), None)
+            if kb is None:
+                continue
+            if "userMedalIds" in c:
+                kb["deckMedals"] = list(c["userMedalIds"])
+            if "isFavorite" in c:
+                kb["isFavorite"] = int(c["isFavorite"])
+        keyblades = st["keyblades"]
+    return build_response(user, userKeyblades=keyblades)
 
 
-@register(43)  # PUT /user/keyblade/deck
-def handle_keyblade_deck(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    keyblades = request_data.get("userKeyblades", [])
-    logger.info("KEYBLADE DECK: %s", keyblades)
-    deck_medals = [4, 2, 3]
-    if keyblades:
-        deck_medals = keyblades[0].get("userMedalIds", deck_medals)
-    return build_response(user, userKeyblades=[{
-        "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-        "deckMedals": deck_medals,
-        "burst": 0,
-        "totalAttack": 3960, "totalDefense": 3747,
-        "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
-    }])
+def _medal_row(medal_id: int) -> dict:
+    from .master import MASTER_JSON_DATA
+    return next((m for m in MASTER_JSON_DATA.get("medal", []) if m["medalId"] == medal_id), {})
+
+
+def _medal_misc(misc_id: int) -> list:
+    from .master import MASTER_JSON_DATA
+    return next((m["value"] for m in MASTER_JSON_DATA.get("medalMisc", []) if m["medalMiscId"] == misc_id),
+                [0, 0, 0])
+
+
+def _medal_need_exp(medal: dict, lv: int) -> int:
+    """BattleUtil::calcNeedExp: cumulative EXP for level lv+1; curve = medalMisc 105+expType
+    [maxLevelRef, scale, exponent*10000]."""
+    v = _medal_misc(105 + medal.get("expType", 1) if 1 <= medal.get("expType", 1) <= 6 else 106)
+    if v[0] <= 1:
+        return 1 << 30
+    return int(v[1] * pow(lv / (v[0] - 1.0), v[2] / 10000.0))
+
+
+def _fusion_exp(base: dict, base_row: dict, comp: dict, comp_row: dict) -> int:
+    """SceneMixedMedal::calcMixedExp for one component medal: materialExp + medalMisc112 level curve, x medalMisc
+    113 if same attribute, x medalMisc 114 if the two share a `source` entry."""
+    v = _medal_misc(112)
+    exp = comp_row.get("materialExp", 0) + v[1] * pow((comp["level"] - 1) / max(v[0] - 1, 1), v[2] / 10000.0)
+    if comp_row.get("attribute") == base_row.get("attribute"):
+        exp = int(exp * _medal_misc(113)[0] / 10000.0)
+    src_b = set(base_row.get("source", [])[:base_row.get("validSource", 0)])
+    src_c = set(comp_row.get("source", [])[:comp_row.get("validSource", 0)])
+    if src_b & src_c:
+        exp = int(exp * _medal_misc(114)[0] / 10000.0)
+    return int(exp)
+
+
+@register(53)  # POST /user/medal/enhance (fusion)
+def handle_medal_enhance(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {baseUserMedalId, componentUserMedalIds, isOverwriteSkill}
+    # response (verifyResponse case 53): userSkills + userData.userPoint + UserMedalEnhance {before/after
+    # EnhanceUserMedal (UserMedal), enhanceEffect, overwriteSkills [], successOverwrite} + componentUserMedalIds
+    logger.info("MEDAL ENHANCE: %s", request_data)
+    comps = set(request_data.get("componentUserMedalIds", []))
+    with gstate.State(user, db_session) as st:
+        base = next(m for m in st["medals"] if m["userMedalId"] == request_data.get("baseUserMedalId"))
+        before = dict(base)
+        base_row = _medal_row(base["medalId"])
+        gained = 0
+        for m in st["medals"]:
+            if m["userMedalId"] in comps:
+                gained += _fusion_exp(base, base_row, m, _medal_row(m["medalId"]))
+        st["medals"] = [m for m in st["medals"] if m["userMedalId"] not in comps]
+        for kb in st["keyblades"]:
+            kb["deckMedals"] = [0 if mid in comps else mid for mid in kb["deckMedals"]]
+        base["exp"] += gained
+        while base["level"] < base_row.get("maxLv", 1) and base["exp"] >= _medal_need_exp(base_row, base["level"]):
+            base["level"] += 1
+        after = dict(base)
+    if user:
+        # fusion cost: medalMisc 115 (80) munny per component - matches the client's preview for a Lv1 base
+        user.money = max(0, user.money - _medal_misc(115)[0] * len(comps))
+    logger.info("MEDAL ENHANCE: +%d exp -> lv %d exp %d", gained, after["level"], after["exp"])
+    return build_response(user,
+        userSkills=[],
+        userData={"userPoint": _user_point(user)},
+        beforeEnhanceUserMedal=before,
+        afterEnhanceUserMedal=after,
+        enhanceEffect=0,
+        overwriteSkills=[],
+        successOverwrite=0,
+        # case 53 also reads the consumed medals back (IsUint64 array) to drop them from the client's list
+        componentUserMedalIds=sorted(comps),
+    )
+
+
+# The tutorial's draw step ("Try equipping your new Medal!") expects KH II King Mickey from this banner.
+_TUTORIAL_BANNER = {"id": 10, "sortId": 1, "name": "Get at least one 5\u2605 Medal!",
+                    "description": "Spend 3000 Jewels to get 10 Medals!", "price": 3000, "payType": 1,
+                    "pool": [33043], "lots": [{"count": 10, "rates": {}}]}
+
+
+def _quests_cleared(user: Optional[User], db_session: DBSession) -> int:
+    return len(gstate.load(user, db_session)["stages"]) if user else 0
 
 
 @register(70)  # GET /gacha/list
 def handle_gacha_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, gachaList=[
-        {
-            "validAdd": 1,
-            "drawMedalTypeId": 10,
-            "drawType": 1,
-            "sortId": 1,
-            "payType": 1,
-            "price": 3000,
-            "lotCount": 10,
-            "isDayLimited": 0,
-            "userLimitedCount": 0,
-            "name": "Get at least one 5★ Medal!",
-            "description": "Spend 3000 Jewels to get 10 Medals!",
-            "bannerUrl": "http://api.sp.kingdomhearts.com",
-        },
-        {
-            "validAdd": 1,
-            "drawMedalTypeId": 11,
-            "drawType": 1,
-            "sortId": 2,
-            "payType": 1,
-            "price": 300,
-            "lotCount": 1,
-            "isDayLimited": 0,
-            "userLimitedCount": 0,
-            "name": "Strengthen your equipment!",
-            "description": "Get a 3★ Medal or better!",
-            "bannerUrl": "http://api.sp.kingdomhearts.com",
-        },
-    ])
+    # Our own banners (data/banners.json, src/gacha.py), unlocked by story progress.
+    if user and not user.tutorial_done:
+        entries = [gacha.list_entry(_TUTORIAL_BANNER)]
+    else:
+        done = _quests_cleared(user, db_session)
+        entries = [gacha.list_entry(b) for b in gacha.banners() if gacha.unlocked(b, done)]
+    return build_response(user, gachaList=entries)
 
 
 @register(71)  # POST /gacha/draw
 def handle_gacha_draw(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    draw_type_id = request_data.get("drawMedalTypeId", 10)
-    count = request_data.get("count", 1)
-    logger.info("GACHA DRAW: typeId=%s count=%s", draw_type_id, count)
-    drawn_medals = []
-    for i in range(count):
-        drawn_medals.append({
-            "userMedalId": 100 + i,
-            "medalId": 33043,
-            "level": 1,
-            "exp": 0,
-            "attackUpperNumber": 0,
-            "defenseUpperNumber": 0,
-            "burstUpperNumber": 0,
-            "lock": 0,
-            "upperCost": 0,
-            "guiltFactor": 0,
-            "userSkills": [],
-            "getDatetime": "2026-01-01 00:00:00",
-        })
+    # request {drawMedalTypeId, count}; the banner decides how many medals one purchase gives
+    draw_type_id = request_data.get("drawMedalTypeId")
+    tutorial = bool(user and not user.tutorial_done)
+    b = _TUTORIAL_BANNER if tutorial else gacha.banner(draw_type_id)
+    if b is None or (not tutorial and not gacha.unlocked(b, _quests_cleared(user, db_session))):
+        logger.warning("GACHA DRAW refused: banner %s not available", draw_type_id)
+        b, ids = None, []
+    elif user and not tutorial and (user.free_stone or 0) + (user.pay_stone or 0) < b["price"]:
+        logger.warning("GACHA DRAW refused: %s Jewels needed", b["price"])
+        b, ids = None, []
+    else:
+        ids = gacha.draw(b)
+    if user and b and not tutorial:
+        # Jewels only (no real money on the private server); free Jewels are spent first
+        price = b["price"]
+        free = min(user.free_stone or 0, price)
+        user.free_stone = (user.free_stone or 0) - free
+        user.pay_stone = max((user.pay_stone or 0) - (price - free), 0)
+        db_session.add(user)
+    with gstate.State(user, db_session) as st:
+        owned = {m["medalId"] for m in st["medals"]}
+        drawn = [gstate.add_medal(st, mid) for mid in ids]
+    first = []
+    for m in drawn:
+        if m["medalId"] not in owned:
+            first.append(m["userMedalId"])
+            owned.add(m["medalId"])
+    logger.info("GACHA DRAW: banner %s count=%s -> %s", draw_type_id, request_data.get("count"), ids)
     return build_response(user,
         userData={"userPoint": _user_point(user)},
-        userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0},
-        userMedals=drawn_medals,
+        userStone=_user_stone(user),
+        userMedals=drawn,
         userSkills=[],
         userMaterials=[],
         gachaBonus={"addType": 0, "userMedalIds": []},
-        firstGetUserMedalIds=[],
+        firstGetUserMedalIds=first,
     )
 
 
@@ -458,24 +619,43 @@ def handle_stage_event(request_data: dict, user: Optional[User], db_session: DBS
     return build_response(user, events=[], supportUsers=[])
 
 
+# The offline-style default friend: when nobody else is around, the game lends "Sora" with KH II King Mickey - the
+# same medal as the tutorial draw (user, from the original game). It grows with progress: 3* (33043) at the start up
+# to 6* (33046) after 60 quests; the exact growth steps are ours.
+_SORA_SUPPORT_ID = 999999999
+
+
+def _support_entry(uid: int, name: str, level: int, medal: dict, avatar: dict) -> dict:
+    return {
+        "supportUserId": uid, "level": level, "userName": name,
+        "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
+        "addKizunaPoint": 0, "keybladeId": 1000, "isParty": 0, "isGuilt": 0,
+        "userMedal": medal, "userSkills": [], "userAvatar": avatar,
+        "lastActionDatetime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()), "earnLuxRank": 0,
+    }
+
+
+def _sora_support(user: Optional[User], db_session: DBSession) -> dict:
+    rare = 3 + min(3, _quests_cleared(user, db_session) // 20)
+    medal = gstate.new_medal(_SORA_SUPPORT_ID, 33040 + rare)
+    return _support_entry(_SORA_SUPPORT_ID, "Sora", _lux_rank(user), medal, _user_avatar(None))
+
+
 @register(102)  # GET /stage/support/list
 def handle_stage_support_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    uid = user.id if user else 1
-    return build_response(user, supportUsers=[{
-        "supportUserId": uid,
-        "level": user.level if user else 1,
-        "userName": user.user_name if user else "Player",
-        "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
-        "addKizunaPoint": 0,
-        "keybladeId": 1000,
-        "isParty": 0,
-        "isGuilt": 0,
-        "userMedal": _STARTING_MEDALS[0],
-        "userSkills": [],
-        "userAvatar": _user_avatar(user),
-        "lastActionDatetime": "2026-01-01 00:00:00",
-        "earnLuxRank": 0,
-    }])
+    # Other players at a similar point of the story (by last cleared quest), never yourself; when there is
+    # nobody, the default friend Sora (what the game showed when no one else was around).
+    order = {sid: i for i, sid in enumerate(gstate.story_order())}
+    mine = order.get(user.last_clear_stage_id or 0, 0) if user else 0
+    others = []
+    if user:
+        for o in db_session.query(User).filter(User.id != user.id, User.tutorial_done.is_(True)).all():
+            if abs(order.get(o.last_clear_stage_id or 0, 0) - mine) <= 10:
+                others.append(o)
+    random.shuffle(others)
+    supports = [_support_entry(o.id, o.user_name or "Player", _lux_rank(o), _lead_medal(o, db_session), _user_avatar(o))
+                for o in others[:5]]
+    return build_response(user, supportUsers=supports or [_sora_support(user, db_session)])
 
 
 @register(100)  # GET /stage/160310
@@ -483,17 +663,19 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
     if user and not user.tutorial_stage_reached:
         user.tutorial_stage_reached = True
         db_session.add(user)
-    last_cleared = user.last_clear_stage_id if user else 0
+    # Story quests unlock one after another (stage master: stageKind 1, ordered by id). Every cleared quest
+    # plus the next one is listed; newStageId is the newest unlocked quest.
+    st = gstate.load(user, db_session)
     stories = []
-    new_stage_id = _STAGE_ORDER[0]
-    for sid in _STAGE_ORDER:
-        if sid <= last_cleared:
-            stories.append({"stageId": sid, "useAp": 0, "score": 1, "clearMissionIds": [2, 3]})
-            idx = _STAGE_ORDER.index(sid)
-            if idx + 1 < len(_STAGE_ORDER):
-                new_stage_id = _STAGE_ORDER[idx + 1]
-        else:
-            stories.append({"stageId": sid, "useAp": 0, "score": 0, "clearMissionIds": []})
+    new_stage_id = gstate.story_order()[0]
+    for sid in gstate.story_order():
+        rec = st["stages"].get(str(sid))
+        row = gstate.stage_row(sid)
+        stories.append({"stageId": sid, "useAp": row["useAp"] if row else 0,
+                        "score": rec["luxRecord"] if rec else 0,
+                        "clearMissionIds": rec["clearMissionIds"] if rec else []})
+        new_stage_id = sid
+        if rec is None:
             break
     return build_response(user,
         stories=stories,
@@ -523,21 +705,125 @@ def handle_party_member_list(request_data: dict, user: Optional[User], db_sessio
 
 @register(107)  # GET /raid
 def handle_raid(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user,
-        raidStatus=0,
-        raid={
-            "raidId": 0, "level": 0, "useAp": 0,
-            "timeLeft": "2099-01-01 00:00:00",
-            "feverFlag": 0, "feverTime": "2099-01-01 00:00:00",
-            "stageId": 0, "parts": [],
-        })
+    # hole::network::api::Raid::init needs raidStatus + raid (RaidBase::Info) + discoverer + mvp
+    # (RaidBase::User: userId, name, level, userAvatar Coordinate). Without discoverer/mvp the parse fails,
+    # APIManager keeps a NULL raid buffer and the tutorial resume crashes in the raid callback (sub_71CAC0).
+    raid_user = {
+        "userId": user.id if user else 0,
+        "name": user.user_name if user and user.user_name else "",
+        "level": _lux_rank(user),
+        "userAvatar": _user_avatar(user),
+    }
+    # raidStatus: 3 boss up (shown on the quest map when raidId != 0, timeLeft ahead and parts[0].hp > 0),
+    # 1 defeated (reward popup from /raid/reward/151101), 2 escaped, 0 none.
+    with gstate.State(user, db_session) as st:
+        raid = graid.current(st)
+        status = raid["status"] if raid else graid.RAID_STATUS_NONE
+        if raid and status in (graid.RAID_STATUS_DEFEATED, graid.RAID_STATUS_ESCAPED) and (
+                raid.get("rewarded") or status == graid.RAID_STATUS_ESCAPED and raid.get("seen_escape")):
+            status = graid.RAID_STATUS_NONE
+        if raid and status == graid.RAID_STATUS_ESCAPED:
+            raid["seen_escape"] = True          # report an escape once, then the slot is free again
+        info = graid.info(raid if status != graid.RAID_STATUS_NONE else None)
+    logger.info("RAID: status=%s raid=%s", status, info)
+    return build_response(user, raidStatus=status, raid=info, discoverer=raid_user, mvp=raid_user)
+
+
+def _raid_user(user: Optional[User]) -> dict:
+    return {"userId": user.id if user else 0, "name": user.user_name if user and user.user_name else "",
+            "level": _lux_rank(user), "userAvatar": _user_avatar(user)}
+
+
+def _raid_rewards(user: Optional[User], db_session: DBSession, with_users: bool) -> list:
+    """Pending rewards of a defeated raid (granted once), as RaidReward entries. subdueId / mvpId / partAllId
+    are 1-based SLOT numbers in the boss's reward tables, not table ids (table ids crashed the client's
+    RaidBossResultPopUp with std::out_of_range)."""
+    out = []
+    with gstate.State(user, db_session) as st:
+        raid = graid.current(st)
+        if not raid or raid["status"] != graid.RAID_STATUS_DEFEATED or raid.get("rewarded"):
+            return out
+        raid["rewarded"] = True
+        slots, items = graid.reward_rows(raid)
+        medals = []
+        for rtype, rid, num in items:
+            medals += _grant(user, st, rtype, rid, num)
+        entry = {
+            "raidId": raid["raidId"], "level": raid["level"], **slots,
+            "parts": graid.info(raid)["parts"],
+            "mvpTotalDamage": raid["damage"],
+            "userMedals": medals, "userSkills": [], "userMaterials": gstate.materials_list(st),
+        }
+        if with_users:
+            entry["discoverer"] = _raid_user(user)
+            entry["mvp"] = _raid_user(user)
+        out.append(entry)
+    logger.info("RAID REWARD: %s", out)
+    return out
 
 
 @register(110)  # GET /raid/reward/151101
 def handle_raid_reward(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, userData={"userPoint": _user_point(user)},
+                          raidRewards=_raid_rewards(user, db_session, with_users=False))
+
+
+@register(109)  # GET /raid/reward
+def handle_raid_reward_all(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, userData={"userPoint": _user_point(user)},
+                          raidRewards=_raid_rewards(user, db_session, with_users=True))
+
+
+@register(111)  # GET /raid/member
+def handle_raid_member(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    raid = graid.current(gstate.load(user, db_session))
+    uid = user.id if user else 0
+    return build_response(user,
+        cooperators=[{"user": _raid_user(user), "damage": raid["damage"]}] if raid else [],
+        discovererUserId=uid, mvpUserId=uid)
+
+
+@register(112)  # POST /raid/start
+def handle_raid_start(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {raidId, supportUserId, userKeybladeId}
+    logger.info("RAID START: %s", request_data)
+    raid = graid.current(gstate.load(user, db_session))
     return build_response(user,
         userData={"userPoint": _user_point(user)},
-        raidRewards=[],
+        raid=graid.info(raid),
+        players=[], vitalsLog=[], partsLog=[],
+        startRaidData={"raidId": request_data.get("raidId", raid["raidId"] if raid else 0),
+                       "supportUserId": request_data.get("supportUserId", 0),
+                       "userKeybladeId": request_data.get("userKeybladeId", 1)},
+        discovererUserId=user.id if user else 0,
+        campaigns=[],
+        supportUsers=[],
+    )
+
+
+@register(113)  # POST /raid/clear
+def handle_raid_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {parts:[{raidEnemyId, partsId, hp, damage}], getPoint:{exp, money, lux}, maximumDamage, burst}
+    logger.info("RAID CLEAR: %s", request_data)
+    with gstate.State(user, db_session) as st:
+        raid = graid.current(st)
+        if raid and raid["status"] == graid.RAID_STATUS_ACTIVE:
+            graid.apply_damage(raid, request_data.get("parts"))
+        # raidTimeStatus must be 1..5 (RaidClear::parse); 1 = boss still up (the client may ask the union
+        # for help). Other values' meanings are unknown; 2 is used for "defeated".
+        time_status = 1 if raid and raid["status"] == graid.RAID_STATUS_ACTIVE else 2
+    if user:
+        gp = request_data.get("getPoint", {})
+        user.exp += gp.get("exp", 0)
+        user.money += gp.get("money", 0)
+        _add_lux(user, gp.get("lux", 0))
+    return build_response(user,
+        userData={"userPoint": _user_point(user), "userDetail": _user_detail(user),
+                  "stageResumption": _stage_resumption(user)},
+        raidTimeStatus=time_status,
+        reliefFlag=0,
+        userSkills=[], userTitles=[],
+        userKeyblades=_user_keyblades(user, db_session),
     )
 
 
@@ -549,26 +835,30 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
     if user:
         user.current_stage_id = stage_id
         db_session.add(user)
+    # chests and enemy drops are rolled now and granted at /stage/clear for the uniqueIds the player
+    # opened / defeated (see stagemap.py)
+    drops = stagemap.roll_stage(stage_id)
+    with gstate.State(user, db_session) as st:
+        st["stage_drops"] = {"stageId": stage_id, **drops}
+        st["stage_keyblade"] = keyblade_id
+        cleared = list((st["stages"].get(str(stage_id)) or {}).get("clearMissionIds", []))
+    logger.info("STAGE DROPS: %s", drops)
     return build_response(user,
         userData={"userPoint": _user_point(user)},
+        # uniqueSymbolEnemyIds listed here are NOT spawned (StageManager::hasRandomEnemySymbol skips teams whose
+        # random-symbol id is in the list); empty = every random team appears
         userRandomEnemies=[],
-        userEnemyDropItems=[
-            {"uniqueEnemyId": 2, "dropItemTypeIds": [11, 13]},
-            {"uniqueEnemyId": 3, "dropItemTypeIds": [11, 13]},
-            {"uniqueEnemyId": 5, "dropItemTypeIds": [11, 13]},
-            {"uniqueEnemyId": 6, "dropItemTypeIds": [11, 13]},
-            {"uniqueEnemyId": 8, "dropItemTypeIds": [11, 13]},
-            {"uniqueEnemyId": 9, "dropItemTypeIds": [11, 13]},
-            {"uniqueEnemyId": 10, "dropItemTypeIds": [11, 13]},
-        ],
-        userTreasures=[
-            {"uniqueTreasureId": 11, "dropItemTypeIds": [11, 13]},
-        ],
+        userEnemyDropItems=[{"uniqueEnemyId": int(uid), "dropItemTypeIds": e["drop"]}
+                            for uid, e in drops["enemies"].items()],
+        userTreasures=[{"uniqueTreasureId": int(uid), "dropItemTypeIds": e["drop"]}
+                       for uid, e in drops["treasures"].items()],
         startStageData={
             "stageId": stage_id,
             "supportUserId": 0,
             "userKeybladeId": keyblade_id,
-            "clearMissionIds": [],
+            # missions already cleared on this stage: the result screen (BattleResultScrollView::
+            # loadStageResultData) lists a mission reward only for missions cleared now and not in here
+            "clearMissionIds": cleared,
             "stageSkip": 0,
         },
         campaigns=[],
@@ -578,9 +868,9 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
 
 def _user_detail(user: Optional[User]) -> dict:
     return {
-        "level": user.level if user else 1,
+        "level": _lux_rank(user),
         "exp": user.exp if user else 0,
-        "luxRank": user.lux_rank if user else 0,
+        "luxRank": _lux_rank(user),
         "luxGetRatio": 100,
         "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
         "maxDeckCost": user.max_deck_cost if user else 30,
@@ -609,20 +899,63 @@ def _stage_resumption(user=None) -> dict:
 def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     stage_id = user.current_stage_id if user and user.current_stage_id else 1010
     logger.info("STAGE CLEAR: stageId=%s payload=%s", stage_id, request_data)
+    new_medals, first_clear = [], 0
+    with gstate.State(user, db_session) as st:
+        rec = st["stages"].get(str(stage_id))
+        first_clear = int(rec is None)
+        if rec is None:
+            rec = st["stages"][str(stage_id)] = {"clearMissionIds": [], "luxRecord": 0, "clears": 0}
+        rec["clears"] += 1
+        lux = request_data.get("getPoint", {}).get("lux", 0)
+        rec["luxRecord"] = max(rec["luxRecord"], lux)
+        row = gstate.stage_row(stage_id) or {}
+        rewards = []
+        if first_clear:
+            for k in range(row.get("validClearGetItem", 0)):
+                rewards.append((row["clearGetItemType"][k], row["clearGetItemId"][k], row["clearGetItemNum"][k], 1))
+        for mid in request_data.get("clearMissionIds", []):
+            if mid not in rec["clearMissionIds"] and 1 <= mid <= row.get("validSubmission", 0):
+                rec["clearMissionIds"].append(mid)
+                k = mid - 1
+                rewards.append((row["submissionRewardType"][k], row["submissionItemId"][k], row["submissionItemNum"][k],
+                                2))
+        rec["clearMissionIds"].sort()
+        for m in request_data.get("getMaterials", []):
+            gstate.add_material(st, m["materialId"], m.get("number", 1))
+        new_medals += _grant_drops(user, st, stage_id, request_data)
+        _store_burst(st, request_data.get("burst"))
+        reward_medals = []      # StageClear::Reward {rewardkind, userMedalId, display} per new medal
+        for rtype, rid, num, kind in rewards:
+            got = _grant(user, st, rtype, rid, num)
+            new_medals += got
+            reward_medals += [{"rewardkind": kind, "userMedalId": m["userMedalId"], "display": 1} for m in got]
+        materials = gstate.materials_list(st)
+        # Raid boss appearance was one of the original server's private formulas (the client never reads misc 200
+        # and never applies evCampaign types 6/8). Best guess: chance per quest = the quest's raid points
+        # (getPoint.raidPoint, summed from enemy.raidPoint; ~800-2000) / 10000, times the campaign power for type 6
+        # (power/10000; "100% Raid Boss Encounter" is x100). Only on a stage with raidBoss (a raidSetting id) and
+        # no boss already up.
+        quest_raid_points = request_data.get("getPoint", {}).get("raidPoint", 0)
+        chance = quest_raid_points * _campaign_power(6) // 10000            # out of 10000
+        cur = graid.current(st)
+        raid_found = False
+        if row.get("raidBoss") and not (cur and cur["status"] == graid.RAID_STATUS_ACTIVE):
+            roll = random.randrange(10000)
+            if roll < chance and graid.discover(st, stage_id, row["raidBoss"]):
+                raid_found = True
+                logger.info("RAID DISCOVERED: stage %s setting %s (roll %d < %d)", stage_id, row["raidBoss"],
+                            roll, chance)
     if user:
         get_point = request_data.get("getPoint", {})
         user.exp += get_point.get("exp", 0)
         user.money += get_point.get("money", 0)
-        user.lux += get_point.get("lux", 0)
-        user.total_lux += get_point.get("lux", 0)
-        user.last_clear_stage_id = stage_id
-        while True:
-            next_stats = _get_player_stats(user.level + 1)
-            need = next_stats.get("needExp", 999999)
-            if user.exp < need:
-                break
-            user.level += 1
-            logger.info("LEVEL UP: -> %d (exp=%d, need=%d)", user.level, user.exp, need)
+        _add_lux(user, get_point.get("lux", 0))
+        # the result screen plays "raid boss appeared" when userPoint.raidPoint grew
+        # (SceneBattleResult::startResult -> SceneAdventureSelect::raidBossAnim), so it only rises on a discovery
+        if raid_found:
+            user.raid_point = (user.raid_point or 0) + max(get_point.get("raidPoint", 0), 1)
+        if stage_id in gstate.story_order():
+            user.last_clear_stage_id = max(user.last_clear_stage_id or 0, stage_id)
         db_session.add(user)
     return build_response(user,
         userData={
@@ -631,20 +964,252 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
             "stageResumption": _stage_resumption(user),
         },
         userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0},
-        stageRewardUserMedalIds=[],
-        firstClearFlag=1,
-        userMaterials=[],
-        userMedals=_STARTING_MEDALS,
+        # objects, not ids (StageClear::parse runs Reward::init on each: rewardkind IsInt, userMedalId IsUint64,
+        # display IsInt). The 1.0.1 client never reads the records back (only firstClearFlag, which it writes over
+        # byte 0 of the same buffer); the result screen builds its reward rows from the stage master instead.
+        stageRewardUserMedalIds=reward_medals,
+        firstClearFlag=first_clear,
+        userMaterials=materials,
+        userMedals=new_medals,
         userSkills=[],
         userTitles=[],
-        userKeyblades=[{
-            "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-            "deckMedals": [1, 2, 3],
-            "burst": 0,
-            "totalAttack": 3960, "totalDefense": 3747,
-            "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
-        }],
+        userKeyblades=_user_keyblades(user, db_session),
     )
+
+
+# drop types the client applies itself: 4 Munny / 11 Lux go into getPoint (StageSkipActionMap::
+# takeTreasureContent, AvatarActor::setPrizeContent), 8 attack gauge / 9 HP are in-battle pickups
+_CLIENT_APPLIED_DROPS = {4, 8, 9, 11}
+
+
+def _grant_drops(user: Optional[User], st: dict, stage_id: int, request_data: dict) -> list:
+    """Grant the rolled contents of the chests opened (getTreasures) and enemies defeated (getEnemyDropItems:
+    uniqueEnemyIds) during this quest. Returns new medals."""
+    rolled = st.pop("stage_drops", None) or {}
+    if rolled.get("stageId") != stage_id:
+        return []
+    got = []
+    for kind, key in (("treasures", "getTreasures"), ("enemies", "getEnemyDropItems")):
+        for uid in request_data.get(key, []):
+            entry = rolled.get(kind, {}).get(str(uid))
+            if not entry:
+                continue
+            for rtype, rid, num in stagemap.items(entry):
+                if rtype not in _CLIENT_APPLIED_DROPS:
+                    logger.info("  DROP from %s %s", "chest" if kind == "treasures" else "enemy", uid)
+                    got += _grant(user, st, rtype, rid, num)
+    return got
+
+
+def _campaign_power(campaign_type: int) -> int:
+    """Multiplier (10000 = 100.00%) of the active evCampaign of this type. No campaigns are scheduled yet
+    (responses send campaigns=[]), so this is always x1 for now."""
+    return 10000
+
+
+def _misc(misc_id: int, default: int) -> int:
+    from .master import MASTER_JSON_DATA
+    return next((m["value"] for m in MASTER_JSON_DATA.get("misc", []) if m.get("miscId") == misc_id), default)
+
+
+def _grant(user: Optional[User], st: dict, rtype: int, rid: int, num: int) -> list:
+    """Give a reward (stage first-clear / mission). Types per SceneUtil::setItemImageData; returns new medals."""
+    logger.info("  REWARD type=%s id=%s num=%s", rtype, rid, num)
+    if rtype == gstate.ITEM_MEDAL:
+        return [gstate.add_medal(st, rid) for _ in range(max(num, 1))]
+    if rtype == gstate.ITEM_MATERIAL:
+        gstate.add_material(st, rid, num)
+    elif rtype == gstate.ITEM_KEYBLADE:
+        for _ in range(max(num, 1)):
+            gstate.add_keyblade(st, rid)
+    elif user and rtype in _POINT_REWARDS:
+        col = _POINT_REWARDS[rtype]
+        setattr(user, col, (getattr(user, col) or 0) + num)
+        if rtype == 11:
+            user.total_lux += num
+            user.lux_rank = user.level = _lux_rank(user)
+    else:
+        logger.warning("  REWARD type %s not granted yet", rtype)
+    return []
+
+
+# reward type -> User column. Names from the client's own text (SceneUtil::setItemImageData -> TextData):
+# 2 Jewel, 4 Munny, 6 Friend Point, 8 Attack Prize, 9 HP Prize, 10 Raid Points, 11 Lux, 14 Avatar Coins,
+# 15 Event Coins, 16 Raid Coins, 17 Coliseum Coins. Not points: 3 medal, 5 material, 7 title, 12 avatar board
+# unlock, 13 keyblade, 18/19/20/23 avatar parts, 24 stamp.
+_POINT_REWARDS = {
+    2: "free_stone", 4: "money", 6: "kizuna_point", 8: "attack", 9: "hp_prize", 10: "raid_point",
+    11: "lux", 14: "sphere_point", 15: "stage_sphere_point", 16: "raid_sphere_point",
+    17: "colosseum_sphere_point",
+}
+
+
+def _master_row(table: str, key: str, value: int) -> dict:
+    from .master import MASTER_JSON_DATA
+    return next((r for r in MASTER_JSON_DATA.get(table, []) if r.get(key) == value), {})
+
+
+def _user_stone(user: Optional[User]) -> dict:
+    return {"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0}
+
+
+def _store_burst(st: dict, burst) -> None:
+    """The battle's CP (StageState+12; one gauge step = 10000) is sent by /stage/retire and /stage/clear as
+    `burst`; it carries over on the keyblade the quest was played with."""
+    if burst is None:
+        return
+    kid = st.get("stage_keyblade")
+    for kb in st["keyblades"]:
+        if kb["userKeybladeId"] == kid:
+            kb["burst"] = int(burst)
+
+
+def _remove_medals(st: dict, ids: set) -> None:
+    st["medals"] = [m for m in st["medals"] if m["userMedalId"] not in ids]
+    for kb in st["keyblades"]:
+        kb["deckMedals"] = [0 if mid in ids else mid for mid in kb["deckMedals"]]
+
+
+@register(44)  # POST /user/medal/lock
+def handle_medal_lock(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {userMedalIds: [...], isLocks: [1|0 ...]} (parallel arrays; executeUserMedalLock)
+    # response: userMedals[] - the client runs updateMedal on each
+    flags = dict(zip(request_data.get("userMedalIds", []), request_data.get("isLocks", [])))
+    changed = []
+    with gstate.State(user, db_session) as st:
+        for m in st["medals"]:
+            if m["userMedalId"] in flags:
+                m["lock"] = 1 if flags[m["userMedalId"]] else 0
+                changed.append(dict(m))
+    logger.info("MEDAL LOCK: %s", flags)
+    return build_response(user, userMedals=changed)
+
+
+@register(48)  # POST /user/material/sell
+def handle_material_sell(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {userMaterialId, number}; price = material.sell x number (SceneSellOutMaterialItem preview)
+    # response: userData.userPoint + top-level userMaterial (one object, the row after the sale)
+    umid, num = request_data.get("userMaterialId"), max(int(request_data.get("number", 0)), 0)
+    with gstate.State(user, db_session) as st:
+        have = st["materials"].get(str(umid), 0)
+        num = min(num, have)
+        st["materials"][str(umid)] = have - num
+        row = {"userMaterialId": umid, "materialId": umid, "number": have - num}
+    price = _master_row("material", "materialId", umid).get("sell", 0) * num
+    if user:
+        user.money += price
+        db_session.add(user)
+    logger.info("MATERIAL SELL: %s x%d -> +%d munny", umid, num, price)
+    return build_response(user, userData={"userPoint": _user_point(user)}, userMaterial=row)
+
+
+@register(49)  # POST /user/medal/sell
+def handle_medal_sell(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {userMedalIds: [...]}. Price per SceneSaleMedal::updateSellInfo: munny = medal.sell +
+    # medal.sellPerLv x (level - 1); plus medal.sellSpherePoint (Avatar Coins) when the medal's special attack
+    # is fully enhanced (burstUpperNumber == burst.maxEnhanceCount >= 1).
+    # response: userData.userPoint, userSkills[], top-level sellUserMedalIds (client removeMedals)
+    ids = set(request_data.get("userMedalIds", []))
+    munny = coins = 0
+    with gstate.State(user, db_session) as st:
+        sold = [m for m in st["medals"] if m["userMedalId"] in ids and not m.get("lock")]
+        for m in sold:
+            row = _master_row("medal", "medalId", m["medalId"])
+            munny += row.get("sell", 0) + row.get("sellPerLv", 0) * (m["level"] - 1)
+            cap = _master_row("burst", "burstId", row.get("burstId", 0)).get("maxEnhanceCount", 0)
+            if cap >= 1 and m.get("burstUpperNumber", 0) == cap:
+                coins += row.get("sellSpherePoint", 0)
+        sold_ids = [m["userMedalId"] for m in sold]
+        _remove_medals(st, set(sold_ids))
+    if user:
+        user.money += munny
+        user.sphere_point = (user.sphere_point or 0) + coins
+        db_session.add(user)
+    logger.info("MEDAL SELL: %s -> +%d munny +%d avatar coins", sold_ids, munny, coins)
+    return build_response(user, userData={"userPoint": _user_point(user)}, userSkills=[],
+                          sellUserMedalIds=sold_ids)
+
+
+@register(51)  # POST /keyblade/burst/max
+def handle_keyblade_burst_max(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {userKeybladeId}; cost misc 120 Jewels (StartDeckEditDialog::openAbilityMaxPopup)
+    # response: userStone + top-level userKeyblade (one keyblade object; client updateKeyblade)
+    kid = request_data.get("userKeybladeId")
+    cost = _misc(120, 30)
+    with gstate.State(user, db_session) as st:
+        kb = next(k for k in st["keyblades"] if k["userKeybladeId"] == kid)
+        kb["burst"] = _master_row("keyblade", "keybladeId", kb["keybladeId"]).get("maxBurstGauge", 0) * 10000
+        kb = dict(kb)
+    if user:
+        # free Jewels are spent before paid ones (user)
+        free = min(user.free_stone or 0, cost)
+        user.free_stone = (user.free_stone or 0) - free
+        user.pay_stone = max((user.pay_stone or 0) - (cost - free), 0)
+        db_session.add(user)
+    logger.info("KEYBLADE BURST MAX: %s -> burst %d (-%d jewels)", kid, kb["burst"], cost)
+    return build_response(user, userStone=_user_stone(user), userKeyblade=kb)
+
+
+@register(52)  # POST /keyblade/enhance
+def handle_keyblade_enhance(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {userKeybladeId}. SceneDeckEdit::updateKeyBladePanel: needs needMaterialNum[i] of
+    # needMaterialId[i] (i < validNeedMaterial) and a non-zero evolveId; no munny cost.
+    # response: userKeyblades[], userMaterials[], userTitles[]
+    kid = request_data.get("userKeybladeId")
+    with gstate.State(user, db_session) as st:
+        kb = next(k for k in st["keyblades"] if k["userKeybladeId"] == kid)
+        row = _master_row("keyblade", "keybladeId", kb["keybladeId"])
+        need = [(row["needMaterialId"][i], row["needMaterialNum"][i]) for i in range(row.get("validNeedMaterial", 0))]
+        if row.get("evolveId") and all(st["materials"].get(str(m), 0) >= n for m, n in need):
+            for m, n in need:
+                st["materials"][str(m)] -= n
+            logger.info("KEYBLADE ENHANCE: %s %s -> %s", kid, kb["keybladeId"], row["evolveId"])
+            kb["keybladeId"] = row["evolveId"]
+        else:
+            logger.warning("KEYBLADE ENHANCE refused: %s (evolveId %s, need %s)", kid, row.get("evolveId"), need)
+        keyblades, materials = st["keyblades"], gstate.materials_list(st)
+    return build_response(user, userKeyblades=keyblades, userMaterials=materials, userTitles=[])
+
+
+@register(54)  # POST /user/medal/evolve
+def handle_medal_evolve(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {baseUserMedalId, attachmentMedalIds}. SceneEvolveMedal::init: costs medal.evolveMoney, becomes
+    # medal.evolveId, consumes the evolveNeedId medals (sent as attachmentMedalIds).
+    # response: userData.userPoint, beforeEvolveUserMedal / afterEvolveUserMedal (same userMedalId: the client
+    # only removes attachmentMedalIds), attachmentMedalIds
+    base_id = request_data.get("baseUserMedalId")
+    attach = list(request_data.get("attachmentMedalIds", []))
+    with gstate.State(user, db_session) as st:
+        base = next(m for m in st["medals"] if m["userMedalId"] == base_id)
+        before = dict(base)
+        row = _master_row("medal", "medalId", base["medalId"])
+        if row.get("evolveId"):
+            base["medalId"] = row["evolveId"]       # level / exp kept: evolving only raises the cap and power (user)
+            _remove_medals(st, set(attach))
+            cost = row.get("evolveMoney", 0)
+        else:
+            logger.warning("MEDAL EVOLVE refused: %s has no evolveId", base["medalId"])
+            attach, cost = [], 0
+        after = dict(base)
+    if user:
+        user.money = max(0, user.money - cost)
+        db_session.add(user)
+    logger.info("MEDAL EVOLVE: %s %s -> %s (-%d munny, used %s)", base_id, before["medalId"], after["medalId"],
+                cost, attach)
+    return build_response(user, userData={"userPoint": _user_point(user)},
+                          beforeEvolveUserMedal=before, afterEvolveUserMedal=after, attachmentMedalIds=attach)
+
+
+@register(104)  # POST /stage/retire
+def handle_stage_retire(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {burst} (the battle's CP); response userKeyblades[] + userData.stageResumption
+    logger.info("STAGE RETIRE: %s", request_data)
+    with gstate.State(user, db_session) as st:
+        _store_burst(st, request_data.get("burst"))
+        st.pop("stage_drops", None)
+        keyblades = st["keyblades"]
+    return build_response(user, userKeyblades=keyblades,
+                          userData={"stageResumption": _stage_resumption(user)})
 
 
 @register(137)  # GET /user/option
@@ -686,16 +1251,11 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
             "lastActionDatetime": now,
             "stageResumption": _stage_resumption(user),
         },
-        "userMedals": _STARTING_MEDALS,
+        "userMedals": _user_medals(user, db_session),
         "userSkills": [],
         "userAvatar": _user_avatar(user),
-        "userKeyblade": {
-            "userKeybladeId": 1, "category": 0, "keybladeId": 1000,
-            "deckMedals": [1],
-            "burst": 0,
-            "totalAttack": 3960, "totalDefense": 3747,
-            "isFavorite": 1, "getDatetime": "2026-01-01 00:00:00",
-        },
+        "userKeyblade": next((k for k in _user_keyblades(user, db_session) if k.get("isFavorite")),
+                             _user_keyblades(user, db_session)[0]),
         "userRecord": {},
         "userRanking": {"lux": 0, "rank": 0},
         "userPopUp": {"isPopBenefitStone": 0},
@@ -756,7 +1316,7 @@ def handle_party(request_data: dict, user: Optional[User], db_session: DBSession
             "keybladeId": 1000,
             "isParty": 0,
             "isGuilt": 0,
-            "userMedal": _STARTING_MEDALS[0],
+            "userMedal": _lead_medal(user, db_session),
             "userSkills": [],
             "userAvatar": _user_avatar(user),
             "lastActionDatetime": "2026-01-01 00:00:00",
@@ -785,6 +1345,20 @@ def handle_need_url(request_data: dict, user: Optional[User], db_session: DBSess
     )
 
 
+@register(22)  # GET /payment/info (opened by the Jewels button)
+def handle_payment_info(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # verifyResponse case 22: PaymentInfo::parse (paymentInfo {cesaLimitAge, chargeMoneyThisMonth,
+    # lastchargeMoneyThisMonth}, all ints) then SystemNeedUrl::parse (same keys as action 23).
+    # No real money on the private server: nothing charged; cesaLimitAge 20 = adult bracket (misc COPPA_ADULT_AGE).
+    base = "http://api.sp.kingdomhearts.com"
+    return build_response(user,
+        paymentInfo={"cesaLimitAge": 20, "chargeMoneyThisMonth": 0, "lastchargeMoneyThisMonth": 0},
+        support=base, register=base, update=base, help=base,
+        staff=base, agreement=f"{base}/agreement", license=f"{base}/agreement",
+        shikin=base, tokutei=base, store=base,
+    )
+
+
 @register(24)  # GET /system/coppa — sent BEFORE master data download; misc IDs inline
 def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user,
@@ -805,7 +1379,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 27
+    master_rev = 53
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = get_master_encrypted(name)
@@ -961,10 +1535,14 @@ def handle_resource(request_data: dict, user: Optional[User], db_session: DBSess
             }],
         })
     logger.info("RESOURCE: serving %d data chunks + index", len(versions[0]["data"]) if versions else 0)
+    # ResourceInfo::init ignores each entry's "revision": the client numbers the entries minVersion,
+    # minVersion+1, ... and saves minVersion + len(versions) - 1 as its resource revision. That must equal
+    # Ret.versionRes, otherwise DataDownloader sees a mismatch and downloads everything again next launch.
+    version_res = build_ret(user)["versionRes"]
     return build_response(user,
         resource={
             "mode": 1,
-            "minVersion": 0,
+            "minVersion": max(0, version_res - len(versions) + 1),
             "versions": versions,
         },
     )
@@ -1011,7 +1589,13 @@ def handle_information_list(request_data: dict, user: Optional[User], db_session
             "date": f"2026/{n['date']}",
             "isNew": 0,
         })
-    return build_response(user, informations=infos, popUpViewUrl=[])
+    # popUpViewUrl (strings) = notice pages the client opens as WebView popups at startup. Must not be empty
+    # once the tutorial is past phase 710: SceneNotice::init then calls openNextPage() during its own init, and
+    # with no pages the completion moves to MyPage (changeSceneLayer) while the notice layer is still being
+    # created -> NULL layer -> crash in EventDispatcher::pauseEventListenersForTarget. The live server always
+    # had a notice popup at login.
+    popups = [f"http://api.sp.kingdomhearts.com/information/detail/{NOTICES[0]['id']}"] if NOTICES else []
+    return build_response(user, informations=infos, popUpViewUrl=popups)
 
 
 @register(30)  # GET /system/information/detail
@@ -1031,7 +1615,11 @@ def handle_party_notice(request_data: dict, user: Optional[User], db_session: DB
 
 @register(108)  # GET /raid/list
 def handle_raid_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, raids=[], raidList=[], raidBossList=[])
+    raid = graid.current(gstate.load(user, db_session))
+    raids = []
+    if raid and raid["status"] == graid.RAID_STATUS_ACTIVE:
+        raids.append({"raid": graid.info(raid), "discoverer": _raid_user(user)})
+    return build_response(user, raids=raids)
 
 
 @register(129)  # GET /ranking/parade
@@ -1047,17 +1635,31 @@ def handle_campaign(request_data: dict, user: Optional[User], db_session: DBSess
 @register(57)  # POST /user/sphere/check
 def handle_sphere_check(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     check_type = request_data.get("checkType", 1)
+    # checkType 1/2 read notChargedSphereBoardIds + userSphere; for checkType > 2 (3 after a raid) the client
+    # also requires a closeEventSphereBoardIds array (verifyResponse case 57 -> sub_4C0E78)
     return build_response(user,
         checkType=check_type,
+        closeEventSphereBoardIds=[],
         notChargedSphereBoardIds=[],
         userSphere={"userSphereDatas": [], "notChargedSphereBoardIds": []},
     )
 
 
+def _ticker_texts() -> list:
+    """Main-menu marquee: MypageInfo::AdminText {type, priority, text} from data/ticker.json."""
+    import json
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "ticker.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)["texts"]
+    except (OSError, ValueError, KeyError):
+        return []
+
+
 @register(56)  # GET /mypage
 def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user,
-        adminMypageTexts=[],
+        adminMypageTexts=_ticker_texts(),
         openBanners=[],
         userPresentCount=0,
         isChangeCoordinate=0,

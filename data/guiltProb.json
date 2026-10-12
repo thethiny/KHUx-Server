@@ -1,0 +1,1612 @@
+[
+  {
+    "id": 1010,
+    "value": 1,
+    "factor": 1000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1011,
+    "value": 1,
+    "factor": 1100,
+    "weight": 99,
+    "isCampaign": 1
+  },
+  {
+    "id": 1012,
+    "value": 1,
+    "factor": 1200,
+    "weight": 98,
+    "isCampaign": 1
+  },
+  {
+    "id": 1013,
+    "value": 1,
+    "factor": 1300,
+    "weight": 97,
+    "isCampaign": 1
+  },
+  {
+    "id": 1014,
+    "value": 1,
+    "factor": 1400,
+    "weight": 96,
+    "isCampaign": 1
+  },
+  {
+    "id": 1015,
+    "value": 1,
+    "factor": 1500,
+    "weight": 94,
+    "isCampaign": 0
+  },
+  {
+    "id": 1016,
+    "value": 1,
+    "factor": 1600,
+    "weight": 92,
+    "isCampaign": 0
+  },
+  {
+    "id": 1017,
+    "value": 1,
+    "factor": 1700,
+    "weight": 90,
+    "isCampaign": 0
+  },
+  {
+    "id": 1018,
+    "value": 1,
+    "factor": 1800,
+    "weight": 88,
+    "isCampaign": 0
+  },
+  {
+    "id": 1019,
+    "value": 1,
+    "factor": 1900,
+    "weight": 86,
+    "isCampaign": 0
+  },
+  {
+    "id": 1020,
+    "value": 1,
+    "factor": 2000,
+    "weight": 84,
+    "isCampaign": 0
+  },
+  {
+    "id": 1021,
+    "value": 1,
+    "factor": 2100,
+    "weight": 83,
+    "isCampaign": 0
+  },
+  {
+    "id": 1022,
+    "value": 1,
+    "factor": 2200,
+    "weight": 82,
+    "isCampaign": 0
+  },
+  {
+    "id": 1023,
+    "value": 1,
+    "factor": 2300,
+    "weight": 81,
+    "isCampaign": 0
+  },
+  {
+    "id": 1024,
+    "value": 1,
+    "factor": 2400,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 1025,
+    "value": 1,
+    "factor": 2500,
+    "weight": 79,
+    "isCampaign": 0
+  },
+  {
+    "id": 1050,
+    "value": 5,
+    "factor": 5000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1051,
+    "value": 5,
+    "factor": 5100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1052,
+    "value": 5,
+    "factor": 5200,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1053,
+    "value": 5,
+    "factor": 5300,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1054,
+    "value": 5,
+    "factor": 5400,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1055,
+    "value": 5,
+    "factor": 5500,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1056,
+    "value": 5,
+    "factor": 5600,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1057,
+    "value": 5,
+    "factor": 5700,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1058,
+    "value": 5,
+    "factor": 5800,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1059,
+    "value": 5,
+    "factor": 5900,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1060,
+    "value": 5,
+    "factor": 6000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1061,
+    "value": 5,
+    "factor": 6100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1062,
+    "value": 5,
+    "factor": 6200,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1063,
+    "value": 5,
+    "factor": 6300,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1064,
+    "value": 5,
+    "factor": 6400,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1065,
+    "value": 5,
+    "factor": 6500,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1066,
+    "value": 5,
+    "factor": 6600,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1067,
+    "value": 5,
+    "factor": 6700,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1068,
+    "value": 5,
+    "factor": 6800,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1069,
+    "value": 5,
+    "factor": 6900,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1070,
+    "value": 5,
+    "factor": 7000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1071,
+    "value": 5,
+    "factor": 7100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1072,
+    "value": 5,
+    "factor": 7200,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1073,
+    "value": 5,
+    "factor": 7300,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1074,
+    "value": 5,
+    "factor": 7400,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1075,
+    "value": 5,
+    "factor": 7500,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1076,
+    "value": 5,
+    "factor": 7600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1077,
+    "value": 5,
+    "factor": 7700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1078,
+    "value": 5,
+    "factor": 7800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1079,
+    "value": 5,
+    "factor": 7900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1080,
+    "value": 5,
+    "factor": 8000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1081,
+    "value": 5,
+    "factor": 8100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1082,
+    "value": 5,
+    "factor": 8200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1083,
+    "value": 5,
+    "factor": 8300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1084,
+    "value": 5,
+    "factor": 8400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1085,
+    "value": 5,
+    "factor": 8500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1086,
+    "value": 5,
+    "factor": 8600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1087,
+    "value": 5,
+    "factor": 8700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1088,
+    "value": 5,
+    "factor": 8800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1089,
+    "value": 5,
+    "factor": 8900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1090,
+    "value": 5,
+    "factor": 9000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1091,
+    "value": 5,
+    "factor": 9100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1092,
+    "value": 5,
+    "factor": 9200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1093,
+    "value": 5,
+    "factor": 9300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1094,
+    "value": 5,
+    "factor": 9400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1095,
+    "value": 5,
+    "factor": 9500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 1096,
+    "value": 5,
+    "factor": 9600,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1097,
+    "value": 5,
+    "factor": 9700,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1098,
+    "value": 5,
+    "factor": 9800,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1099,
+    "value": 5,
+    "factor": 9900,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 1100,
+    "value": 5,
+    "factor": 10000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 2020,
+    "value": 2,
+    "factor": 2000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 2021,
+    "value": 2,
+    "factor": 2100,
+    "weight": 99,
+    "isCampaign": 1
+  },
+  {
+    "id": 2022,
+    "value": 2,
+    "factor": 2200,
+    "weight": 98,
+    "isCampaign": 1
+  },
+  {
+    "id": 2023,
+    "value": 2,
+    "factor": 2300,
+    "weight": 97,
+    "isCampaign": 1
+  },
+  {
+    "id": 2024,
+    "value": 2,
+    "factor": 2400,
+    "weight": 96,
+    "isCampaign": 1
+  },
+  {
+    "id": 2025,
+    "value": 2,
+    "factor": 2500,
+    "weight": 95,
+    "isCampaign": 1
+  },
+  {
+    "id": 2026,
+    "value": 2,
+    "factor": 2600,
+    "weight": 94,
+    "isCampaign": 1
+  },
+  {
+    "id": 2027,
+    "value": 2,
+    "factor": 2700,
+    "weight": 93,
+    "isCampaign": 1
+  },
+  {
+    "id": 2028,
+    "value": 2,
+    "factor": 2800,
+    "weight": 92,
+    "isCampaign": 1
+  },
+  {
+    "id": 2029,
+    "value": 2,
+    "factor": 2900,
+    "weight": 91,
+    "isCampaign": 1
+  },
+  {
+    "id": 2030,
+    "value": 2,
+    "factor": 3000,
+    "weight": 90,
+    "isCampaign": 0
+  },
+  {
+    "id": 2031,
+    "value": 2,
+    "factor": 3100,
+    "weight": 89,
+    "isCampaign": 0
+  },
+  {
+    "id": 2032,
+    "value": 2,
+    "factor": 3200,
+    "weight": 88,
+    "isCampaign": 0
+  },
+  {
+    "id": 2033,
+    "value": 2,
+    "factor": 3300,
+    "weight": 87,
+    "isCampaign": 0
+  },
+  {
+    "id": 2034,
+    "value": 2,
+    "factor": 3400,
+    "weight": 86,
+    "isCampaign": 0
+  },
+  {
+    "id": 2035,
+    "value": 2,
+    "factor": 3500,
+    "weight": 85,
+    "isCampaign": 0
+  },
+  {
+    "id": 2036,
+    "value": 2,
+    "factor": 3600,
+    "weight": 84,
+    "isCampaign": 0
+  },
+  {
+    "id": 2037,
+    "value": 2,
+    "factor": 3700,
+    "weight": 83,
+    "isCampaign": 0
+  },
+  {
+    "id": 2038,
+    "value": 2,
+    "factor": 3800,
+    "weight": 82,
+    "isCampaign": 0
+  },
+  {
+    "id": 2039,
+    "value": 2,
+    "factor": 3900,
+    "weight": 81,
+    "isCampaign": 0
+  },
+  {
+    "id": 2040,
+    "value": 2,
+    "factor": 4000,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2041,
+    "value": 2,
+    "factor": 4100,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2042,
+    "value": 2,
+    "factor": 4200,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2043,
+    "value": 2,
+    "factor": 4300,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2044,
+    "value": 2,
+    "factor": 4400,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2045,
+    "value": 2,
+    "factor": 4500,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2046,
+    "value": 2,
+    "factor": 4600,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2047,
+    "value": 2,
+    "factor": 4700,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2048,
+    "value": 2,
+    "factor": 4800,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2049,
+    "value": 2,
+    "factor": 4900,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 2050,
+    "value": 2,
+    "factor": 5000,
+    "weight": 80,
+    "isCampaign": 0
+  },
+  {
+    "id": 3040,
+    "value": 3,
+    "factor": 4000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3041,
+    "value": 3,
+    "factor": 4100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3042,
+    "value": 3,
+    "factor": 4200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3043,
+    "value": 3,
+    "factor": 4300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3044,
+    "value": 3,
+    "factor": 4400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3045,
+    "value": 3,
+    "factor": 4500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3046,
+    "value": 3,
+    "factor": 4600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3047,
+    "value": 3,
+    "factor": 4700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3048,
+    "value": 3,
+    "factor": 4800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3049,
+    "value": 3,
+    "factor": 4900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3050,
+    "value": 3,
+    "factor": 5000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3051,
+    "value": 3,
+    "factor": 5100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3052,
+    "value": 3,
+    "factor": 5200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3053,
+    "value": 3,
+    "factor": 5300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3054,
+    "value": 3,
+    "factor": 5400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3055,
+    "value": 3,
+    "factor": 5500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3056,
+    "value": 3,
+    "factor": 5600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3057,
+    "value": 3,
+    "factor": 5700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3058,
+    "value": 3,
+    "factor": 5800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3059,
+    "value": 3,
+    "factor": 5900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3060,
+    "value": 3,
+    "factor": 6000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3061,
+    "value": 3,
+    "factor": 6100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3062,
+    "value": 3,
+    "factor": 6200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3063,
+    "value": 3,
+    "factor": 6300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3064,
+    "value": 3,
+    "factor": 6400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3065,
+    "value": 3,
+    "factor": 6500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3066,
+    "value": 3,
+    "factor": 6600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3067,
+    "value": 3,
+    "factor": 6700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3068,
+    "value": 3,
+    "factor": 6800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3069,
+    "value": 3,
+    "factor": 6900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 3070,
+    "value": 3,
+    "factor": 7000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3071,
+    "value": 3,
+    "factor": 7100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3072,
+    "value": 3,
+    "factor": 7200,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3073,
+    "value": 3,
+    "factor": 7300,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3074,
+    "value": 3,
+    "factor": 7400,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3075,
+    "value": 3,
+    "factor": 7500,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3076,
+    "value": 3,
+    "factor": 7600,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3077,
+    "value": 3,
+    "factor": 7700,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3078,
+    "value": 3,
+    "factor": 7800,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3079,
+    "value": 3,
+    "factor": 7900,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3080,
+    "value": 3,
+    "factor": 8000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3081,
+    "value": 3,
+    "factor": 8100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 3082,
+    "value": 3,
+    "factor": 8200,
+    "weight": 99,
+    "isCampaign": 0
+  },
+  {
+    "id": 3083,
+    "value": 3,
+    "factor": 8300,
+    "weight": 99,
+    "isCampaign": 0
+  },
+  {
+    "id": 3084,
+    "value": 3,
+    "factor": 8400,
+    "weight": 98,
+    "isCampaign": 0
+  },
+  {
+    "id": 3085,
+    "value": 3,
+    "factor": 8500,
+    "weight": 98,
+    "isCampaign": 0
+  },
+  {
+    "id": 3086,
+    "value": 3,
+    "factor": 8600,
+    "weight": 97,
+    "isCampaign": 0
+  },
+  {
+    "id": 3087,
+    "value": 3,
+    "factor": 8700,
+    "weight": 97,
+    "isCampaign": 0
+  },
+  {
+    "id": 3088,
+    "value": 3,
+    "factor": 8800,
+    "weight": 96,
+    "isCampaign": 0
+  },
+  {
+    "id": 3089,
+    "value": 3,
+    "factor": 8900,
+    "weight": 96,
+    "isCampaign": 0
+  },
+  {
+    "id": 3090,
+    "value": 3,
+    "factor": 9000,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3091,
+    "value": 3,
+    "factor": 9100,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3092,
+    "value": 3,
+    "factor": 9200,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3093,
+    "value": 3,
+    "factor": 9300,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3094,
+    "value": 3,
+    "factor": 9400,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3095,
+    "value": 3,
+    "factor": 9500,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3096,
+    "value": 3,
+    "factor": 9600,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3097,
+    "value": 3,
+    "factor": 9700,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3098,
+    "value": 3,
+    "factor": 9800,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3099,
+    "value": 3,
+    "factor": 9900,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 3100,
+    "value": 3,
+    "factor": 10000,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 4060,
+    "value": 4,
+    "factor": 6000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4061,
+    "value": 4,
+    "factor": 6100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4062,
+    "value": 4,
+    "factor": 6200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4063,
+    "value": 4,
+    "factor": 6300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4064,
+    "value": 4,
+    "factor": 6400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4065,
+    "value": 4,
+    "factor": 6500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4066,
+    "value": 4,
+    "factor": 6600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4067,
+    "value": 4,
+    "factor": 6700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4068,
+    "value": 4,
+    "factor": 6800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4069,
+    "value": 4,
+    "factor": 6900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4070,
+    "value": 4,
+    "factor": 7000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4071,
+    "value": 4,
+    "factor": 7100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4072,
+    "value": 4,
+    "factor": 7200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4073,
+    "value": 4,
+    "factor": 7300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4074,
+    "value": 4,
+    "factor": 7400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4075,
+    "value": 4,
+    "factor": 7500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4076,
+    "value": 4,
+    "factor": 7600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4077,
+    "value": 4,
+    "factor": 7700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4078,
+    "value": 4,
+    "factor": 7800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4079,
+    "value": 4,
+    "factor": 7900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4080,
+    "value": 4,
+    "factor": 8000,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4081,
+    "value": 4,
+    "factor": 8100,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4082,
+    "value": 4,
+    "factor": 8200,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4083,
+    "value": 4,
+    "factor": 8300,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4084,
+    "value": 4,
+    "factor": 8400,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4085,
+    "value": 4,
+    "factor": 8500,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4086,
+    "value": 4,
+    "factor": 8600,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4087,
+    "value": 4,
+    "factor": 8700,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4088,
+    "value": 4,
+    "factor": 8800,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4089,
+    "value": 4,
+    "factor": 8900,
+    "weight": 100,
+    "isCampaign": 1
+  },
+  {
+    "id": 4090,
+    "value": 4,
+    "factor": 9000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4091,
+    "value": 4,
+    "factor": 9100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4092,
+    "value": 4,
+    "factor": 9200,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4093,
+    "value": 4,
+    "factor": 9300,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4094,
+    "value": 4,
+    "factor": 9400,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4095,
+    "value": 4,
+    "factor": 9500,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4096,
+    "value": 4,
+    "factor": 9600,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4097,
+    "value": 4,
+    "factor": 9700,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4098,
+    "value": 4,
+    "factor": 9800,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4099,
+    "value": 4,
+    "factor": 9900,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4100,
+    "value": 4,
+    "factor": 10000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4101,
+    "value": 4,
+    "factor": 10100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4102,
+    "value": 4,
+    "factor": 10200,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4103,
+    "value": 4,
+    "factor": 10300,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4104,
+    "value": 4,
+    "factor": 10400,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4105,
+    "value": 4,
+    "factor": 10500,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4106,
+    "value": 4,
+    "factor": 10600,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4107,
+    "value": 4,
+    "factor": 10700,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4108,
+    "value": 4,
+    "factor": 10800,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4109,
+    "value": 4,
+    "factor": 10900,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4110,
+    "value": 4,
+    "factor": 11000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4111,
+    "value": 4,
+    "factor": 11100,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4112,
+    "value": 4,
+    "factor": 11200,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4113,
+    "value": 4,
+    "factor": 11300,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4114,
+    "value": 4,
+    "factor": 11400,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4115,
+    "value": 4,
+    "factor": 11500,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4116,
+    "value": 4,
+    "factor": 11600,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4117,
+    "value": 4,
+    "factor": 11700,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4118,
+    "value": 4,
+    "factor": 11800,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4119,
+    "value": 4,
+    "factor": 11900,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4120,
+    "value": 4,
+    "factor": 12000,
+    "weight": 100,
+    "isCampaign": 0
+  },
+  {
+    "id": 4121,
+    "value": 4,
+    "factor": 12100,
+    "weight": 99,
+    "isCampaign": 0
+  },
+  {
+    "id": 4122,
+    "value": 4,
+    "factor": 12200,
+    "weight": 99,
+    "isCampaign": 0
+  },
+  {
+    "id": 4123,
+    "value": 4,
+    "factor": 12300,
+    "weight": 98,
+    "isCampaign": 0
+  },
+  {
+    "id": 4124,
+    "value": 4,
+    "factor": 12400,
+    "weight": 98,
+    "isCampaign": 0
+  },
+  {
+    "id": 4125,
+    "value": 4,
+    "factor": 12500,
+    "weight": 97,
+    "isCampaign": 0
+  },
+  {
+    "id": 4126,
+    "value": 4,
+    "factor": 12600,
+    "weight": 97,
+    "isCampaign": 0
+  },
+  {
+    "id": 4127,
+    "value": 4,
+    "factor": 12700,
+    "weight": 96,
+    "isCampaign": 0
+  },
+  {
+    "id": 4128,
+    "value": 4,
+    "factor": 12800,
+    "weight": 96,
+    "isCampaign": 0
+  },
+  {
+    "id": 4129,
+    "value": 4,
+    "factor": 12900,
+    "weight": 95,
+    "isCampaign": 0
+  },
+  {
+    "id": 4130,
+    "value": 4,
+    "factor": 13000,
+    "weight": 95,
+    "isCampaign": 0
+  }
+]

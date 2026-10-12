@@ -11,15 +11,18 @@
     "validParts": 2,
     "partsId": [
       "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
+      "RB_0003_00_00_eff_front",
+      ""
     ],
     "xPostion": [
       0,
-      0
+      0,
+      811544624
     ],
     "yPostion": [
       0,
-      0
+      0,
+      811544624
     ]
   },
   {
@@ -34,15 +37,18 @@
     "validParts": 2,
     "partsId": [
       "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
+      "RB_0003_00_00_eff_front",
+      ""
     ],
     "xPostion": [
       0,
-      0
+      0,
+      811544624
     ],
     "yPostion": [
       0,
-      0
+      0,
+      811544624
     ]
   },
   {
@@ -57,15 +63,18 @@
     "validParts": 2,
     "partsId": [
       "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
+      "RB_0003_00_00_eff_front",
+      ""
     ],
     "xPostion": [
       0,
-      0
+      0,
+      811544624
     ],
     "yPostion": [
       0,
-      0
+      0,
+      811544624
     ]
   },
   {
@@ -80,15 +89,18 @@
     "validParts": 2,
     "partsId": [
       "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
+      "RB_0003_00_00_eff_front",
+      ""
     ],
     "xPostion": [
       0,
-      0
+      0,
+      811544624
     ],
     "yPostion": [
       0,
-      0
+      0,
+      811544624
     ]
   },
   {
@@ -103,15 +115,18 @@
     "validParts": 2,
     "partsId": [
       "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
+      "RB_0003_00_00_eff_front",
+      ""
     ],
     "xPostion": [
       0,
-      0
+      0,
+      811544624
     ],
     "yPostion": [
       0,
-      0
+      0,
+      811544624
     ]
   },
   {
@@ -126,107 +141,18 @@
     "validParts": 2,
     "partsId": [
       "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
+      "RB_0003_00_00_eff_front",
+      ""
     ],
     "xPostion": [
       0,
-      0
+      0,
+      811544624
     ],
     "yPostion": [
       0,
-      0
-    ]
-  },
-  {
-    "worldId": 7,
-    "worldName": "CD",
-    "raidBackground": "bg_CD1",
-    "instanceLwf": "sDummy",
-    "instance": "sDummy",
-    "xPos": 0,
-    "yPos": 0,
-    "rate": 10000,
-    "validParts": 2,
-    "partsId": [
-      "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
-    ],
-    "xPostion": [
       0,
-      0
-    ],
-    "yPostion": [
-      0,
-      0
-    ]
-  },
-  {
-    "worldId": 10000,
-    "worldName": "DB",
-    "raidBackground": "bg_DB1",
-    "instanceLwf": "sDummy",
-    "instance": "sDummy",
-    "xPos": 0,
-    "yPos": 0,
-    "rate": 10000,
-    "validParts": 2,
-    "partsId": [
-      "RB_0003_00_00_eff_back2",
-      "RB_0003_00_00_eff_front"
-    ],
-    "xPostion": [
-      0,
-      0
-    ],
-    "yPostion": [
-      0,
-      0
-    ]
-  },
-  {
-    "worldId": 8,
-    "worldName": "ED",
-    "raidBackground": "bg_ED1",
-    "instanceLwf": "sDummy",
-    "instance": "sDummy",
-    "xPos": 0,
-    "yPos": 0,
-    "rate": 10000,
-    "validParts": 2,
-    "partsId": [
-      "RB_0003_00_00_eff_back",
-      "RB_0003_00_00_eff_front"
-    ],
-    "xPostion": [
-      0,
-      0
-    ],
-    "yPostion": [
-      0,
-      0
-    ]
-  },
-  {
-    "worldId": 10001,
-    "worldName": "DB",
-    "raidBackground": "bg_DB1",
-    "instanceLwf": "sDummy",
-    "instance": "sDummy",
-    "xPos": 0,
-    "yPos": 0,
-    "rate": 10000,
-    "validParts": 2,
-    "partsId": [
-      "RB_0003_00_00_eff_back3",
-      "RB_0003_00_00_eff_front"
-    ],
-    "xPostion": [
-      0,
-      0
-    ],
-    "yPostion": [
-      0,
-      0
+      811544624
     ]
   }
 ]

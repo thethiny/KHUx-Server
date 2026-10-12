@@ -72,6 +72,15 @@ class User(Base):
     tutorial_progression: Mapped[int] = mapped_column(Integer, default=0)
     tutorial_phase: Mapped[int] = mapped_column(Integer, default=50)
     current_stage_id: Mapped[int] = mapped_column(Integer, default=0)
+    # reward point balances (reward types 6 friend, 10 raid, 14/15/16/17 avatar/event/raid/coliseum coins,
+    # 9 HP prize; 8 attack prize goes to `attack`)
+    kizuna_point: Mapped[int] = mapped_column(Integer, default=0)
+    raid_point: Mapped[int] = mapped_column(Integer, default=0)
+    sphere_point: Mapped[int] = mapped_column(Integer, default=0)
+    stage_sphere_point: Mapped[int] = mapped_column(Integer, default=0)
+    raid_sphere_point: Mapped[int] = mapped_column(Integer, default=0)
+    colosseum_sphere_point: Mapped[int] = mapped_column(Integer, default=0)
+    hp_prize: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
@@ -138,6 +147,15 @@ class UserMaterial(Base):
     user: Mapped["User"] = relationship(back_populates="materials")
 
 
+class UserState(Base):
+    """Per-user game inventory/progress as one JSON document (medals, keyblades + decks, materials, stage
+    clears). See state.py. A separate table so existing DBs pick it up via create_all (no migration)."""
+    __tablename__ = "user_state"
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), primary_key=True)
+    data: Mapped[str] = mapped_column(String, default="{}")
+
+
 def get_engine(db_path: str = "khux.db"):
     return create_engine(f"sqlite:///{db_path}", echo=False)
 
@@ -150,6 +168,7 @@ def create_tables(engine):
             row = conn.execute(text("SELECT created_at FROM _meta LIMIT 1")).fetchone()
             if row:
                 print(f"  DB created @ {row[0]}")
+        Base.metadata.create_all(engine)    # adds tables introduced since (e.g. user_state)
         _migrate(engine, inspector)
     else:
         Base.metadata.create_all(engine)
@@ -172,6 +191,13 @@ def _migrate(engine, inspector):
         "skin_parts_id": "INTEGER DEFAULT 0",
         "accessories_parts_ids": "VARCHAR DEFAULT ''",
         "tutorial_phase": "INTEGER DEFAULT 50",
+        "kizuna_point": "INTEGER DEFAULT 0",
+        "raid_point": "INTEGER DEFAULT 0",
+        "sphere_point": "INTEGER DEFAULT 0",
+        "stage_sphere_point": "INTEGER DEFAULT 0",
+        "raid_sphere_point": "INTEGER DEFAULT 0",
+        "colosseum_sphere_point": "INTEGER DEFAULT 0",
+        "hp_prize": "INTEGER DEFAULT 0",
     }
     added = []
     with engine.connect() as conn:

@@ -1,0 +1,80 @@
+[
+  {
+    "resourceId": 2016063002,
+    "priority": 100600,
+    "validResource": 1,
+    "endTime": "2016-08-11 06:59:59"
+  },
+  {
+    "resourceId": 2016070702,
+    "priority": 100700,
+    "validResource": 1,
+    "endTime": "2016-08-11 06:59:59"
+  },
+  {
+    "resourceId": 2016071402,
+    "priority": 100800,
+    "validResource": 1,
+    "endTime": "2016-08-18 06:59:59"
+  },
+  {
+    "resourceId": 2016072103,
+    "priority": 100900,
+    "validResource": 1,
+    "endTime": "2016-08-25 06:59:59"
+  },
+  {
+    "resourceId": 2016072801,
+    "priority": 101000,
+    "validResource": 1,
+    "endTime": "2016-09-11 06:59:59"
+  },
+  {
+    "resourceId": 2016080404,
+    "priority": 101100,
+    "validResource": 1,
+    "endTime": "2016-09-11 06:59:59"
+  },
+  {
+    "resourceId": 2016081101,
+    "priority": 101200,
+    "validResource": 1,
+    "endTime": "2016-09-16 06:59:59"
+  },
+  {
+    "resourceId": 2016081801,
+    "priority": 101300,
+    "validResource": 1,
+    "endTime": "2016-09-23 06:59:59"
+  },
+  {
+    "resourceId": 2016082504,
+    "priority": 101400,
+    "validResource": 1,
+    "endTime": "2016-10-10 06:59:59"
+  },
+  {
+    "resourceId": 2016082601,
+    "priority": 101410,
+    "validResource": 1,
+    "endTime": "2016-09-04 06:59:59"
+  },
+  {
+    "resourceId": 2016090103,
+    "priority": 101500,
+    "validResource": 1,
+    "endTime": "2016-10-07 06:59:59"
+  },
+  {
+    "resourceId": 2016090802,
+    "priority": 101600,
+    "validResource": 1,
+    "endTime": "2016-10-14 06:59:59"
+  },
+  {
+    "resourceId": 2016091502,
+    "priority": 101700,
+    "validResource": 1,
+    "endTime": "2016-11-07 07:59:59"
+  }
+]
