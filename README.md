@@ -43,3 +43,7 @@ Client (v5.0.1 APK on emulator)
 - API encryption research: xlash123/khux-re-api
 - Asset decryption: bnnm (khuxdecrypt3), thethiny
 - Game data extraction: KHUx Tools (../khux/)
+
+## License
+
+MIT, see [LICENSE](LICENSE). Credit is required: keep the copyright notice in copies and derived work. Game data and assets are not covered (they belong to Square Enix).

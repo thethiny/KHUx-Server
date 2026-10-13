@@ -123,8 +123,16 @@ def handle_user_shop(request_data: dict, user: Optional[User], db_session: DBSes
 
 @register(9)  # GET /user/sphere
 def handle_user_sphere(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user,
-        userSphere={"userSphereDatas": [], "notChargedSphereBoardIds": []})
+    # verifyResponse case 9 (libcocos2dcpp_0003.c LABEL_141): UserSphere::parse(doc, 0) = userSphere
+    # {userSphereDatas: [Sphere], notChargedSphereBoardIds: [int]}; it becomes the owned-board map (APIManager+180)
+    # the board select screen lists from. Boards the player qualifies for are granted here too, so the list is
+    # never empty (the initItem boards at least); /user/sphere/check announces later ones as NEW.
+    with gstate.State(user, db_session) as st:
+        added = gstate.sync_spheres(st, _lux_rank(user))
+        boards = gstate.sphere_list(st)
+    if added:
+        logger.info("SPHERE GET: granted %s", [b["sphereBoardId"] for b in added])
+    return build_response(user, userSphere=_user_sphere(boards))
 
 
 def _get_player_stats(level: int) -> dict:
@@ -173,12 +181,13 @@ def _user_point(user: Optional[User]) -> dict:
     if user:
         stats = _get_player_stats(_lux_rank(user))
         hp = stats["hp"] + (user.hp_prize or 0)
+        ap = stats["ap"] + (getattr(user, "ap_prize", 0) or 0)     # + Avatar Board Max AP nodes
         return {
             "money": user.money, "lux": user.lux, "totalLux": user.total_lux,
             "spherePoint": user.sphere_point or 0, "kizunaPoint": user.kizuna_point or 0,
             "raidPoint": user.raid_point or 0,
             "attack": user.attack, "defense": user.defense, "baseHp": hp,
-            "hp": hp, "ap": stats["ap"], "maxHp": hp, "maxAp": stats["ap"],
+            "hp": hp, "ap": ap, "maxHp": hp, "maxAp": ap,
             "lastApDatetime": now,
             "stageSpherePoint": user.stage_sphere_point or 0, "raidSpherePoint": user.raid_sphere_point or 0,
             "colosseumSpherePoint": user.colosseum_sphere_point or 0, "stageSkipTicket": 0,
@@ -278,7 +287,13 @@ def handle_user_material(request_data: dict, user: Optional[User], db_session: D
 
 @register(16)  # GET /user/title
 def handle_user_title(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userTitles=[])
+    # Fetched in the login chain (callbackUserAvatarPartsGet -> executeUserTitleGet). verifyResponse case 16 runs
+    # UserTitle::parse (0x4A1688) and REPLACES the owned list at APIManager+268 with it; one bad record (missing
+    # key / wrong type) makes the parse return null. Records: {userTitleId: uint64, titleId: int}.
+    # The title picker (AvatarInfoDialog::openPopUpSelectSubName) lists 0 ("none") + these titleIds.
+    titles = gstate.load(user, db_session).get("titles", []) if user else         [{"userTitleId": i + 1, "titleId": t} for i, t in enumerate(gstate.default_title_ids())]
+    return build_response(user, userTitles=[{"userTitleId": int(t["userTitleId"]), "titleId": int(t["titleId"])}
+                                            for t in titles])
 
 
 @register(17)  # GET /user/support
@@ -288,7 +303,7 @@ def handle_user_support(request_data: dict, user: Optional[User], db_session: DB
         supportUser={
             "supportUserId": uid, "level": 1, "partyId": 0,
             "userName": user.user_name if user else "Player",
-            "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
+            **_user_titles(user),
             "userKeybladeId": 0, "keybladeId": 0,
             "userMedalId": 0, "medalId": 0,
             "lastActionDatetime": "2026-01-01 00:00:00",
@@ -302,16 +317,87 @@ def handle_user_avatar_all(request_data: dict, user: Optional[User], db_session:
 
 @register(21)  # GET /user/avatar/parts
 def handle_user_avatar_parts(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    parts = [
-        {"userAvatarPartsId": i + 1, "partsType": p_type, "avatarPartsId": p_id,
-         "getDatetime": "2026-01-01 00:00:00"}
-        for i, (p_type, p_id) in enumerate([
-            (1, 30001), (1, 30002),   # body male/female
-            (2, 20001), (2, 20002),   # face male/female
-            (3, 40001), (3, 40002),   # hair male/female
-        ])
-    ]
-    return build_response(user, userAvatarParts=parts)
+    # UserAvatarParts::parse (0x49FC0C): userAvatarParts[] of Part {userAvatarPartsId (uint64), partsType (int),
+    # avatarPartsId (int), getDatetime}; replaces the owned list (APIManager+204). Owned parts: the initItem
+    # category-100 rows plus Avatar Board / reward unlocks (state.avatar_parts).
+    return build_response(user, userAvatarParts=_avatar_parts(gstate.load(user, db_session)))
+
+
+def _avatar_parts(st: dict) -> list:
+    return [{"userAvatarPartsId": int(p["userAvatarPartsId"]), "partsType": int(p["partsType"]),
+             "avatarPartsId": int(p["avatarPartsId"]), "getDatetime": p["getDatetime"]}
+            for p in st.get("avatar_parts", [])]
+
+
+def _user_titles(user: Optional[User]) -> dict:
+    """The profile title ("default message"): left title + right title + plate, as chosen with action 39."""
+    return {"titleLeftId": int(user.title_left_id or 0) if user else 0,
+            "titleRightId": int(user.title_right_id or 0) if user else 0,
+            "titlePlateId": int(user.title_plate_id or 0) if user else 0}
+
+
+def _title_ids() -> set:
+    return gstate.title_ids()
+
+
+@register(39)  # POST /user/title/update {titleLeftId, titleRightId, titlePlateId}
+def handle_user_title_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # Request ids are sent as uint64 (APIManager::executeUserTitleUpdate). verifyResponse cases 38/39
+    # (asm 0x4BBA36) run only UserDetail::parse = userData.userDetail (titleLeftId/RightId/PlateId are int)
+    # and fail the call when it is missing.
+    if user:
+        known = _title_ids()
+        owned = gstate.owned_title_ids(gstate.load(user, db_session))
+        for key, attr in (("titleLeftId", "title_left_id"), ("titleRightId", "title_right_id"),
+                          ("titlePlateId", "title_plate_id")):
+            try:
+                val = int(request_data.get(key, getattr(user, attr) or 0))
+            except (TypeError, ValueError):
+                logger.warning("TITLE UPDATE: bad %s=%r", key, request_data.get(key))
+                continue
+            # left/right are title master ids the player owns (the picker offers 0 + the action-16 list); the plate
+            # id has no master table we know of, so only range-check it. Re-sending the current value is accepted.
+            if val < 0 or val > 0x7FFFFFFF or (
+                    key != "titlePlateId" and val and val != (getattr(user, attr) or 0)
+                    and ((known and val not in known) or val not in owned)):
+                logger.warning("TITLE UPDATE: unknown/unowned %s=%s, keeping %s", key, val, getattr(user, attr))
+                continue
+            setattr(user, attr, val)
+        db_session.add(user)
+        logger.info("TITLE UPDATE: %s", _user_titles(user))
+    return build_response(user, userData={"userDetail": _user_detail(user)})
+
+
+def _user_obj(user: Optional[User]) -> dict:
+    """userData.user (hole::network::api::User::parse)."""
+    uid = user.id if user else 1
+    return {
+        "userId": uid,
+        "nativeUserId": uid,
+        "platformId": 2,
+        "userName": user.user_name if user else "Player",
+        "gender": user.gender if user else 0,
+        "comment": user.comment if user else "",
+        "deviceType": 2,
+        "continueLoginCount": 1,
+        "isFleeze": 0,
+        "fleezedDatetime": "2000-01-01 00:00:00",
+        "nativeTagName": "player_tag",
+    }
+
+
+# 36 / 37: verifyResponse runs User::parse ("userData") then UserDetail::parse (case 36/37 -> LABEL_24 -> 30)
+@register(36)  # POST /user/name/update {name, comment}
+def handle_name_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    name, comment = request_data.get("name"), request_data.get("comment")
+    logger.info("NAME UPDATE: name=%r comment=%r", name, comment)
+    if user:
+        if isinstance(name, str) and name.strip():
+            user.user_name = name[:13]              # the client's edit box allows 13 characters
+        if isinstance(comment, str):
+            user.comment = comment[:128]
+        db_session.add(user)
+    return build_response(user, userData={"user": _user_obj(user), "userDetail": _user_detail(user)})
 
 
 @register(37)  # POST /user/gender/update
@@ -321,7 +407,7 @@ def handle_gender_update(request_data: dict, user: Optional[User], db_session: D
     if user:
         user.gender = gender
         db_session.add(user)
-    return build_response(user)
+    return build_response(user, userData={"user": _user_obj(user), "userDetail": _user_detail(user)})
 
 
 @register(41)  # POST /user/avatar/update
@@ -872,7 +958,7 @@ def _user_detail(user: Optional[User]) -> dict:
         "exp": user.exp if user else 0,
         "luxRank": _lux_rank(user),
         "luxGetRatio": 100,
-        "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
+        **_user_titles(user),
         "maxDeckCost": user.max_deck_cost if user else 30,
         "playTimezones": [0, 0, 0, 0, 0, 0],
         "playFrequently": 0, "partyId": 0, "unionId": user.union_id if user else 1,
@@ -899,8 +985,9 @@ def _stage_resumption(user=None) -> dict:
 def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     stage_id = user.current_stage_id if user and user.current_stage_id else 1010
     logger.info("STAGE CLEAR: stageId=%s payload=%s", stage_id, request_data)
-    new_medals, first_clear = [], 0
+    new_medals, first_clear, new_titles = [], 0, []
     with gstate.State(user, db_session) as st:
+        title_mark = gstate.title_mark(st)
         rec = st["stages"].get(str(stage_id))
         first_clear = int(rec is None)
         if rec is None:
@@ -929,6 +1016,11 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
             got = _grant(user, st, rtype, rid, num)
             new_medals += got
             reward_medals += [{"rewardkind": kind, "userMedalId": m["userMedalId"], "display": 1} for m in got]
+        # stage master clearGetTitle (validClearGetTitle): no-op when already owned, so a clear made before
+        # titles were granted still earns it
+        if row.get("validClearGetTitle") and gstate.add_title(st, row.get("clearGetTitle")):
+            logger.info("  TITLE %s (clearGetTitle)", row.get("clearGetTitle"))
+        new_titles = gstate.titles_since(st, title_mark)
         materials = gstate.materials_list(st)
         # Raid boss appearance was one of the original server's private formulas (the client never reads misc 200
         # and never applies evCampaign types 6/8). Best guess: chance per quest = the quest's raid points
@@ -972,7 +1064,8 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
         userMaterials=materials,
         userMedals=new_medals,
         userSkills=[],
-        userTitles=[],
+        # newly obtained titles: StageClear::parse keeps them for SceneBattleResult's "title obtained" popup
+        userTitles=new_titles,
         userKeyblades=_user_keyblades(user, db_session),
     )
 
@@ -1019,9 +1112,17 @@ def _grant(user: Optional[User], st: dict, rtype: int, rid: int, num: int) -> li
         return [gstate.add_medal(st, rid) for _ in range(max(num, 1))]
     if rtype == gstate.ITEM_MATERIAL:
         gstate.add_material(st, rid, num)
+    elif rtype == gstate.ITEM_TITLE:
+        # unique per player; the caller collects new ones with gstate.title_mark / titles_since
+        if gstate.add_title(st, rid) is None:
+            logger.info("  title %s already owned or unknown", rid)
     elif rtype == gstate.ITEM_KEYBLADE:
         for _ in range(max(num, 1)):
             gstate.add_keyblade(st, rid)
+    elif rtype in gstate.ITEM_AVATAR_PARTS:
+        # unique per player; callers collect new ones by userAvatarPartsId (they only grow)
+        if gstate.add_avatar_part(st, rid) is None:
+            logger.info("  avatar part %s already owned or unknown", rid)
     elif user and rtype in _POINT_REWARDS:
         col = _POINT_REWARDS[rtype]
         setattr(user, col, (getattr(user, col) or 0) + num)
@@ -1306,6 +1407,8 @@ def handle_present_receive(request_data: dict, user: Optional[User], db_session:
     ids = set(request_data.get("receivePresentIds", []))
     with gstate.State(user, db_session) as st:
         kb_before = {k["userKeybladeId"] for k in st["keyblades"]}
+        parts_before = {p["userAvatarPartsId"] for p in st.get("avatar_parts", [])}
+        title_mark = gstate.title_mark(st)
         new_medals, kept = [], []
         for pr in _present_list(st):
             if pr["userPresentId"] not in ids:
@@ -1317,6 +1420,8 @@ def handle_present_receive(request_data: dict, user: Optional[User], db_session:
             new_medals += _grant(user, st, pr["resourceType"], pr["resourceId"], pr["number"])
         st["presents"] = kept
         new_keyblades = [k for k in st["keyblades"] if k["userKeybladeId"] not in kb_before]
+        new_parts = [p for p in _avatar_parts(st) if p["userAvatarPartsId"] not in parts_before]
+        new_titles = gstate.titles_since(st, title_mark)
         materials = gstate.materials_list(st)
     if user:
         db_session.add(user)
@@ -1324,13 +1429,28 @@ def handle_present_receive(request_data: dict, user: Optional[User], db_session:
     return build_response(user,
         userData={"userPoint": _user_point(user)}, userStone=_user_stone(user),
         userMaterials=materials, userMedals=new_medals, userSkills=[], userKeyblades=new_keyblades,
-        userAvatarParts=[], userTitles=[], lastUserPresentIds=[pr["userPresentId"] for pr in kept])
+        userAvatarParts=new_parts, userTitles=new_titles, lastUserPresentIds=[pr["userPresentId"] for pr in kept])
+
+
+OPTION_KEYS = ("isNoticeAp", "isNoticeHelp", "isNoticeEvent")
+
+
+def _user_option(user, db_session):
+    saved = gstate.load(user, db_session).get("option", {}) if user else {}
+    return {k: int(saved.get(k, 0)) for k in OPTION_KEYS}
 
 
 @register(137)  # GET /user/option
 def handle_user_option(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user,
-        userOption={"isNoticeAp": 0, "isNoticeHelp": 0, "isNoticeEvent": 0})
+    return build_response(user, userOption=_user_option(user, db_session))
+
+
+@register(138)  # POST /user/option/update {isNoticeAp, isNoticeHelp, isNoticeEvent}; the client parses userOption
+def handle_user_option_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    if user:
+        with gstate.State(user, db_session) as st:
+            st["option"] = {k: int(request_data.get(k, 0)) for k in OPTION_KEYS}
+    return build_response(user, userOption=_user_option(user, db_session))
 
 
 @register(140)  # GET /user/link
@@ -1348,19 +1468,7 @@ def handle_user(request_data: dict, user: Optional[User], db_session: DBSession)
     resp = build_response(user)
     resp.update({
         "userData": {
-            "user": {
-                "userId": uid,
-                "nativeUserId": uid,
-                "platformId": 2,
-                "userName": user.user_name if user else "Player",
-                "gender": user.gender if user else 0,
-                "comment": user.comment if user else "",
-                "deviceType": 2,
-                "continueLoginCount": 1,
-                "isFleeze": 0,
-                "fleezedDatetime": "2000-01-01 00:00:00",
-                "nativeTagName": "player_tag",
-            },
+            "user": _user_obj(user),
             "userDetail": _user_detail(user),
             "userPoint": _user_point(user),
             "lastActionDatetime": now,
@@ -1426,7 +1534,7 @@ def handle_party(request_data: dict, user: Optional[User], db_session: DBSession
             "supportUserId": uid,
             "level": 1,
             "userName": user.user_name if user else "Player",
-            "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
+            **_user_titles(user),
             "addKizunaPoint": 0,
             "keybladeId": 1000,
             "isParty": 0,
@@ -1747,17 +1855,184 @@ def handle_campaign(request_data: dict, user: Optional[User], db_session: DBSess
     return build_response(user, campaigns=[])
 
 
+# ---------------------------------------------------------------------------
+# Avatar Boards ("sphere" boards). Records, grid and node layout: see state.py "avatar boards".
+# ---------------------------------------------------------------------------
+def _as_int(value, default=None):
+    try:
+        return int(value)
+    except (TypeError, ValueError, OverflowError):
+        return default
+
+
+def _user_sphere(boards: list) -> dict:
+    """userSphere for UserSphere::parse: userSphereDatas[] + notChargedSphereBoardIds[] (read when the parse is
+    called with a3 = 0: actions 9 and 42). What "not charged" tracked is unknown (no reader found in the
+    v1.0.1 client); it is always empty."""
+    return {"userSphereDatas": boards, "notChargedSphereBoardIds": []}
+
+
+def _spend_jewels(user: Optional[User], cost: int) -> bool:
+    """Take `cost` Jewels, free ones first (as /keyblade/burst/max). False (nothing taken) when short."""
+    if not user:
+        return False
+    free, paid = user.free_stone or 0, user.pay_stone or 0
+    if free + paid < cost:
+        return False
+    take = min(free, cost)
+    user.free_stone, user.pay_stone = free - take, paid - (cost - take)
+    return True
+
+
+# sphereMasu.rewardSelect values that are not item types (SphereUI::openPopUpcommon texts): 0 skill
+# (TextData 103400044 "Skill"; also a medal node with medalCategory != 0, SphereUI::load_board), 12 Max HP
+# (103400017 "Max HP increased by %d!"), 21 Max AP (103400018), 22 Keyblade cost capacity (103400019). The rest
+# are item types: 3 medal, 5 material, 7 title, 13 keyblade, 18 / 23 avatar set, 19 / 20 avatar parts.
+_MASU_SKILL, _MASU_MAX_HP, _MASU_MAX_AP, _MASU_DECK_COST = 0, 12, 21, 22
+
+
+def _apply_masu_reward(user: Optional[User], st: dict, masu: dict, idx: int) -> list:
+    """Grant node idx (0-based) of a board's sphereMasu row. Returns new medals."""
+    def col(name):
+        values = masu.get(name) or []
+        return values[idx] if 0 <= idx < len(values) else 0
+    kind, rid, value = col("rewardSelect"), col("rewardId"), col("rewardValue")
+    if kind == gstate.ITEM_MEDAL and col("medalCategory"):
+        kind = _MASU_SKILL
+    logger.info("  NODE %d: reward %s id=%s value=%s", idx + 1, kind, rid, value)
+    if kind == _MASU_MAX_HP:
+        if user:
+            user.hp_prize = (user.hp_prize or 0) + value
+    elif kind == _MASU_MAX_AP:
+        if user:
+            user.ap_prize = (user.ap_prize or 0) + value
+    elif kind == _MASU_DECK_COST:
+        if user:
+            user.max_deck_cost = (user.max_deck_cost or 0) + value
+    elif kind == _MASU_SKILL:
+        if rid:
+            logger.warning("  skill node (skill %s) not granted: no skill store yet", rid)
+    else:
+        return _grant(user, st, kind, rid, max(value, 1))
+    return []
+
+
 @register(57)  # POST /user/sphere/check
 def handle_sphere_check(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    check_type = request_data.get("checkType", 1)
-    # checkType 1/2 read notChargedSphereBoardIds + userSphere; for checkType > 2 (3 after a raid) the client
-    # also requires a closeEventSphereBoardIds array (verifyResponse case 57 -> sub_4C0E78)
+    # request {checkType} (APIManager::executeUserSphereCheck(SphereLockType)): 1 from the map / result screen
+    # once the Avatar Board tutorial (tutorialMisc 8) applies, 3 after battle results and other screens.
+    # verifyResponse case 57 (LABEL_579) reads checkType back from the REQUEST; for checkType >= 3 it first needs
+    # closeEventSphereBoardIds[] (sub_4C0E78: UserSphere::removeSphere each). Then UserSphere::parse(doc, 1)
+    # (userSphere.userSphereDatas, no notChargedSphereBoardIds) - each record is setSphere'd into the owned map
+    # and its sphereBoardId added to AppState's NEW board ids (sub_4C17D4). So: send only boards granted now.
+    check_type = _as_int(request_data.get("checkType"), 1)
+    with gstate.State(user, db_session) as st:
+        closed = gstate.close_spheres(st) if check_type >= 3 else []
+        added = gstate.sync_spheres(st, _lux_rank(user))
+        added = [dict(b, unlockMasuIds=list(b["unlockMasuIds"])) for b in added]
+    if added or closed:
+        logger.info("SPHERE CHECK %s: new %s closed %s", check_type, [b["sphereBoardId"] for b in added], closed)
     return build_response(user,
         checkType=check_type,
-        closeEventSphereBoardIds=[],
+        closeEventSphereBoardIds=closed,
         notChargedSphereBoardIds=[],
-        userSphere={"userSphereDatas": [], "notChargedSphereBoardIds": []},
+        userSphere=_user_sphere(added),
     )
+
+
+@register(42)  # POST /user/sphere/update
+def handle_sphere_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {sphereBoardId, releaseMasuId} (APIManager::executeUserSphereUpdate sends only the first node of
+    # its set; SphereUI::sphereUpdateIncentive opens one node per call). releaseMasuId is the node number from
+    # the grid (1..22). The client has already taken the cost from its coin count (SphereUI::DecPoint).
+    # verifyResponse case 42 (LABEL_302) needs, and fails without: userData.userPoint, userData.userDetail,
+    # userSphere (parse a3 = 0, records merged with setSphere), userMaterials, userMedals, userSkills,
+    # userKeyblades, userAvatarParts, userTitles - each list then goes through APIManager::updateMaterial /
+    # updateMedal / updateSkill / updateKeyblade / updateAvatarPart / updateTitle (upserts, sub_4C0F1A), so only
+    # new medals, parts and titles are sent.
+    board_id = _as_int(request_data.get("sphereBoardId"))
+    node = _as_int(request_data.get("releaseMasuId"))
+    new_medals = []
+    with gstate.State(user, db_session) as st:
+        parts_before = {p["userAvatarPartsId"] for p in st.get("avatar_parts", [])}
+        title_mark = gstate.title_mark(st)
+        rec = st["spheres"].get(str(board_id))
+        row = gstate.sphere_row(board_id)
+        masu = gstate.sphere_masu(row)
+        coin = gstate.SPHERE_COIN.get((row or {}).get("type"))
+        refused, cost, have = None, 0, 0
+        if not (rec and row and masu and coin):
+            refused = "board not owned / unknown"
+        elif row.get("type") == gstate.SPHERE_BUY_TYPE and not rec.get("isBuy"):
+            refused = "board not bought"
+        elif node not in gstate.sphere_nodes(row):
+            refused = "node not on the board"
+        elif node in rec["unlockMasuIds"]:
+            refused = "node already open"
+        else:
+            costs = masu.get("spherePoint") or []
+            cost = max(costs[node - 1], 0) if node - 1 < len(costs) else 0
+            have = (getattr(user, coin) or 0) if user else 0
+            if have < cost:
+                refused = "needs %d %s, has %d" % (cost, coin, have)
+        if refused:
+            logger.warning("SPHERE UPDATE refused: board %s node %s: %s", board_id, node, refused)
+        else:
+            if user:
+                setattr(user, coin, have - cost)
+            rec["unlockMasuIds"].append(node)
+            rec["status"] = gstate.SPHERE_STARTED
+            logger.info("SPHERE UPDATE: board %s node %s (-%d %s)", board_id, node, cost, coin)
+            new_medals += _apply_masu_reward(user, st, masu, node - 1)
+            if gstate.sphere_nodes(row) <= set(rec["unlockMasuIds"]):
+                # every grid node open: the board's completion reward is node 23 (no cost)
+                rec["status"] = gstate.SPHERE_COMPLETE
+                logger.info("SPHERE COMPLETE: board %s", board_id)
+                new_medals += _apply_masu_reward(user, st, masu, gstate.SPHERE_COMPLETE_MASU - 1)
+        boards = [dict(rec, unlockMasuIds=list(rec["unlockMasuIds"]))] if rec else []
+        materials = gstate.materials_list(st)
+        keyblades = st["keyblades"]
+        new_parts = [p for p in _avatar_parts(st) if p["userAvatarPartsId"] not in parts_before]
+        new_titles = gstate.titles_since(st, title_mark)
+    if user:
+        db_session.add(user)
+    return build_response(user,
+        userData={"userPoint": _user_point(user), "userDetail": _user_detail(user)},
+        userSphere=_user_sphere(boards),
+        userMaterials=materials, userMedals=new_medals, userSkills=[], userKeyblades=keyblades,
+        userAvatarParts=new_parts, userTitles=new_titles,
+    )
+
+
+@register(68)  # POST /user/sphere/buy
+def handle_sphere_buy(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # request {sphereBoardId} (APIManager::executeUserSphereBuy, from SceneSphereBoardSelect::openBoardBuyDialog
+    # for a listed type-2 board with isBuy 0; price = sphere.price Jewels, shown on the board row).
+    # verifyResponse case 68 (LABEL_666) -> 69: UserStone::parse, then userSphere = ONE Sphere object
+    # (Sphere::init; setSphere'd into the owned map when it parses), then UserDetail::parse + UserStone::parse
+    # (both required).
+    board_id = _as_int(request_data.get("sphereBoardId"))
+    with gstate.State(user, db_session) as st:
+        rec = st["spheres"].get(str(board_id))
+        row = gstate.sphere_row(board_id)
+        if not row or row.get("type") != gstate.SPHERE_BUY_TYPE:
+            logger.warning("SPHERE BUY refused: %s is not a Jewel board", board_id)
+        elif rec and rec.get("isBuy"):
+            logger.info("SPHERE BUY: %s already bought", board_id)
+        elif rec is None and not gstate.board_available(row, _lux_rank(user), gstate.now()):
+            logger.warning("SPHERE BUY refused: %s is not on sale", board_id)
+        elif not _spend_jewels(user, max(row.get("price", 0), 0)):
+            logger.warning("SPHERE BUY refused: %s costs %s Jewels", board_id, row.get("price"))
+        else:
+            if rec is None:
+                rec = gstate.new_sphere(st, row, True)
+            rec["isBuy"] = 1
+            logger.info("SPHERE BUY: %s (-%s Jewels)", board_id, row.get("price"))
+        board = dict(rec, unlockMasuIds=list(rec["unlockMasuIds"])) if rec else None
+    if user:
+        db_session.add(user)
+    extra = {"userSphere": board} if board else {}
+    return build_response(user, userStone=_user_stone(user), userData={"userDetail": _user_detail(user)}, **extra)
 
 
 def _ticker_texts() -> list:

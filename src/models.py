@@ -81,6 +81,8 @@ class User(Base):
     raid_sphere_point: Mapped[int] = mapped_column(Integer, default=0)
     colosseum_sphere_point: Mapped[int] = mapped_column(Integer, default=0)
     hp_prize: Mapped[int] = mapped_column(Integer, default=0)
+    # permanent Max AP bonus from Avatar Board nodes (sphereMasu rewardSelect 21); Max HP nodes go to hp_prize
+    ap_prize: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
@@ -198,6 +200,7 @@ def _migrate(engine, inspector):
         "raid_sphere_point": "INTEGER DEFAULT 0",
         "colosseum_sphere_point": "INTEGER DEFAULT 0",
         "hp_prize": "INTEGER DEFAULT 0",
+        "ap_prize": "INTEGER DEFAULT 0",
     }
     added = []
     with engine.connect() as conn:
