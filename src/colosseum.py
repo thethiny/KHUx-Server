@@ -15,11 +15,13 @@ each month: seasons reset on the 1st - KHUX Wiki "Coliseum Quests", guides 2015-
 Skip (wiki: "If all enemy groups get defeated within 1 turn, the next several rounds will be unlocked at once.
 Completing any round will lock skipped rounds."; "you will still get the Coliseum coins from the round you skip";
 "The least number of rounds you can skip is 3"): the client flags a one-turn win with isSkip; the tier's
-`excellentUnlockCount` (18, 18, 16, 14, 9, 7, 4, 3, 3, 3 - matches the wiki's Skip column) further rounds are then
-offered at once (the client lists 2+ rows and shows tutorial popup 25). Clearing round k credits every round up to
-k (their coins too) and locks the rest. A skip never crosses the tier's last round.
-In the 1.0.1 era a skip unlocked exactly SKIP_ROUNDS = 10 rounds (the user; the per-tier counts on the wiki are a
-later change). `excellentUnlockCount` (18/18/16/14/9/7/4/3/3/3) is therefore something else - meaning unknown.
+`excellentUnlockCount` further rounds are then offered at once (the client lists 2+ rows and shows tutorial popup
+25). The count is per tier AND per season: season 2 (Aug 2015) is a flat 10, Sep/Oct 2015 18/15/9/6/3/3, season 1
+18/18/16/14/9/7/4/3/3/3, later seasons their own lists. The client shows this same number in the one-turn effect
+(StageDirection::all1turn_start, Colosseum_RoundNum), so the server unlocks exactly that many. Clearing round k
+credits every round up to k (their coins too) and locks the rest. A skip carries into the next tier at the offset
+(the user's memory; the rows carry their own rank): from round 15 of a 20-round tier, a skip of 10 opens rounds
+16-20 and rounds 1-5 of the next tier; every tier finished on the way pays its tier reward.
 """
 import time
 from datetime import datetime
@@ -42,7 +44,7 @@ def month_key(season_id, now=None):
 CURRENT_SEASON = None   # resolved per call (current_season())
 STATUS_OPEN = 1          # GUESS: C8. colosseumInfo.status: 1 lists the stages, 2 shows a "closed" text instead
 ENDLESS = 999            # arrivalStageCount of the last rank
-SKIP_ROUNDS = 10         # rounds a one-turn win unlocks (user, 1.0.1 era)
+SKIP_ROUNDS = 10         # fallback when a tier row has no excellentUnlockCount
 
 
 def _master(table):
@@ -72,7 +74,9 @@ def progress(st, season_id=None):
     first = (ranks(season_id) or [{"round": 1}])[0]["round"]
     rec = st.setdefault("colosseum", {}).setdefault(month_key(season_id), {
         "rank": first, "stageCount": 0, "total": 0, "rewardRanks": [], "arrival": {}, "pending": None})
-    rec.setdefault("skip_until", 0)
+    if rec.pop("skip_until", 0):               # records from before cross-tier skips: drop the unlock
+        rec["skip_to"] = None
+    rec.setdefault("skip_to", None)            # [rank, stageCount]: the furthest round a skip unlocked
     rec.setdefault("reached", "")
     return rec
 
@@ -85,48 +89,86 @@ def user_colosseum(rec):
     return {"userRank": rec["rank"], "userStageCount": rec["stageCount"], "userStageTotalCount": rec["total"]}
 
 
+def _arrival(row):
+    return row.get("arrivalStageCount", ENDLESS) if row else ENDLESS
+
+
+def _next_pos(rank, count, season_id=None):
+    """The round after (rank, count): the next tier's round 1 once the tier is full."""
+    row = rank_row(rank, season_id)
+    if _arrival(row) != ENDLESS and count >= _arrival(row):
+        nxt = [r["round"] for r in ranks(season_id) if r["round"] > rank]
+        if nxt:
+            return nxt[0], 1
+        return rank, count
+    return rank, count + 1
+
+
+def _positions(rec, season_id=None):
+    """Every round the player may pick: the next one, or after a skip every one up to rec["skip_to"]."""
+    pos = [(rec["rank"], rec["stageCount"] + 1)]
+    target = tuple(rec["skip_to"]) if rec.get("skip_to") else pos[0]
+    while pos[-1] < target and len(pos) < 1000:
+        nxt = _next_pos(*pos[-1], season_id)
+        if nxt == pos[-1]:
+            break
+        pos.append(nxt)
+    return pos
+
+
 def next_stage(rec, season_id=None):
-    """The rounds offered (colosseumStages): the next round of the current tier (wiki: you cannot go back), or
-    after a skip every unlocked round up to rec["skip_until"]."""
-    s, row = season(season_id), rank_row(rec["rank"], season_id)
-    if not s or not row:
+    """The rounds offered (colosseumStages): the next round (wiki: you cannot go back), or after a skip every
+    unlocked round, possibly into the next tier."""
+    s = season(season_id)
+    if not s:
         return []
     ids = s.get("stageId") or []
     loop = max(min(s.get("loopStageCount") or len(ids), len(ids)), 1)
-    first = rec["stageCount"] + 1
-    last = max(first, rec.get("skip_until", 0))
-    return [{"rank": rec["rank"], "stageCount": c, "stageId": ids[(c - 1) % loop], "useAp": row.get("ap", 0)}
-            for c in range(first, last + 1)]
+    out = []
+    for rank, c in _positions(rec, season_id):
+        row = rank_row(rank, season_id)
+        if row and ids:
+            out.append({"rank": rank, "stageCount": c, "stageId": ids[(c - 1) % loop], "useAp": row.get("ap", 0)})
+    return out
 
 
-def clear(rec, round_cleared=None, is_skip=False, season_id=None):
-    """Record a won round. Clearing round k credits every round from the next one up to k (skipped rounds pay
-    their coins too) and locks the other unlocked rounds; a one-turn win (is_skip) unlocks the tier's
-    excellentUnlockCount further rounds. Returns (cleared [{rank, stageCount}] - one per credited round, the
-    client shows a reward row per entry -, stage reward row or None, how many stage rewards, rank reward row or
-    None). The tier reward comes once, when its last round is credited (C3); the 999 tier is endless (C4)."""
-    row = rank_row(rec["rank"], season_id) or {}
-    arrival = row.get("arrivalStageCount", ENDLESS)
-    top = max(rec["stageCount"] + 1, rec.get("skip_until", 0))
-    k = min(max(int(round_cleared or rec["stageCount"] + 1), rec["stageCount"] + 1), top)
-    if arrival != ENDLESS:
-        k = min(k, arrival)
-    cleared = [{"rank": rec["rank"], "stageCount": c} for c in range(rec["stageCount"] + 1, k + 1)]
+def clear(rec, round_cleared=None, is_skip=False, season_id=None, rank_cleared=None):
+    """Record a won round (rank_cleared, round_cleared). Every unlocked round up to it is credited (skipped rounds
+    pay their coins too) and the others lock; a one-turn win (is_skip) then unlocks the cleared tier's
+    excellentUnlockCount further rounds, carrying into the next tier. Returns (cleared [{rank, stageCount}] - one
+    per credited round, the client shows a reward row per entry -, stage reward rows (one per credited round, of
+    that round's tier), tier reward rows (each tier finished now, once ever; C3); the 999 tier is endless (C4)."""
+    pos = _positions(rec, season_id)
+    want = (int(rank_cleared or pos[0][0]), int(round_cleared or pos[0][1]))
+    upto = max((k for k, p in enumerate(pos) if p <= want), default=0)
+    cleared, stage_rewards, rank_rewards = [], [], []
+    for rank, c in pos[:upto + 1]:
+        row = rank_row(rank, season_id) or {}
+        cleared.append({"rank": rank, "stageCount": c})
+        if row.get("validStageReward"):
+            stage_rewards.append(row)
+        rec["rank"], rec["stageCount"] = rank, c
+        if _arrival(row) != ENDLESS and c >= _arrival(row):
+            rec["arrival"][str(rank)] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            if rank not in rec["rewardRanks"]:
+                rec["rewardRanks"].append(rank)
+                if row.get("validReward"):
+                    rank_rewards.append(row)
     rec["total"] += len(cleared)
-    rec["stageCount"] = k
-    rec["skip_until"] = 0
+    rec["skip_to"] = None
     rec["reached"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    stage_reward = row if row.get("validStageReward") else None
-    rank_reward = None
-    if arrival != ENDLESS and rec["stageCount"] >= arrival:
-        if rec["rank"] not in rec["rewardRanks"]:
-            rec["rewardRanks"].append(rec["rank"])
-            rank_reward = row if row.get("validReward") else None
-        rec["arrival"][str(rec["rank"])] = rec["reached"]
+    last_row = rank_row(rec["rank"], season_id) or {}
+    if is_skip:
+        target, unlock = (rec["rank"], rec["stageCount"]), int(last_row.get("excellentUnlockCount") or SKIP_ROUNDS)
+        for _ in range(unlock):
+            nxt = _next_pos(*target, season_id)
+            if nxt == target:
+                break
+            target = nxt
+        rec["skip_to"] = list(target)
+    # a finished tier moves the player to the next tier's start (round 0 = nothing cleared there yet)
+    if _arrival(last_row) != ENDLESS and rec["stageCount"] >= _arrival(last_row):
         nxt = [r["round"] for r in ranks(season_id) if r["round"] > rec["rank"]]
         if nxt:
             rec["rank"], rec["stageCount"] = nxt[0], 0
-    elif is_skip:
-        unlock = SKIP_ROUNDS
-        rec["skip_until"] = rec["stageCount"] + unlock if arrival == ENDLESS else min(rec["stageCount"] + unlock, arrival)
-    return cleared, stage_reward, len(cleared), rank_reward
+    return cleared, stage_rewards, rank_rewards

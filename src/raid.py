@@ -48,23 +48,24 @@ def _level_index(enemy, level):
     return idx
 
 
-def build(stage_id, setting_id, level=1, now=None):
-    """A new boss record for `stage_id` from raidSetting `setting_id` (its normal boss) at `level`."""
+def build(stage_id, setting_id, level=1, now=None, rare=False):
+    """A new boss record for `stage_id` from raidSetting `setting_id` at `level`: its normal boss, or its Omega
+    (rareBossId, rareBossUpTime, rareUseAp) when `rare`."""
     now = now or time.time()
     setting = _row("raidSetting", "raidSettingId", setting_id)
     if not setting:
         return None
-    enemy = _row("raidEnemy", "raidEnemyId", setting["bossId"])
+    enemy = _row("raidEnemy", "raidEnemyId", setting["rareBossId"] if rare else setting["bossId"])
     if not enemy:
         return None
     ids = part_enemy_ids(enemy)
     hp = [_row("raidEnemy", "raidEnemyId", i)["hp"][_level_index(enemy, level)] for i in ids]
     return {
         "stageId": stage_id, "settingId": setting_id, "enemyId": enemy["raidEnemyId"], "level": level,
-        "useAp": setting.get("useAp", 10),
+        "useAp": setting.get("rareUseAp" if rare else "useAp", 10), "rare": bool(rare),
         "hp": hp, "maxHp": list(hp),
         # bossUpTime is in MINUTES: normal bosses have a 10-minute limit, Omega 20 (wiki / 2016 guides)
-        "end": now + 60 * max(setting.get("bossUpTime", 10), 1),
+        "end": now + 60 * max(setting.get("rareBossUpTime" if rare else "bossUpTime", 10), 1),
         "status": RAID_STATUS_ACTIVE, "damage": 0,
     }
 
@@ -139,8 +140,8 @@ def participants(db, raid_id):
     return db.query(RaidParticipant).filter(RaidParticipant.raid_id == raid_id).all()
 
 
-def create(db, uid, stage_id, setting_id, level):
-    d = build(stage_id, setting_id, level)
+def create(db, uid, stage_id, setting_id, level, rare=False):
+    d = build(stage_id, setting_id, level, rare=rare)
     if not d:
         return None, None
     row = Raid(discoverer_id=uid, status=d["status"], data="{}")
@@ -237,3 +238,35 @@ def reward_rows(raid, mvp=True):
         slots[key] = won + 1
         items.append((row["type"][won], row["id"][won], row["num"][won]))
     return slots, items
+
+
+# --------------------------------------------------------------------------- Omega bosses
+def omega_due(st, setting):
+    """Whether this discovery is the setting's Omega (raidEnemy.rare 2; the client draws Raid_Rare_Pop for it).
+    The client never reads rareUpType / rareUpTypeArg, so the rule is ours. GUESS: R5:
+      rareUpType 3: after the player has defeated the trigger boss (rareUpTriggerBossId) rareUpTypeArg times this
+                    month since their last Omega (10000 on the early-quest settings = never);
+      rareUpType 2: a 1-in-rareUpTypeArg chance per discovery;
+      rareUpType 1: always.
+    Settings whose Omega is the boss itself (event rows) never switch."""
+    rare_id, trigger = setting.get("rareBossId", 0), setting.get("rareUpTriggerBossId", 0)
+    if not rare_id or rare_id == setting.get("bossId") or not _row("raidEnemy", "raidEnemyId", rare_id):
+        return False
+    kind, arg = setting.get("rareUpType", 0), max(int(setting.get("rareUpTypeArg", 0) or 0), 1)
+    if kind == 1:
+        return True
+    if kind == 2:
+        return random.randrange(arg) == 0
+    if kind == 3:
+        month = time.strftime("%Y-%m", time.gmtime())
+        mark = st.get("raid_omega_mark", {}).get(str(trigger))
+        since = mark["defeats"] if mark and mark.get("month") == month else 0
+        return boss_level(st, trigger) - 1 - since >= arg
+    return False
+
+
+def omega_spawned(st, setting):
+    """Restart the rareUpType 3 count after an Omega appears."""
+    trigger = setting.get("rareUpTriggerBossId", 0)
+    st.setdefault("raid_omega_mark", {})[str(trigger)] = {
+        "defeats": boss_level(st, trigger) - 1, "month": time.strftime("%Y-%m", time.gmtime())}

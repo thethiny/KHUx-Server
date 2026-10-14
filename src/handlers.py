@@ -1261,12 +1261,16 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
         if user and row.get("raidBoss") and not never and not own_up and (always or st["raid_kills"] >= graid.kills_threshold(
                 st, _campaign_power(6))):
             setting = graid._row("raidSetting", "raidSettingId", row["raidBoss"]) or {}
+            omega = graid.omega_due(st, setting)
+            boss_id = setting.get("rareBossId" if omega else "bossId", 0)
             new_row, raid = graid.create(db_session, user.id, stage_id, row["raidBoss"],
-                                         graid.boss_level(st, setting.get("bossId", 0)))
+                                         graid.boss_level(st, boss_id), rare=omega)
             if new_row:
                 raid_found = True
-                logger.info("RAID DISCOVERED: stage %s setting %s level %s after %s kills", stage_id,
-                            row["raidBoss"], raid["level"], st["raid_kills"])
+                if omega:
+                    graid.omega_spawned(st, setting)
+                logger.info("RAID DISCOVERED: stage %s setting %s boss %s%s level %s after %s kills", stage_id,
+                            row["raidBoss"], boss_id, " (OMEGA)" if omega else "", raid["level"], st["raid_kills"])
                 st["raid_kills"], st["raid_kill_goal"] = 0, 0
     if user:
         get_point = request_data.get("getPoint", {})
@@ -2293,15 +2297,15 @@ def handle_colosseum_clear(request_data: dict, user: Optional[User], db_session:
         title_mark = gstate.title_mark(st)
         rec = gcol.progress(st)
         rec["pending"] = None
-        cleared, stage_reward, n_rounds, rank_reward = gcol.clear(rec, request_data.get("stageCount"), is_skip)
-        logger.info("  credited %s round(s) %s%s -> now rank %s count %s%s", n_rounds, cleared,
+        cleared, stage_rewards, rank_rewards = gcol.clear(rec, request_data.get("stageCount"), is_skip,
+                                                          rank_cleared=request_data.get("rank"))
+        logger.info("  credited %s round(s) %s%s -> now rank %s count %s%s", len(cleared), cleared,
                     " (one-turn win: skip)" if is_skip else "", rec["rank"], rec["stageCount"],
-                    f", rounds unlocked up to {rec['skip_until']}" if rec.get("skip_until") else "")
-        if stage_reward:
-            for _ in range(n_rounds):                # skipped rounds pay their coins too (wiki)
-                new_medals += _grant(user, st, stage_reward["stageRewardType"], stage_reward["stageRewardId"],
-                                     stage_reward["stageRewardNum"])
-        if rank_reward:
+                    f", rounds unlocked up to {rec['skip_to']}" if rec.get("skip_to") else "")
+        for stage_reward in stage_rewards:           # skipped rounds pay their coins too (wiki)
+            new_medals += _grant(user, st, stage_reward["stageRewardType"], stage_reward["stageRewardId"],
+                                 stage_reward["stageRewardNum"])
+        for rank_reward in rank_rewards:
             for k in range(rank_reward.get("validReward", 0)):
                 new_medals += _grant(user, st, rank_reward["rewardType"][k], rank_reward["rewardId"][k],
                                      rank_reward["rewardNum"][k])
