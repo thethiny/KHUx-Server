@@ -40,118 +40,49 @@ CATEGORIES = {
 NOTICES = [
     {
         "id": 1,
-        "date": "07/01",
+        "date": "2026/10/14",
         "cat": 9,
-        "title": "Welcome to KHUx Private Server",
+        "title": "Welcome to the KHUx Private Server",
         "body": """
 <p><span class="alert03">★ Private Server Online!</span></p>
-<p>Welcome to the KHUx Private Server, a fan-operated preservation project.</p>
-<p>This server aims to recreate the Kingdom Hearts Union Cross experience
-after the official servers were shut down.</p>
+<p>Welcome to the KHUx Private Server, a fan-operated preservation project that brings back
+Kingdom Hearts Union χ as it was at its 2015 launch (version 1.0.1).</p>
 <hr/>
-<p><span class="alert01">■ Current Status</span></p>
-<p><small>・ Tutorial flow is functional through Union Selection<br/>
-・ Master data downloads are working for all 49 tables<br/>
-・ Avatar editor and cutscenes render correctly<br/>
-・ Tutorial battle is under development</small></p>
+<p><span class="alert01">■ What you can play</span></p>
+<p><small>・ The story quests, raid bosses and the Coliseum<br/>
+・ Parties, party chat and Union rankings<br/>
+・ Avatar Boards, Medal draws, fusion and evolution<br/>
+・ Events and Special Quests on their original dates</small></p>
 <hr/>
-<p><span class="alert01">■ Known Issues</span></p>
-<p><small>・ Tutorial battle may show a black screen<br/>
-・ Some textures may display as white/transparent<br/>
-・ Resource re-download can overwrite misc.mp4</small></p>
+<p><span class="alert01">■ Good to know</span></p>
+<p><small>・ Jewels cannot be bought with real money; the shop's Jewel packs are free<br/>
+・ Events whose quest maps were never archived (most of 2016) cannot be offered</small></p>
 """,
     },
     {
         "id": 2,
-        "date": "07/01",
-        "cat": 2,
-        "title": "Server Version 1.0.1",
-        "body": """
-<p><span class="alert03">★ Server Update</span></p>
-<p>The private server is running version 1.0.1, matching the original KHUx client.</p>
-<hr/>
-<p><span class="alert01">■ Supported Features</span></p>
-<p><small>・ Login and account creation<br/>
-・ EULA and birthday verification<br/>
-・ Master data download (49 tables)<br/>
-・ Name registration<br/>
-・ Avatar editor with costume parts<br/>
-・ Story cutscenes<br/>
-・ Union selection</small></p>
-""",
-    },
-    {
-        "id": 3,
-        "date": "07/01",
-        "cat": 4,
-        "title": "Scheduled Maintenance Notice",
-        "body": """
-<p><span class="alert02">Maintenance may occur without prior notice as the server
-is under active development.</span></p>
-<p>Thank you for your patience and understanding.</p>
-""",
-    },
-    {
-        "id": 4,
-        "date": "07/01",
-        "cat": 8,
-        "title": "Tutorial Battle Coming Soon",
-        "body": """
-<p><span class="alert03">★ Tutorial Battle</span></p>
-<p>The tutorial battle system is currently under development.
-Stage, enemy, and medal data are being configured to enable
-the first battle experience.</p>
-<p>Stay tuned for updates!</p>
-""",
-    },
-    {
-        "id": 5,
-        "date": "07/01",
-        "cat": 6,
-        "title": "Preservation Project",
-        "body": """
-<p><span class="alert05">★ KHUx Preservation</span></p>
-<p>This project exists to preserve Kingdom Hearts Union Cross
-for historical and educational purposes. All game assets and
-trademarks belong to Square Enix and Disney.</p>
-<p>The original service ended on May 31, 2021. This private server
-allows fans to experience the game's tutorial and early content.</p>
-""",
-    },
-    {
-        "id": 6,
-        "date": "07/01",
+        "date": "2026/10/14",
         "cat": 1,
         "title": "Important: Private Server Disclaimer",
         "body": """
 <p><span class="alert02">This is an unofficial, fan-operated private server.</span></p>
 <p>It is not affiliated with, endorsed by, or connected to Square Enix,
-Disney, or any of their subsidiaries.</p>
-<p>Use at your own discretion. No personal data is collected.</p>
+Disney, or any of their subsidiaries. All game assets and trademarks belong to their owners.</p>
+<p>The original service ended on May 31, 2021. This project exists to preserve the game.</p>
+<p>The server keeps your account (a device ID, your player name and your progress) and a request
+log on the machine that runs it. Nothing is shared with third parties.</p>
 """,
     },
     {
-        "id": 7,
-        "date": "07/01",
-        "cat": 10,
-        "title": "Community Resources",
-        "body": """
-<p><span class="alert01">■ Useful Links</span></p>
-<p><small>・ KHUx Wiki — comprehensive game database<br/>
-・ Kingdom Hearts community forums<br/>
-・ Game preservation archives</small></p>
-""",
-    },
-    {
-        "id": 8,
-        "date": "07/01",
+        "id": 3,
+        "date": "2026/10/14",
         "cat": 7,
-        "title": "Known Connection Issues",
+        "title": "Connection Issues",
         "body": """
 <p>If you experience connection errors, please check:</p>
-<p><small>・ DNS redirect is configured correctly (hosts file or Magisk module)<br/>
-・ Private server is running and accessible<br/>
-・ Game client version matches server (v1.0.1)</small></p>
+<p><small>・ The game is pointed at the private server (hosts file or DNS redirect)<br/>
+・ The private server is running and reachable<br/>
+・ The game version is 1.0.1</small></p>
 """,
     },
 ]
@@ -292,8 +223,8 @@ either company.</p>
 <p>This service is provided "as-is" with no guarantees of availability,
 completeness, or correctness. Features may be incomplete or under development.</p>
 <h2>4. Privacy</h2>
-<p>No personal data is collected, stored, or transmitted to third parties.
-All game data remains on your device and the local server.</p>
+<p>The server stores your account (a device ID, your player name and your progress) and a request log
+on the machine that runs it. Nothing is transmitted to third parties.</p>
 <h2>5. Usage</h2>
 <p>This server is intended for personal, non-commercial use only as a means
 of preserving and experiencing the Kingdom Hearts Union Cross game content

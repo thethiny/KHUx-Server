@@ -76,13 +76,9 @@ MASTER_JSON_DATA = {
     "mypageBackground": _load_json("mypageBackground"),
 }
 
-# Every other table with a data file is served too. Before this, tables missing from the dict above were sent
-# to the client EMPTY (get_master_encrypted reads only this dict) - raidReward, loginBonus, shop, title, sphere*,
-# stamp, skillExp, ... Held back: evStage (its 1.1.3 record layout differs, never regenerated) and
-# evGroupPattern (no 1.1.3 parser was found and m011 holds medal ids where its Time fields should be).
-# evStage: the 1.1.3 dump (already this layout) cleaned + hand-made 2015 events (events.master_rows). evGroupPattern:
-# the 1.1.3 binary has no such table (m011 is evMedalList, wrongly mapped by regen_master.py) and the client never
-# reads it after parsing -> served empty.
+# Every other table with a data file is served too (get_master_encrypted reads only this dict).
+# evStage: the 1.1.3 dump cleaned + the extra events of data/campaigns.json (events.master_rows). evGroupPattern:
+# the 1.1.3 binary has no such table (m011 is evMedalList) and the client never reads it after parsing -> empty.
 _NOT_SERVED = {"evGroupPattern"}
 for _t in MASTER_TABLE_NAMES:
     if _t not in MASTER_JSON_DATA and _t not in _NOT_SERVED:

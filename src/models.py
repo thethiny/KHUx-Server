@@ -48,7 +48,7 @@ class User(Base):
     base_hp: Mapped[int] = mapped_column(Integer, default=3000)
     attack: Mapped[int] = mapped_column(Integer, default=0)
     defense: Mapped[int] = mapped_column(Integer, default=0)
-    max_deck_cost: Mapped[int] = mapped_column(Integer, default=74)
+    max_deck_cost: Mapped[int] = mapped_column(Integer, default=74)   # unused: see deck_cost_prize
     max_medal: Mapped[int] = mapped_column(Integer, default=50)     # misc 102: starting medal box (GUESS: M1)
     lux_rank: Mapped[int] = mapped_column(Integer, default=0)
     lux_get_ratio: Mapped[int] = mapped_column(Integer, default=100)
@@ -81,6 +81,7 @@ class User(Base):
     raid_sphere_point: Mapped[int] = mapped_column(Integer, default=0)
     colosseum_sphere_point: Mapped[int] = mapped_column(Integer, default=0)
     hp_prize: Mapped[int] = mapped_column(Integer, default=0)
+    deck_cost_prize: Mapped[int] = mapped_column(Integer, default=0)   # Avatar Board deck-cost nodes
     # permanent Max AP bonus from Avatar Board nodes (sphereMasu rewardSelect 21); Max HP nodes go to hp_prize
     ap_prize: Mapped[int] = mapped_column(Integer, default=0)
     # profile "Play Style": chosen time slots 1..6 (comma list, up to 3) and Hardcore/Core/Casual
@@ -334,6 +335,7 @@ def _migrate(engine, inspector):
         "colosseum_sphere_point": "INTEGER DEFAULT 0",
         "hp_prize": "INTEGER DEFAULT 0",
         "ap_prize": "INTEGER DEFAULT 0",
+        "deck_cost_prize": "INTEGER DEFAULT 0",
         "play_timezones": "VARCHAR DEFAULT ''",
         "play_frequently": "INTEGER DEFAULT 0",
     }
@@ -343,6 +345,9 @@ def _migrate(engine, inspector):
             if col not in existing:
                 conn.execute(text(f"ALTER TABLE users ADD COLUMN {col} {typedef}"))
                 added.append(col)
+        if "deck_cost_prize" in added:
+            # max_deck_cost was a fixed 74 plus Avatar Board deck-cost nodes; keep the nodes' part
+            conn.execute(text("UPDATE users SET deck_cost_prize = MAX(0, COALESCE(max_deck_cost, 74) - 74)"))
         if added:
             conn.commit()
             print(f"  Migrated: added {', '.join(added)}")

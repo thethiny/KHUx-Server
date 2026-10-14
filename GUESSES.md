@@ -55,7 +55,7 @@ settled). Rows without a mark are not documented anywhere reachable.
 |---|---|---|---|
 | L1 | **[settled: user]** The daily reset is 12:00 in the server's local time (the wiki's "11:00 UTC" was the EN server's own clock). | `_bonus_day` | user |
 | W1 | **[settled: user, old videos + 2016 guides]** The 5-day login bonus (bonusType 1: 50/50/100/100/200 Jewels) repeats after day 5: 500 per cycle, six cycles = the 3000 Jewels a month the user remembered. Each new day (12:00 server time) gives the next day of the cycle. | handler 60 | user; levelwinner.com, touchtapplay.com (Apr 2016) |
-| L2 | A missed day does not restart the 5-day cycle (not documented; the 2016 guides say "log in consecutively"). The monthly 3000 Jewels the user remembered is this bonus (6 x 500), not daily missions; daily/weekly missions and the weekly pass are later features (4.3.1 client; khuxwiki Mission / Shop). | handler 60 | old videos |
+| L2 | **[overturned by O7, user 2026-10-14: a missed day restarts the streak; handler 60 not changed yet]** A missed day does not restart the 5-day cycle (not documented; the 2016 guides say "log in consecutively"). The monthly 3000 Jewels the user remembered is this bonus (6 x 500), not daily missions; daily/weekly missions and the weekly pass are later features (4.3.1 client; khuxwiki Mission / Shop). | handler 60 | old videos |
 | L3 | Login bonus rewards go to the present box (the response carries no user data). | handler 60 | Memories: did bonus Jewels arrive in the present box? |
 | L4 | `total` sends the milestone reached today, else the next one (display). Milestones are granted once, on their day. | handler 60 | Footage of the login bonus screen. |
 | L5 | Special bonuses (bonusType 3 "Newcomer Campaign", 4 events) are date-gated by their 2015-16 dates, so none is active. Could be re-dated later. | handler 60 | Decide later. |
@@ -123,6 +123,8 @@ The client never checks event dates, weekdays or time slots; it shows whatever 1
 | V2 | **[user: implemented]** Every purchase succeeds for free (the host's fake Google Play store always buys; 72/73 grant it): number + bonus Jewels as FREE Jewels, the row's benefit, skip tickets kept in state (not shown in userPoint yet). Repeat purchases allowed. May need limits later for the economy. | handlers 72 / 73, `recomp/host/jni.c` GooglePlayManager | - |
 | V3 | Special Quests not on today's schedule but covered by their benefit (benefitId + benefit<Day>) are listed: isLock 1 (locked teaser; tap opens the VIP offer) without the benefit, 2 (playable) with it. Munny Madness (1101) is VIP-only (no weekday). | `events.active` | - |
 | T1 | **[client: settled]** /tutorial/status isFinished must be 1 after the tutorial (phase 995): with 0 the battle Continue dialog offered the tutorial's free revive ("During the tutorial, you can continue without spending Jewels") at level 102. | handlers 64 / 65 | client code (StageUI::openContinueDialog) |
+| T2 | The tutorial draw (guide "Spend Jewels and get powerful Medals", phase 200) is drawMedalType 10 (drawType 5): 1 medal (KH II King Mickey) for 300 Jewels, paid from the 300 starting Jewels (our default; misc 116 = 300 may be it - misc 100 is the Lux rank cap, not Jewels). Row 11 (drawType 5, 3000 Jewels for 10) is the other candidate; with it a new player cannot afford the draw, because the client checks the balance before drawing. | handlers 70 / 71 | 1.1.3 drawMedalType, client (DrawScrollView::hasMagicStone) |
+| T3 | **[client: settled]** An invited player skips the Union choice (progression 6) and clears the tutorial from progression 5; tutorial clear (63) sets progression 6, or every later login replays SceneUnionRegister. | handler 63 | emulator test 2026-10-14 |
 
 ## Serial and invitation codes (handlers 31-33, 62/63)
 
@@ -141,3 +143,34 @@ The client never checks event dates, weekdays or time slots; it shows whatever 1
 | O2 | `userSphere.notChargedSphereBoardIds` is always empty (no reader found in 1.0.1). | `_user_sphere` | - |
 | O3 | `/ranking/reward/check` (130) hands out nothing: no ranking periods end on this server. | handler 130 | Decide when rankings get periods. |
 | O4 | Campaign multipliers (`evCampaign`) are all x1: no campaigns are scheduled. | `_campaign_power` | Decide which campaigns to run. |
+| O5 | `userDetail.mvpCount` is always 0: raids work out an MVP (`_raid_mvp`) but nothing counts it (`users.mvp_count` unused). | `_user_detail` | Count raid MVPs if a screen shows the number. |
+| O6 | `userDetail.lastPlay*SphereBoardId` are always 0, so the Avatar Board select never reopens the last board. | `_user_detail` | Store the last board per type on 42/57. |
+| O7 | `user.continueLoginCount` is always 1 (the login bonus state could feed it). | `_user_obj` | Find where the client shows it. |
+| O8 | Supporters (102/103/112) always show keyblade 1000, `isParty` 0, `addKizunaPoint` 0, `earnLuxRank` 0: party mates are listed first but not flagged, and using a supporter never earns Friend (Kizuna) Points. | `_supporter` | Data or the user's memory for the Friend Point amounts. |
+| O9 | Medal box starting size is inconsistent: 50 in `models.py` and M1, 100 as the fallback in `_max_medal` / `_user_detail`. misc 102 (50) is not read by the client. | models, handlers | Pick one (M1 says 50). |
+| O10 | `/system/coppa` (24) sends hard-coded misc values; 906 is sent as the current year - 13 (2013) where the data has 2016. | handler 24 | Read them from the misc table. |
+| O11 | `versionRes` defaults to 0: a fresh setup only downloads misc.mp4/png with `KHUX_VERSION_RES=1`. | `build_ret` | Default to 1. |
+| O12 | Interrupted battles are never offered for resuming (`stageResumption.resumptionStatus` always 0, a July workaround). | `_stage_resumption` | Check how the client resumes before turning it on. |
+| O13 | `userDetail.luxGetRatio` is always 100 (`users.lux_get_ratio` unused). | `_user_detail` | Find a reader / a source for other values. |
+| O14 | Notification options (137/138: AP, help, event) start off for a new account; the original default is unknown. | handler 137 | User's memory. |
+| O15 | `ret.isNewDayPeriod` is always 0 (no reader found yet; may be the daily-reset trigger). | `build_ret` | Find a reader. |
+| F1 | Fusion: the x medalMisc 123 (25%) Munny discount applies when the base medal is at its max level (the client compares the base level with a value the decompile shows only as a stack slot right after reading medal.maxLv). | `_fusion_cost` | Fuse onto a max-level medal and compare the client's preview. |
+| F2 | Fusion: the special-attack gain per component is its UserMedalData+80 + 1, taken to be burstUpperNumber + 1 (its special-attack level); the total is capped at burst.maxEnhanceCount. | `_burst_up` | Fuse a copy with a raised special attack and compare the client's preview. |
+
+## Web research, 2026-10-14 (not applied yet)
+
+JP launched 2015-09-03; the English sources start around March-April 2016, so "2015" evidence is JP.
+
+| Guess | Finding | Source (date) | Confidence |
+|---|---|---|---|
+| F2 | Fusing an identical copy adds its own special-attack dots + 1; caps 1/2/3/5 for 3-6 stars. Matches our rule. | kh13.com synthesis guide (2016-04-28); khux-guides.tumblr.com "efficient ability maxing" (2015-10-05) | high |
+| F1 | Fusion Munny per fed medal grows with the base medal's level (about 100 at LV 1, 400 at LV 20). Nothing on a max-level discount. | GameFAQs Q&A 425818 (about 2016, search snippet) | low |
+| O8 | Before JP 1.20, a shared medal earned its owner 10 Friend Points per use by a party member, 5 by anyone else (Friend Draw: 100 points). Nothing on points for the user. | khuxwiki Quest_Key / Currencies (undated, about JP) | high |
+| S3 | **[user, later: our own server]** The support list remembered your last used supporter and listed them first when they appeared again; maybe sorted by power after that (unsure). A QoL for the custom server later; the 1.0.1 list keeps rule S2. | handler 102 | user |
+| O9 | Medal box starts at 50; +5 slots per 100 Jewels. | khux-guides Q&A (2016-03-13); kh13 players' guide p.2 (2016) | medium-high |
+| T2 | "Once the download finishes, you will receive 300 jewels"; 300 Jewels = 1 medal. Nothing confirms KH II King Mickey. | kh13 players' guide p.2 (2016) | medium |
+| O13 | Launch campaign 2015-09-03..13: raid battles gave 1.5x Lux and half AP; 50 Jewels per login. Suggests luxGetRatio is a campaign multiplier. | 4gamer.net/games/301/G030184/20150903043 (2015-09-03) | medium-high |
+| O15 | **[not applied, user 2026-10-14: our daily reset stays 12:00 server time]** Global: the day starts 00:00 PT (07:00 UTC in summer). JP: weekly reset Monday 04:00 JST (unverified). The wiki's 11:00 UTC is 2018+. | khinsider event notices (2016) | medium |
+| O7 | **[settled: user]** The daily login bonus is a streak (consecutive days; a missed day restarts it); the other counter is total days. `continueLoginCount` = the streak. | user; Twinfinite guide (2016, snippet) | settled |
+| O12 | **[settled: user]** After a crash or closing the app, the game goes back into the quest in progress. Returning to the same room came later (1.0.1 cannot record which area/portal you were in), so in 1.0.1 the quest restarts. | user; GameFAQs "App Crashing" (2016, snippet) | settled |
+| O5, O6, O14 | Nothing found. | - | - |

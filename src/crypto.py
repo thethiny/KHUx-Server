@@ -51,15 +51,3 @@ def decrypt_request(body: str, key: bytes) -> dict:
     ciphertext = b64decode(v_decoded)
     plaintext = decrypt(ciphertext, key)
     return json.loads(plaintext)
-
-
-def encrypt_response(data: dict, key: bytes) -> str:
-    """
-    Encrypt a game API response.
-
-    JSON serialize → AES encrypt → base64 encode → URL-encode.
-    """
-    plaintext = json.dumps(data, separators=(",", ":")).encode("utf-8")
-    ciphertext = encrypt(plaintext, key)
-    b64 = b64encode(ciphertext).decode("ascii")
-    return quote(b64)

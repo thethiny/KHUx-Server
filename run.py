@@ -18,7 +18,6 @@ import glob
 import os
 import uvicorn
 
-TEMP_PATTERNS = ["*.db", "*.sqlite", "*.log", "__pycache__"]
 
 
 def fresh_clean():

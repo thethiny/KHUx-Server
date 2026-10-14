@@ -6,6 +6,7 @@ Based on decompiled libcocos2dcpp.so (arm64-v8a) analysis.
 
 import hashlib
 import logging
+import math
 import os
 import random
 import threading
@@ -15,8 +16,8 @@ from typing import Callable, Optional
 
 from sqlalchemy.orm import Session as DBSession
 
-from .enums import Misc, clamp_progression
-from .information import CATEGORIES, NOTICES
+from .enums import Misc
+from .information import NOTICES
 from .master import MASTER_KEY_HEX, MASTER_TABLE_NAMES, get_master_encrypted
 from .models import Party, PartyApplication, PartyOffer, RaidParticipant, User
 from . import state as gstate
@@ -47,6 +48,10 @@ def dispatch(action_id: int, request_data: dict, user: Optional[User], db_sessio
     return default_handler(action_id, request_data, user, db_session)
 
 
+# master data revision: ret.versionDat and /system/master revision must be equal
+MASTER_REV = 55
+
+
 def build_ret(user: Optional[User] = None) -> dict:
     """
     v4.3.1 Ret::parse (sub_67EB98) — 16 required fields.
@@ -63,7 +68,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         # install never gets the resources (later screens miss their layouts) - run with KHUX_VERSION_RES=1.
         # The old ">0 re-downloads every session" was /system/resource sending minVersion 0 (fixed there).
         "versionRes": int(os.environ.get("KHUX_VERSION_RES", "0")),
-        "versionDat": 55,   # must match master_rev; bumping forces re-download + "update detected" popup
+        "versionDat": MASTER_REV,   # bumping forces the master re-download + "update detected" popup
         # menu buttons the client shows: 0x01 party "Invitation code", 0x02 Other menu "Serial code", 0x04 shop
         # benefit (VIP pass: "unlock all Special Quests" button + locked-quest offer) (0x08 KHchi avatar link,
         # 0x10 transfer, 0x20 support, 0x80 fund settlement: off)
@@ -87,19 +92,15 @@ def build_response(user: Optional[User] = None, **extra) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Login handlers (v4.3.1 uses /system/login and /khux/login)
-# DEBUG: set to a progression value to skip tutorial steps on fresh login
-# 0=full tutorial, 7=skip to union selection, 995=tutorial done
-DEBUG_SKIP_TO = int(os.getenv("KHUX_DEBUG_SKIP_TO", "0"))
-DEBUG_MODE = bool(os.getenv("KHUX_DEBUG_MODE", ""))
+# Login handlers
 
 # ---------------------------------------------------------------------------
 @register(59)  # POST /login
 def handle_login(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    raw_progression = user.tutorial_progression if user else 0
-    if DEBUG_SKIP_TO and raw_progression < DEBUG_SKIP_TO:
-        raw_progression = DEBUG_SKIP_TO
-    progression = clamp_progression(raw_progression)
+    # login.progression picks the screen a relaunch resumes at (sub_67F3C0): 1 invitation / download,
+    # 2 download, 3 name, 4 avatar, 5 union, 6 the tutorial battle (anything else: the EULA). Send the stored
+    # step as-is; the client re-downloads by itself when the resources are missing.
+    progression = min(max(user.tutorial_progression or 0, 0), 6) if user else 0
     newcomer = progression == 0
     # Report the tutorial as finished once the union is joined (progression 6). A relaunch with
     # tutorial=true at 6 makes the client send /tutorial/clear (63) and jump to the stage/raid flow
@@ -129,9 +130,9 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
             "acquirableLoginBonus": bonus,
             "progression": progression,
         },
-        phase=50,
+        phase=user.tutorial_phase if user else 50,
         popupFlag=_popup_flag(user, db_session),
-        isFinished=0,
+        isFinished=_tutorial_finished(user),
     )
 
 
@@ -325,7 +326,9 @@ def handle_stage_continue(request_data: dict, user: Optional[User], db_session: 
     # APIManager::updateKeyblade). Without them the continue fails and the client retries forever.
     # A continue costs 100 Jewels (KHUX Wiki Talk:Shop: "100 Jewels to continue? If you choose to continue, the
     # special attack gauge will be maxed out" - the gauge refill is the client's).
-    if user and _spend_jewels(user, _misc(113, 100)):     # misc 113 (the 111-114 price block; GUESS: Q3)
+    # During the tutorial the continue is free: StageUI::openContinueDialog says so while
+    # TutorialStatus.isFinished is 0 (T1). The client checks the Jewels before it asks (102600016).
+    if user and _tutorial_finished(user) and _spend_jewels(user, _misc(113, 100)):   # misc 113 (GUESS: Q3)
         db_session.add(user)
     logger.info("STAGE CONTINUE: user=%s", user.id if user else None)
     return build_response(user,
@@ -366,7 +369,7 @@ def handle_user_support(request_data: dict, user: Optional[User], db_session: DB
 
 
 def _max_medal(user: Optional[User]) -> int:
-    return (user.max_medal or 100) if user else 100        # GUESS: M1 (starting size 100)
+    return (user.max_medal or _misc(102, 50)) if user else _misc(102, 50)     # M1: a new box holds 50
 
 
 def _support_medal(user: Optional[User], db_session: DBSession) -> dict:
@@ -470,7 +473,7 @@ def _user_obj(user: Optional[User]) -> dict:
         "gender": user.gender if user else 0,
         "comment": user.comment if user else "",
         "deviceType": 2,
-        "continueLoginCount": 1,
+        "continueLoginCount": max(user.continue_login_count or 0, 1) if user else 1,   # the login streak (O7)
         "isFleeze": 0,
         "fleezedDatetime": "2000-01-01 00:00:00",
         "nativeTagName": "player_tag",
@@ -493,11 +496,16 @@ def handle_name_update(request_data: dict, user: Optional[User], db_session: DBS
 
 @register(37)  # POST /user/gender/update
 def handle_gender_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    gender = request_data.get("gender", 0)
+    # APIManager::executeUserGenderUpdate sends {"changeGender": 1|2}; the equipped outfit follows
+    gender = int(request_data.get("changeGender") or 0)
     logger.info("GENDER UPDATE: %s", gender)
-    if user:
+    if user and gender in (1, 2):
         user.gender = gender
         db_session.add(user)
+        with gstate.State(user, db_session) as st:
+            for c in st.get("coordinates", []):
+                if c.get("myCoordinateNo") == _equip_coordinate(user):
+                    c["gender"] = gender
     return build_response(user, userData={"user": _user_obj(user), "userDetail": _user_detail(user)})
 
 
@@ -533,14 +541,18 @@ def handle_avatar_update(request_data: dict, user: Optional[User], db_session: D
 @register(63)  # POST /tutorial/clear
 def handle_tutorial_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     logger.info("TUTORIAL CLEAR: payload=%s", request_data)
+    if user and user.tutorial_progression < 6:
+        # an invited player skips the Union choice (progression 6; the inviter's Union is used) and clears from
+        # 5. Without this, every later login reports the tutorial unfinished and replays SceneUnionRegister.
+        user.tutorial_progression = 6
+        db_session.add(user)
     return build_response(user,
         login={
             "newcomer": False,
             "tutorial": False,
             "acquirableLoginBonus": False,
-            "progression": 995,
+            "progression": user.tutorial_progression if user else 6,
         },
-        partyId=0,
         **_invite_bonus(user, db_session),
     )
 
@@ -625,18 +637,12 @@ def handle_union_change(request_data: dict, user: Optional[User], db_session: DB
     return build_response(user, userData={"userDetail": _user_detail(user)}, userStone=_user_stone(user))
 
 
-_PROGRESSION_MAP = {0: 0, 1: 1, 3: 3, 4: 4, 5: 5, 6: 6, 995: 995}
-
-
 @register(62)  # POST /tutorial/progress
 def handle_tutorial_progress(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    raw_progression = request_data.get("progression", 0)
-    progression = _PROGRESSION_MAP.get(raw_progression, raw_progression)
-    if DEBUG_SKIP_TO and progression < DEBUG_SKIP_TO:
-        progression = DEBUG_SKIP_TO
+    # the client sends steps 1-6 (executeTutorialProgress callers); the tutorial is done by /tutorial/status 995
+    progression = int(request_data.get("progression", 0) or 0)
     name = request_data.get("name", "")
-    logger.info("TUTORIAL PROGRESS: raw=%s mapped=%s (skip_to=%s) payload=%s",
-                raw_progression, progression, DEBUG_SKIP_TO, request_data)
+    logger.info("TUTORIAL PROGRESS: %s payload=%s", progression, request_data)
     if user:
         if name:
             user.user_name = name
@@ -658,8 +664,6 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
             user.union_id = union_id
         if progression > user.tutorial_progression:
             user.tutorial_progression = progression
-        if raw_progression >= 995: # Union is at 6, tutorial at 995. Must be set to 6 to avoid re-download on failed tutorial.
-            user.tutorial_done = True
         db_session.add(user)
     code = str(request_data.get("inviteCode") or "").strip().upper()
     if user and code:
@@ -766,6 +770,11 @@ def _medal_row(medal_id: int) -> dict:
     return next((m for m in MASTER_JSON_DATA.get("medal", []) if m["medalId"] == medal_id), {})
 
 
+def _burst_row(burst_id) -> Optional[dict]:
+    from .master import MASTER_JSON_DATA
+    return next((b for b in MASTER_JSON_DATA.get("burst", []) if b.get("burstId") == burst_id), None)
+
+
 def _medal_misc(misc_id: int) -> list:
     from .master import MASTER_JSON_DATA
     return next((m["value"] for m in MASTER_JSON_DATA.get("medalMisc", []) if m["medalMiscId"] == misc_id),
@@ -782,17 +791,39 @@ def _medal_need_exp(medal: dict, lv: int) -> int:
 
 
 def _fusion_exp(base: dict, base_row: dict, comp: dict, comp_row: dict) -> int:
-    """SceneMixedMedal::calcMixedExp for one component medal: materialExp + medalMisc112 level curve, x medalMisc
-    113 if same attribute, x medalMisc 114 if the two share a `source` entry."""
+    """SceneMixedMedal::calcMixedExp for one component medal, floored after every step as the client does:
+    floor(materialExp + medalMisc 112 level curve), x medalMisc 113 if same attribute, x medalMisc 114 if the two
+    share a `source` entry, x the running fusion-EXP campaign (evCampaign type 11, SceneMixedMedal+940)."""
     v = _medal_misc(112)
-    exp = comp_row.get("materialExp", 0) + v[1] * pow((comp["level"] - 1) / max(v[0] - 1, 1), v[2] / 10000.0)
+    exp = math.floor(comp_row.get("materialExp", 0)
+                     + v[1] * pow((comp["level"] - 1) / max(v[0] - 1, 1), v[2] / 10000.0))
     if comp_row.get("attribute") == base_row.get("attribute"):
-        exp = int(exp * _medal_misc(113)[0] / 10000.0)
+        exp = math.floor(exp * (_medal_misc(113)[0] / 10000.0))
     src_b = set(base_row.get("source", [])[:base_row.get("validSource", 0)])
     src_c = set(comp_row.get("source", [])[:comp_row.get("validSource", 0)])
     if src_b & src_c:
-        exp = int(exp * _medal_misc(114)[0] / 10000.0)
-    return int(exp)
+        exp = math.floor(exp * (_medal_misc(114)[0] / 10000.0))
+    return int(math.floor(exp * (_campaign_power(11) / 10000.0)))
+
+
+def _burst_up(base_row: dict, comp_row: dict, comp: dict) -> int:
+    """Special-attack levels a component adds (SceneMixedMedal::isBurstUpMedal + updateMaterial): its
+    burstUpperNumber + 1 when it shares the base's group (groupId, else medalId), its group is one of the base's
+    burstEnhanceCategory, or it is a type-8 (special-attack material) medal; else 0."""
+    def group(r):
+        return r.get("groupId") or r.get("medalId")
+    hit = (group(comp_row) == group(base_row) or group(comp_row) in (base_row.get("burstEnhanceCategory") or [])[:2]
+           or comp_row.get("type") == 8)
+    return comp.get("burstUpperNumber", 0) + 1 if hit else 0
+
+
+def _fusion_cost(base: dict, base_row: dict, n: int) -> int:
+    """SceneMixedMedal::updateMaterial: components x medalMisc 115 (80) x the base's level x the fusion-cost
+    campaign (evCampaign type 14, "Half Munny cost!"); x medalMisc 123 (25%) when the base is at its max level."""
+    cost = int(_campaign_power(14) / 10000.0 * (n * _medal_misc(115)[0] * base["level"]))
+    if base["level"] == base_row.get("maxLv"):
+        cost = int(_medal_misc(123)[0] / 10000.0 * cost)
+    return cost
 
 
 @register(53)  # POST /user/medal/enhance (fusion)
@@ -801,26 +832,35 @@ def handle_medal_enhance(request_data: dict, user: Optional[User], db_session: D
     # response (verifyResponse case 53): userSkills + userData.userPoint + UserMedalEnhance {before/after
     # EnhanceUserMedal (UserMedal), enhanceEffect, overwriteSkills [], successOverwrite} + componentUserMedalIds
     logger.info("MEDAL ENHANCE: %s", request_data)
-    comps = set(request_data.get("componentUserMedalIds", []))
+    base_id = request_data.get("baseUserMedalId")
+    comps = set(request_data.get("componentUserMedalIds", [])) - {base_id}
     with gstate.State(user, db_session) as st:
-        base = next(m for m in st["medals"] if m["userMedalId"] == request_data.get("baseUserMedalId"))
+        base = next((m for m in st["medals"] if m["userMedalId"] == base_id), None)
+        if base is None:
+            return build_error(user, "That Medal is no longer available.")
         before = dict(base)
         base_row = _medal_row(base["medalId"])
-        gained = 0
+        cost = _fusion_cost(base, base_row, len(comps))      # from the base as it was, like the client's preview
+        gained, burst_up = 0, 0
         for m in st["medals"]:
             if m["userMedalId"] in comps:
-                gained += _fusion_exp(base, base_row, m, _medal_row(m["medalId"]))
+                row = _medal_row(m["medalId"])
+                gained += _fusion_exp(base, base_row, m, row)
+                burst_up += _burst_up(base_row, row, m)
         st["medals"] = [m for m in st["medals"] if m["userMedalId"] not in comps]
         for kb in st["keyblades"]:
             kb["deckMedals"] = [0 if mid in comps else mid for mid in kb["deckMedals"]]
         base["exp"] += gained
         while base["level"] < base_row.get("maxLv", 1) and base["exp"] >= _medal_need_exp(base_row, base["level"]):
             base["level"] += 1
+        if burst_up:
+            cap = (_burst_row(base_row.get("burstId")) or {}).get("maxEnhanceCount", 0)
+            base["burstUpperNumber"] = min(base.get("burstUpperNumber", 0) + burst_up, cap)
         after = dict(base)
     if user:
-        # fusion cost: medalMisc 115 (80) munny per component - matches the client's preview for a Lv1 base
-        user.money = max(0, user.money - _medal_misc(115)[0] * len(comps))
-    logger.info("MEDAL ENHANCE: +%d exp -> lv %d exp %d", gained, after["level"], after["exp"])
+        user.money = max(0, user.money - cost)
+    logger.info("MEDAL ENHANCE: +%d exp -> lv %d exp %d, special +%d, cost %d", gained, after["level"],
+                after["exp"], burst_up, cost)
     return build_response(user,
         userSkills=[],
         userData={"userPoint": _user_point(user)},
@@ -835,9 +875,11 @@ def handle_medal_enhance(request_data: dict, user: Optional[User], db_session: D
 
 
 # The tutorial's draw step ("Try equipping your new Medal!") expects KH II King Mickey from this banner.
-_TUTORIAL_BANNER = {"id": 10, "sortId": 1, "name": "Get at least one 5\u2605 Medal!",
-                    "description": "Spend 3000 Jewels to get 10 Medals!", "price": 3000, "payType": 1,
-                    "pool": [33043], "lots": [{"count": 10, "rates": {}}]}
+# drawMedalType 10 (drawType 5 = tutorial): one medal for 300 Jewels, exactly the starting Jewels (users.free_stone
+# default 300; misc 116 = 300 may be it, meaning unconfirmed - misc 100 is the Lux rank cap). The client checks free + paid Jewels >= price before drawing (DrawScrollView::hasMagicStone), so a higher price
+# strands a new player at the guide (GUESS: T2 for which drawType 5 row is the tutorial's).
+_TUTORIAL_BANNER = {"id": 10, "sortId": 1, "name": "Jewel Draw", "description": "Get a 3\u2605 Medal or better!",
+                    "price": 300, "payType": 1, "pool": [33043], "lots": [{"count": 1, "rates": {}}]}
 
 
 def _quests_cleared(user: Optional[User], db_session: DBSession) -> int:
@@ -869,8 +911,9 @@ def handle_gacha_draw(request_data: dict, user: Optional[User], db_session: DBSe
         b, ids = None, []
     else:
         ids = gacha.draw(b)
-    if user and b and not tutorial:
-        # Jewels only (no real money on the private server); free Jewels are spent first
+    if user and b:
+        # Jewels only (no real money on the private server); free Jewels are spent first. The tutorial draw costs
+        # its 300 too (the starting Jewels; never below 0)
         price = b["price"]
         free = min(user.free_stone or 0, price)
         user.free_stone = (user.free_stone or 0) - free
@@ -891,7 +934,9 @@ def handle_gacha_draw(request_data: dict, user: Optional[User], db_session: DBSe
         userMedals=drawn,
         userSkills=[],
         userMaterials=[],
-        gachaBonus={"addType": 0, "userMedalIds": []},
+        # addType 1 = no bonus: anything else makes SceneDrawRaise open the "You got a bonus!" popup (+684), whose
+        # exit skips the shop's normal return - and with it the tutorial's next guide (phase 210)
+        gachaBonus={"addType": 1, "userMedalIds": []},
         firstGetUserMedalIds=first,
     )
 
@@ -920,11 +965,23 @@ def _last_action(user: Optional[User]) -> str:
     return t.strftime("%Y-%m-%d %H:%M:%S") if t else time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
 
 
-def _support_entry(uid: int, name: str, level: int, medal: dict, avatar: dict, user: Optional[User] = None) -> dict:
+# Friend Points (kizuna) the owner of a shared medal earns each time someone uses it: 10 from a party member, 5 from
+# anyone else (JP before 1.20; khuxwiki Currencies - GUESS: O8). The Sora fallback earns nothing.
+KIZUNA_PARTY, KIZUNA_OTHER = 10, 5
+
+
+def _same_party(db_session: DBSession, a: Optional[User], b_id: int) -> bool:
+    pid = gparty.party_id_of(db_session, a.id) if a else 0
+    return bool(pid) and pid == gparty.party_id_of(db_session, b_id)
+
+
+def _support_entry(uid: int, name: str, level: int, medal: dict, avatar: dict, user: Optional[User] = None,
+                   is_party: bool = False) -> dict:
     return {
         "supportUserId": uid, "level": level, "userName": name,
         "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
-        "addKizunaPoint": 0, "keybladeId": 1000, "isParty": 0, "isGuilt": 0,
+        "addKizunaPoint": 0 if uid == _SORA_SUPPORT_ID else (KIZUNA_PARTY if is_party else KIZUNA_OTHER),
+        "keybladeId": 1000, "isParty": int(is_party), "isGuilt": 0,
         "userMedal": medal, "userSkills": [], "userAvatar": avatar,
         "lastActionDatetime": _last_action(user), "earnLuxRank": 0,
     }
@@ -965,15 +1022,29 @@ def _supporter(db_session: DBSession, user: Optional[User], support_uid) -> dict
     o = db_session.get(User, support_uid) if support_uid and support_uid != _SORA_SUPPORT_ID else None
     if o is None:
         return _sora_support(user, db_session)
-    return _support_entry(o.id, o.user_name or "Player", _lux_rank(o), _support_medal(o, db_session), _user_avatar(o), o)
+    e = _support_entry(o.id, o.user_name or "Player", _lux_rank(o), _support_medal(o, db_session), _user_avatar(o), o,
+                       is_party=_same_party(db_session, user, o.id))
+    kbs = _user_keyblades(o, db_session)                           # the owner's favourite keyblade, as in 80
+    kb = next((k for k in kbs if k.get("isFavorite")), kbs[0] if kbs else None)
+    e["keybladeId"] = kb["keybladeId"] if kb else 1000
+    return e
 
 
-def _chosen_supporters(db_session: DBSession, user: Optional[User], request_data: dict) -> list:
+def _chosen_supporters(db_session: DBSession, user: Optional[User], request_data: dict,
+                       friend_points: bool = True) -> list:
     """supportUsers for 103 / 112: verifyResponse parses StageSupportList from them too, which REPLACES the list
     from 102; BattleUtil::getSupportMedal then looks the chosen supportUserId up in it. Empty = no friend medal in
     battle (the bug the user saw)."""
     sid = int(request_data.get("supportUserId") or 0)
-    return [_supporter(db_session, user, sid)] if sid else []
+    if not sid:
+        return []
+    entry = _supporter(db_session, user, sid)
+    owner = db_session.get(User, sid) if sid != _SORA_SUPPORT_ID else None
+    if friend_points and owner is not None and user is not None and owner.id != user.id:   # owner's Friend Points
+        owner.kizuna_point = (owner.kizuna_point or 0) + entry["addKizunaPoint"]
+        db_session.add(owner)
+        logger.info("FRIEND POINTS: user %s +%s (medal used by %s)", owner.id, entry["addKizunaPoint"], user.id)
+    return [entry]
 
 
 @register(100)  # GET /stage/160310
@@ -995,13 +1066,7 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
         new_stage_id = sid
         if rec is None:
             break
-    return build_response(user,
-        stories=stories,
-        newStageId=new_stage_id,
-        raidStatus=0,
-        events=[],
-        supportUsers=[],
-    )
+    return build_response(user, stories=stories, newStageId=new_stage_id)
 
 
 @register(107)  # GET /raid
@@ -1123,6 +1188,15 @@ def handle_raid_start(request_data: dict, user: Optional[User], db_session: DBSe
     # The boss may be the player's own or a party member's (/raid/list). The fighter becomes a participant.
     logger.info("RAID START: %s", request_data)
     uid = user.id if user else 0
+    resume = not int(request_data.get("raidId") or 0) and user is not None and \
+        bool(gstate.load(user, db_session).get("raid_playing"))
+    if resume:
+        # a resumed raid fight (stageResumption status 2): the client sends 0s, the server knows the fight
+        st0 = gstate.load(user, db_session)
+        saved = st0.get("stage_start") or {}
+        request_data = {**request_data, "raidId": st0["raid_playing"],
+                        "supportUserId": saved.get("supportUserId", 0), "userKeybladeId": saved.get("userKeybladeId", 1)}
+        logger.info("RAID RESUME: %s", request_data)
     row = graid.by_id(db_session, request_data.get("raidId")) or graid.own(db_session, uid)
     raid = graid.load(row) if row else None
     if row:
@@ -1130,6 +1204,8 @@ def handle_raid_start(request_data: dict, user: Optional[User], db_session: DBSe
         with gstate.State(user, db_session) as st:
             st["raid_playing"] = row.id
             st["stage_keyblade"] = request_data.get("userKeybladeId", 1)
+            st["stage_start"] = {"supportUserId": int(request_data.get("supportUserId") or 0),
+                                 "userKeybladeId": request_data.get("userKeybladeId", 1)}
     return build_response(user,
         userData={"userPoint": _user_point(user)},
         raid=graid.info(raid),
@@ -1139,7 +1215,7 @@ def handle_raid_start(request_data: dict, user: Optional[User], db_session: DBSe
                        "userKeybladeId": request_data.get("userKeybladeId", 1)},
         discovererUserId=row.discoverer_id if row else uid,
         campaigns=[],
-        supportUsers=_chosen_supporters(db_session, user, request_data),
+        supportUsers=_chosen_supporters(db_session, user, request_data, friend_points=not resume),
     )
 
 
@@ -1150,7 +1226,8 @@ def handle_raid_clear(request_data: dict, user: Optional[User], db_session: DBSe
     logger.info("RAID CLEAR: %s", request_data)
     uid = user.id if user else 0
     with gstate.State(user, db_session) as st:
-        row = graid.by_id(db_session, st.get("raid_playing")) or graid.own(db_session, uid)
+        # the boss /raid/start (112) opened; each start counts one clear (a repeat finds none: status 5)
+        row = graid.by_id(db_session, st.pop("raid_playing", None))
         raid = graid.load(row) if row else None
         before = raid["status"] if raid else None
         if raid and raid["status"] == graid.RAID_STATUS_ACTIVE:
@@ -1179,14 +1256,14 @@ def handle_raid_clear(request_data: dict, user: Optional[User], db_session: DBSe
             time_status = 3
         else:
             time_status = 2
-    if user:
+    if user and raid is not None:
         gp = request_data.get("getPoint", {})
         user.exp += gp.get("exp", 0)
         user.money += gp.get("money", 0)
         _add_lux(user, gp.get("lux", 0))
     return build_response(user,
         userData={"userPoint": _user_point(user), "userDetail": _user_detail(user),
-                  "stageResumption": _stage_resumption(user)},
+                  "stageResumption": _stage_resumption(user, db_session)},
         raidTimeStatus=time_status,
         reliefFlag=0,
         userSkills=[], userTitles=[],
@@ -1205,7 +1282,16 @@ def handle_raid_list(request_data: dict, user: Optional[User], db_session: DBSes
 
 @register(103)  # POST /stage/start
 def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    stage_id = request_data.get("stageId", 1010)
+    stage_id = int(request_data.get("stageId") or 0)
+    resume = stage_id == 0 and user is not None and bool(user.current_stage_id)
+    if resume:
+        # A resumed quest (stageResumption status 1 at boot): the client sends stageId / supportUserId /
+        # userKeybladeId 0 and expects the server to start the quest that was open, as it was started.
+        saved = gstate.load(user, db_session).get("stage_start") or {}
+        stage_id = user.current_stage_id
+        request_data = {**request_data, "stageId": stage_id, "supportUserId": saved.get("supportUserId", 0),
+                        "userKeybladeId": saved.get("userKeybladeId", 1)}
+        logger.info("STAGE RESUME: stage %s with %s", stage_id, saved)
     keyblade_id = request_data.get("userKeybladeId", 1)
     logger.info("STAGE START: stageId=%s keybladeId=%s payload=%s", stage_id, keyblade_id, request_data)
     if user:
@@ -1217,6 +1303,8 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
     with gstate.State(user, db_session) as st:
         st["stage_drops"] = {"stageId": stage_id, **drops}
         st["stage_keyblade"] = keyblade_id
+        st["stage_start"] = {"supportUserId": int(request_data.get("supportUserId") or 0),
+                             "userKeybladeId": keyblade_id}
         cleared = list((st["stages"].get(str(stage_id)) or {}).get("clearMissionIds", []))
     logger.info("STAGE DROPS: %s", drops)
     return build_response(user,
@@ -1240,7 +1328,7 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
             "stageSkip": 0,
         },
         campaigns=[r["campaignId"] for r in gevents.active_campaigns() if gevents.campaign_applies(r, stage_id)],
-        supportUsers=_chosen_supporters(db_session, user, request_data),
+        supportUsers=_chosen_supporters(db_session, user, request_data, friend_points=not resume),
     )
 
 
@@ -1262,10 +1350,12 @@ def _user_detail(user: Optional[User]) -> dict:
         "luxRank": _lux_rank(user),
         "luxGetRatio": 100,
         **_user_titles(user),
-        "maxDeckCost": user.max_deck_cost if user else 30,
+        # the player row's cost for the rank (42 at rank 1 ... 440) plus Avatar Board deck-cost nodes; the client
+        # never reads player.cost itself, so the server applies it (like player.ap / hp in UserPoint)
+        "maxDeckCost": _get_player_stats(_lux_rank(user)).get("cost", 42) + ((user.deck_cost_prize or 0) if user else 0),
         "playTimezones": _play_timezones(user),
         "playFrequently": (user.play_frequently or 0) if user else 0, "partyId": _party_id(user), "unionId": user.union_id if user else 1,
-        "maxMedal": (user.max_medal or 100) if user else 100, "mvpCount": 0, "equipCoordinateNo": _equip_coordinate(user),
+        "maxMedal": _max_medal(user), "mvpCount": 0, "equipCoordinateNo": _equip_coordinate(user),
         "lastClearStageId": user.last_clear_stage_id if user else 0,
         "lastPlayNormalSphereBoardId": 0, "lastPlayStageSphereBoardId": 0,
         "lastPlayRaidSphereBoardId": 0, "lastPlayColosseumSphereBoardId": 0,
@@ -1273,20 +1363,33 @@ def _user_detail(user: Optional[User]) -> dict:
     }
 
 
-def _stage_resumption(user=None) -> dict:
-    # resumptionStatus=1 causes auto-battle-start with stageId=0 (broken)
-    # until proper battle resumption is implemented, always return 0
-    return {
-        "resumptionStatus": 0,
-        "stageId": 0,
-        "raidId": 0,
-        "colosseumStageId": 0,
-    }
+def _stage_resumption(user=None, db_session=None) -> dict:
+    """StageResumption: a quest started and neither cleared nor retired (the app was closed or crashed). At boot
+    SceneUtil::moveToMyPageOrResumeStage goes straight back into it (StartDeckEditDialog::startAdventure)
+    instead of MyPage: status 1 = story quest (stageId), 2 = raid (raidId), 3 = Coliseum. In 1.0.1 the quest
+    starts over; returning to the same room came later (user, O12). Coliseum resumption is not offered."""
+    out = {"resumptionStatus": 0, "stageId": 0, "raidId": 0, "colosseumStageId": 0}
+    if not user or not user.tutorial_done:
+        return out
+    if user.current_stage_id:
+        out.update(resumptionStatus=1, stageId=user.current_stage_id)
+    elif db_session is not None:
+        row = graid.by_id(db_session, gstate.load(user, db_session).get("raid_playing"))
+        if row is not None and graid.load(row)["status"] == graid.RAID_STATUS_ACTIVE:
+            out.update(resumptionStatus=2, raidId=row.id)
+    return out
 
 
 @register(106)  # POST /stage/clear
 def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    stage_id = user.current_stage_id if user and user.current_stage_id else 1010
+    # The clear request has no stageId: it is the stage /stage/start (103) opened. Each start counts one clear;
+    # a clear with no start before it (a repeat) is refused instead of counted again.
+    stage_id = user.current_stage_id if user else 0
+    if not stage_id:
+        logger.warning("STAGE CLEAR without a stage start: refused (payload=%s)", request_data)
+        return build_error(user, "This quest has already been cleared.")
+    user.current_stage_id = 0
+    db_session.add(user)
     logger.info("STAGE CLEAR: stageId=%s payload=%s", stage_id, request_data)
     new_medals, first_clear, new_titles = [], 0, []
     with gstate.State(user, db_session) as st:
@@ -1381,7 +1484,7 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
         userData={
             "userPoint": _user_point(user),
             "userDetail": _user_detail(user),
-            "stageResumption": _stage_resumption(user),
+            "stageResumption": _stage_resumption(user, db_session),
         },
         userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0},
         # objects, not ids (StageClear::parse runs Reward::init on each: rewardkind IsInt, userMedalId IsUint64,
@@ -1637,12 +1740,16 @@ def handle_medal_evolve(request_data: dict, user: Optional[User], db_session: DB
 def handle_stage_retire(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     # request {burst} (the battle's CP); response userKeyblades[] + userData.stageResumption
     logger.info("STAGE RETIRE: %s", request_data)
+    if user:
+        user.current_stage_id = 0                     # the quest is over: nothing to resume or clear
+        db_session.add(user)
     with gstate.State(user, db_session) as st:
         _store_burst(st, request_data.get("burst"))
         st.pop("stage_drops", None)
+        st.pop("raid_playing", None)
         keyblades = st["keyblades"]
     return build_response(user, userKeyblades=keyblades,
-                          userData={"stageResumption": _stage_resumption(user)})
+                          userData={"stageResumption": _stage_resumption(user, db_session)})
 
 
 # UserProfile::Record::init needs all 53 keys (uint64); values are what we track, else 0.
@@ -1694,7 +1801,8 @@ def handle_user_profile(request_data: dict, user: Optional[User], db_session: DB
     return build_response(user,
         userData={
             "user": {"userId": uid, "nativeUserId": uid, "platformId": 2, "userName": name, "gender": gender,
-                     "comment": comment, "deviceType": 2, "continueLoginCount": 1, "isFleeze": 0,
+                     "comment": comment, "deviceType": 2,
+                     "continueLoginCount": max(target.continue_login_count or 0, 1) if target else 1, "isFleeze": 0,
                      "fleezedDatetime": "2000-01-01 00:00:00"},
             "userDetail": detail, "userPoint": point, "lastActionDatetime": _last_action(target) if target else now,
         },
@@ -1797,28 +1905,17 @@ def handle_user_link(request_data: dict, user: Optional[User], db_session: DBSes
 # ---------------------------------------------------------------------------
 @register(1)  # GET /user
 def handle_user(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    uid = user.id if user else 1
-    now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
-    resp = build_response(user)
-    resp.update({
-        "userData": {
+    # verifyResponse case 1 parses userData.{user, userPoint, userDetail, stageResumption} and
+    # userPopUp.isPopBenefitStone, nothing else
+    return build_response(user,
+        userData={
             "user": _user_obj(user),
             "userDetail": _user_detail(user),
             "userPoint": _user_point(user),
-            "lastActionDatetime": now,
-            "stageResumption": _stage_resumption(user),
+            "stageResumption": _stage_resumption(user, db_session),
         },
-        "userMedals": _user_medals(user, db_session),
-        "userSkills": [],
-        "userAvatar": _user_avatar(user),
-        "userKeyblade": next((k for k in _user_keyblades(user, db_session) if k.get("isFavorite")),
-                             _user_keyblades(user, db_session)[0]),
-        "userRecord": {},
-        "userRanking": {"lux": 0, "rank": 0},
-        "userPopUp": {"isPopBenefitStone": 0},
-        "linkPlatformId": "",
-    })
-    return resp
+        userPopUp={"isPopBenefitStone": 0},
+    )
 
 
 @register(2)  # GET /user/start
@@ -1890,7 +1987,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 55
+    master_rev = MASTER_REV
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = get_master_encrypted(name)
@@ -1987,19 +2084,22 @@ def _hash_resource_chunks(path: str, chunk_size: int):
             logger.info("  chunk %d: %d-%d -> %s", chunk_idx, offset, end, _resource_md5_cache[cache_key])
             offset = end
             chunk_idx += 1
-    _hash_resource(path)
 
 
 def _prehash_resources():
-    data_dir = os.environ.get("KHUX_DATA_DIR", "")
-    repo_dir = os.environ.get("KHUX_REPO_DIR", "")
-    misc_mp4 = os.path.join(data_dir, "misc.mp4")
-    misc_png = os.path.join(repo_dir, "validate_data", "misc.png") if repo_dir else ""
-    if misc_mp4:
-        _hash_resource_chunks(misc_mp4, RESOURCE_CHUNK_SIZE)
-    if misc_png:
-        _hash_resource(misc_png)
-    _resource_md5_ready.set()
+    try:
+        data_dir = os.environ.get("KHUX_DATA_DIR", "")
+        repo_dir = os.environ.get("KHUX_REPO_DIR", "")
+        misc_mp4 = os.path.join(data_dir, "misc.mp4") if data_dir else ""
+        misc_png = os.path.join(repo_dir, "validate_data", "misc.png") if repo_dir else ""
+        if misc_mp4:
+            _hash_resource_chunks(misc_mp4, RESOURCE_CHUNK_SIZE)
+        if misc_png:
+            _hash_resource(misc_png)
+    except Exception:
+        logger.exception("resource hashing failed")
+    finally:
+        _resource_md5_ready.set()            # /system/resource must not wait forever
 
 
 _hash_thread = threading.Thread(target=_prehash_resources, daemon=True)
@@ -2064,9 +2164,7 @@ def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_ses
     if user and not user.tutorial_done:
         db_session.add(user)
     is_new = True
-    progression = DEBUG_SKIP_TO if DEBUG_SKIP_TO else 0
-    if DEBUG_SKIP_TO >= 995:
-        is_new = False
+    progression = 0
     return build_response(user,
         login={
             "newcomer": is_new,
@@ -2080,42 +2178,33 @@ def handle_tutorial_user_create(request_data: dict, user: Optional[User], db_ses
             "name": "",
             "inviteCode": "",
         },
-        phase=50,
+        phase=user.tutorial_phase if user else 50,
         popupFlag=0,
-        isFinished=0,
+        isFinished=_tutorial_finished(user),
     )
 
 
 @register(28)  # GET /system/information/list
-@register(29)  # GET /system/information/list/151203
 def handle_information_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    infos = []
-    for n in NOTICES:
-        cat_label, _ = CATEGORIES[n["cat"]]
-        infos.append({
-            "informationId": n["id"],
-            "category": n["cat"],
-            "categoryName": cat_label,
-            "title": n["title"],
-            "date": f"2026/{n['date']}",
-            "isNew": 0,
-        })
-    # popUpViewUrl (strings) = notice pages the client opens as WebView popups at startup. Must not be empty
-    # once the tutorial is past phase 710: SceneNotice::init then calls openNextPage() during its own init, and
-    # with no pages the completion moves to MyPage (changeSceneLayer) while the notice layer is still being
-    # created -> NULL layer -> crash in EventDispatcher::pauseEventListenersForTarget. The live server always
-    # had a notice popup at login.
+    # SystemInformationList::parse reads only a top-level viewUrl (the 1.0.1 client never calls this action)
+    return build_response(user, viewUrl="http://api.sp.kingdomhearts.com/information/list")
+
+
+@register(29)  # GET /system/information/list/151203
+def handle_information_popups(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # Only popUpViewUrl is parsed: the notice pages the client opens as WebView popups at startup. Must not be
+    # empty once the tutorial is past phase 710: SceneNotice::init then calls openNextPage() during its own
+    # init, and with no pages the completion moves to MyPage (changeSceneLayer) while the notice layer is still
+    # being created -> NULL layer -> crash in EventDispatcher::pauseEventListenersForTarget. The live server
+    # always had a notice popup at login.
     popups = [f"http://api.sp.kingdomhearts.com/information/detail/{NOTICES[0]['id']}"] if NOTICES else []
-    return build_response(user, informations=infos, popUpViewUrl=popups)
+    return build_response(user, popUpViewUrl=popups)
 
 
 @register(30)  # GET /system/information/detail
 def handle_information_detail(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    info_id = request_data.get("informationId", 1)
-    return build_response(user, information={
-        "informationId": info_id,
-        "url": f"http://api.sp.kingdomhearts.com/dark/information/detail/{info_id}",
-    })
+    # verifyResponse case 30 reads a top-level infoBody string (the 1.0.1 client never calls this action)
+    return build_response(user, infoBody="")
 
 
 @register(131)  # GET /campaign
@@ -2177,7 +2266,7 @@ def _apply_masu_reward(user: Optional[User], st: dict, masu: dict, idx: int) -> 
             user.ap_prize = (user.ap_prize or 0) + value
     elif kind == _MASU_DECK_COST:
         if user:
-            user.max_deck_cost = (user.max_deck_cost or 0) + value
+            user.deck_cost_prize = (user.deck_cost_prize or 0) + value
     elif kind == _MASU_SKILL:
         if rid:
             logger.warning("  skill node (skill %s) not granted: no skill store yet", rid)
@@ -2326,11 +2415,10 @@ def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSessio
         isChangeCoordinate=0,
         # a flag per ranking with an undelivered result: MyPage then calls 130 for it and shows the popups
         rankingRewards=_ranking_flags(user, db_session),
+        # the dated seasonal backgrounds (151211 Christmas 2015, 160111 New Year 2016, ...) have no art
+        # (lwf/home/<id>) in our archive and would crash SceneMyPage::initField; only 150911 does
         backgroundId=150911,
         isNewAlbumChallenge=0,
-        loginBonus=[],
-        events=[],
-        notifications=[],
     )
 
 
@@ -2384,7 +2472,7 @@ def handle_colosseum_retire(request_data: dict, user: Optional[User], db_session
         _store_burst(st, request_data.get("burst"))
         gcol.progress(st)["pending"] = None
         keyblades = st["keyblades"]
-    return build_response(user, userKeyblades=keyblades, userData={"stageResumption": _stage_resumption(user)})
+    return build_response(user, userKeyblades=keyblades, userData={"stageResumption": _stage_resumption(user, db_session)})
 
 
 @register(118)  # POST /colosseum/clear
@@ -2420,7 +2508,7 @@ def handle_colosseum_clear(request_data: dict, user: Optional[User], db_session:
         db_session.add(user)
     return build_response(user,
         userData={"userPoint": _user_point(user), "userDetail": _user_detail(user),
-                  "stageResumption": _stage_resumption(user)},
+                  "stageResumption": _stage_resumption(user, db_session)},
         clearColosseums=cleared or [{"rank": rec_rank, "stageCount": rec_count}],
         userMaterials=materials, userMedals=new_medals, userSkills=[], userTitles=new_titles,
         userKeyblades=_user_keyblades(user, db_session))
@@ -2562,10 +2650,10 @@ def handle_user_album(request_data: dict, user: Optional[User], db_session: DBSe
                           userAlbumChallenge=[])
 
 
-def _bonus_day() -> str:
+def _bonus_day(offset_days: int = 0) -> str:
     # the day turns over at 12:00 SERVER LOCAL time (user, 2026-10-14; the wiki's "11:00 UTC" was just the EN
-    # server's own clock)
-    return time.strftime("%Y-%m-%d", time.localtime(time.time() - 12 * 3600))
+    # server's own clock); offset_days -1 = the previous server day
+    return time.strftime("%Y-%m-%d", time.localtime(time.time() - 12 * 3600 + offset_days * 86400))
 
 
 def _login_rows(bonus_type: int) -> list:
@@ -2581,7 +2669,8 @@ def handle_login_bonus(request_data: dict, user: Optional[User], db_session: DBS
     # panel with that row's day. The response carries no user data, so rewards go to the present box (GUESS: L3).
     # bonusType 1 = the 5-day login bonus (50/50/100/100/200 Jewels) that REPEATS after day 5 (user, from old
     # videos, 2026-10-14; 2016 guides agree): 500 a cycle, six cycles = the 3000 Jewels a month the user remembers.
-    # bonusType 2 = lifetime total login days (milestones day 1..1850).
+    # It is a streak: a missed day starts it again at day 1 (user, O7). bonusType 2 = lifetime total login days
+    # (milestones day 1..1850), never reset.
     welcome_rows, total_rows = _login_rows(1), _login_rows(2)
     today = _bonus_day()
     with gstate.State(user, db_session) as st:
@@ -2590,11 +2679,16 @@ def handle_login_bonus(request_data: dict, user: Optional[User], db_session: DBS
         first_today = lb["last_day"] != today
         grants = []
         if first_today:
+            yesterday = _bonus_day(-1)
+            in_a_row = lb["last_day"] == yesterday
             lb["last_day"] = today
             lb["total"] += 1
-            # next day of the cycle; GUESS: L2 - a missed day does not restart the cycle (not documented)
-            lb["welcome"] = lb["welcome"] % len(welcome_rows) + 1
+            lb["run"] = lb.get("run", 0) + 1 if in_a_row else 1        # consecutive days (continueLoginCount)
+            lb["welcome"] = lb["welcome"] % len(welcome_rows) + 1 if in_a_row else 1
             grants.append(welcome_rows[lb["welcome"] - 1])
+            if user:
+                user.continue_login_count = lb["run"]
+                db_session.add(user)
         total = lb["total"]
         cont = welcome_rows[max(lb["welcome"], 1) - 1]
         reached = next((r for r in total_rows if r["day"] == total), None)
@@ -2746,15 +2840,15 @@ def _member_entry(db_session: DBSession, uid: int, detail: bool = False) -> dict
 
 def _after_join(db_session: DBSession, uid: int) -> None:
     """The first party a player ever joins (or creates) gives misc 117 (100) Jewels - ScenePartyTop's entry
-    layout says so while userParty.flagFirstReward is 0 (text 103810026)."""
+    layout says so while userParty.flagFirstReward is 0 (text 103810026). They go to the present box: the invite
+    popup for this reward says "Collect rewards from your present box!"."""
     o, m = db_session.get(User, uid), gparty.membership(db_session, uid)
     if not o or not m:
         return
     with gstate.State(o, db_session) as st:
         if not st.get("party_first_reward"):
             st["party_first_reward"] = 1
-            o.free_stone = (o.free_stone or 0) + _misc(117, 100)
-            db_session.add(o)
+            add_present(st, 2, 0, _misc(117, 100), "First Party Bonus")
             logger.info("PARTY FIRST JOIN: user %s +%s Jewels", uid, _misc(117, 100))
     m.flag_first_reward = 1
 

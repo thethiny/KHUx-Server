@@ -1,8 +1,7 @@
 """
 KHUx Private Server - Main FastAPI application.
 
-Serves both the sqex-bridge.jp session handshake and the encrypted game API.
-Run with: uvicorn src.app:app --host 0.0.0.0 --port 443 --ssl-keyfile key.pem --ssl-certfile cert.pem
+Serves both the sqex-bridge.jp session handshake and the encrypted game API (plain HTTP; run.py starts it).
 """
 
 import hashlib
@@ -33,7 +32,7 @@ from sqlalchemy.orm import Session as DBSession
 from starlette.responses import Response as StarletteResponse
 from starlette.responses import StreamingResponse
 
-logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, force=True)
+logging.basicConfig(level=logging.INFO, stream=sys.stdout, force=True)
 logger = logging.getLogger("khux")
 
 from .bridge import bridge_login
@@ -107,18 +106,12 @@ V1_PATH_MAP = {
     "/user/album/challenge/update": 144,
 }
 
-# v5.0.1 path → action ID (kept for backwards compat)
-V5_PATH_MAP = {
-    "userData": 1, "startStage": 4, "endStage": 5, "equipMedal": 10,
-    "levelUpMedal": 11, "evolveMedal": 12, "guiltMedal": 13,
-    "equipKeyblade": 15, "getUserMaterials": 16, "configuration": 17,
-    "eventData": 18, "activeCampaignIds": 34, "tutorial": 35,
-    "eventCategory": 109, "campaigns": 143,
-}
-
 # ---------------------------------------------------------------------------
 # Database setup
 # ---------------------------------------------------------------------------
+
+SUPERSEDED_GRACE_S = 6 * 3600     # how long the session a re-login replaced stays usable
+_REPLAY: dict = {}                # user id -> ((user, action, ruv), response json, http status) of the last request
 
 engine = get_engine()
 SessionLocal = get_session(engine)
@@ -230,7 +223,7 @@ async def system_status(request: Request):
 @app.get("/login/token")
 async def login_token(request: Request):
     """
-    v1.0.1 action 57 (GET /login/token): Pre-session login token request.
+    v1.0.1 action 58 (GET /login/token): Pre-session login token request.
     Returns the bridge URL so the client can create a session.
     Called BEFORE session exists — no X-Sqex-Hole-Nsid header yet.
     """
@@ -253,8 +246,7 @@ mount_static(app)
 @app.post("/")
 async def root_endpoint(request: Request):
     body = await request.body()
-    logger.info(">>> ROOT request: %s %s headers=%s body=%s",
-                request.method, request.url, dict(request.headers), body[:200])
+    logger.info(">>> ROOT request: %s %s body=%s", request.method, request.url, body[:200])
     return {"status": "ok"}
 
 
@@ -279,12 +271,7 @@ def _resolve_action_id(request_path: str, method: str = "GET") -> int:
     override = V1_METHOD_OVERRIDES.get((clean, method.upper()))
     if override is not None:
         return override
-    if clean in V1_PATH_MAP:
-        return V1_PATH_MAP[clean]
-    segment = clean.rsplit("/", 1)[-1]
-    if segment.isdigit():
-        return int(segment)
-    return V5_PATH_MAP.get(segment, -1)
+    return V1_PATH_MAP.get(clean, -1)
 
 
 # ---------------------------------------------------------------------------
@@ -345,13 +332,16 @@ async def game_api(
         .first()
     )
     if session is None:
-        # libcurl only writes the new cookie_user_session_code to cookieFile.txt when a handle is cleaned up,
-        # so right after a re-login the client can still send the previous nsid (seen on POST
-        # /user/keyblade/update and PUT /tutorial/status after a relaunch) - and it encrypts those requests
-        # with that old session's key too. Accept the superseded session as-is.
-        session = db.query(Session).filter(Session.session_id == x_sqex_hole_nsid).first()
-        if session is not None:
-            logger.info("    superseded nsid %s accepted", x_sqex_hole_nsid)
+        # Right after a re-login the client can still send the previous nsid (seen on POST /user/keyblade/update
+        # and PUT /tutorial/status after a relaunch), encrypted with that old session's key. Accept only the
+        # session the current one replaced, and only for a while; older ones stay dead.
+        old = db.query(Session).filter(Session.session_id == x_sqex_hole_nsid).first()
+        if old is not None:
+            newer = (db.query(Session).filter(Session.user_id == old.user_id, Session.created_at > old.created_at)
+                     .order_by(Session.created_at).all())
+            if len(newer) == 1 and (datetime.utcnow() - newer[0].created_at).total_seconds() < SUPERSEDED_GRACE_S:
+                session = old
+                logger.info("    superseded nsid %s accepted", x_sqex_hole_nsid)
     if session is None:
         return Response(content="Invalid session", status_code=401)
 
@@ -368,27 +358,38 @@ async def game_api(
         body_str = request.url.query
     logger.info("    raw_body(%d): %s", len(body_str), body_str[:300])
 
-    # Try to decrypt
+    # The client always encrypts its parameters once it has a session (no plaintext fallback): a body that
+    # does not decrypt is refused rather than run with empty parameters.
+    action_id = _resolve_action_id(full_path, request.method)
     payload = {}
     if body_str:
         try:
             payload = decrypt_request(body_str, session.security_key)
             logger.info("    decrypted OK: %s", str(payload)[:300])
         except Exception as e:
-            logger.warning("    decrypt failed: %s", e)
-            try:
-                payload = json.loads(body_str) if body_str.startswith("{") else {}
-            except Exception:
-                payload = {}
+            logger.warning("    decrypt failed (action %d): %s", action_id, e)
+            from .handlers import build_error
+            response_data = build_error(user, "The request could not be read.")
+            http_status = response_data.pop("__http_status", 200)
+            return StarletteResponse(content=json.dumps(response_data, separators=(",", ":")),
+                                     status_code=http_status, media_type="application/json")
+    logger.info("    action_id=%d payload_keys=%s", action_id, list(payload.keys()) if payload else [])
 
-    action_id = _resolve_action_id(full_path, request.method)
-    logger.info("    action_id=%d payload_keys=%s key=%s", action_id,
-                list(payload.keys()) if payload else [], session.security_key.hex() if isinstance(session.security_key, bytes) else session.security_key)
-    response_data = dispatch(action_id, payload, user, db)
-    http_status = response_data.pop("__http_status", 200)    # build_error: the client shows ret.error
-
-    resp_json = json.dumps(response_data, separators=(",", ":"))
-    logger.info("<<< Response action=%d: %s", action_id, resp_json[:4000])
+    # A retried request (Client::requestAPI resends it with X-Sqex-Hole-Retry and the same random "ruv") gets
+    # the first answer again instead of running twice (a draw, a purchase, a clear...).
+    ruv = payload.get("ruv") if isinstance(payload, dict) else None
+    replay_key = (user.id, action_id, ruv) if ruv is not None else None
+    cached = _REPLAY.get(user.id)
+    if replay_key and cached and cached[0] == replay_key:
+        logger.info("<<< Replayed action=%d (same ruv %s)", action_id, ruv)
+        resp_json, http_status = cached[1], cached[2]
+    else:
+        response_data = dispatch(action_id, payload, user, db)
+        http_status = response_data.pop("__http_status", 200)    # build_error: the client shows ret.error
+        resp_json = json.dumps(response_data, separators=(",", ":"))
+        logger.info("<<< Response action=%d: %s", action_id, resp_json[:4000])
+        if replay_key:
+            _REPLAY[user.id] = (replay_key, resp_json, http_status)
 
     db.commit()
     resp_bytes = resp_json.encode("utf-8")
@@ -398,9 +399,6 @@ async def game_api(
         media_type="application/json",
         headers={"Content-Length": str(len(resp_bytes))},
     )
-    resp.set_cookie("cookie_user_session_code", session.session_id)
-    resp.set_cookie("nAJW839RbEHrfm6M", "1")
-    resp.set_cookie("nodeNo1", "1")
     return resp
 
 
@@ -460,7 +458,13 @@ async def serve_resource_data(filename: str, offset: int = 0, size: int = 0):
     if filename in _RESOURCE_PATHS:
         filepath = _RESOURCE_PATHS[filename]
     else:
-        filepath = os.path.join(RESOURCE_DIR, filename)
+        # a plain file name inside RESOURCE_DIR only: no separators, drive letters or "..", which on Windows
+        # would let os.path.join reach any file on the host
+        filepath = os.path.realpath(os.path.join(RESOURCE_DIR, filename))
+        if any(c in filename for c in "/\\:") or ".." in filename or \
+                os.path.dirname(filepath) != os.path.realpath(RESOURCE_DIR):
+            logger.warning("!!! RESOURCE REFUSED: %r", filename)
+            return Response(status_code=404)
     if not os.path.exists(filepath):
         logger.warning("!!! RESOURCE NOT FOUND: %s", filename)
         return Response(status_code=404)
@@ -490,9 +494,7 @@ async def serve_resource_data(filename: str, offset: int = 0, size: int = 0):
 @app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"])
 async def catch_all(request: Request, path: str = ""):
     body = await request.body()
-    headers = dict(request.headers)
-    logger.warning("!!! UNMATCHED %s /%s headers=%s body=%s",
-                    request.method, path, headers, body[:500])
+    logger.warning("!!! UNMATCHED %s /%s body=%s", request.method, path, body[:500])
     # Inline to avoid circular import (handlers → master → crypto, app → handlers)
     from .handlers import build_response
     return build_response()
