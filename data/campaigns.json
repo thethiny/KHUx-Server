@@ -1,0 +1,291 @@
+{
+  "_comment": "The server's campaign schedule: what runs and when (login gifts, daily login rewards, story milestone bonuses, extra events), plus master evStage / evCampaign rows that never run. Loaded at startup (src/events.py). Dates are server-local; repeat 'yearly' replays a dated window every year on the same month/day, 'once' runs only in the given year, 'always' ignores the dates. Item types: 2 Jewel, 3 Medal, 4 Munny (reward types). Edit this file to change the schedule - the code only knows how to run each kind.",
+  "campaigns": [
+    {
+      "id": "start-dash-campaign",
+      "kind": "daily_login",
+      "name": "Start Dash Campaign",
+      "start": "2015-09-03 08:00:00",
+      "end": "2015-09-13 23:59:59",
+      "repeat": "yearly",
+      "items": [
+        {
+          "type": 2,
+          "id": 0,
+          "num": 50
+        }
+      ],
+      "enabled": true,
+      "source": "4gamer 2015-09-03 (JP launch)"
+    },
+    {
+      "id": "thank-you-gift",
+      "kind": "login_gift",
+      "name": "Thank-you Gift",
+      "start": "2015-11-18 08:00:00",
+      "end": "2015-11-23 23:59:59",
+      "repeat": "yearly",
+      "items": [
+        {
+          "type": 2,
+          "id": 0,
+          "num": 2000
+        },
+        {
+          "type": 3,
+          "id": 32155,
+          "num": 1
+        }
+      ],
+      "enabled": true,
+      "source": "JP login gift 2015-11-18..23"
+    },
+    {
+      "id": "holiday-gift",
+      "kind": "login_gift",
+      "name": "Holiday Gift",
+      "start": "2015-12-04 08:00:00",
+      "end": "2015-12-13 23:59:59",
+      "repeat": "yearly",
+      "items": [
+        {
+          "type": 3,
+          "id": 33043,
+          "num": 1
+        },
+        {
+          "type": 3,
+          "id": 33073,
+          "num": 1
+        }
+      ],
+      "enabled": true,
+      "source": "JP login gift 2015-12-04..13"
+    },
+    {
+      "id": "aerith-gift",
+      "kind": "login_gift",
+      "name": "Aerith Gift",
+      "start": "2015-12-20 08:00:00",
+      "end": "2015-12-27 23:59:59",
+      "repeat": "yearly",
+      "items": [
+        {
+          "type": 3,
+          "id": 23045,
+          "num": 1
+        }
+      ],
+      "enabled": true,
+      "source": "JP login gift Dec 2015 (dates guessed)"
+    },
+    {
+      "id": "sora-and-friends-gift",
+      "kind": "login_gift",
+      "name": "Sora & Friends Gift",
+      "start": "2016-03-28 08:00:00",
+      "end": "2016-04-03 23:59:59",
+      "repeat": "yearly",
+      "items": [
+        {
+          "type": 3,
+          "id": 43026,
+          "num": 1
+        }
+      ],
+      "enabled": true,
+      "source": "JP login gift 2016-03-28..04-03"
+    },
+    {
+      "id": "hd-aqua-gift",
+      "kind": "login_gift",
+      "name": "HD Aqua Gift",
+      "start": "2016-06-16 08:00:00",
+      "end": "2016-06-23 23:59:59",
+      "repeat": "yearly",
+      "items": [
+        {
+          "type": 3,
+          "id": 23175,
+          "num": 1
+        }
+      ],
+      "enabled": true,
+      "source": "khuxwiki HD Aqua; chiunion 2016-06-16 (global)"
+    },
+    {
+      "id": "story-every-5",
+      "kind": "quest_bonus",
+      "name": "Quest {n} Clear Bonus",
+      "every": 5,
+      "items": [
+        {
+          "type": 2,
+          "id": 0,
+          "num": 150
+        },
+        {
+          "type": 4,
+          "id": 0,
+          "num": 10000
+        }
+      ],
+      "enabled": true,
+      "source": "khux-guides 2015-09 (Getting started)"
+    },
+    {
+      "id": "event-trick-or-treat",
+      "kind": "event",
+      "eventStageId": 9001,
+      "name": "Trick or Treat",
+      "stages": [
+        60110,
+        60120,
+        60130
+      ],
+      "start": "2015-10-22 07:00:00",
+      "end": "2015-11-05 06:59:59",
+      "repeat": "yearly",
+      "eventCategory": 2,
+      "eventType": 3,
+      "enabled": true,
+      "source": "stage table + raidSetting date ids"
+    },
+    {
+      "id": "event-christmas-event",
+      "kind": "event",
+      "eventStageId": 9002,
+      "name": "Christmas Event",
+      "stages": [
+        60510,
+        60520,
+        60530,
+        60540
+      ],
+      "start": "2015-12-14 07:00:00",
+      "end": "2015-12-28 06:59:59",
+      "repeat": "yearly",
+      "eventCategory": 2,
+      "eventType": 3,
+      "enabled": true,
+      "source": "stage table + raidSetting date ids"
+    },
+    {
+      "id": "event-lure-a-jack-in-the-box",
+      "kind": "event",
+      "eventStageId": 9003,
+      "name": "Lure a Jack in the Box",
+      "stages": [
+        60610
+      ],
+      "start": "2015-12-14 07:00:00",
+      "end": "2015-12-28 06:59:59",
+      "repeat": "yearly",
+      "eventCategory": 2,
+      "eventType": 3,
+      "enabled": true,
+      "source": "stage table + raidSetting date ids"
+    },
+    {
+      "id": "event-new-years-event",
+      "kind": "event",
+      "eventStageId": 9004,
+      "name": "New Year's Event",
+      "stages": [
+        60810,
+        60820,
+        60830,
+        60840
+      ],
+      "start": "2016-01-01 07:00:00",
+      "end": "2016-01-15 06:59:59",
+      "repeat": "yearly",
+      "eventCategory": 2,
+      "eventType": 3,
+      "enabled": true,
+      "source": "stage table + raidSetting date ids"
+    },
+    {
+      "id": "event-storming-sheep",
+      "kind": "event",
+      "eventStageId": 9005,
+      "name": "Storming Sheep",
+      "stages": [
+        60710,
+        60720,
+        60730
+      ],
+      "start": "2016-01-15 07:00:00",
+      "end": "2016-01-29 06:59:59",
+      "repeat": "yearly",
+      "eventCategory": 2,
+      "eventType": 3,
+      "enabled": true,
+      "source": "stage table (dates guessed)"
+    },
+    {
+      "id": "event-valentines-event",
+      "kind": "event",
+      "eventStageId": 9006,
+      "name": "Valentine's Event",
+      "stages": [
+        61110,
+        61120,
+        61130,
+        61140
+      ],
+      "start": "2016-02-08 07:00:00",
+      "end": "2016-02-22 06:59:59",
+      "repeat": "yearly",
+      "eventCategory": 2,
+      "eventType": 3,
+      "enabled": true,
+      "source": "stage table + raidSetting date ids"
+    }
+  ],
+  "disabledEventStageIds": [
+    90,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    870,
+    871,
+    872,
+    873,
+    874,
+    875,
+    876
+  ],
+  "disabledEventStageIds_comment": "evStage rows never offered: permanent rows added after 2015 (2016 Daily Challenges, Moogle O' Glory, Lady Luck pieces) and High Score events (category 4, need 1.1.3 score rewards)",
+  "disabledCampaignIds": [
+    100,
+    101,
+    102,
+    103,
+    900,
+    901,
+    902,
+    2242,
+    2243,
+    2244,
+    2245,
+    2246,
+    2247,
+    2248,
+    2249,
+    2250,
+    2251,
+    2252
+  ],
+  "disabledCampaignIds_comment": "evCampaign rows never run: pre-launch test rows (before 2015-09-01) and permanent rows added in 2016"
+}

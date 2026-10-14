@@ -12,8 +12,9 @@ Schedule (ours, GUESSES E1-E5):
 - Events (categories 2, 3): permanent rows (Proud Quests) always; dated rows replayed every year on their original
   month/day (08:00 server time, original length). Category 3 = progressive (stages opened one by one).
   Category 4 (High Score, needs 1.1.3 score rewards) is not run.
-- 2015-16 events missing from the 1.1.3 evStage dump get hand-made rows (HANDMADE, ids 9001+), dated from their
-  event raid boss settings (raidSetting ids are dates: 151022000 = 2015-10-22).
+- What runs is data, not code: data/campaigns.json (loaded at startup) holds the extra events (2015-16 events missing
+  from the 1.1.3 evStage dump, ids 9001+), login gifts, daily login rewards, story milestone bonuses, and the master
+  evStage / evCampaign rows that never run. The code only knows how to run each kind.
 Banners: the original images lived on cache.sqex-bridge.jp (gone); /event/banner/<id>.png draws one (640x140, the
 size of the client's banner frame).
 """
@@ -28,24 +29,48 @@ BANNER_URL = "http://api.sp.kingdomhearts.com/event/banner/{}.png"
 WEEK = ("weekMonday", "weekTuesday", "weekWednesday", "weekThursday", "weekFriday", "weekSaturday", "weekSunday")
 BENEFIT = tuple("benefit" + k[4:] for k in WEEK)
 PERMANENT_YEAR = "2030"           # rows ending after this are permanent (the dump has 2037)
-PERMANENT_ERA_END = "2016-01-01"  # permanent rows that started later (2016 Daily Challenges, Moogle O' Glory) are off
 DAY_RESET_HOUR = 12               # the server day (login bonus, daily reset): 12:00 server time
 ROLLOVER_HOUR = 8                 # dated events open at 08:00 server time, like the ranking weeks
 # time slots (evStage.groupPattern -> opening hour, server time); the evGroupPattern table is lost. GUESS: E3
 SLOT_HOURS = {1000: 12, 1001: 18, 1002: 21,
               1003: 9, 1004: 13, 1005: 20, 1006: 10, 1007: 14, 1008: 21, 1009: 11, 1010: 15, 1011: 22}
 
-# 2015-16 events with stages but no evStage row (GUESS: E2): (id, name, stages, start MM-DD, days)
-HANDMADE = [
-    (9001, "Trick or Treat", [60110, 60120, 60130], "10-22", 14),
-    (9002, "Christmas Event", [60510, 60520, 60530, 60540], "12-14", 14),
-    (9003, "Lure a Jack in the Box", [60610], "12-14", 14),
-    (9004, "New Year's Event", [60810, 60820, 60830, 60840], "01-01", 14),
-    (9005, "Storming Sheep", [60710, 60720, 60730], "01-15", 14),
-    (9006, "Valentine's Event", [61110, 61120, 61130, 61140], "02-08", 14),
-]
-
 _DATA = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+_CONFIG = None
+
+
+def config():
+    """data/campaigns.json (KHUX_CAMPAIGNS overrides the path), loaded once."""
+    global _CONFIG
+    if _CONFIG is None:
+        path = os.environ.get("KHUX_CAMPAIGNS") or os.path.join(_DATA, "campaigns.json")
+        try:
+            _CONFIG = json.load(open(path, encoding="utf-8"))
+        except (OSError, ValueError):
+            _CONFIG = {}
+        _CONFIG.setdefault("campaigns", [])
+    return _CONFIG
+
+
+def campaigns(kind):
+    return [c for c in config()["campaigns"] if c.get("kind") == kind and c.get("enabled", True)]
+
+
+def campaign_open(c, now=None):
+    """(start, end) of a config campaign's current window, else None. repeat: yearly (replayed on the same
+    month/day every year), once (only the given dates), always."""
+    now = now or now_local()
+    rule = c.get("repeat", "yearly")
+    if rule == "always":
+        return now.replace(hour=0, minute=0, second=0, microsecond=0), now + timedelta(days=1)
+    if rule == "once":
+        try:
+            s0 = datetime.strptime(c["start"], "%Y-%m-%d %H:%M:%S")
+            e0 = datetime.strptime(c["end"], "%Y-%m-%d %H:%M:%S")
+        except (KeyError, ValueError):
+            return None
+        return (s0, e0) if s0 <= now <= e0 else None
+    return replay_window(c.get("start"), c.get("end"), now)
 
 
 def _stage_rows():
@@ -53,23 +78,22 @@ def _stage_rows():
     return {s["stageId"]: s for s in MASTER_JSON_DATA.get("stage", [])}
 
 
-def _handmade_row(eid, name, stages, start_md, days):
-    start = datetime.strptime(f"2015-{start_md} 07:00:00", "%Y-%m-%d %H:%M:%S")
-    if start_md < "07":
-        start = start.replace(year=2016)
-    end = start + timedelta(days=days, seconds=-1)
-    row = {"eventStageId": eid, "validStageId": len(stages), "stageId": (stages + [0] * 5)[:5],
-           "validStageWidthId": 0, "stageStartId": 0, "stageEndId": 0, "eventCategory": 2, "eventType": 3,
-           "bannerUrl": "", "mypageBanner": 6000, "startTime": f"{start:%Y-%m-%d %H:%M:%S}",
-           "endTime": f"{end:%Y-%m-%d %H:%M:%S}", "boardEndTime": f"{end:%Y-%m-%d %H:%M:%S}",
-           "benefitId": 0, "groupPattern": 0, "validMinute": 0, "_name": name}
+def _event_row(c):
+    """An evStage row for a config "event" campaign (2015-16 events the dump lacks)."""
+    stages = list(c.get("stages") or [])[:5]
+    row = {"eventStageId": c["eventStageId"], "validStageId": len(stages), "stageId": (stages + [0] * 5)[:5],
+           "validStageWidthId": 0, "stageStartId": 0, "stageEndId": 0,
+           "eventCategory": c.get("eventCategory", 2), "eventType": c.get("eventType", 3),
+           "bannerUrl": "", "mypageBanner": c.get("mypageBanner", 6000), "startTime": c["start"],
+           "endTime": c["end"], "boardEndTime": c["end"], "benefitId": 0, "groupPattern": 0, "validMinute": 0,
+           "_name": c.get("name", "Event")}
     row.update({k: 1 for k in WEEK})
     row.update({k: 0 for k in BENEFIT})
     return row
 
 
 def master_rows():
-    """The served evStage table: the 1.1.3 dump (unused stageId slots zeroed - they held garbage) + HANDMADE,
+    """The served evStage table: the 1.1.3 dump (unused stageId slots zeroed - they held garbage) + the config events,
     every bannerUrl pointing at our banner route."""
     try:
         rows = json.load(open(os.path.join(_DATA, "evStage.json"), encoding="utf-8"))
@@ -81,7 +105,7 @@ def master_rows():
         n = max(0, min(int(r.get("validStageId", 0)), 5))
         r["stageId"] = list(r.get("stageId", []))[:n] + [0] * (5 - n)
         out.append(r)
-    out += [_handmade_row(*h) for h in HANDMADE]
+    out += [_event_row(c) for c in config()["campaigns"] if c.get("kind") == "event"]
     for r in out:
         r["bannerUrl"] = BANNER_URL.format(r["eventStageId"])
     return out
@@ -118,11 +142,7 @@ def _server_day(now):
 def window(r, now=None):
     """(start, end) of the row's current opening (server-local), or None when it is not running now."""
     now = now or now_local()
-    if r.get("eventCategory") == 4:
-        return None
     permanent = r["endTime"] >= PERMANENT_YEAR
-    if permanent and r["startTime"] >= PERMANENT_ERA_END:     # added later than the 1.0.1 era (GUESS: E5)
-        return None
     if permanent:
         flags = [r.get(k, 0) for k in WEEK]
         if r.get("groupPattern"):
@@ -139,7 +159,10 @@ def window(r, now=None):
             wd, start = _server_day(now)
             return (start, start + timedelta(days=1)) if flags[wd] else None
         return _server_day(now)[1], _server_day(now)[1] + timedelta(days=1)
-    # dated: replayed every year on its original month/day
+    # dated: replayed every year on its original month/day (a config event: its own repeat rule)
+    c = next((c for c in campaigns("event") if c.get("eventStageId") == r.get("eventStageId")), None)
+    if c is not None:
+        return campaign_open(c, now)
     return replay_window(r["startTime"], r["endTime"], now)
 
 
@@ -165,18 +188,40 @@ def replay_window(start_str, end_str, now=None):
     return None
 
 
-def active(category, now=None):
-    """[(row, start, end)] running now for a 101 request category (1 Special Quests, 2 Events)."""
+def active(category, now=None, benefits=()):
+    """[(row, start, end, isLock)] running now for a 101 request category (1 Special Quests, 2 Events).
+    isLock (StageEvent isLock): 0 normal; a Special Quest that is not on today's schedule but whose
+    benefitId + benefit<Day> flag cover today is listed too - 1 locked (tap opens the VIP-pass offer) without the
+    benefit, 2 unlocked with it (the client shows "開放クエスト" / a countdown). GUESS: V3"""
     now = now or now_local()
     want = (1,) if category == 1 else (2, 3)
     out = []
+    off = set(config().get("disabledEventStageIds") or [])
+    off |= {c["eventStageId"] for c in config()["campaigns"]
+            if c.get("kind") == "event" and not c.get("enabled", True)}
     for r in rows().values():
-        if r.get("eventCategory") in want:
-            w = window(r, now)
-            if w and playable(r):
-                out.append((r, w[0], w[1]))
-    out.sort(key=lambda t: (t[0].get("validMinute", 0) == 0, t[1], t[0]["eventStageId"]))
+        if r.get("eventCategory") not in want or r["eventStageId"] in off or not playable(r):
+            continue
+        w = window(r, now)
+        if w:
+            out.append((r, w[0], w[1], 0))
+            continue
+        bw = benefit_window(r, now)
+        if bw:
+            out.append((r, bw[0], bw[1], 2 if r.get("benefitId") in benefits else 1))
+    out.sort(key=lambda t: (t[3], t[0].get("validMinute", 0) == 0, t[1], t[0]["eventStageId"]))
     return out
+
+
+def benefit_window(r, now=None):
+    """Today's window of a permanent Special Quest reachable through its purchase benefit (VIP pass)."""
+    now = now or now_local()
+    if r.get("eventCategory") != 1 or not r.get("benefitId") or r.get("groupPattern"):
+        return None
+    if r["endTime"] < PERMANENT_YEAR:
+        return None
+    wd, start = _server_day(now)
+    return (start, start + timedelta(days=1)) if r.get(BENEFIT[wd]) else None
 
 
 _STAGE_FILES = None
@@ -216,7 +261,7 @@ def name(r):
     return n.split(":")[0].strip() or "Event"
 
 
-def entry(r, end, clears):
+def entry(r, end, clears, lock=0):
     """StageEvent::Event for 101. clears: {stageId: {"luxRecord", "clearMissionIds"}} of the player."""
     st = _stage_rows()
     ids = stage_ids(r)
@@ -233,7 +278,7 @@ def entry(r, end, clears):
                "clearMissionIds": (clears.get(str(sid)) or {}).get("clearMissionIds", [])} for sid in ids]
     return {"stages": stages, "eventStageId": r["eventStageId"], "showIcon": 0, "bannerUrl": r["bannerUrl"],
             "eventType": r.get("eventType", 3) if r.get("eventType") in (1, 2, 3) else 3, "status": 1,
-            "endTime": gparty.fmt_local(end - timedelta(seconds=1)), "newStageId": new_id, "isLock": 0}
+            "endTime": gparty.fmt_local(end - timedelta(seconds=1)), "newStageId": new_id, "isLock": lock}
 
 
 def is_lure_stage(stage_id):
@@ -302,7 +347,6 @@ def banner_png(eid):
 
 
 # --------------------------------------------------------------------------- campaigns (131 /campaign)
-LAUNCH = "2015-09-01"            # campaign rows dated before the launch are test rows (GUESS: E7)
 
 
 def campaign_rows():
@@ -312,13 +356,11 @@ def campaign_rows():
 
 def campaign_window(r, now=None):
     """Like window() for an evCampaign row (no categories): permanent rows by weekday / time slot, dated rows on
-    their anniversary; rows dated before the launch never run."""
-    if r.get("startTime", "") < LAUNCH:
+    their anniversary (rows in campaigns.json disabledCampaignIds never run)."""
+    if r.get("campaignId") in set(config().get("disabledCampaignIds") or []):
         return None
     now = now or now_local()
     if r["endTime"] >= PERMANENT_YEAR:
-        if r["startTime"] >= PERMANENT_ERA_END:          # permanent, but added after the 1.0.1 era (E5)
-            return None
         flags = [r.get(k, 0) for k in WEEK]
         if r.get("groupPattern"):
             hour = SLOT_HOURS.get(r["groupPattern"])
@@ -361,3 +403,41 @@ def campaign_power(ctype, stage_id=None, now=None):
         if r.get("type") == ctype and (stage_id is None or campaign_applies(r, stage_id)):
             power = power * int(r.get("power") or 10000) // 10000
     return power
+
+
+# --------------------------------------------------------------------------- login gifts, milestone bonuses
+def _items(c):
+    return [(i["type"], i.get("id", 0), i.get("num", 1)) for i in c.get("items", [])]
+
+
+def due_login_gifts(st, now=None):
+    """[(name, [(type, id, num)])] the player should get now from the config's login_gift (once per window) and
+    daily_login (once per server day in the window) campaigns; marks them given in st["login_gifts"]."""
+    now = now or now_local()
+    given = st.setdefault("login_gifts", {})
+    out = []
+    for c in campaigns("login_gift") + campaigns("daily_login"):
+        w = campaign_open(c, now)
+        if not w:
+            continue
+        key = c["id"] + "@" + w[0].strftime("%Y-%m-%d")
+        if c["kind"] == "daily_login":
+            key += "@" + _server_day(now)[1].strftime("%Y-%m-%d")
+        if not given.get(key):
+            given[key] = 1
+            out.append((c.get("name", c["id"]), _items(c)))
+    return out
+
+
+def quest_bonuses(quest_no, now=None):
+    """[(label, items)] for the first clear of story quest number `quest_no` (config quest_bonus campaigns: every
+    N-th quest, or an explicit list of quest numbers)."""
+    out = []
+    for c in campaigns("quest_bonus"):
+        if c.get("start") and not campaign_open(c, now):
+            continue
+        every = int(c.get("every") or 0)
+        hit = (every and quest_no % every == 0) or quest_no in (c.get("quests") or [])
+        if quest_no and hit:
+            out.append((c.get("name", "Quest Clear Bonus").replace("{n}", str(quest_no)), _items(c)))
+    return out

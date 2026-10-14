@@ -64,9 +64,10 @@ def build_ret(user: Optional[User] = None) -> dict:
         # The old ">0 re-downloads every session" was /system/resource sending minVersion 0 (fixed there).
         "versionRes": int(os.environ.get("KHUX_VERSION_RES", "0")),
         "versionDat": 55,   # must match master_rev; bumping forces re-download + "update detected" popup
-        # menu buttons the client shows: 0x01 party "Invitation code", 0x02 Other menu "Serial code" (0x08 KHchi
-        # avatar link, 0x10 transfer, 0x20 support, 0x04 shop benefit, 0x80 fund settlement: off)
-        "functionFlags": 0x03,
+        # menu buttons the client shows: 0x01 party "Invitation code", 0x02 Other menu "Serial code", 0x04 shop
+        # benefit (VIP pass: "unlock all Special Quests" button + locked-quest offer) (0x08 KHchi avatar link,
+        # 0x10 transfer, 0x20 support, 0x80 fund settlement: off)
+        "functionFlags": 0x07,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
 
@@ -114,6 +115,12 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
         db_session.add(user)
     bonus = bool(user and not tutorial and user.tutorial_done and
                  gstate.load(user, db_session).get("loginbonus", {}).get("last_day") != _bonus_day())
+    if user and user.tutorial_done:              # dated login gifts (HD Aqua, holiday medals...) -> present box
+        with gstate.State(user, db_session) as st:
+            for name, items in gevents.due_login_gifts(st):
+                for rtype, rid, num in items:
+                    add_present(st, rtype, rid, num, name)
+                logger.info("LOGIN GIFT: %s -> user %s", name, user.id)
     return build_response(user,
         login={
             "newcomer": newcomer,
@@ -138,7 +145,23 @@ def handle_user_stone(request_data: dict, user: Optional[User], db_session: DBSe
 
 @register(7)  # GET /user/shop
 def handle_user_shop(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userBenefits=[])
+    # UserShop: the player's active purchase benefits (VIP pass: benefitId 100) - replaces the client's list
+    return build_response(user, userBenefits=_active_benefits(gstate.load(user, db_session) if user else {}))
+
+
+def _active_benefits(st: dict) -> list:
+    now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+    return [{"benefitId": int(b), "endDatetime": end} for b, end in (st.get("benefits") or {}).items() if end > now]
+
+
+def _benefit_end() -> str:
+    """A weekly benefit (VIP pass, shop benefitResetWeek "Sunday") ends at the weekly reset: "until Sun. 23:59 (PDT)"
+    = Monday 06:59:59 UTC (GUESS: V1)."""
+    now = datetime.utcnow()
+    end = (now + timedelta(days=(7 - now.weekday()) % 7)).replace(hour=6, minute=59, second=59, microsecond=0)
+    if end <= now:
+        end += timedelta(days=7)
+    return end.strftime("%Y-%m-%d %H:%M:%S")
 
 
 @register(9)  # GET /user/sphere
@@ -675,7 +698,14 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
 @register(64)  # GET /tutorial/status
 def handle_tutorial_status(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     phase = user.tutorial_phase if user else 50
-    return build_response(user, phase=phase, popupFlag=_popup_flag(user, db_session), isFinished=0)
+    # isFinished (TutorialStatus+16): while 0 the game treats the player as in the tutorial - e.g. the battle
+    # Continue dialog offered the free "During the tutorial..." revive at level 102 (user report)
+    return build_response(user, phase=phase, popupFlag=_popup_flag(user, db_session),
+                          isFinished=_tutorial_finished(user))
+
+
+def _tutorial_finished(user: Optional[User]) -> int:
+    return 1 if user and (user.tutorial_done or (user.tutorial_phase or 0) >= 995) else 0
 
 
 def _popup_flag(user: Optional[User], db_session: DBSession, add: int = 0) -> int:
@@ -710,7 +740,7 @@ def handle_tutorial_status_put(request_data: dict, user: Optional[User], db_sess
             user.tutorial_done = True
         db_session.add(user)
     return build_response(user, phase=user.tutorial_phase if user else (phase or 0),
-                          popupFlag=_popup_flag(user, db_session, flag), isFinished=0)
+                          popupFlag=_popup_flag(user, db_session, flag), isFinished=_tutorial_finished(user))
 
 
 @register(43)  # POST /user/keyblade/update
@@ -872,7 +902,8 @@ def handle_stage_event(request_data: dict, user: Optional[User], db_session: DBS
     # failed verifyResponse). eventCategory 1 = Special Quests, 2 = Events (events.py has the schedule).
     category = int(request_data.get("eventCategory") or 2)
     clears = gstate.load(user, db_session)["stages"] if user else {}
-    events = [gevents.entry(r, end, clears) for r, _, end in gevents.active(category)]
+    benefits = {b["benefitId"] for b in _active_benefits(gstate.load(user, db_session))} if user else set()
+    events = [gevents.entry(r, end, clears, lock) for r, _, end, lock in gevents.active(category, benefits=benefits)]
     logger.info("EVENTS (category %s): %s", category, [e["eventStageId"] for e in events])
     return build_response(user, events=events, raidStatus=0)
 
@@ -905,20 +936,26 @@ def _sora_support(user: Optional[User], db_session: DBSession) -> dict:
     return _support_entry(_SORA_SUPPORT_ID, "Sora", _lux_rank(user), medal, _user_avatar(None))
 
 
+SUPPORT_LIST_SIZE = 10
+
+
 @register(102)  # GET /stage/support/list
 def handle_stage_support_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    # Other players at a similar point of the story (by last cleared quest), never yourself; when there is
-    # nobody, the default friend Sora (what the game showed when no one else was around).
-    order = {sid: i for i, sid in enumerate(gstate.story_order())}
-    mine = order.get(user.last_clear_stage_id or 0, 0) if user else 0
+    # Party members first, then players of your Union with the closest player level (Lux rank) - "based on your
+    # player level and the level of the other friends ... only medals from players in your own Union" (GameFAQs
+    # 2016) -, ties by player id so the same people recur as you advance; other Unions only fill the list when
+    # yours has too few (a small server). Never yourself; nobody else -> the default friend Sora. GUESS: S2
     others = []
     if user:
-        for o in db_session.query(User).filter(User.id != user.id, User.tutorial_done.is_(True)).all():
-            if abs(order.get(o.last_clear_stage_id or 0, 0) - mine) <= 10:
-                others.append(o)
-    random.shuffle(others)
+        pid = gparty.party_id_of(db_session, user.id)
+        mates = {m.user_id for m in gparty.members(db_session, pid)} if pid else set()
+        mine = _lux_rank(user)
+        pool = db_session.query(User).filter(User.id != user.id, User.tutorial_done.is_(True)).all()
+        pool.sort(key=lambda o: (o.id not in mates, (o.union_id or 0) != (user.union_id or 0),
+                                 abs(_lux_rank(o) - mine), o.id))
+        others = pool[:SUPPORT_LIST_SIZE]
     # each player lends the medal they chose as their support medal (45), not their lead medal
-    supports = [_supporter(db_session, user, o.id) for o in others[:5]]
+    supports = [_supporter(db_session, user, o.id) for o in others]
     return build_response(user, supportUsers=supports or [_sora_support(user, db_session)])
 
 
@@ -1176,7 +1213,7 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
         db_session.add(user)
     # chests and enemy drops are rolled now and granted at /stage/clear for the uniqueIds the player
     # opened / defeated (see stagemap.py)
-    drops = stagemap.roll_stage(stage_id)
+    drops = stagemap.roll_stage(stage_id, medal_power=_campaign_power(1, stage_id))   # medal-drop campaigns
     with gstate.State(user, db_session) as st:
         st["stage_drops"] = {"stageId": stage_id, **drops}
         st["stage_keyblade"] = keyblade_id
@@ -1300,6 +1337,13 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
         story = gstate.story_order()
         quest_no = story.index(stage_id) + 1 if stage_id in story else 0
         always = quest_no in graid.ALWAYS_SPAWN_QUESTS and first_clear
+        if first_clear and quest_no:
+            # story milestone bonuses (campaigns.json quest_bonus: every 5th quest 150 Jewels + 10,000 munny,
+            # khux-guides 2015-09; GUESS: Q4) -> present box
+            for label, items in gevents.quest_bonuses(quest_no):
+                for rtype, rid, num in items:
+                    add_present(st, rtype, rid, num, label)
+                logger.info("STORY MILESTONE: quest %s -> %s %s", quest_no, label, items)
         lure = gevents.is_lure_stage(stage_id)      # raid-event quests always bring their boss (GUESS: R7)
         always = always or lure
         never = quest_no in graid.NEVER_SPAWN_QUESTS
@@ -1569,7 +1613,11 @@ def handle_medal_evolve(request_data: dict, user: Optional[User], db_session: DB
         before = dict(base)
         row = _master_row("medal", "medalId", base["medalId"])
         if row.get("evolveId"):
-            base["medalId"] = row["evolveId"]       # level / exp kept: evolving only raises the cap and power (user)
+            # evolving resets the medal to LV 1 of its new cap (the client's Evolve preview shows LV 1/<new max>;
+            # 2015-16 guides: "max it, evolve it - back to level 1 - max it again"). The client allows Evolve only
+            # at max level.
+            base["medalId"] = row["evolveId"]
+            base["level"], base["exp"] = 1, 0
             _remove_medals(st, set(attach))
             cost = row.get("evolveMoney", 0)
         else:
@@ -2273,7 +2321,7 @@ def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSessio
         adminMypageTexts=_ticker_texts(),
         # running events with a MyPage banner (OpenBanner type 1 = eventStageId; tapping opens the event)
         openBanners=[{"type": 1, "id": r["eventStageId"], "limitDate": gparty.fmt_local(end - timedelta(seconds=1))}
-                     for cat in (2, 1) for r, _, end in gevents.active(cat) if r.get("mypageBanner")],
+                     for cat in (2, 1) for r, _, end, lock in gevents.active(cat) if r.get("mypageBanner") and not lock],
         userPresentCount=len(gstate.load(user, db_session).get("presents", [])) if user else 0,
         isChangeCoordinate=0,
         # a flag per ranking with an undelivered result: MyPage then calls 130 for it and shows the popups
@@ -3218,14 +3266,62 @@ def handle_push_help(request_data: dict, user: Optional[User], db_session: DBSes
     return build_response(user)
 
 
-@register(72)  # POST /purchase/prepare {productId, priceLocale}: real-money purchases are not offered
+def _shop_row(product_id) -> dict:
+    return next((r for r in _master_table("shop") if r.get("productId") == product_id and r.get("status") == 1), {})
+
+
+def _master_table(name: str) -> list:
+    from .master import MASTER_JSON_DATA
+    return MASTER_JSON_DATA.get(name) or []
+
+
+@register(72)  # POST /purchase/prepare {productId, priceLocale}
 def handle_purchase_prepare(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_error(user, "Purchases are not available on this server.")
+    # Purchases are free on this server (GUESS: V2): the host's store always succeeds; 72 opens a transaction
+    # (PurchasePrepare: bridgeTransId), 73 grants it.
+    pid = str(request_data.get("productId") or "")
+    if not user or not _shop_row(pid):
+        return build_error(user, "This item is not available.")
+    with gstate.State(user, db_session) as st:
+        p = st.setdefault("purchases", {"next": 1, "pending": {}, "done": []})
+        tid = p["next"]
+        p["next"] = tid + 1
+        p["pending"][str(tid)] = pid
+    logger.info("PURCHASE PREPARE: %s -> transaction %s", pid, tid)
+    return build_response(user, bridgeTransId=tid)
 
 
-@register(73)  # POST /purchase/finish
+@register(73)  # POST /purchase/finish {bridgeTransId, purchaseData (base64 store json), dataSignature}
 def handle_purchase_finish(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_error(user, "Purchases are not available on this server.")
+    # verifyResponse case 73: userData.userPoint, userStone, paymentInfo, userBenefits (appended by the client),
+    # receiptStatus. Grants number + bonus Jewels (free Jewels here) and the row's benefit (VIP pass: benefit 100,
+    # every Special Quest until the weekly reset). A resent transaction is answered without granting again.
+    import base64 as _b64
+    import json as _json
+    tid = str(request_data.get("bridgeTransId") or "")
+    with gstate.State(user, db_session) as st:
+        p = st.setdefault("purchases", {"next": 1, "pending": {}, "done": []})
+        pid = p["pending"].pop(tid, None)
+        if pid is None and tid not in p["done"]:
+            try:
+                pid = _json.loads(_b64.b64decode(request_data.get("purchaseData") or "")).get("productId")
+            except (ValueError, TypeError):
+                pid = None
+        row = _shop_row(pid) if pid and tid not in p["done"] else {}
+        if row and user:
+            p["done"].append(tid)
+            user.free_stone = (user.free_stone or 0) + int(row.get("number", 0)) + int(row.get("bonus", 0))
+            st["skip_tickets"] = int(st.get("skip_tickets", 0)) + int(row.get("stageSkipTicket", 0))
+            if row.get("benefitId"):
+                st.setdefault("benefits", {})[str(row["benefitId"])] = _benefit_end()
+            db_session.add(user)
+            logger.info("PURCHASE: %s (transaction %s) -> +%s Jewels, benefit %s", pid, tid,
+                        int(row.get("number", 0)) + int(row.get("bonus", 0)), row.get("benefitId") or "-")
+        benefits = _active_benefits(st)
+    return build_response(user, userData={"userPoint": _user_point(user)},
+                          userStone={"freeStone": user.free_stone if user else 0, "payStone": user.pay_stone if user else 0},
+                          paymentInfo={"cesaLimitAge": 20, "chargeMoneyThisMonth": 0, "lastchargeMoneyThisMonth": 0},
+                          userBenefits=benefits, receiptStatus=1)
 
 
 @register(132)  # GET /campaign/pincode (no callers) / 136 PUT /campaign/pincode/status: KHchi avatar link

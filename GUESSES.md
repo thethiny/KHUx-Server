@@ -34,6 +34,7 @@ settled). Rows without a mark are not documented anywhere reachable.
 | Q1 | Chest and enemy drop odds are out of 100000, one cumulative roll per chest / symbol. | `stagemap.roll_stage` | User's memory of drop rates. |
 | Q2 | `StageClear::Reward.rewardkind` 1 = first clear, 2 = mission. The client never reads it back, so any int works. | handler 106 | Not observable; harmless. |
 | Q3 | **[implemented]** A continue costs misc 113 = 100 Jewels: the data's price block 111-114 (medal box, AP, continue, union change; 111/112/114 confirmed by client code), matching the wiki's 100. | handler 105 | khuxwiki.com/wiki/Talk:Shop |
+| Q4 | **[source, implemented]** First clear of every 5th story quest: 150 Jewels + 10,000 munny to the present box (khux-guides 2015-09; the story maps have no jewel chests, so it was server-side). Existing accounts were backfilled once. | `data/campaigns.json` (quest_bonus), handler 106 | khux-guides.tumblr.com/post/129025106101 |
 | Q4 | Treasure guide (tutorialMisc 17 / widget 103) is suppressed with popupFlag bit 16: with our maps it would soft-lock. | popup flags | Whether 1.0.1's launch maps had a chest in quest 1060 area 1. |
 
 ## Raids (`src/raid.py`, handlers 107-113)
@@ -63,6 +64,8 @@ settled). Rows without a mark are not documented anywhere reachable.
 | A1 | **[wiki: confirmed]** The Album shows every medal obtained on the account. | `state.add_medal`, handler 15 | khuxwiki.com/wiki/Album |
 | A2 | `allMedalCount` = number of medal master rows. | handler 15 | The client never computes it. |
 | S1 | The support medal picked in the medal popup is the one other players see; without a pick, deck slot 1. | `_support_medal` | - |
+| S2 | **[source + user, implemented]** Support list (102): up to 10 players: party members first, then your Union by closest player level (Lux rank; GameFAQs 2016: "based on your player level and the level of the other friends... only medals from players in your own Union"), ties by player id so the same people recur; other Unions only fill the list when yours has too few. Each lends their chosen support medal (45). Sora only when no other player exists. | handler 102 | gamefaqs.gamespot.com/boards/158979-kingdom-hearts-unchained-x/74255411 |
+| M2 | **[client + guides: settled, implemented]** Evolving (54) resets the medal to LV 1, EXP 0 of its new cap (the Evolve screen previews LV 1/<new max>; khux-guides 2015 "Medal evolution"). Evolve is only possible at max level (client rule). | handler 54 | khux-guides.tumblr.com/post/129291918121 |
 
 ## Parties and rankings (`src/party.py`, handlers 69, 74-98, 119-129, 139)
 
@@ -89,19 +92,20 @@ From the client (not guesses): max 30 members (hard-coded), 5 open requests per 
 
 ## Events and Special Quests (`src/events.py`, handlers 101 / 56, served evStage)
 
-The client never checks event dates, weekdays or time slots; it shows whatever 101 returns. Every rule below is ours.
+The client never checks event dates, weekdays or time slots; it shows whatever 101 returns. Every rule below is ours. What runs is data: `data/campaigns.json` (extra events, login gifts, daily login rewards, quest bonuses, disabled evStage / evCampaign rows), loaded at startup; edit it to change the schedule.
 
 | # | Guess | Where | How to confirm |
 |---|---|---|---|
 | E1 | Dated events (evStage rows from the 1.1.3 dump, 2016) replay every year on their original month/day, opening 08:00 server time for their original length. Permanent rows (endTime 2037): Special Quests on their weekday flags, Proud Quests every day. | `events.window` | - |
-| E2 | 2015-16 events with stages but no evStage row get hand-made rows (ids 9001+): Trick or Treat 10-22, Christmas + Lure a Jack in the Box 12-14, New Year's 01-01, Valentine's 02-08 (dates from their event raid settings, e.g. 151022000), Storming Sheep 01-15 (no date source); all 14 days, plain quest lists (eventType 3), category 2. Not yet: Squashing Shadows, Lure a Fortress Crab, the unnamed 61310 set, Jewel Jam / Daily Challenges (2016). | `events.HANDMADE` | user's memory / old videos |
+| E2 | 2015-16 events with stages but no evStage row get hand-made rows (ids 9001+): Trick or Treat 10-22, Christmas + Lure a Jack in the Box 12-14, New Year's 01-01, Valentine's 02-08 (dates from their event raid settings, e.g. 151022000), Storming Sheep 01-15 (no date source); all 14 days, plain quest lists (eventType 3), category 2. Not yet: Squashing Shadows, Lure a Fortress Crab, the unnamed 61310 set, Jewel Jam / Daily Challenges (2016). | `data/campaigns.json` (kind event) | user's memory / old videos |
 | E3 | Time-slot Special Quests (groupPattern 1000-1011, validMinute 30/60; the evGroupPattern table is lost): each pattern opens once a day at a fixed server hour (`SLOT_HOURS`), for everyone (no player groups). All-zero weekday flags = every day. | `events.SLOT_HOURS` | - |
 | E4 | The Special Quest day turns over at the daily reset (12:00 server time). | `events._server_day` | - |
-| E5 | Permanent rows that started after 2015 (2016 Daily Challenges, Moogle O' Glory, Lady Luck) are off (1.0.1 era). Category 4 (High Score, needs 1.1.3 score rewards) is never run. | `events.PERMANENT_ERA_END` | - |
+| E5 | Permanent rows that started after 2015 (2016 Daily Challenges, Moogle O' Glory, Lady Luck) are off (1.0.1 era). Category 4 (High Score, needs 1.1.3 score rewards) is never run. | `data/campaigns.json` disabledEventStageIds / disabledCampaignIds | - |
 | E6 | Banners: the original images (cache.sqex-bridge.jp) are gone; the server draws them (event 640x140, gacha 940x136: name on a gradient). | `events.draw_banner`, `/event/banner`, `/banner/gacha` | replace with archived art if found |
-| E7 | Campaigns (131 `campaigns`, evCampaign) follow the event schedule (E1, E3, E5); rows dated before the launch (2015-09-01) are test rows and never run. A campaign covers its stageId list, else stageType 1 = story, 2/3 = event stages, others = all. The server applies type 6 (raid encounter: fewer kills needed) and type 8 (Omega encounter, 200000 = 100%); the client applies AP / Lux itself; medal drop (type 1) is not applied to server drops yet. | `events.campaign_*`, handlers 131 / 106 | - |
+| E7 | Campaigns (131 `campaigns`, evCampaign) follow the event schedule (E1, E3, E5); rows dated before the launch (2015-09-01) are test rows and never run. A campaign covers its stageId list, else stageType 1 = story, 2/3 = event stages, others = all. The server applies type 6 (raid encounter: fewer kills needed) and type 8 (Omega encounter, 200000 = 100%); the client applies AP / Lux itself; medal drop (type 1) multiplies the odds of medal slots in the server's drop roll. | `events.campaign_*`, handlers 131 / 106 | - |
 | E8 | Limited boards (sphere openId 3: event boards type 4, raid boards type 5, limited Avatar / Coliseum boards) open and close on the same yearly replay as events (`events.replay_window`); a closed board is removed (progress lost) and granted fresh next year; boards every player gets from initItem never close. Event / raid coins carry over between events. | `state.board_available`, `close_spheres`, handlers 9 / 57 | - |
 | E9 | **[client: settled, implemented]** Only events whose every quest has its map in the client's archive are offered (data/stage_files.json, tools/stage_files.py): the 2016 events' maps (500xxx, 61710, 580010, the Trials 63810+) came in event packs (evResource) that we don't have, and opening such an event crashes (SceneUtil::setBossTypeImage reads stage/mappoi_stg<id>.bin unchecked). This leaves the 2015 events, Special Quests and Proud Quests; 2016 events + their boards wait for the packs (maybe in the 4.4.0 assets). | `events.playable` | - |
+| E10 | Dated login gifts (present box, replayed yearly, once per window; Start Dash once per day): Start Dash 50 Jewels/login (09-03..13), 2000 Jewels + Timeless River Mickey 5* (11-18..23), KH II King Mickey + Minnie 3* (12-04..13; rarity guessed), KH Aerith 5* (12-20..27; dates guessed), Sora & Donald & Goofy 6* (03-28..04-03; the 5* 'Sora & Friends' has no row), HD Aqua 5* (06-16..23, global). | `data/campaigns.json` (login_gift / daily_login), handler 59 | 4gamer / khuxwiki HD Aqua / chiunion 2016-06-16 |
 
 ## Party chat (`src/chat.py`, action 5)
 
@@ -110,6 +114,15 @@ The client never checks event dates, weekdays or time slots; it shows whatever 1
 | CH1 | Every player owns every valid stamp (the starting set and the `require` 1/2/3 rule are unknown). | `chat.stamp_ids` | - |
 | CH2 | **[client: settled]** Chat times (createAt) are Japan time (UTC+9): the client shows them minus 9 h plus the device offset. Game API times are UTC. | `chat._fmt` | seen in the exe |
 | CH3 | The chat service is ours: chatId = party id, one room per party, tagName "t_<userId>", token = userId + HMAC (KHUX_CHAT_SECRET). Reports are only logged. No system messages (join / leave markers) are sent. | `chat.py` | - |
+
+## Purchases and the VIP pass (handlers 7, 72, 73; `events.active`)
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| V1 | A weekly benefit (VIP pass, shop row 30 `gp.khuxww.jewel1700`, benefitId 100, benefitResetWeek "Sunday") ends at the weekly reset the shop text promises: "until Sun. 23:59 (PDT)" = Monday 06:59:59 UTC. | `_benefit_end` | - |
+| V2 | **[user: implemented]** Every purchase succeeds for free (the host's fake Google Play store always buys; 72/73 grant it): number + bonus Jewels as FREE Jewels, the row's benefit, skip tickets kept in state (not shown in userPoint yet). Repeat purchases allowed. May need limits later for the economy. | handlers 72 / 73, `recomp/host/jni.c` GooglePlayManager | - |
+| V3 | Special Quests not on today's schedule but covered by their benefit (benefitId + benefit<Day>) are listed: isLock 1 (locked teaser; tap opens the VIP offer) without the benefit, 2 (playable) with it. Munny Madness (1101) is VIP-only (no weekday). | `events.active` | - |
+| T1 | **[client: settled]** /tutorial/status isFinished must be 1 after the tutorial (phase 995): with 0 the battle Continue dialog offered the tutorial's free revive ("During the tutorial, you can continue without spending Jewels") at level 102. | handlers 64 / 65 | client code (StageUI::openContinueDialog) |
 
 ## Serial and invitation codes (handlers 31-33, 62/63)
 
