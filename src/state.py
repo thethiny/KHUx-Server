@@ -404,8 +404,9 @@ def board_available(row, lux_rank, now):
         return True
     if open_id == 2:
         return lux_rank >= row.get("openParam", 0)
-    if open_id == 3:
-        return str(row.get("startDatetime", "")) <= now <= str(row.get("endDatetime", ""))
+    if open_id == 3:      # replayed yearly like the events they belong to (events.replay_window, GUESS E8)
+        from .events import replay_window
+        return replay_window(row.get("startDatetime"), row.get("endDatetime")) is not None
     return False
 
 
@@ -449,10 +450,11 @@ def close_spheres(st, now=None):
     removed sphereBoardIds (/user/sphere/check closeEventSphereBoardIds -> UserSphere::removeSphere)."""
     now = now or _now()
     closed = []
+    everyone = {r.get("itemId") for r in MASTER_JSON_DATA.get("initItem") or [] if r.get("category") == INIT_SPHERE}
     for key, rec in list(st.get("spheres", {}).items()):
         row = sphere_row(rec["sphereBoardId"])
-        if not row or row.get("openId") != 3 or now <= str(row.get("endDatetime", "")):
-            continue
+        if not row or row.get("openId") != 3 or rec["sphereBoardId"] in everyone or board_available(row, 0, now):
+            continue    # (initItem boards are every player's: never closed, else they flip closed/new each check)
         if row.get("type") == SPHERE_BUY_TYPE and rec.get("isBuy"):
             continue
         del st["spheres"][key]

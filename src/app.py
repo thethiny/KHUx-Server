@@ -243,6 +243,9 @@ async def login_token(request: Request):
 
 from .information import mount_static, router as html_router
 app.include_router(html_router)
+from . import chat as _chat              # party chat service (/chatsvc), its own REST protocol
+_chat._get_db = get_db
+app.include_router(_chat.router)
 mount_static(app)
 
 
@@ -360,6 +363,9 @@ async def game_api(
 
     body = await request.body()
     body_str = body.decode("utf-8")
+    if not body_str and "v=" in (request.url.query or ""):
+        # GET requests carry the same encrypted v=<...> in the query string (eventCategory, getDetail, ...)
+        body_str = request.url.query
     logger.info("    raw_body(%d): %s", len(body_str), body_str[:300])
 
     # Try to decrypt
@@ -396,6 +402,27 @@ async def game_api(
     resp.set_cookie("nAJW839RbEHrfm6M", "1")
     resp.set_cookie("nodeNo1", "1")
     return resp
+
+
+@app.get("/event/banner/{name}")
+async def event_banner(name: str):
+    """Event banner images (evStage.bannerUrl points here; the originals on cache.sqex-bridge.jp are gone)."""
+    from .events import banner_png
+    try:
+        eid = int(name.split(".")[0])
+    except ValueError:
+        return Response(status_code=404)
+    return Response(content=banner_png(eid), media_type="image/png")
+
+
+@app.get("/banner/gacha/{name}")
+async def gacha_banner(name: str):
+    from .gacha import banner_png
+    try:
+        png = banner_png(int(name.split(".")[0]))
+    except ValueError:
+        png = None
+    return Response(content=png, media_type="image/png") if png else Response(status_code=404)
 
 
 @app.get("/data/master/{filename}")

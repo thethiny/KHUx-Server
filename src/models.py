@@ -260,6 +260,37 @@ class RankingPeriod(Base):
     closed_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 
+class ChatMessage(Base):
+    """A party chat message (chat.py). number counts from 1 per chat (chatId = party id); status 1 = deleted."""
+    __tablename__ = "chat_messages"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    chat_id: Mapped[int] = mapped_column(Integer, index=True)
+    number: Mapped[int] = mapped_column(Integer)
+    user_id: Mapped[int] = mapped_column(Integer)
+    data: Mapped[str] = mapped_column(String(512), default="")
+    status: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class ChatRead(Base):
+    """How far a player has read a chat (chatReadMessageNumber)."""
+    __tablename__ = "chat_reads"
+
+    user_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    chat_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    read_number: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class ChatBlock(Base):
+    """A player blocked in chat by another."""
+    __tablename__ = "chat_blocks"
+
+    user_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    blocked_user_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
 def get_engine(db_path: str = "khux.db"):
     return create_engine(f"sqlite:///{db_path}", echo=False)
 

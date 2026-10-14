@@ -35,8 +35,21 @@ def max_admins():
     return _misc(802, 10)                    # GUESS: PT2
 
 
+def _chat_base():
+    from .chat import BASE
+    return BASE
+
+
 def fmt(dt):
     return dt.strftime("%Y-%m-%d %H:%M:%S") if dt else NEVER
+
+
+def fmt_local(dt):
+    """A naive server-LOCAL datetime (week/month boundaries) as the UTC the client expects: it shows every time
+    the server sends as UTC converted to the device's zone (serverTime is UTC too)."""
+    if not dt:
+        return NEVER
+    return datetime.utcfromtimestamp(dt.timestamp()).strftime("%Y-%m-%d %H:%M:%S")
 
 
 # --------------------------------------------------------------------------- lookups
@@ -74,7 +87,8 @@ def party_obj(db, p):
             "playStyle": p.play_style or 0, "agreeType": p.agree_type or 0, "message": p.message or "",
             "memberCount": len(members(db, p.id)), "leaderUserId": p.leader_user_id or 0,
             "adminUserIds": admins(p), "leaderAppointDate": fmt(p.leader_appoint_at),
-            "newcomerDate": fmt(p.newcomer_at), "chatId": 0, "chatEndpointUrl": ""}
+            "newcomerDate": fmt(p.newcomer_at), "chatId": p.id or 0,
+            "chatEndpointUrl": _chat_base() if p.id else ""}
 
 
 def user_party(db, uid):

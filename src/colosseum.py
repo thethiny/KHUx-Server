@@ -149,14 +149,14 @@ def clear(rec, round_cleared=None, is_skip=False, season_id=None, rank_cleared=N
             stage_rewards.append(row)
         rec["rank"], rec["stageCount"] = rank, c
         if _arrival(row) != ENDLESS and c >= _arrival(row):
-            rec["arrival"][str(rank)] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            rec["arrival"][str(rank)] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
             if rank not in rec["rewardRanks"]:
                 rec["rewardRanks"].append(rank)
                 if row.get("validReward"):
                     rank_rewards.append(row)
     rec["total"] += len(cleared)
     rec["skip_to"] = None
-    rec["reached"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    rec["reached"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
     last_row = rank_row(rec["rank"], season_id) or {}
     if is_skip:
         target, unlock = (rec["rank"], rec["stageCount"]), int(last_row.get("excellentUnlockCount") or SKIP_ROUNDS)

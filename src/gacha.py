@@ -18,8 +18,21 @@ from typing import Optional
 logger = logging.getLogger(__name__)
 
 _DATA = os.path.join(os.path.dirname(__file__), "..", "data", "banners.json")
-# image hosting for banners (Cloudflare Pages later); the client tolerates an unreachable image
-BANNER_BASE_URL = os.environ.get("KHUX_BANNER_URL", "http://api.sp.kingdomhearts.com/static/banner")
+# banner images: drawn by the server (/banner/gacha/<id>.png, 940x136 like the client's Draw_Banner frame) unless
+# KHUX_BANNER_URL points at hosted art
+BANNER_BASE_URL = os.environ.get("KHUX_BANNER_URL", "http://api.sp.kingdomhearts.com/banner/gacha")
+_png_cache: dict = {}
+
+
+def banner_png(banner_id: int) -> Optional[bytes]:
+    b = banner(banner_id)
+    if not b:
+        return None
+    if banner_id not in _png_cache:
+        from .events import draw_banner
+        _png_cache[banner_id] = draw_banner(b.get("name") or "Medal Draw", b.get("description", "")[:60],
+                                            (940, 136), ((20, 40, 110), (60, 150, 220)))
+    return _png_cache[banner_id]
 
 _banners: Optional[list] = None
 _pools: dict = {}

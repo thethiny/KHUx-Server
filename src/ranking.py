@@ -10,8 +10,10 @@ Client behaviour (decompile, see recomp/JOURNAL.md 2026-10-14):
 - openRankingIds = the ranking id open now for the type (Party title dates, the reward-list button).
 
 Rankings in 1.0.1: Lux = category 5 (weekly, union-aware), Party = category 3 (weekly), Coliseum = category 4
-(monthly). Periods use party.week_start / month_start (08:00 server time). Which master row a period uses: the
-category's rows in a rotation (GUESS: RK5 - the popup shows the master's 2015-16 dates).
+(monthly). Periods use party.week_start / month_start (08:00 server time). Every period has its own master row
+(dated_rows, appended to the served `ranking` table at load): its dates are the period's (as UTC, like every time
+the client is sent), its reward fields those of the category's 2015-16 rows in rotation (GUESS: RK5). Rows cover
+DATED_YEARS; changing KHUX_WEEK_START or the server's time zone changes them - bump master_rev then.
 """
 from datetime import datetime, timedelta
 
@@ -30,8 +32,36 @@ def _master(table):
     return MASTER_JSON_DATA.get(table, [])
 
 
-def rows(category):
-    return sorted((r for r in _master("ranking") if r.get("category") == category), key=lambda r: r["rankingId"])
+DATED_BASE = 1000000                        # dated rankingId = category * DATED_BASE + period number
+DATED_YEARS = (2025, 2035)
+
+
+def rows(category, table=None):
+    """The category's original (2015-16) rows."""
+    return sorted((r for r in (table if table is not None else _master("ranking"))
+                   if r.get("category") == category and r["rankingId"] < DATED_BASE),
+                  key=lambda r: r["rankingId"])
+
+
+def dated_rows(table):
+    """One ranking row per period of DATED_YEARS for the Lux, Party and Coliseum rankings."""
+    out = []
+    first, last = datetime(DATED_YEARS[0], 1, 1, 12), datetime(DATED_YEARS[1], 12, 31, 12)
+    for cat in (LUX, PARTY, COLISEUM):
+        base = rows(cat, table)
+        if not base:
+            continue
+        seen, t = set(), first
+        while t <= last:
+            number, start, end = period_bounds(cat, t)
+            if number not in seen:
+                seen.add(number)
+                src = base[number % len(base)]
+                out.append(dict(src, rankingId=cat * DATED_BASE + number,
+                                startDatetime=gparty.fmt_local(start),
+                                endDatetime=gparty.fmt_local(end - timedelta(seconds=1))))
+            t += timedelta(days=1)
+    return out
 
 
 def ranking_row(ranking_id):
@@ -55,6 +85,10 @@ def period_bounds(category, now=None):
 
 
 def ranking_id_for(category, number):
+    """The period's own dated row; the rotation row when the period is outside DATED_YEARS."""
+    rid = category * DATED_BASE + number
+    if ranking_row(rid):
+        return rid
     rs = rows(category)
     return rs[number % len(rs)]["rankingId"] if rs else 0
 

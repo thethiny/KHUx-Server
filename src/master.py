@@ -80,10 +80,23 @@ MASTER_JSON_DATA = {
 # to the client EMPTY (get_master_encrypted reads only this dict) - raidReward, loginBonus, shop, title, sphere*,
 # stamp, skillExp, ... Held back: evStage (its 1.1.3 record layout differs, never regenerated) and
 # evGroupPattern (no 1.1.3 parser was found and m011 holds medal ids where its Time fields should be).
-_NOT_SERVED = {"evStage", "evGroupPattern"}
+# evStage: the 1.1.3 dump (already this layout) cleaned + hand-made 2015 events (events.master_rows). evGroupPattern:
+# the 1.1.3 binary has no such table (m011 is evMedalList, wrongly mapped by regen_master.py) and the client never
+# reads it after parsing -> served empty.
+_NOT_SERVED = {"evGroupPattern"}
 for _t in MASTER_TABLE_NAMES:
     if _t not in MASTER_JSON_DATA and _t not in _NOT_SERVED:
         MASTER_JSON_DATA[_t] = _load_json(_t)
+MASTER_JSON_DATA["evGroupPattern"] = []
+from .events import master_rows as _ev_rows   # noqa: E402
+MASTER_JSON_DATA["evStage"] = _ev_rows()
+for _r in MASTER_JSON_DATA.get("evCampaign") or []:      # unused stageId slots hold garbage in the dump
+    _n = max(0, min(int(_r.get("validStageId", 0)), 5))
+    _r["stageId"] = list(_r.get("stageId", []))[:_n] + [0] * (5 - _n)
+
+# every ranking period gets its own dated row (ranking.dated_rows, GUESS: RK5)
+from .ranking import dated_rows as _dated_rows   # noqa: E402
+MASTER_JSON_DATA["ranking"] = list(MASTER_JSON_DATA.get("ranking") or []) + _dated_rows(MASTER_JSON_DATA.get("ranking") or [])
 
 
 def encrypt_master_json(data: list, key: bytes = MASTER_AES_KEY) -> tuple[bytes, str]:

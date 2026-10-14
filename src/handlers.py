@@ -26,6 +26,7 @@ from . import party as gparty
 from . import ranking as granking
 from . import stagemap
 from . import gacha
+from . import events as gevents
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +63,7 @@ def build_ret(user: Optional[User] = None) -> dict:
         # install never gets the resources (later screens miss their layouts) - run with KHUX_VERSION_RES=1.
         # The old ">0 re-downloads every session" was /system/resource sending minVersion 0 (fixed there).
         "versionRes": int(os.environ.get("KHUX_VERSION_RES", "0")),
-        "versionDat": 53,   # must match master_rev; bumping forces re-download + "update detected" popup
+        "versionDat": 55,   # must match master_rev; bumping forces re-download + "update detected" popup
         # menu buttons the client shows: 0x01 party "Invitation code", 0x02 Other menu "Serial code" (0x08 KHchi
         # avatar link, 0x10 transfer, 0x20 support, 0x04 shop benefit, 0x80 fund settlement: off)
         "functionFlags": 0x03,
@@ -147,10 +148,11 @@ def handle_user_sphere(request_data: dict, user: Optional[User], db_session: DBS
     # the board select screen lists from. Boards the player qualifies for are granted here too, so the list is
     # never empty (the initItem boards at least); /user/sphere/check announces later ones as NEW.
     with gstate.State(user, db_session) as st:
+        closed = gstate.close_spheres(st)          # limited boards whose (replayed) period is over
         added = gstate.sync_spheres(st, _lux_rank(user))
         boards = gstate.sphere_list(st)
-    if added:
-        logger.info("SPHERE GET: granted %s", [b["sphereBoardId"] for b in added])
+    if added or closed:
+        logger.info("SPHERE GET: granted %s, closed %s", [b["sphereBoardId"] for b in added], closed)
     return build_response(user, userSphere=_user_sphere(boards))
 
 
@@ -362,7 +364,7 @@ def _support_user(user: Optional[User], db_session: DBSession) -> dict:
             "userName": user.user_name if user else "Player", **_user_titles(user),
             "userKeybladeId": kb["userKeybladeId"], "keybladeId": kb["keybladeId"],
             "userMedalId": medal["userMedalId"], "medalId": medal["medalId"],
-            "lastActionDatetime": time.strftime("%Y-%m-%d %H:%M:%S")}
+            "lastActionDatetime": _last_action(user)}
 
 
 @register(20)  # GET /user/avatar/all
@@ -866,7 +868,13 @@ def handle_gacha_draw(request_data: dict, user: Optional[User], db_session: DBSe
 
 @register(101)  # GET /stage/event
 def handle_stage_event(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, events=[], supportUsers=[])
+    # StageEvent::parse: events[] + raidStatus (IsUint, required - without it every Events / Special Quests tap
+    # failed verifyResponse). eventCategory 1 = Special Quests, 2 = Events (events.py has the schedule).
+    category = int(request_data.get("eventCategory") or 2)
+    clears = gstate.load(user, db_session)["stages"] if user else {}
+    events = [gevents.entry(r, end, clears) for r, _, end in gevents.active(category)]
+    logger.info("EVENTS (category %s): %s", category, [e["eventStageId"] for e in events])
+    return build_response(user, events=events, raidStatus=0)
 
 
 # The offline-style default friend: when nobody else is around, the game lends "Sora" with KH II King Mickey - the
@@ -875,13 +883,19 @@ def handle_stage_event(request_data: dict, user: Optional[User], db_session: DBS
 _SORA_SUPPORT_ID = 999999999
 
 
-def _support_entry(uid: int, name: str, level: int, medal: dict, avatar: dict) -> dict:
+def _last_action(user: Optional[User]) -> str:
+    """lastActionDatetime (UTC, shown as "Last Login N ago"): the player's last login; now for "Sora"."""
+    t = getattr(user, "last_login_at", None) or getattr(user, "created_at", None)
+    return t.strftime("%Y-%m-%d %H:%M:%S") if t else time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+
+
+def _support_entry(uid: int, name: str, level: int, medal: dict, avatar: dict, user: Optional[User] = None) -> dict:
     return {
         "supportUserId": uid, "level": level, "userName": name,
         "titleLeftId": 0, "titleRightId": 0, "titlePlateId": 0,
         "addKizunaPoint": 0, "keybladeId": 1000, "isParty": 0, "isGuilt": 0,
         "userMedal": medal, "userSkills": [], "userAvatar": avatar,
-        "lastActionDatetime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()), "earnLuxRank": 0,
+        "lastActionDatetime": _last_action(user), "earnLuxRank": 0,
     }
 
 
@@ -903,9 +917,26 @@ def handle_stage_support_list(request_data: dict, user: Optional[User], db_sessi
             if abs(order.get(o.last_clear_stage_id or 0, 0) - mine) <= 10:
                 others.append(o)
     random.shuffle(others)
-    supports = [_support_entry(o.id, o.user_name or "Player", _lux_rank(o), _lead_medal(o, db_session), _user_avatar(o))
-                for o in others[:5]]
+    # each player lends the medal they chose as their support medal (45), not their lead medal
+    supports = [_supporter(db_session, user, o.id) for o in others[:5]]
     return build_response(user, supportUsers=supports or [_sora_support(user, db_session)])
+
+
+def _supporter(db_session: DBSession, user: Optional[User], support_uid) -> dict:
+    """The SupportUser entry for a supporter id (Sora or another player)."""
+    support_uid = int(support_uid or 0)
+    o = db_session.get(User, support_uid) if support_uid and support_uid != _SORA_SUPPORT_ID else None
+    if o is None:
+        return _sora_support(user, db_session)
+    return _support_entry(o.id, o.user_name or "Player", _lux_rank(o), _support_medal(o, db_session), _user_avatar(o), o)
+
+
+def _chosen_supporters(db_session: DBSession, user: Optional[User], request_data: dict) -> list:
+    """supportUsers for 103 / 112: verifyResponse parses StageSupportList from them too, which REPLACES the list
+    from 102; BattleUtil::getSupportMedal then looks the chosen supportUserId up in it. Empty = no friend medal in
+    battle (the bug the user saw)."""
+    sid = int(request_data.get("supportUserId") or 0)
+    return [_supporter(db_session, user, sid)] if sid else []
 
 
 @register(100)  # GET /stage/160310
@@ -1071,7 +1102,7 @@ def handle_raid_start(request_data: dict, user: Optional[User], db_session: DBSe
                        "userKeybladeId": request_data.get("userKeybladeId", 1)},
         discovererUserId=row.discoverer_id if row else uid,
         campaigns=[],
-        supportUsers=[],
+        supportUsers=_chosen_supporters(db_session, user, request_data),
     )
 
 
@@ -1084,6 +1115,7 @@ def handle_raid_clear(request_data: dict, user: Optional[User], db_session: DBSe
     with gstate.State(user, db_session) as st:
         row = graid.by_id(db_session, st.get("raid_playing")) or graid.own(db_session, uid)
         raid = graid.load(row) if row else None
+        before = raid["status"] if raid else None
         if raid and raid["status"] == graid.RAID_STATUS_ACTIVE:
             dealt = graid.apply_damage(raid, request_data.get("parts"))
             graid.participant(db_session, row.id, uid).damage += dealt
@@ -1098,9 +1130,18 @@ def handle_raid_clear(request_data: dict, user: Optional[User], db_session: DBSe
                             graid.level_up(hst, raid["enemyId"])
                 logger.info("RAID DEFEATED: %s (host %s)", row.id, row.discoverer_id)
         _store_burst(st, request_data.get("burst"))
-        # raidTimeStatus must be 1..5 (RaidClear::parse); 1 = boss still up (the client may ask for help).
-        # Other values' meanings are unknown; 2 is used for "defeated". GUESS: R2
-        time_status = 1 if raid and raid["status"] == graid.RAID_STATUS_ACTIVE else 2
+        # raidTimeStatus (RaidClear::TimeStatus, BattleResultDialog::openRaidResult): 1 = the fight ended in time
+        # (boss still up - "support request sent" when reliefFlag - or beaten by this player), 2 = "The Raid Boss
+        # has escaped." (time ran out), 3/4 = "A party member defeated the Raid Boss!" (someone else finished it
+        # first; the damage does not count toward MVP), 5 = "No available Raid Boss."
+        if raid is None:
+            time_status = 5
+        elif before == graid.RAID_STATUS_ACTIVE:
+            time_status = 1
+        elif before == graid.RAID_STATUS_DEFEATED:
+            time_status = 3
+        else:
+            time_status = 2
     if user:
         gp = request_data.get("getPoint", {})
         user.exp += gp.get("exp", 0)
@@ -1152,15 +1193,17 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
                        for uid, e in drops["treasures"].items()],
         startStageData={
             "stageId": stage_id,
-            "supportUserId": 0,
+            # the chosen supporter, echoed: BattleUtil::getSupportMedal looks this id up in the 102 support
+            # list to put the friend's medal on the battle deck (0 = no friend medal in battle)
+            "supportUserId": int(request_data.get("supportUserId") or 0),
             "userKeybladeId": keyblade_id,
             # missions already cleared on this stage: the result screen (BattleResultScrollView::
             # loadStageResultData) lists a mission reward only for missions cleared now and not in here
             "clearMissionIds": cleared,
             "stageSkip": 0,
         },
-        campaigns=[],
-        supportUsers=[],
+        campaigns=[r["campaignId"] for r in gevents.active_campaigns() if gevents.campaign_applies(r, stage_id)],
+        supportUsers=_chosen_supporters(db_session, user, request_data),
     )
 
 
@@ -1257,11 +1300,17 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
         story = gstate.story_order()
         quest_no = story.index(stage_id) + 1 if stage_id in story else 0
         always = quest_no in graid.ALWAYS_SPAWN_QUESTS and first_clear
+        lure = gevents.is_lure_stage(stage_id)      # raid-event quests always bring their boss (GUESS: R7)
+        always = always or lure
         never = quest_no in graid.NEVER_SPAWN_QUESTS
         if user and row.get("raidBoss") and not never and not own_up and (always or st["raid_kills"] >= graid.kills_threshold(
-                st, _campaign_power(6))):
+                st, _campaign_power(6, stage_id))):
             setting = graid._row("raidSetting", "raidSettingId", row["raidBoss"]) or {}
-            omega = graid.omega_due(st, setting)
+            # an Omega-encounter campaign (type 8, power 200000 = "100% Raid Boss Omega Encounter") forces the rare boss
+            omega_boost = _campaign_power(8, stage_id)
+            omega = (lure and "Ω" in (row.get("name") or "")) or graid.omega_due(st, setting) or (
+                omega_boost > 10000 and setting.get("rareBossId") not in (None, 0, setting.get("bossId"))
+                and random.randrange(200000) < omega_boost)
             boss_id = setting.get("rareBossId" if omega else "bossId", 0)
             new_row, raid = graid.create(db_session, user.id, stage_id, row["raidBoss"],
                                          graid.boss_level(st, boss_id), rare=omega)
@@ -1329,10 +1378,9 @@ def _grant_drops(user: Optional[User], st: dict, stage_id: int, request_data: di
     return got
 
 
-def _campaign_power(campaign_type: int) -> int:
-    """Multiplier (10000 = 100.00%) of the active evCampaign of this type. No campaigns are scheduled yet
-    (responses send campaigns=[]), so this is always x1 for now."""
-    return 10000
+def _campaign_power(campaign_type: int, stage_id: Optional[int] = None) -> int:
+    """Multiplier (10000 = 100.00%) of the running evCampaigns of this type covering the stage (events.py)."""
+    return gevents.campaign_power(campaign_type, stage_id)
 
 
 def _misc(misc_id: int, default: int) -> int:
@@ -1600,7 +1648,7 @@ def handle_user_profile(request_data: dict, user: Optional[User], db_session: DB
             "user": {"userId": uid, "nativeUserId": uid, "platformId": 2, "userName": name, "gender": gender,
                      "comment": comment, "deviceType": 2, "continueLoginCount": 1, "isFleeze": 0,
                      "fleezedDatetime": "2000-01-01 00:00:00"},
-            "userDetail": detail, "userPoint": point, "lastActionDatetime": now,
+            "userDetail": detail, "userPoint": point, "lastActionDatetime": _last_action(target) if target else now,
         },
         userMedals=medals, userSkills=[], userAvatar=avatar, userKeyblade=kb, userRecord=record,
         userRanking={"lux": point.get("totalLux", 0), "rank": 0}, linkPlatformId="",
@@ -1732,18 +1780,21 @@ def handle_user_start(request_data: dict, user: Optional[User], db_session: DBSe
 
 @register(5)  # GET /user/chat
 def handle_user_chat(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserChat::parse: the party chat service (chat.py). userToken goes back as X-HTTP-USER-TOKEN on every chat
+    # call; userEndpointUrl is the base of its /user... calls; stampIds = the stickers the player owns.
+    from . import chat as gchat
     uid = user.id if user else 1
     return build_response(user,
         userData={
             "userChat": {
                 "userId": uid,
-                "tagName": "player_tag",
-                "userEndpointUrl": "http://api.sp.kingdomhearts.com",
-                "stampIds": [0, 0, 0, 0, 0, 0],
+                "tagName": gchat.tag_name(uid),
+                "userEndpointUrl": gchat.BASE,
+                "stampIds": gchat.stamp_ids(),
             },
         },
         authToken="server_auth_token",
-        userToken="server_user_token",
+        userToken=gchat.token(uid),
     )
 
 
@@ -1791,7 +1842,7 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
 @register(25)  # GET /system/master
 def handle_master(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     base_url = "http://api.sp.kingdomhearts.com/data/master"
-    master_rev = 53
+    master_rev = 55
     resp = build_response(user, master={"revision": master_rev, "count": len(MASTER_TABLE_NAMES)})
     for i, name in enumerate(MASTER_TABLE_NAMES):
         _, md5_hex = get_master_encrypted(name)
@@ -2021,7 +2072,8 @@ def handle_information_detail(request_data: dict, user: Optional[User], db_sessi
 
 @register(131)  # GET /campaign
 def handle_campaign(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, campaigns=[])
+    # the running evCampaign ids (APIManager+764): the client shows them and applies AP / Lux / drop boosts
+    return build_response(user, campaigns=[r["campaignId"] for r in gevents.active_campaigns()])
 
 
 # ---------------------------------------------------------------------------
@@ -2219,7 +2271,9 @@ def _ticker_texts() -> list:
 def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user,
         adminMypageTexts=_ticker_texts(),
-        openBanners=[],
+        # running events with a MyPage banner (OpenBanner type 1 = eventStageId; tapping opens the event)
+        openBanners=[{"type": 1, "id": r["eventStageId"], "limitDate": gparty.fmt_local(end - timedelta(seconds=1))}
+                     for cat in (2, 1) for r, _, end in gevents.active(cat) if r.get("mypageBanner")],
         userPresentCount=len(gstate.load(user, db_session).get("presents", [])) if user else 0,
         isChangeCoordinate=0,
         # a flag per ranking with an undelivered result: MyPage then calls 130 for it and shows the popups
@@ -2423,8 +2477,9 @@ def _colosseum_ranking(user: Optional[User], db_session: DBSession, key: str) ->
                           "userAvatar": _user_avatar(o), "userColosseum": gcol.user_colosseum(rec),
                           "arrivalTime": rec.get("reached") or "2000-01-01 00:00:00", "rank": base + i + 1})
     return {key: {"rankingDatas": datas, "rankingStatus": 2,
-                  "rankingTermStart": s.get("openDate", "2015-06-29 07:00:00"),
-                  "rankingTermEnd": s.get("rankingCloseDate", s.get("closeDate", "2015-08-03 22:59:59"))}}
+                  # this month's season (monthly rotation, C2), not the master's 2015 dates
+                  "rankingTermStart": gparty.fmt_local(_month()[0]),
+                  "rankingTermEnd": gparty.fmt_local(_month()[1])}}
 
 
 @register(127)  # GET /ranking/colosseum
@@ -2629,7 +2684,7 @@ def _member_entry(db_session: DBSession, uid: int, detail: bool = False) -> dict
     o = db_session.get(User, uid)
     if o is None:
         return _sora_support(None, db_session)
-    e = _support_entry(o.id, o.user_name or "Player", _lux_rank(o), _support_medal(o, db_session), _user_avatar(o))
+    e = _support_entry(o.id, o.user_name or "Player", _lux_rank(o), _support_medal(o, db_session), _user_avatar(o), o)
     e.update(_user_titles(o))
     kbs = _user_keyblades(o, db_session)
     kb = next((k for k in kbs if k.get("isFavorite")), kbs[0] if kbs else None)
@@ -2679,7 +2734,9 @@ def handle_party(request_data: dict, user: Optional[User], db_session: DBSession
 def handle_party_member_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     uid = user.id if user else 0
     pid = gparty.party_id_of(db_session, uid)
-    detail = bool(request_data.get("getDetail"))
+    # the Detail fields always: PartyMemberList::parse reads them when present and the screens after /party/create
+    # call this without getDetail (they re-asked forever without them)
+    detail = True
     extra = {}
     if pid:
         extra["partyUserList"] = [_member_entry(db_session, m.user_id, detail)
@@ -2950,7 +3007,7 @@ def handle_party_member_expel(request_data: dict, user: Optional[User], db_sessi
                         lambda p, uid: gparty.is_staff(p, user.id) and gparty.expel(db_session, p, uid))
 
 
-# Rankings. Only this server's players; weeks from Monday 07:00 UTC (GUESS: RK1). rankingStatus 2 = in progress
+# Rankings. Only this server's players; weeks from 08:00 server-local time on KHUX_WEEK_START (user; times go out as UTC). rankingStatus 2 = in progress
 # (SceneRanking builds rows only for 2; 1 "preparing", 3 "tallying", 4 other). lastRank = the player's own place,
 # shown as "your rank" (0 = unranked).
 def _lux_ranking(user: Optional[User], db_session: DBSession, since, until, own: bool) -> dict:
@@ -2965,8 +3022,8 @@ def _lux_ranking(user: Optional[User], db_session: DBSession, since, until, own:
         if o:
             datas.append({"userData": {"user": _user_obj(o), "userDetail": _user_detail(o)},
                           "userAvatar": _user_avatar(o), "lux": min(lux, 2**31 - 1), "rank": rank})
-    return {"rankingDatas": datas, "rankingStatus": 2, "rankingTermStart": gparty.fmt(since),
-            "rankingTermEnd": gparty.fmt(until), "lastRank": my_rank}
+    return {"rankingDatas": datas, "rankingStatus": 2, "rankingTermStart": gparty.fmt_local(since),
+            "rankingTermEnd": gparty.fmt_local(until), "lastRank": my_rank}
 
 
 def _week():
@@ -3024,7 +3081,7 @@ def _party_ranking(user: Optional[User], db_session: DBSession, own: bool) -> di
         if p:
             datas.append({"party": gparty.party_obj(db_session, p), "rank": rank, "lux": min(lux, 2**31 - 1)})
     return {"rankingDatas": datas, "rankingStatus": 2, "lastRank": my_rank,
-            "updateTime": gparty.fmt(datetime.utcnow()), "nextUpdateTime": gparty.fmt(end)}
+            "updateTime": gparty.fmt(datetime.utcnow()), "nextUpdateTime": gparty.fmt_local(end)}
 
 
 @register(125)  # GET /ranking/party
@@ -3037,25 +3094,59 @@ def handle_ranking_party_own(request_data: dict, user: Optional[User], db_sessio
     return build_response(user, partyRankingOwn=_party_ranking(user, db_session, own=True))
 
 
-@register(129)  # GET /ranking/parade: union standings this week + each union's top player
+@register(129)  # GET /ranking/parade: LAST week's union standings + each union's top player, once a week
 def handle_ranking_parade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    start, _ = _week()
-    unions = gparty.ranked(gparty.lux_since(db_session, start, "union"))
-    users = gparty.lux_since(db_session, start, "user")
+    # The startup chain shows SceneUnionRanking whenever rankingUnionResult is non-empty, else goes to MyPage
+    # (sub_6FACEC). So: last week's final result, the first time the player starts the game in a new week; empty
+    # afterwards and when nobody earned Lux last week. GUESS: RK8
+    this_week, _ = _week()
+    start, end = this_week - timedelta(days=7), this_week
+    empty = build_response(user, unionParade={"rankingUnionResult": [], "rankingUnionTopRanker": []})
+    week_key = gparty.fmt(this_week)
+    if user:
+        with gstate.State(user, db_session) as st:
+            if st.get("parade_seen") == week_key:
+                return empty
+            st["parade_seen"] = week_key
+    last = gparty.lux_between(db_session, start, end, "union")
+    if not any(last.values()):
+        return empty
+    # all 5 unions, always: the parade's name_1..name_5 labels index the list unchecked (.at(4) threw with one)
+    lux_by_union = {u: 0 for u in range(1, 6)}
+    lux_by_union.update({u: v for u, v in last.items() if u in lux_by_union})
+    unions = gparty.ranked(lux_by_union)
+    users = gparty.lux_between(db_session, start, end, "user")
+    # one top player per union, in union order: SceneParade draws all five podium avatars (1st..5th) and an
+    # empty slot crashes in Avatar::updateLWFPath. A union nobody played for gets a placeholder (GUESS: RK7).
     tops = []
-    for union_id, _, _ in unions:
+    for union_id, _, union_rank in unions:
         best = max(((uid, lux) for uid, lux in users.items()
                     if (db_session.get(User, uid) or User(union_id=-1)).union_id == union_id),
                    key=lambda t: t[1], default=None)
-        if best:
-            o = db_session.get(User, best[0])
+        o = db_session.get(User, best[0]) if best else None
+        if o:
             kbs = _user_keyblades(o, db_session)
             tops.append({"userData": {"user": _user_obj(o)},
                          "userKeyblade": next((k for k in kbs if k.get("isFavorite")), kbs[0] if kbs else {}),
-                         "userAvatar": _user_avatar(o), "rank": 1, "lux": min(best[1], 2**31 - 1)})
+                         "userAvatar": _user_avatar(o), "rank": union_rank, "lux": min(best[1], 2**31 - 1)})
+        else:
+            tops.append(_parade_placeholder(union_id, union_rank))
     return build_response(user, unionParade={
         "rankingUnionResult": [{"unionId": u, "rank": r, "lux": lux} for u, lux, r in unions],
         "rankingUnionTopRanker": tops})
+
+
+def _parade_placeholder(union_id: int, rank: int) -> dict:
+    """A union top ranker for a union without players: no name, a starting avatar and keyblade, 0 Lux."""
+    user = dict(_user_obj(None), userId=0, nativeUserId=0, userName="---", comment="")
+    return {"userData": {"user": user},
+            "userKeyblade": {"userKeybladeId": 0, "category": 0, "keybladeId": 1000, "deckMedals": [],
+                             "burst": 0, "totalAttack": 0, "totalDefense": 0, "isFavorite": 1,
+                             "getDatetime": "2015-09-01 00:00:00"},
+            "userAvatar": {"myCoordinateNo": 1, "gender": 1, "hairPartsId": 40001,
+                           "hairColorPartsId": 50001, "facePartsId": 20001, "bodyPartsId": 1,
+                           "skinPartsId": 30001, "accessoriesPartsIds": []},
+            "rank": rank, "lux": 0}
 
 
 @register(139)  # GET /link/members {platformIds, platformType}: social-network friends - none here
