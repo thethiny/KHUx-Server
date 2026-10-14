@@ -1,0 +1,8 @@
+{
+  "_comment": "Serial codes -> serialcodeReward ids (the master table has the rewards but no code strings; codes are ours, GUESS: SC1). One redemption per player per reward id. Test rows 1003/1008/1009/1010 are not mapped.",
+  "codes": {
+    "KHUXLAUNCH": 1000,
+    "FAMITSUAPP": 1001,
+    "KEYLINKAGE": 1002
+  }
+}

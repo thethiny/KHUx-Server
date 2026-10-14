@@ -49,7 +49,7 @@ class User(Base):
     attack: Mapped[int] = mapped_column(Integer, default=0)
     defense: Mapped[int] = mapped_column(Integer, default=0)
     max_deck_cost: Mapped[int] = mapped_column(Integer, default=74)
-    max_medal: Mapped[int] = mapped_column(Integer, default=100)
+    max_medal: Mapped[int] = mapped_column(Integer, default=50)     # misc 102: starting medal box (GUESS: M1)
     lux_rank: Mapped[int] = mapped_column(Integer, default=0)
     lux_get_ratio: Mapped[int] = mapped_column(Integer, default=100)
     mvp_count: Mapped[int] = mapped_column(Integer, default=0)
@@ -83,6 +83,9 @@ class User(Base):
     hp_prize: Mapped[int] = mapped_column(Integer, default=0)
     # permanent Max AP bonus from Avatar Board nodes (sphereMasu rewardSelect 21); Max HP nodes go to hp_prize
     ap_prize: Mapped[int] = mapped_column(Integer, default=0)
+    # profile "Play Style": chosen time slots 1..6 (comma list, up to 3) and Hardcore/Core/Casual
+    play_timezones: Mapped[str] = mapped_column(String, default="")
+    play_frequently: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
@@ -158,6 +161,105 @@ class UserState(Base):
     data: Mapped[str] = mapped_column(String, default="{}")
 
 
+# --------------------------------------------------------------------------- multiplayer (party.py)
+# New tables, picked up by create_all on start (no migration).
+
+class Party(Base):
+    """A party (guild). Party::init needs every field; ids are u64 on the wire."""
+    __tablename__ = "parties"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    union_id: Mapped[int] = mapped_column(Integer, default=0)
+    name: Mapped[str] = mapped_column(String, default="")
+    message: Mapped[str] = mapped_column(String, default="")
+    play_style: Mapped[int] = mapped_column(Integer, default=0)
+    agree_type: Mapped[int] = mapped_column(Integer, default=0)
+    leader_user_id: Mapped[int] = mapped_column(Integer, default=0)
+    admin_ids: Mapped[str] = mapped_column(String, default="")          # comma list of user ids
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    leader_appoint_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    newcomer_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class PartyMember(Base):
+    __tablename__ = "party_members"
+
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), primary_key=True)   # one party per user
+    party_id: Mapped[int] = mapped_column(ForeignKey("parties.id"))
+    join_date: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    flag_first_reward: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class PartyApplication(Base):
+    """A player asking to join a party (partyApplicantId). status: 0 pending, 1 agreed, 2 rejected, 3 cancelled."""
+    __tablename__ = "party_applications"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer)
+    party_id: Mapped[int] = mapped_column(Integer)
+    message: Mapped[str] = mapped_column(String, default="")
+    status: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    agreed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+
+
+class PartyOffer(Base):
+    """A party inviting a player (partyOfferId). status as PartyApplication."""
+    __tablename__ = "party_offers"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer)
+    party_id: Mapped[int] = mapped_column(Integer)
+    message: Mapped[str] = mapped_column(String, default="")
+    status: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    agreed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+
+
+class LuxLedger(Base):
+    """Every Lux gain with its time, union and party: the Lux / party / union rankings sum it per period."""
+    __tablename__ = "lux_ledger"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, index=True)
+    union_id: Mapped[int] = mapped_column(Integer, default=0)
+    party_id: Mapped[int] = mapped_column(Integer, default=0)
+    lux: Mapped[int] = mapped_column(Integer, default=0)
+    at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, index=True)
+
+
+class Raid(Base):
+    """A raid boss, shared with the discoverer's party (raid.py). `data` is the boss record as JSON:
+    {raidId, stageId, settingId, enemyId, level, useAp, hp[], maxHp[], end, status}."""
+    __tablename__ = "raids"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    discoverer_id: Mapped[int] = mapped_column(Integer, index=True)
+    status: Mapped[int] = mapped_column(Integer, default=3)
+    data: Mapped[str] = mapped_column(String, default="{}")
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class RaidParticipant(Base):
+    """A player who fought a raid: total damage, and whether their reward was handed out."""
+    __tablename__ = "raid_participants"
+
+    raid_id: Mapped[int] = mapped_column(ForeignKey("raids.id"), primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    damage: Mapped[int] = mapped_column(Integer, default=0)
+    rewarded: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class RankingPeriod(Base):
+    """A closed ranking period (ranking.py): one row per category and period, so each closes exactly once."""
+    __tablename__ = "ranking_periods"
+
+    category: Mapped[int] = mapped_column(Integer, primary_key=True)
+    period: Mapped[int] = mapped_column(Integer, primary_key=True)
+    ranking_id: Mapped[int] = mapped_column(Integer, default=0)
+    closed_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
 def get_engine(db_path: str = "khux.db"):
     return create_engine(f"sqlite:///{db_path}", echo=False)
 
@@ -201,6 +303,8 @@ def _migrate(engine, inspector):
         "colosseum_sphere_point": "INTEGER DEFAULT 0",
         "hp_prize": "INTEGER DEFAULT 0",
         "ap_prize": "INTEGER DEFAULT 0",
+        "play_timezones": "VARCHAR DEFAULT ''",
+        "play_frequently": "INTEGER DEFAULT 0",
     }
     added = []
     with engine.connect() as conn:

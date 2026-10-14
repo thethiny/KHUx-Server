@@ -264,6 +264,9 @@ V1_METHOD_OVERRIDES = {
     ("/tutorial/status", "PUT"): 65,
     ("/user/link", "PUT"): 141,
     ("/user/link", "DELETE"): 142,
+    ("/campaign/pincode", "POST"): 133,
+    ("/campaign/pincode", "PUT"): 134,
+    ("/campaign/pincode", "DELETE"): 135,
 }
 
 
@@ -376,6 +379,7 @@ async def game_api(
     logger.info("    action_id=%d payload_keys=%s key=%s", action_id,
                 list(payload.keys()) if payload else [], session.security_key.hex() if isinstance(session.security_key, bytes) else session.security_key)
     response_data = dispatch(action_id, payload, user, db)
+    http_status = response_data.pop("__http_status", 200)    # build_error: the client shows ret.error
 
     resp_json = json.dumps(response_data, separators=(",", ":"))
     logger.info("<<< Response action=%d: %s", action_id, resp_json[:4000])
@@ -384,6 +388,7 @@ async def game_api(
     resp_bytes = resp_json.encode("utf-8")
     resp = StarletteResponse(
         content=resp_bytes,
+        status_code=http_status,
         media_type="application/json",
         headers={"Content-Length": str(len(resp_bytes))},
     )

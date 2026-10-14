@@ -1,0 +1,100 @@
+# Guesses and open questions
+
+The original server was never captured, so some server behaviour cannot be read from the client. This file lists
+every rule we **guessed** (the client accepts it, but the original may have differed) and every **open question**.
+Each entry says where the guess lives and what would confirm it. Code comments mark the same spots with `GUESS:`.
+
+Add new entries here whenever a handler makes a choice the client does not dictate.
+
+**Data first (user, 2026-10-14):** where the game's own data has a value, trust it over the wiki - the wiki mostly
+records later changes. **Wiki check (2026-10-14):** every entry was checked against the KHUX Wiki and 2015-16 guides (sources below in
+the rows; most describe EN 2016 or JP late 2015, not 1.0.1 itself). Marks: **[wiki: confirmed]**, **[wiki:
+corrected, implemented]**, **[conflict]** (the wiki disagrees with the user - the user's account is kept until
+settled). Rows without a mark are not documented anywhere reachable.
+
+## Coliseum (`src/colosseum.py`, handlers 114-118, 127/128)
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| C1 | **[wiki: confirmed]** One row normally: the next round of the current tier ("You cannot go back to the previous round"); several rows only after a skip (C9). | `colosseum.next_stage` | luckykhuxguide.tumblr.com/post/145249009485 |
+| C2 | **[wiki: corrected, implemented]** Seasons are monthly ("resets on the 1st of every month"). The master seasons are dated 2015-16, so the season served rotates by calendar month through the 11 with stage maps; progress is a new record each month. GUESS: the rotation (the client still shows the master dates). | `colosseum.current_season`, `month_key` | khuxwiki.com/wiki/Coliseum_Quests |
+| C3 | **[wiki: confirmed]** Coins per round on every clear, plus a tier reward when the tier is finished. Amounts come from the master data. | `colosseum.clear`, handler 118 | khuxwiki.com/wiki/Coliseum_Quests/April_2016 |
+| C4 | **[wiki: confirmed]** The last tier has 999 rounds (endless). | `colosseum.clear` | khux-guides.tumblr.com/post/130271693276 |
+| C5 | Lux from a Coliseum clear is added like a quest's (`lux` in the request). | handler 118 | The original may not have counted it toward rank. |
+| C6 | AP is not deducted (`useAp` is shown, but AP is ignored server-wide). | handler 116 | Server-wide decision (free to play). |
+| C7 | Ranking order **[wiki: confirmed, implemented]**: tier, then round, then the earliest to get there; only this server's players; "Own" = 5 places around you. Monthly ranking rewards (1-1000 / 1001-10000 / 10001-50000 in EN Apr 2016) are not handed out yet (RK4). | `_colosseum_ranking` | luckykhuxguide.tumblr.com/post/145249009485 |
+| C8 | `colosseumInfo.status` 1 = open (2 shows "This event is unavailable."). Other values unknown. | `colosseum.STATUS_OPEN` | Client code only distinguishes 1 and 2. |
+| C9 | **[implemented]** Skip: a one-turn win unlocks exactly **10** further rounds (the user, 1.0.1 era; the wiki's per-tier counts are a later change), capped at the tier's last round; `/colosseum` lists them (tutorial popup 25: "Defeat all enemies in 1 turn and you'll jump ahead rounds!"); clearing round k credits every round up to k with coins and locks the rest. Open: what `excellentUnlockCount` (18..3 per tier) meant. | `colosseum.clear`, `SKIP_ROUNDS` | user; khuxwiki.com/wiki/Coliseum_Quests |
+
+## Quests and rewards (`src/handlers.py`, `src/stagemap.py`)
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| Q1 | Chest and enemy drop odds are out of 100000, one cumulative roll per chest / symbol. | `stagemap.roll_stage` | User's memory of drop rates. |
+| Q2 | `StageClear::Reward.rewardkind` 1 = first clear, 2 = mission. The client never reads it back, so any int works. | handler 106 | Not observable; harmless. |
+| Q3 | **[implemented]** A continue costs misc 113 = 100 Jewels: the data's price block 111-114 (medal box, AP, continue, union change; 111/112/114 confirmed by client code), matching the wiki's 100. | handler 105 | khuxwiki.com/wiki/Talk:Shop |
+| Q4 | Treasure guide (tutorialMisc 17 / widget 103) is suppressed with popupFlag bit 16: with our maps it would soft-lock. | popup flags | Whether 1.0.1's launch maps had a chest in quest 1060 area 1. |
+
+## Raids (`src/raid.py`, handlers 107-113)
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| R1 | **[wiki: confirmed, implemented]** A boss appears after ~70-76 defeated enemies (we roll 68-82 per cycle; "account-specific"); story quests 24, 66, 102, 183, 200, 230, 660, 715 always bring one (on first clear); quest 3 and the Coliseum never do. A type-6 raid campaign divides the count. | `raid.kills_threshold`, `ALWAYS/NEVER_SPAWN_QUESTS`, handler 106 | khuxwiki.com/wiki/Talk:Raid_Boss, luckykhuxguide 145041684770 |
+| R4 | **[wiki: confirmed]** Shared with the discoverer's party (help alerts also reached some union members - not modelled); Victory to all, MVP to top damage and the host, All Points Defeated to all; boss level +1 per defeat of your own boss, reset on the 1st. **Time limit 10 minutes** (Omega 20): `bossUpTime` is in minutes (implemented; was read as hours). | `raid.py` | khuxwiki.com/wiki/Raid_Boss |
+| R2 | `raidTimeStatus` 1 = boss still up, 2 = defeated; values 3-5 unknown. | handler 113 | Client code only checks the range 1..5. |
+| R3 | misc 200 (3000) is not a raid gauge (the client never reads it); probably a server-only parameter. | notes only | - |
+
+## Daily loop and menus (`src/handlers.py`, 15 / 45 / 60 / 66 / 67)
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| L1 | **[settled: user]** The daily reset is 12:00 in the server's local time (the wiki's "11:00 UTC" was the EN server's own clock). | `_bonus_day` | user |
+| W1 | **[settled: user, old videos + 2016 guides]** The 5-day login bonus (bonusType 1: 50/50/100/100/200 Jewels) repeats after day 5: 500 per cycle, six cycles = the 3000 Jewels a month the user remembered. Each new day (12:00 server time) gives the next day of the cycle. | handler 60 | user; levelwinner.com, touchtapplay.com (Apr 2016) |
+| L2 | A missed day does not restart the 5-day cycle (not documented; the 2016 guides say "log in consecutively"). The monthly 3000 Jewels the user remembered is this bonus (6 x 500), not daily missions; daily/weekly missions and the weekly pass are later features (4.3.1 client; khuxwiki Mission / Shop). | handler 60 | old videos |
+| L3 | Login bonus rewards go to the present box (the response carries no user data). | handler 60 | Memories: did bonus Jewels arrive in the present box? |
+| L4 | `total` sends the milestone reached today, else the next one (display). Milestones are granted once, on their day. | handler 60 | Footage of the login bonus screen. |
+| L5 | Special bonuses (bonusType 3 "Newcomer Campaign", 4 events) are date-gated by their 2015-16 dates, so none is active. Could be re-dated later. | handler 60 | Decide later. |
+| M1 | **[data, implemented]** New accounts start with a 50-medal box: misc 102 = 50 sits with the box step (103 = 5) and cap (104 = 500); a 2016 report also says 50. Existing saves keep their size. | `models.User.max_medal` | data; GameFAQs 2016 (search summary) |
+| P1 | **[wiki: confirmed]** AP refill = 100 Jewels (and fills the special gauges). | handler 67 | khuxwiki.com/wiki/Talk:Shop |
+| A1 | **[wiki: confirmed]** The Album shows every medal obtained on the account. | `state.add_medal`, handler 15 | khuxwiki.com/wiki/Album |
+| A2 | `allMedalCount` = number of medal master rows. | handler 15 | The client never computes it. |
+| S1 | The support medal picked in the medal popup is the one other players see; without a pick, deck slot 1. | `_support_medal` | - |
+
+## Parties and rankings (`src/party.py`, handlers 69, 74-98, 119-129, 139)
+
+From the client (not guesses): max 30 members (hard-coded), 5 open requests per player, 30 invitations per party, requests/invitations expire after 72 hours (screen texts), agreeType 1 not accepting / 2 approval / 3 auto-join, party rank tiers 1 Diamond .. 5 Bronze, first party joined gives misc 117 (100) Jewels, union change costs misc 114 (100) and is refused in a party, `rankingStatus` 2 = rows shown. From the user: the leader is "absent" (takeover allowed) after 7 days with no login or no contribution to the party (we count Lux earned for it).
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| PT2 | At most misc 802 (10) admins. | `party.max_admins` | - |
+| PT4 | Creating a party is free (neither request nor response carries Jewels). | handler 74 | Memories. |
+| PT6 | `failedStatus` 1 = party full / closed, 2 = too many requests (the client only checks != 0). | `party.apply/offer` | - |
+| PT7 | **[wiki: corrected, implemented]** Moderators (admins) may invite, accept requests, expel, promote other members to moderator, and edit name / play style / approval / message; only the leader hands over leadership; a leader must hand over before changing union (the client refuses union changes in a party). Leaving leader -> an admin, else the longest member (GUESS). | `party.py`, handlers 75, 86-91 | chiunion.tumblr.com/post/142729520571 |
+| PT9 | Party login (77) grants nothing (no reward fields). | handler 77 | - |
+| PT12 | Player search (92) lists players without a party; its filters are not applied. | handler 92 | - |
+| PT13 | Only the order is documented (Diamond > Platinum > Gold > Silver > Bronze); the thresholds (top 5/15/35/65%) are ours. Individual S/A/B/C ranks came from the previous week's Lux place (~top 1000 / 10000 / 20000 / 100000). | `party.party_rank` | khux-guides 153222872056; chiunion 137052050876 |
+| RK1 | **[settled: user]** Ranking weeks turn over at 08:00 server local time on the server's default weekday (Monday; `KHUX_WEEK_START` 0-6 overrides), months at 08:00 on the 1st. | `party.week_start`, `month_start` | user |
+| RK2 | Rankings list only this server's players; "Own" shows the 5 places around you. | ranking handlers | - |
+| RK3 | Party Lux = the Lux its members earned while in it, this week. Union Lux likewise. | `party.lux_since` | - |
+| RK4 | **[implemented]** Ranking periods close and pay (ranking.py): Lux = category 5 weekly (union-aware), Party = 3 weekly, Coliseum = 4 monthly. 56 raises a flag per pending result; 130 delivers only announced results and grants exactly the reward row the client picks (its own rule from the ranking / rankingReward masters); paid once. Only participants (Lux > 0 / a Coliseum record) get a result. | `ranking.py`, handlers 56, 130 | data + client code |
+| RK5 | Which master ranking row a period uses: the category's rows in rotation by period number, so the popup shows the master's 2015-16 dates. Alternative: append real-dated rows to the served ranking table (needs a versionDat bump). | `ranking.ranking_id_for` | - |
+| RK6 | The old Lux weekly / monthly rankings (categories 1, 2: flags rankingLuxWeekly / Monthly, actions 119-122) are not run - the 1.0.1 UI has no tab for them. Party results go to players who earned Lux for the party in the period. | `ranking.py` | - |
+| U1 | **[wiki: confirmed, implemented]** 100 Jewels every time (no free first change documented); the week's Lux is wiped ("will be reset to zero and not count towards the week's rankings"); a cooldown before joining a new party (length unknown, not modelled). | handler 69 | chiunion.tumblr.com/post/142551110401 |
+
+## Serial and invitation codes (handlers 31-33, 62/63)
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| SC1 | The serial code strings are ours (`data/serialcodes.json`: KHUXLAUNCH -> 1000, FAMITSUAPP -> 1001, KEYLINKAGE -> 1002); the master has rewards but no codes. Test rows 1003/1008-1010 unmapped. One use per player per reward. | `data/serialcodes.json`, handler 31 | - |
+| SC2 | The master's 2015 dates are ignored (the list still shows them as "Expiration Date"); rewards go to the present box (the client's own text says so). | handlers 31/32 | - |
+| IC1 | An invitation code (8 characters, ours) is redeemed at tutorial step 2; both players get misc 115 (300) Jewels in the present box (text "You'll both get %d Jewels"); the invitee joins the inviter's party when it has room (else firstReward 0, "Unable to join") and takes the inviter's union. | handlers 33, 62, 63 | - |
+| IC2 | The inviter is paid for at most 10 invitees (`INVITE_CAP`); the client shows invited / (invited + remaining). misc 116 (300) is never read. | `INVITE_CAP` | - |
+
+## Other
+
+| # | Guess | Where | How to confirm |
+|---|---|---|---|
+| O1 | Rank-up gives `player.luxMedal` as Avatar Coins and refills AP (from the popup texts). | handlers (lux rank) | Seen working in game; the amounts come from master data. |
+| O2 | `userSphere.notChargedSphereBoardIds` is always empty (no reader found in 1.0.1). | `_user_sphere` | - |
+| O3 | `/ranking/reward/check` (130) hands out nothing: no ranking periods end on this server. | handler 130 | Decide when rankings get periods. |
+| O4 | Campaign multipliers (`evCampaign`) are all x1: no campaigns are scheduled. | `_campaign_power` | Decide which campaigns to run. |

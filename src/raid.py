@@ -1,5 +1,12 @@
 """Raid bosses (raid master tables + the client's Raid* parsers; schemas in claude_sessions / recomp JOURNAL).
 
+Shared raids (2026-10-14, rules from the KHUX Wiki "Raid Boss" page): a boss lives in the `raids` table and is
+shared with the discoverer's PARTY - members see it in /raid/list and may join; every player who fought it is a
+`raid_participants` row with their damage. Rewards when it falls: Victory (rewardId) to every participant, MVP
+(mvpRewardId) to the top damage dealer and to the host (discoverer) - once if the same player -, All Points
+Defeated (destroyAllRewardId) to everyone when every part was destroyed. A boss the player summoned goes up a
+level each time they defeat it; levels reset monthly. Discovery: after ~75 defeated enemies (68-82 per cycle).
+
 A raid is discovered on the first clear of a story stage whose stage row has `raidBoss` (a raidSetting id):
 /stage/clear raises userPoint.raidPoint (SceneBattleResult::startResult sets the client's "raid discovered"
 flag when raidPoint grows), then /raid answers raidStatus 3 with the boss, which SceneAdventureSelect shows on
@@ -9,9 +16,17 @@ the map. The raid lives in the user's state document under "raid":
 raidStatus (SceneAdventureSelect::initStageRaidChack): 1 defeated (reward popup), 2 escaped, 3 appeared/active,
 0 nothing.
 """
+import json
+import random
 import time
 
 from .master import MASTER_JSON_DATA
+from .models import Raid, RaidParticipant
+
+KILLS_MIN, KILLS_MAX = 68, 82        # enemies to defeat before a boss appears (wiki: "trending toward 75")
+# story quest numbers (1-based story order) that always / never bring a boss (KHUX Wiki Talk:Raid Boss)
+ALWAYS_SPAWN_QUESTS = {24, 66, 102, 183, 200, 230, 660, 715}
+NEVER_SPAWN_QUESTS = {3}
 
 RAID_STATUS_NONE, RAID_STATUS_DEFEATED, RAID_STATUS_ESCAPED, RAID_STATUS_ACTIVE = 0, 1, 2, 3
 
@@ -33,8 +48,8 @@ def _level_index(enemy, level):
     return idx
 
 
-def discover(st, stage_id, setting_id, now=None):
-    """Create a raid for `stage_id` from raidSetting `setting_id` (its normal boss, level 1)."""
+def build(stage_id, setting_id, level=1, now=None):
+    """A new boss record for `stage_id` from raidSetting `setting_id` (its normal boss) at `level`."""
     now = now or time.time()
     setting = _row("raidSetting", "raidSettingId", setting_id)
     if not setting:
@@ -42,22 +57,16 @@ def discover(st, stage_id, setting_id, now=None):
     enemy = _row("raidEnemy", "raidEnemyId", setting["bossId"])
     if not enemy:
         return None
-    level = 1
     ids = part_enemy_ids(enemy)
     hp = [_row("raidEnemy", "raidEnemyId", i)["hp"][_level_index(enemy, level)] for i in ids]
-    raid_id = st.get("next_raid", 1)
-    st["next_raid"] = raid_id + 1
-    raid = {
-        "raidId": raid_id,
+    return {
         "stageId": stage_id, "settingId": setting_id, "enemyId": enemy["raidEnemyId"], "level": level,
         "useAp": setting.get("useAp", 10),
         "hp": hp, "maxHp": list(hp),
-        # bossUpTime is taken as hours the boss stays (10 for the first Dwarf Woodlands boss)
-        "end": now + 3600 * max(setting.get("bossUpTime", 10), 1),
-        "status": RAID_STATUS_ACTIVE, "damage": 0, "rewarded": False,
+        # bossUpTime is in MINUTES: normal bosses have a 10-minute limit, Omega 20 (wiki / 2016 guides)
+        "end": now + 60 * max(setting.get("bossUpTime", 10), 1),
+        "status": RAID_STATUS_ACTIVE, "damage": 0,
     }
-    st["raid"] = raid
-    return raid
 
 
 def part_enemy_ids(enemy):
@@ -71,9 +80,8 @@ def part_enemy_ids(enemy):
     return ids[:6]
 
 
-def current(st, now=None):
-    """The user's raid, with escape applied when its time ran out."""
-    raid = st.get("raid")
+def refresh(raid, now=None):
+    """Fill sub-parts of older records and apply the escape when the time ran out."""
     if raid:
         enemy = _row("raidEnemy", "raidEnemyId", raid["enemyId"])
         ids = part_enemy_ids(enemy) if enemy else []
@@ -84,6 +92,94 @@ def current(st, now=None):
     if raid and raid["status"] == RAID_STATUS_ACTIVE and (now or time.time()) >= raid["end"]:
         raid["status"] = RAID_STATUS_ESCAPED
     return raid
+
+
+# --------------------------------------------------------------------------- shared storage (raids table)
+def load(row):
+    d = json.loads(row.data or "{}")
+    d["raidId"] = row.id
+    return refresh(d)
+
+
+def save(row, d):
+    row.status = d["status"]
+    row.data = json.dumps({k: v for k, v in d.items() if k != "raidId"})
+
+
+def by_id(db, raid_id):
+    return db.get(Raid, int(raid_id or 0))
+
+
+def own(db, uid):
+    """The player's latest discovered boss (row) or None."""
+    return db.query(Raid).filter(Raid.discoverer_id == uid).order_by(Raid.id.desc()).first()
+
+
+def visible(db, uids, now=None):
+    """Active bosses discovered by these players (the player + their party), as (row, record)."""
+    out = []
+    for row in db.query(Raid).filter(Raid.discoverer_id.in_(list(uids)), Raid.status == RAID_STATUS_ACTIVE):
+        d = load(row)
+        save(row, d)                         # persist an escape
+        if d["status"] == RAID_STATUS_ACTIVE:
+            out.append((row, d))
+    return out
+
+
+def participant(db, raid_id, uid, create=True):
+    p = db.get(RaidParticipant, (raid_id, uid))
+    if p is None and create:
+        p = RaidParticipant(raid_id=raid_id, user_id=uid, damage=0, rewarded=False)
+        db.add(p)
+        db.flush()
+    return p
+
+
+def participants(db, raid_id):
+    return db.query(RaidParticipant).filter(RaidParticipant.raid_id == raid_id).all()
+
+
+def create(db, uid, stage_id, setting_id, level):
+    d = build(stage_id, setting_id, level)
+    if not d:
+        return None, None
+    row = Raid(discoverer_id=uid, status=d["status"], data="{}")
+    db.add(row)
+    db.flush()
+    save(row, d)
+    participant(db, row.id, uid)             # the host always shares the rewards
+    return row, load(row)
+
+
+def migrate_legacy(db, st, uid):
+    """Raids stored in the player's own state document before shared raids: move them to the table."""
+    old = st.pop("raid", None)
+    if old and not own(db, uid):
+        row = Raid(discoverer_id=uid, status=old.get("status", RAID_STATUS_NONE), data="{}")
+        db.add(row)
+        db.flush()
+        save(row, {k: v for k, v in old.items() if k not in ("raidId", "rewarded", "seen_escape")})
+        p = participant(db, row.id, uid)
+        p.damage, p.rewarded = int(old.get("damage", 0)), bool(old.get("rewarded"))
+
+
+def boss_level(st, enemy_id):
+    """The level of this boss for its summoner this month (wiki: +1 per defeat of a boss you summoned, reset
+    monthly)."""
+    rec = st.get("raid_levels", {}).get(str(enemy_id))
+    return rec["level"] if rec and rec.get("month") == time.strftime("%Y-%m", time.gmtime()) else 1
+
+
+def level_up(st, enemy_id):
+    month = time.strftime("%Y-%m", time.gmtime())
+    st.setdefault("raid_levels", {})[str(enemy_id)] = {"level": boss_level(st, enemy_id) + 1, "month": month}
+
+
+def kills_threshold(st, power=10000):
+    """Enemies to defeat before the next boss (rolled once per cycle, scaled by a raid-encounter campaign)."""
+    if not st.get("raid_kill_goal"):
+        st["raid_kill_goal"] = random.randint(KILLS_MIN, KILLS_MAX)
+    return max(1, st["raid_kill_goal"] * 10000 // max(power, 1))
 
 
 def info(raid):
@@ -119,7 +215,7 @@ def apply_damage(raid, parts):
     return total
 
 
-def reward_rows(raid):
+def reward_rows(raid, mvp=True):
     """Roll the defeated boss's three reward tables (raidEnemy rewardId / mvpRewardId / destroyAllRewardId for
     its level). Returns {"subdueId": slot, "mvpId": slot, "partAllId": slot} with 1-BASED slot numbers (the
     client shows table.type/id/num[slot - 1]: RaidBossResultPopUp -> sub_5B730C, std::array<int,4>::at) and
@@ -130,7 +226,7 @@ def reward_rows(raid):
     slots, items = {"subdueId": 0, "mvpId": 0, "partAllId": 0}, []
     all_parts = all(h == 0 for h in raid["hp"])
     for key, field in (("subdueId", "rewardId"), ("mvpId", "mvpRewardId"), ("partAllId", "destroyAllRewardId")):
-        if key == "partAllId" and not all_parts:
+        if key == "partAllId" and not all_parts or key == "mvpId" and not mvp:
             continue
         row = _row("raidReward", "raidRewardId", (enemy.get(field) or [0] * 5)[idx])
         if not row or not row.get("validReward"):

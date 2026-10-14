@@ -112,6 +112,11 @@ class State:
         ensure_titles(self.data)                           # older saves have no titles
         ensure_avatar_parts(self.data)                     # older saves have no avatar parts
         self.data.setdefault("spheres", {})                # Avatar Boards: filled by sync_spheres
+        ensure_coordinates(self.data, self.user)           # older saves have no outfits
+        album = self.data.setdefault("album", [])          # older saves: seed the Album from the medals owned
+        for m in self.data.get("medals", []):
+            if m["medalId"] not in album:
+                album.append(m["medalId"])
         return self.data
 
     def __exit__(self, *exc):
@@ -119,6 +124,36 @@ class State:
             self.row.data = json.dumps(self.data)
             self.db.add(self.row)
         return False
+
+
+# --------------------------------------------------------------------------- outfits (UserAvatar::Coordinate)
+# The Outfits screen (SceneAvatarEdit::initMyCordinateButton) keeps the userAvatars whose myCoordinateNo is 1..6 and
+# selects the one equal to userDetail.equipCoordinateNo (7 is read as 1); with none it indexes an empty vector and
+# throws out_of_range. Slot 1 is seeded from the avatar made in the tutorial (the User columns).
+COORDINATE_SLOTS = 6
+COORDINATE_KEYS = ("gender", "hairPartsId", "hairColorPartsId", "facePartsId", "bodyPartsId", "skinPartsId")
+
+
+def ensure_coordinates(st, user):
+    if user is None or st.get("coordinates"):
+        return
+    acc = [int(x) for x in user.accessories_parts_ids.split(",") if x] if user.accessories_parts_ids else []
+    st["coordinates"] = [{"myCoordinateNo": 1, "gender": user.gender, "hairPartsId": user.hair_parts_id,
+                          "hairColorPartsId": user.hair_color_parts_id, "facePartsId": user.face_parts_id,
+                          "bodyPartsId": user.body_parts_id, "skinPartsId": user.skin_parts_id,
+                          "accessoriesPartsIds": acc}]
+
+
+def set_coordinate(st, c):
+    """Insert or replace one outfit from an updateAvatarData entry; returns the stored record (or None)."""
+    no = int(c.get("myCoordinateNo", 0))
+    if not 1 <= no <= COORDINATE_SLOTS:
+        return None
+    rec = {"myCoordinateNo": no, **{k: int(c.get(k, 0)) for k in COORDINATE_KEYS},
+           "accessoriesPartsIds": [int(x) for x in c.get("accessoriesPartsIds", [])][:5]}
+    st["coordinates"] = [x for x in st.get("coordinates", []) if x["myCoordinateNo"] != no] + [rec]
+    st["coordinates"].sort(key=lambda x: x["myCoordinateNo"])
+    return rec
 
 
 def load(user, db):
@@ -132,6 +167,8 @@ def add_medal(st, medal_id):
     m = new_medal(st["next_medal"], medal_id)
     st["next_medal"] += 1
     st["medals"].append(m)
+    if medal_id not in st.setdefault("album", []):       # the Album: every medal ever owned (GUESS: A1)
+        st["album"].append(medal_id)
     return m
 
 

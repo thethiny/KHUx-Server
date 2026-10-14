@@ -10,7 +10,7 @@ import os
 import random
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Callable, Optional
 
 from sqlalchemy.orm import Session as DBSession
@@ -18,9 +18,12 @@ from sqlalchemy.orm import Session as DBSession
 from .enums import Misc, clamp_progression
 from .information import CATEGORIES, NOTICES
 from .master import MASTER_KEY_HEX, MASTER_TABLE_NAMES, get_master_encrypted
-from .models import User
+from .models import Party, PartyApplication, PartyOffer, RaidParticipant, User
 from . import state as gstate
 from . import raid as graid
+from . import colosseum as gcol
+from . import party as gparty
+from . import ranking as granking
 from . import stagemap
 from . import gacha
 
@@ -60,9 +63,19 @@ def build_ret(user: Optional[User] = None) -> dict:
         # The old ">0 re-downloads every session" was /system/resource sending minVersion 0 (fixed there).
         "versionRes": int(os.environ.get("KHUX_VERSION_RES", "0")),
         "versionDat": 53,   # must match master_rev; bumping forces re-download + "update detected" popup
-        "functionFlags": 0,
+        # menu buttons the client shows: 0x01 party "Invitation code", 0x02 Other menu "Serial code" (0x08 KHchi
+        # avatar link, 0x10 transfer, 0x20 support, 0x04 shop benefit, 0x80 fund settlement: off)
+        "functionFlags": 0x03,
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
+
+
+def build_error(user: Optional[User], message: str) -> dict:
+    """An error the client shows as-is: HTTP 400 + a valid ret with ret.error (Ret::parse; Client::parseResponse
+    -> status 4 -> handleError shows ret.error; verifyResponse is skipped). app.py pops __http_status."""
+    resp = {"ret": dict(build_ret(user), error=message)}
+    resp["__http_status"] = 400
+    return resp
 
 
 def build_response(user: Optional[User] = None, **extra) -> dict:
@@ -95,11 +108,17 @@ def handle_login(request_data: dict, user: Optional[User], db_session: DBSession
     logger.info("LOGIN HANDLER: user=%s tutorial_done=%s progression=%s newcomer=%s tutorial=%s",
                 user.id if user else None, user.tutorial_done if user else None,
                 progression, newcomer, tutorial)
+    if user:
+        user.last_login_at = datetime.utcnow()          # party leader absence (PartyLogin.isAbsenceLeader)
+        db_session.add(user)
+    bonus = bool(user and not tutorial and user.tutorial_done and
+                 gstate.load(user, db_session).get("loginbonus", {}).get("last_day") != _bonus_day())
     return build_response(user,
         login={
             "newcomer": newcomer,
             "tutorial": tutorial,
-            "acquirableLoginBonus": False,
+            # true sends the client to /login/bonus (60) and SceneLoginBonus after the notices
+            "acquirableLoginBonus": bonus,
             "progression": progression,
         },
         phase=50,
@@ -166,6 +185,9 @@ def _add_lux(user: Optional[User], lux: int) -> None:
     if not user:
         return
     before = _lux_rank(user)
+    from sqlalchemy.orm import object_session
+    if object_session(user) is not None and lux > 0:
+        gparty.record_lux(object_session(user), user, lux)
     user.lux = (user.lux or 0) + lux
     user.total_lux = (user.total_lux or 0) + lux
     after = _lux_rank(user)
@@ -203,17 +225,31 @@ def _user_point(user: Optional[User]) -> dict:
     }
 
 
+def _equip_coordinate(user: Optional[User]) -> int:
+    # outfit slots are 1..6 (see state.COORDINATE_SLOTS); older saves stored 0
+    no = user.equip_coordinate_no if user else 1
+    return no if 1 <= no <= gstate.COORDINATE_SLOTS else 1
+
+
 def _user_avatar(user: Optional[User]) -> dict:
+    # the equipped outfit (the User columns mirror it)
     if not user:
-        return {"myCoordinateNo": 0, "gender": 0,
+        return {"myCoordinateNo": 1, "gender": 0,
                 "hairPartsId": 40001, "hairColorPartsId": 0,
                 "facePartsId": 20001, "bodyPartsId": 30001, "skinPartsId": 0,
                 "accessoriesPartsIds": []}
     acc = [int(x) for x in user.accessories_parts_ids.split(",") if x] if user.accessories_parts_ids else []
-    return {"myCoordinateNo": user.equip_coordinate_no, "gender": user.gender,
+    return {"myCoordinateNo": _equip_coordinate(user), "gender": user.gender,
             "hairPartsId": user.hair_parts_id, "hairColorPartsId": user.hair_color_parts_id,
             "facePartsId": user.face_parts_id, "bodyPartsId": user.body_parts_id,
             "skinPartsId": user.skin_parts_id, "accessoriesPartsIds": acc}
+
+
+def _user_avatars(user: Optional[User], db_session: DBSession) -> list:
+    # UserAvatarAll::parse (0x49F95C): userAvatars[] of Coordinate, every saved outfit
+    if not user:
+        return [_user_avatar(user)]
+    return [dict(c) for c in gstate.load(user, db_session)["coordinates"]]
 
 
 _STARTING_MEDALS = [
@@ -262,7 +298,10 @@ def handle_user_keyblade(request_data: dict, user: Optional[User], db_session: D
 def handle_stage_continue(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     # onRespond case 105 runs UserStone::parse + UserKeyblade::parse (needs >= 1 keyblade, each fed to
     # APIManager::updateKeyblade). Without them the continue fails and the client retries forever.
-    # Continues are free for now (the real jewel price is unknown).
+    # A continue costs 100 Jewels (KHUX Wiki Talk:Shop: "100 Jewels to continue? If you choose to continue, the
+    # special attack gauge will be maxed out" - the gauge refill is the client's).
+    if user and _spend_jewels(user, _misc(113, 100)):     # misc 113 (the 111-114 price block; GUESS: Q3)
+        db_session.add(user)
     logger.info("STAGE CONTINUE: user=%s", user.id if user else None)
     return build_response(user,
         userStone={"freeStone": user.free_stone if user else 300, "payStone": user.pay_stone if user else 0},
@@ -298,21 +337,37 @@ def handle_user_title(request_data: dict, user: Optional[User], db_session: DBSe
 
 @register(17)  # GET /user/support
 def handle_user_support(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, supportUser=_support_user(user, db_session))
+
+
+def _max_medal(user: Optional[User]) -> int:
+    return (user.max_medal or 100) if user else 100        # GUESS: M1 (starting size 100)
+
+
+def _support_medal(user: Optional[User], db_session: DBSession) -> dict:
+    """The medal other players borrow: the one picked with /user/support/update, else deck slot 1 (GUESS: S1)."""
+    st = gstate.load(user, db_session)
+    mid = st.get("support_medal")
+    return next((m for m in st["medals"] if m["userMedalId"] == mid), None) or _lead_medal(user, db_session)
+
+
+def _support_user(user: Optional[User], db_session: DBSession) -> dict:
+    # UserSupport::parse (0002.c:16505): supportUser {supportUserId u64, level, partyId u64, userName, titles,
+    # userKeybladeId u64, keybladeId, userMedalId u64, medalId, lastActionDatetime}
     uid = user.id if user else 1
-    return build_response(user,
-        supportUser={
-            "supportUserId": uid, "level": 1, "partyId": 0,
-            "userName": user.user_name if user else "Player",
-            **_user_titles(user),
-            "userKeybladeId": 0, "keybladeId": 0,
-            "userMedalId": 0, "medalId": 0,
-            "lastActionDatetime": "2026-01-01 00:00:00",
-        })
+    medal = _support_medal(user, db_session) if user else {"userMedalId": 0, "medalId": 0}
+    kbs = gstate.load(user, db_session)["keyblades"] if user else []
+    kb = next((k for k in kbs if k.get("isFavorite")), kbs[0] if kbs else {"userKeybladeId": 0, "keybladeId": 0})
+    return {"supportUserId": uid, "level": _lux_rank(user), "partyId": _party_id(user),
+            "userName": user.user_name if user else "Player", **_user_titles(user),
+            "userKeybladeId": kb["userKeybladeId"], "keybladeId": kb["keybladeId"],
+            "userMedalId": medal["userMedalId"], "medalId": medal["medalId"],
+            "lastActionDatetime": time.strftime("%Y-%m-%d %H:%M:%S")}
 
 
 @register(20)  # GET /user/avatar/all
 def handle_user_avatar_all(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, userAvatars=[_user_avatar(user)])
+    return build_response(user, userAvatars=_user_avatars(user, db_session))
 
 
 @register(21)  # GET /user/avatar/parts
@@ -338,6 +393,17 @@ def _user_titles(user: Optional[User]) -> dict:
 
 def _title_ids() -> set:
     return gstate.title_ids()
+
+
+@register(38)  # POST /user/playstyle/update {playTimezones: [slot 1..6, up to 3], playFrequently}
+def handle_play_style_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # profile -> Play Style; verifyResponse case 38 parses UserDetail (userData.userDetail)
+    if user:
+        zones = [int(z) for z in request_data.get("playTimezones", []) if 1 <= int(z) <= 6][:6]
+        user.play_timezones = ",".join(str(z) for z in zones)
+        user.play_frequently = int(request_data.get("playFrequently", 0))
+        db_session.add(user)
+    return build_response(user, userData={"userDetail": _user_detail(user)})
 
 
 @register(39)  # POST /user/title/update {titleLeftId, titleRightId, titlePlateId}
@@ -412,18 +478,31 @@ def handle_gender_update(request_data: dict, user: Optional[User], db_session: D
 
 @register(41)  # POST /user/avatar/update
 def handle_avatar_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # APIManager::executeUserAvatarUpdate (0x4C8B54) sends updateAvatarData: [Coordinate + defaultFlag] for the
+    # outfits it changed; defaultFlag 1 marks the equipped one. verifyResponse case 41 parses UserAvatarAll
+    # (userAvatars) and UserDetail (userData.userDetail, equipCoordinateNo).
     logger.info("AVATAR UPDATE: %s", request_data)
+    entries = request_data.get("updateAvatarData", [])
+    if isinstance(entries, dict):
+        entries = [entries]
     if user:
-        user.hair_parts_id = request_data.get("hairPartsId", user.hair_parts_id)
-        user.hair_color_parts_id = request_data.get("hairColorPartsId", user.hair_color_parts_id)
-        user.face_parts_id = request_data.get("facePartsId", user.face_parts_id)
-        user.body_parts_id = request_data.get("bodyPartsId", user.body_parts_id)
-        user.skin_parts_id = request_data.get("skinPartsId", user.skin_parts_id)
-        acc = request_data.get("accessoriesPartsIds", [])
-        user.accessories_parts_ids = ",".join(str(x) for x in acc) if acc else ""
-        user.equip_coordinate_no = request_data.get("myCoordinateNo", user.equip_coordinate_no)
+        with gstate.State(user, db_session) as st:
+            for c in entries:
+                rec = gstate.set_coordinate(st, c)
+                if rec and c.get("defaultFlag"):
+                    user.equip_coordinate_no = rec["myCoordinateNo"]
+            equipped = next((x for x in st["coordinates"] if x["myCoordinateNo"] == _equip_coordinate(user)), None)
+        if equipped:
+            user.gender = equipped["gender"]
+            user.hair_parts_id = equipped["hairPartsId"]
+            user.hair_color_parts_id = equipped["hairColorPartsId"]
+            user.face_parts_id = equipped["facePartsId"]
+            user.body_parts_id = equipped["bodyPartsId"]
+            user.skin_parts_id = equipped["skinPartsId"]
+            user.accessories_parts_ids = ",".join(str(x) for x in equipped["accessoriesPartsIds"])
         db_session.add(user)
-    return build_response(user, userAvatar=_user_avatar(user))
+    return build_response(user, userAvatars=_user_avatars(user, db_session),
+                          userData={"userDetail": _user_detail(user)})
 
 
 @register(63)  # POST /tutorial/clear
@@ -437,17 +516,88 @@ def handle_tutorial_clear(request_data: dict, user: Optional[User], db_session: 
             "progression": 995,
         },
         partyId=0,
+        **_invite_bonus(user, db_session),
     )
+
+
+def _invite_owner(db_session: DBSession, code: str) -> Optional[User]:
+    from .models import UserState
+    import json as _json
+    for us in db_session.query(UserState).all():
+        try:
+            if (_json.loads(us.data or "{}").get("invite") or {}).get("code") == code:
+                return db_session.get(User, us.user_id)
+        except ValueError:
+            continue
+    return None
+
+
+INVITE_CAP = 10        # GUESS: IC2 - how many invitees pay the inviter (invited + remaining)
+
+
+def _invite_bonus(user: Optional[User], db_session: DBSession) -> dict:
+    """TutorialClear.inviteBonus {user, party, firstReward, inviteStone} for a player who redeemed an invite code
+    (once). The client then shows: joined the inviter's party (firstReward != 0) + "Received %d Jewels for using an
+    invitation code" (misc 115) + first-party Jewels (misc 117), or "Unable to join" (firstReward 0). Both players
+    get misc 115 Jewels in the present box (texts 104010001 "You'll both get %d Jewels"; GUESS: IC1)."""
+    if not user:
+        return {}
+    with gstate.State(user, db_session) as st:
+        inv = st.get("invited_by")
+        if not inv or inv.get("delivered"):
+            return {}
+        inv["delivered"] = True
+        jewels = _misc(115, 300)
+        add_present(st, gstate.ITEM_JEWEL if hasattr(gstate, "ITEM_JEWEL") else 2, 0, jewels, "Invitation Code")
+    inviter = db_session.get(User, inv["userId"])
+    if inviter is None:
+        return {}
+    with gstate.State(inviter, db_session) as ist:
+        rec = ist.setdefault("invite", {"code": _make_invite_code(db_session), "invited": 0})
+        if rec["invited"] < INVITE_CAP:
+            rec["invited"] += 1
+            add_present(ist, 2, 0, jewels, "Invitation Code")
+    p = gparty.party_of(db_session, inviter.id)
+    joined = 0
+    if p and len(gparty.members(db_session, p.id)) < gparty.max_members():
+        if gparty.membership(db_session, user.id):
+            gparty.leave(db_session, user.id)
+        gparty._join(db_session, user.id, p)
+        _after_join(db_session, user.id)
+        user.union_id = inviter.union_id
+        db_session.add(user)
+        joined = 1
+    party_obj = gparty.party_obj(db_session, p) if p else gparty.party_obj(db_session, Party(
+        id=0, union_id=inviter.union_id or 0, name="", message="", play_style=0, agree_type=0,
+        leader_user_id=inviter.id, admin_ids=""))
+    logger.info("INVITE BONUS: user %s, inviter %s, joined party %s", user.id, inviter.id, p.id if joined else 0)
+    return {"inviteBonus": {"user": _user_obj(inviter), "party": party_obj, "firstReward": joined,
+                            "inviteStone": jewels}}
+
+
+def _make_invite_code(db_session: DBSession) -> str:
+    alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+    while True:
+        code = "".join(random.choice(alphabet) for _ in range(8))
+        if _invite_owner(db_session, code) is None:
+            return code
 
 
 @register(69)  # POST /union/change
 def handle_union_change(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    union_id = request_data.get("unionId", 1)
+    # verifyResponse case 69 needs userData.userDetail + userStone (it failed with ret only). The client refuses
+    # while in a party and charges misc 114 (100) Jewels, checking the balance itself (GUESS: U1 - every change).
+    union_id = int(request_data.get("unionId", 1) or 1)
     logger.info("UNION CHANGE: %s", union_id)
-    if user:
+    if user and union_id != user.union_id and _spend_jewels(user, _misc(114, 100)):
         user.union_id = union_id
         db_session.add(user)
-    return build_response(user)
+        # the week's Lux no longer counts (2016 guide: "will be reset to zero and not count towards the week's
+        # rankings")
+        from .models import LuxLedger
+        db_session.query(LuxLedger).filter(LuxLedger.user_id == user.id,
+                                           LuxLedger.at >= gparty.week_start()).delete()
+    return build_response(user, userData={"userDetail": _user_detail(user)}, userStone=_user_stone(user))
 
 
 _PROGRESSION_MAP = {0: 0, 1: 1, 3: 3, 4: 4, 5: 5, 6: 6, 995: 995}
@@ -475,6 +625,9 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
             user.skin_parts_id = avatar_data.get("skinPartsId", user.skin_parts_id)
             acc = avatar_data.get("accessoriesPartsIds", [])
             user.accessories_parts_ids = ",".join(str(x) for x in acc) if acc else ""
+            with gstate.State(user, db_session) as st:                  # the tutorial avatar is outfit 1
+                gstate.set_coordinate(st, {**avatar_data, "myCoordinateNo": 1})
+            user.equip_coordinate_no = 1
         union_id = request_data.get("unionId")
         if union_id is not None:
             user.union_id = union_id
@@ -483,11 +636,22 @@ def handle_tutorial_progress(request_data: dict, user: Optional[User], db_sessio
         if raw_progression >= 995: # Union is at 6, tutorial at 995. Must be set to 6 to avoid re-download on failed tutorial.
             user.tutorial_done = True
         db_session.add(user)
+    code = str(request_data.get("inviteCode") or "").strip().upper()
+    if user and code:
+        inviter = _invite_owner(db_session, code)
+        if inviter is None or inviter.id == user.id:
+            return build_error(user, "This invitation code is not valid.")
+        with gstate.State(user, db_session) as st:
+            st["invited_by"] = {"userId": inviter.id, "code": code, "delivered": False}
+        logger.info("INVITE CODE %s: user %s invited by %s", code, user.id, inviter.id)
+    pending = gstate.load(user, db_session).get("invited_by") if user else None
     tutorial_resp = {
         "userTutorialId": 1,
         "progression": progression,
         "name": name or (user.user_name if user else ""),
-        "inviteCode": "",
+        # non-empty makes the client send /tutorial/clear right after the avatar (to show the invite bonus);
+        # empty again once delivered (a repeat would show "Unable to join")
+        "inviteCode": pending["code"] if pending and not pending.get("delivered") else "",
     }
     if progression >= 4:
         tutorial_resp["unionId"] = user.union_id if user else 0
@@ -772,47 +936,35 @@ def handle_stage(request_data: dict, user: Optional[User], db_session: DBSession
     )
 
 
-@register(80)  # GET /party/member/list
-def handle_party_member_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    uid = user.id if user else 1
-    return build_response(user,
-        userParty={
-            "userId": uid,
-            "partyId": 0,
-            "isJoin": 0,
-            "isLeader": 0,
-            "isAdmin": 0,
-            "flagFirstReward": 0,
-            "joinDate": "2026-01-01 00:00:00",
-        },
-        partyMembers=[],
-    )
-
-
 @register(107)  # GET /raid
 def handle_raid(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     # hole::network::api::Raid::init needs raidStatus + raid (RaidBase::Info) + discoverer + mvp
     # (RaidBase::User: userId, name, level, userAvatar Coordinate). Without discoverer/mvp the parse fails,
     # APIManager keeps a NULL raid buffer and the tutorial resume crashes in the raid callback (sub_71CAC0).
-    raid_user = {
-        "userId": user.id if user else 0,
-        "name": user.user_name if user and user.user_name else "",
-        "level": _lux_rank(user),
-        "userAvatar": _user_avatar(user),
-    }
-    # raidStatus: 3 boss up (shown on the quest map when raidId != 0, timeLeft ahead and parts[0].hp > 0),
-    # 1 defeated (reward popup from /raid/reward/151101), 2 escaped, 0 none.
+    # raidStatus (the player's OWN boss): 3 up (shown on the quest map when raidId != 0, timeLeft ahead and
+    # parts[0].hp > 0), 1 defeated (reward popup from /raid/reward/151101), 2 escaped, 0 none.
+    uid = user.id if user else 0
     with gstate.State(user, db_session) as st:
-        raid = graid.current(st)
+        graid.migrate_legacy(db_session, st, uid)
+        row = graid.own(db_session, uid)
+        raid = graid.load(row) if row else None
+        if row:
+            graid.save(row, raid)
         status = raid["status"] if raid else graid.RAID_STATUS_NONE
-        if raid and status in (graid.RAID_STATUS_DEFEATED, graid.RAID_STATUS_ESCAPED) and (
-                raid.get("rewarded") or status == graid.RAID_STATUS_ESCAPED and raid.get("seen_escape")):
+        me = graid.participant(db_session, row.id, uid, create=False) if row else None
+        seen = st.setdefault("raid_seen_escape", [])
+        if raid and status == graid.RAID_STATUS_DEFEATED and (me is None or me.rewarded):
             status = graid.RAID_STATUS_NONE
         if raid and status == graid.RAID_STATUS_ESCAPED:
-            raid["seen_escape"] = True          # report an escape once, then the slot is free again
+            if row.id in seen:
+                status = graid.RAID_STATUS_NONE
+            else:
+                seen.append(row.id)              # report an escape once, then the slot is free again
         info = graid.info(raid if status != graid.RAID_STATUS_NONE else None)
+        mvp = _raid_mvp(db_session, row.id) if row else uid
     logger.info("RAID: status=%s raid=%s", status, info)
-    return build_response(user, raidStatus=status, raid=info, discoverer=raid_user, mvp=raid_user)
+    return build_response(user, raidStatus=status, raid=info, discoverer=_raid_user(user),
+                          mvp=_raid_user(db_session.get(User, mvp) or user))
 
 
 def _raid_user(user: Optional[User]) -> dict:
@@ -820,30 +972,50 @@ def _raid_user(user: Optional[User]) -> dict:
             "level": _lux_rank(user), "userAvatar": _user_avatar(user)}
 
 
+def _raid_mvp(db_session: DBSession, raid_id: int) -> int:
+    """The participant with the most damage (0 = none)."""
+    ps = graid.participants(db_session, raid_id)
+    return max(ps, key=lambda p: p.damage).user_id if ps else 0
+
+
+def _raid_party(db_session: DBSession, uid: int) -> list:
+    """Players whose bosses this player sees and may join: themself + their party (wiki: party members can
+    pay 10 AP to assist; help requests go to the party)."""
+    pid = gparty.party_id_of(db_session, uid)
+    return [uid] + ([m.user_id for m in gparty.members(db_session, pid) if m.user_id != uid] if pid else [])
+
+
 def _raid_rewards(user: Optional[User], db_session: DBSession, with_users: bool) -> list:
-    """Pending rewards of a defeated raid (granted once), as RaidReward entries. subdueId / mvpId / partAllId
-    are 1-based SLOT numbers in the boss's reward tables, not table ids (table ids crashed the client's
-    RaidBossResultPopUp with std::out_of_range)."""
+    """Pending rewards of defeated raids this player fought (each handed out once), as RaidReward entries.
+    Victory (subdue) to every participant; MVP to the top damage dealer and to the host (discoverer), once if
+    the same player; All Points Defeated to everyone when every part fell (raid.reward_rows). subdueId / mvpId
+    / partAllId are 1-based SLOT numbers in the boss's reward tables (table ids crashed RaidBossResultPopUp)."""
     out = []
+    uid = user.id if user else 0
+    pending = db_session.query(RaidParticipant).filter(RaidParticipant.user_id == uid,
+                                                       RaidParticipant.rewarded.is_(False)).all()
     with gstate.State(user, db_session) as st:
-        raid = graid.current(st)
-        if not raid or raid["status"] != graid.RAID_STATUS_DEFEATED or raid.get("rewarded"):
-            return out
-        raid["rewarded"] = True
-        slots, items = graid.reward_rows(raid)
-        medals = []
-        for rtype, rid, num in items:
-            medals += _grant(user, st, rtype, rid, num)
-        entry = {
-            "raidId": raid["raidId"], "level": raid["level"], **slots,
-            "parts": graid.info(raid)["parts"],
-            "mvpTotalDamage": raid["damage"],
-            "userMedals": medals, "userSkills": [], "userMaterials": gstate.materials_list(st),
-        }
-        if with_users:
-            entry["discoverer"] = _raid_user(user)
-            entry["mvp"] = _raid_user(user)
-        out.append(entry)
+        for me in pending:
+            row = graid.by_id(db_session, me.raid_id)
+            raid = graid.load(row) if row else None
+            if not raid or raid["status"] != graid.RAID_STATUS_DEFEATED:
+                continue
+            me.rewarded = True
+            mvp_uid = _raid_mvp(db_session, row.id)
+            slots, items = graid.reward_rows(raid, mvp=uid in (mvp_uid, row.discoverer_id))
+            medals = []
+            for rtype, rid, num in items:
+                medals += _grant(user, st, rtype, rid, num)
+            entry = {
+                "raidId": raid["raidId"], "level": raid["level"], **slots,
+                "parts": graid.info(raid)["parts"],
+                "mvpTotalDamage": max((p.damage for p in graid.participants(db_session, row.id)), default=0),
+                "userMedals": medals, "userSkills": [], "userMaterials": gstate.materials_list(st),
+            }
+            if with_users:
+                entry["discoverer"] = _raid_user(db_session.get(User, row.discoverer_id))
+                entry["mvp"] = _raid_user(db_session.get(User, mvp_uid))
+            out.append(entry)
     logger.info("RAID REWARD: %s", out)
     return out
 
@@ -860,28 +1032,44 @@ def handle_raid_reward_all(request_data: dict, user: Optional[User], db_session:
                           raidRewards=_raid_rewards(user, db_session, with_users=True))
 
 
-@register(111)  # GET /raid/member
+@register(111)  # GET /raid/member {raidId}
 def handle_raid_member(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    raid = graid.current(gstate.load(user, db_session))
-    uid = user.id if user else 0
-    return build_response(user,
-        cooperators=[{"user": _raid_user(user), "damage": raid["damage"]}] if raid else [],
-        discovererUserId=uid, mvpUserId=uid)
+    # cooperators [{user: RaidBase::User, damage}], discovererUserId, mvpUserId. RaidBossResultPopUp reads
+    # cooperators.at(): never send it empty.
+    row = graid.by_id(db_session, request_data.get("raidId")) or graid.own(db_session, user.id if user else 0)
+    coop = []
+    if row:
+        for p in sorted(graid.participants(db_session, row.id), key=lambda p: -p.damage):
+            o = db_session.get(User, p.user_id)
+            if o:
+                coop.append({"user": _raid_user(o), "damage": p.damage})
+    if not coop:
+        coop = [{"user": _raid_user(user), "damage": 0}]
+    return build_response(user, cooperators=coop,
+                          discovererUserId=row.discoverer_id if row else (user.id if user else 0),
+                          mvpUserId=(_raid_mvp(db_session, row.id) if row else 0) or (user.id if user else 0))
 
 
-@register(112)  # POST /raid/start
+@register(112)  # POST /raid/start {raidId, supportUserId, userKeybladeId}
 def handle_raid_start(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    # request {raidId, supportUserId, userKeybladeId}
+    # The boss may be the player's own or a party member's (/raid/list). The fighter becomes a participant.
     logger.info("RAID START: %s", request_data)
-    raid = graid.current(gstate.load(user, db_session))
+    uid = user.id if user else 0
+    row = graid.by_id(db_session, request_data.get("raidId")) or graid.own(db_session, uid)
+    raid = graid.load(row) if row else None
+    if row:
+        graid.participant(db_session, row.id, uid)
+        with gstate.State(user, db_session) as st:
+            st["raid_playing"] = row.id
+            st["stage_keyblade"] = request_data.get("userKeybladeId", 1)
     return build_response(user,
         userData={"userPoint": _user_point(user)},
         raid=graid.info(raid),
         players=[], vitalsLog=[], partsLog=[],
-        startRaidData={"raidId": request_data.get("raidId", raid["raidId"] if raid else 0),
+        startRaidData={"raidId": row.id if row else 0,
                        "supportUserId": request_data.get("supportUserId", 0),
                        "userKeybladeId": request_data.get("userKeybladeId", 1)},
-        discovererUserId=user.id if user else 0,
+        discovererUserId=row.discoverer_id if row else uid,
         campaigns=[],
         supportUsers=[],
     )
@@ -889,14 +1077,29 @@ def handle_raid_start(request_data: dict, user: Optional[User], db_session: DBSe
 
 @register(113)  # POST /raid/clear
 def handle_raid_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    # request {parts:[{raidEnemyId, partsId, hp, damage}], getPoint:{exp, money, lux}, maximumDamage, burst}
+    # request {parts:[{raidEnemyId, partsId, hp, damage}], getPoint:{exp, money, lux}, maximumDamage, burst}.
+    # Damage goes to the SHARED boss (the one started with 112) and to this player's participant row.
     logger.info("RAID CLEAR: %s", request_data)
+    uid = user.id if user else 0
     with gstate.State(user, db_session) as st:
-        raid = graid.current(st)
+        row = graid.by_id(db_session, st.get("raid_playing")) or graid.own(db_session, uid)
+        raid = graid.load(row) if row else None
         if raid and raid["status"] == graid.RAID_STATUS_ACTIVE:
-            graid.apply_damage(raid, request_data.get("parts"))
-        # raidTimeStatus must be 1..5 (RaidClear::parse); 1 = boss still up (the client may ask the union
-        # for help). Other values' meanings are unknown; 2 is used for "defeated".
+            dealt = graid.apply_damage(raid, request_data.get("parts"))
+            graid.participant(db_session, row.id, uid).damage += dealt
+            graid.save(row, raid)
+            if raid["status"] == graid.RAID_STATUS_DEFEATED:
+                host = db_session.get(User, row.discoverer_id)
+                if host:                                     # the summoner's boss goes up a level (wiki)
+                    if host.id == uid:
+                        graid.level_up(st, raid["enemyId"])
+                    else:
+                        with gstate.State(host, db_session) as hst:
+                            graid.level_up(hst, raid["enemyId"])
+                logger.info("RAID DEFEATED: %s (host %s)", row.id, row.discoverer_id)
+        _store_burst(st, request_data.get("burst"))
+        # raidTimeStatus must be 1..5 (RaidClear::parse); 1 = boss still up (the client may ask for help).
+        # Other values' meanings are unknown; 2 is used for "defeated". GUESS: R2
         time_status = 1 if raid and raid["status"] == graid.RAID_STATUS_ACTIVE else 2
     if user:
         gp = request_data.get("getPoint", {})
@@ -911,6 +1114,15 @@ def handle_raid_clear(request_data: dict, user: Optional[User], db_session: DBSe
         userSkills=[], userTitles=[],
         userKeyblades=_user_keyblades(user, db_session),
     )
+
+
+@register(108)  # GET /raid/list: the player's own boss + their party members' active bosses
+def handle_raid_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    uid = user.id if user else 0
+    raids = []
+    for row, raid in graid.visible(db_session, _raid_party(db_session, uid)):
+        raids.append({"raid": graid.info(raid), "discoverer": _raid_user(db_session.get(User, row.discoverer_id))})
+    return build_response(user, raids=raids)
 
 
 @register(103)  # POST /stage/start
@@ -952,6 +1164,17 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
     )
 
 
+def _party_id(user: Optional[User]) -> int:
+    from sqlalchemy.orm import object_session
+    db = object_session(user) if user is not None else None
+    return gparty.party_id_of(db, user.id) if db is not None else 0
+
+
+def _play_timezones(user: Optional[User]) -> list:
+    # UserDetail::parse keeps up to 6 entries: the chosen time slots (1..6), not a 6-slot mask
+    return [int(x) for x in (user.play_timezones or "").split(",") if x] if user else []
+
+
 def _user_detail(user: Optional[User]) -> dict:
     return {
         "level": _lux_rank(user),
@@ -960,9 +1183,9 @@ def _user_detail(user: Optional[User]) -> dict:
         "luxGetRatio": 100,
         **_user_titles(user),
         "maxDeckCost": user.max_deck_cost if user else 30,
-        "playTimezones": [0, 0, 0, 0, 0, 0],
-        "playFrequently": 0, "partyId": 0, "unionId": user.union_id if user else 1,
-        "maxMedal": 100, "mvpCount": 0, "equipCoordinateNo": 0,
+        "playTimezones": _play_timezones(user),
+        "playFrequently": (user.play_frequently or 0) if user else 0, "partyId": _party_id(user), "unionId": user.union_id if user else 1,
+        "maxMedal": (user.max_medal or 100) if user else 100, "mvpCount": 0, "equipCoordinateNo": _equip_coordinate(user),
         "lastClearStageId": user.last_clear_stage_id if user else 0,
         "lastPlayNormalSphereBoardId": 0, "lastPlayStageSphereBoardId": 0,
         "lastPlayRaidSphereBoardId": 0, "lastPlayColosseumSphereBoardId": 0,
@@ -1022,21 +1245,29 @@ def handle_stage_clear(request_data: dict, user: Optional[User], db_session: DBS
             logger.info("  TITLE %s (clearGetTitle)", row.get("clearGetTitle"))
         new_titles = gstate.titles_since(st, title_mark)
         materials = gstate.materials_list(st)
-        # Raid boss appearance was one of the original server's private formulas (the client never reads misc 200
-        # and never applies evCampaign types 6/8). Best guess: chance per quest = the quest's raid points
-        # (getPoint.raidPoint, summed from enemy.raidPoint; ~800-2000) / 10000, times the campaign power for type 6
-        # (power/10000; "100% Raid Boss Encounter" is x100). Only on a stage with raidBoss (a raidSetting id) and
-        # no boss already up.
-        quest_raid_points = request_data.get("getPoint", {}).get("raidPoint", 0)
-        chance = quest_raid_points * _campaign_power(6) // 10000            # out of 10000
-        cur = graid.current(st)
+        # Raid boss discovery (KHUX Wiki "Raid Boss" + talk page): a boss appears after the player has defeated
+        # ~75 enemies (68-82, rolled per cycle; GUESS: R1 for the exact range), on a stage with raidBoss (a
+        # raidSetting id) and no own boss up; which boss = the stage's raidSetting (the last quest cleared).
+        # A raid-encounter campaign (evCampaign type 6, power/10000) shortens the count.
+        st["raid_kills"] = st.get("raid_kills", 0) + int(request_data.get("enemyDeadNumber", 0) or 0) \
+            + int(request_data.get("rareEnemyDeadNumber", 0) or 0)
+        own = graid.own(db_session, user.id) if user else None
+        own_up = own is not None and graid.load(own)["status"] == graid.RAID_STATUS_ACTIVE
         raid_found = False
-        if row.get("raidBoss") and not (cur and cur["status"] == graid.RAID_STATUS_ACTIVE):
-            roll = random.randrange(10000)
-            if roll < chance and graid.discover(st, stage_id, row["raidBoss"]):
+        story = gstate.story_order()
+        quest_no = story.index(stage_id) + 1 if stage_id in story else 0
+        always = quest_no in graid.ALWAYS_SPAWN_QUESTS and first_clear
+        never = quest_no in graid.NEVER_SPAWN_QUESTS
+        if user and row.get("raidBoss") and not never and not own_up and (always or st["raid_kills"] >= graid.kills_threshold(
+                st, _campaign_power(6))):
+            setting = graid._row("raidSetting", "raidSettingId", row["raidBoss"]) or {}
+            new_row, raid = graid.create(db_session, user.id, stage_id, row["raidBoss"],
+                                         graid.boss_level(st, setting.get("bossId", 0)))
+            if new_row:
                 raid_found = True
-                logger.info("RAID DISCOVERED: stage %s setting %s (roll %d < %d)", stage_id, row["raidBoss"],
-                            roll, chance)
+                logger.info("RAID DISCOVERED: stage %s setting %s level %s after %s kills", stage_id,
+                            row["raidBoss"], raid["level"], st["raid_kills"])
+                st["raid_kills"], st["raid_kill_goal"] = 0, 0
     if user:
         get_point = request_data.get("getPoint", {})
         user.exp += get_point.get("exp", 0)
@@ -1338,7 +1569,7 @@ def _user_record(user: Optional[User], st: dict) -> dict:
 def handle_user_profile(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     # request {userId, platformType}; response = UserProfile::parse: userData.{user, userDetail, userPoint,
     # lastActionDatetime}, userMedals[], userSkills[], userAvatar, userKeyblade, userRecord (53 uint64),
-    # userRanking {lux, rank}, linkPlatformId; party only when userDetail.partyId != 0 (we never set one).
+    # userRanking {lux, rank}, linkPlatformId; party only when userDetail.partyId != 0.
     target = user
     req_id = request_data.get("userId")
     if req_id and user and int(req_id) != user.id:
@@ -1369,6 +1600,9 @@ def handle_user_profile(request_data: dict, user: Optional[User], db_session: DB
         },
         userMedals=medals, userSkills=[], userAvatar=avatar, userKeyblade=kb, userRecord=record,
         userRanking={"lux": point.get("totalLux", 0), "rank": 0}, linkPlatformId="",
+        # UserProfile::parse requires "party" when userDetail.partyId != 0
+        **({"party": gparty.party_obj(db_session, db_session.get(Party, detail["partyId"]))}
+           if detail.get("partyId") and db_session.get(Party, detail["partyId"]) else {}),
     )
 
 
@@ -1414,7 +1648,7 @@ def handle_present_receive(request_data: dict, user: Optional[User], db_session:
             if pr["userPresentId"] not in ids:
                 kept.append(pr)
                 continue
-            if pr["resourceType"] == gstate.ITEM_MEDAL and len(st["medals"]) + pr["number"] > 100:
+            if pr["resourceType"] == gstate.ITEM_MEDAL and len(st["medals"]) + pr["number"] > _max_medal(user):
                 kept.append(pr)                     # medal box full
                 continue
             new_medals += _grant(user, st, pr["resourceType"], pr["resourceId"], pr["number"])
@@ -1506,55 +1740,6 @@ def handle_user_chat(request_data: dict, user: Optional[User], db_session: DBSes
         },
         authToken="server_auth_token",
         userToken="server_user_token",
-    )
-
-
-@register(78)  # GET /party
-def handle_party(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    uid = user.id if user else 1
-    return build_response(user,
-        partyId=0,
-        party={
-            "partyId": 0,
-            "unionId": user.union_id if user else 0,
-            "rank": 0,
-            "name": "",
-            "playStyle": 0,
-            "agreeType": 0,
-            "message": "",
-            "memberCount": 0,
-            "leaderUserId": 0,
-            "adminUserIds": [],
-            "leaderAppointDate": "2000-01-01 00:00:00",
-            "newcomerDate": "2000-01-01 00:00:00",
-            "chatId": 0,
-            "chatEndpointUrl": "",
-        },
-        partyLeader={
-            "supportUserId": uid,
-            "level": 1,
-            "userName": user.user_name if user else "Player",
-            **_user_titles(user),
-            "addKizunaPoint": 0,
-            "keybladeId": 1000,
-            "isParty": 0,
-            "isGuilt": 0,
-            "userMedal": _lead_medal(user, db_session),
-            "userSkills": [],
-            "userAvatar": _user_avatar(user),
-            "lastActionDatetime": "2026-01-01 00:00:00",
-            "earnLuxRank": 0,
-        },
-        userParty={
-            "userId": uid,
-            "partyId": 0,
-            "isJoin": 0,
-            "isLeader": 0,
-            "isAdmin": 0,
-            "flagFirstReward": 0,
-            "joinDate": "2026-01-01 00:00:00",
-        },
-        supportUsers=[],
     )
 
 
@@ -1830,26 +2015,6 @@ def handle_information_detail(request_data: dict, user: Optional[User], db_sessi
     })
 
 
-@register(76)  # GET /party/notice
-def handle_party_notice(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user,
-        hasNewOffer=0, isApply=0, hasNewApplicant=0, isNewLeader=0, newcomerUsers=[])
-
-
-@register(108)  # GET /raid/list
-def handle_raid_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    raid = graid.current(gstate.load(user, db_session))
-    raids = []
-    if raid and raid["status"] == graid.RAID_STATUS_ACTIVE:
-        raids.append({"raid": graid.info(raid), "discoverer": _raid_user(user)})
-    return build_response(user, raids=raids)
-
-
-@register(129)  # GET /ranking/parade
-def handle_ranking_parade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
-    return build_response(user, unionParade={"rankingUnionResult": [], "rankingUnionTopRanker": []})
-
-
 @register(131)  # GET /campaign
 def handle_campaign(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
     return build_response(user, campaigns=[])
@@ -2053,16 +2218,947 @@ def handle_mypage(request_data: dict, user: Optional[User], db_session: DBSessio
         openBanners=[],
         userPresentCount=len(gstate.load(user, db_session).get("presents", [])) if user else 0,
         isChangeCoordinate=0,
-        rankingRewards={
-            "rankingColosseum": 0, "rankingParty": 0,
-            "rankingLuxWeekly": 0, "rankingLuxMonthly": 0, "rankingLux": 0,
-        },
+        # a flag per ranking with an undelivered result: MyPage then calls 130 for it and shows the popups
+        rankingRewards=_ranking_flags(user, db_session),
         backgroundId=150911,
         isNewAlbumChallenge=0,
         loginBonus=[],
         events=[],
         notifications=[],
     )
+
+
+# --------------------------------------------------------------------------- Colosseum (114-118, 127/128)
+# Shapes from verifyResponse cases 114-118 and their parsers (Colosseum::parse, ColosseumStart::parse,
+# ColosseumClear::parse); progress rules in colosseum.py.
+
+@register(114)  # GET /colosseum
+def handle_colosseum(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # Colosseum::parse(doc, 0): colosseumInfo, colosseumStages[] {rank, stageCount, stageId, useAp}, userColosseum.
+    # The stage list is shown only with status 1; a bad element fails the whole parse.
+    with gstate.State(user, db_session) as st:
+        rec = gcol.progress(st)
+        stages = gcol.next_stage(rec)
+        uc = gcol.user_colosseum(rec)
+    return build_response(user, colosseumInfo=gcol.info(), colosseumStages=stages, userColosseum=uc)
+
+
+@register(115)  # GET /colosseum/reward/list
+def handle_colosseum_reward_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # ranks (rounds) whose completion reward was already given: the reward screen marks them cleared
+    with gstate.State(user, db_session) as st:
+        got = sorted(gcol.progress(st)["rewardRanks"])
+    return build_response(user, getRewardRankIds=got)
+
+
+@register(116)  # POST /colosseum/start {rank, stageCount, stageId, userKeybladeId}
+def handle_colosseum_start(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserPoint + Colosseum::parse(doc, 1) (info + userColosseum) + ColosseumStart::parse (userTreasures[],
+    # startColosseumData echo, campaigns[]). The client loads startColosseumData.stageId and echoes rank /
+    # stageCount / stageId back in /colosseum/clear, so echo the request.
+    logger.info("COLOSSEUM START: %s", request_data)
+    start = {"rank": int(request_data.get("rank", 1)), "stageCount": int(request_data.get("stageCount", 1)),
+             "stageId": int(request_data.get("stageId", 0)), "userKeybladeId": int(request_data.get("userKeybladeId", 1))}
+    with gstate.State(user, db_session) as st:
+        rec = gcol.progress(st)
+        rec["pending"] = start
+        st["stage_keyblade"] = start["userKeybladeId"]
+        st.pop("stage_drops", None)
+        uc = gcol.user_colosseum(rec)
+    return build_response(user, userData={"userPoint": _user_point(user)},
+                          colosseumInfo=gcol.info(), userColosseum=uc,
+                          userTreasures=[], startColosseumData=start, campaigns=[])
+
+
+@register(117)  # POST /colosseum/retire {burst}
+def handle_colosseum_retire(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # same code as /stage/retire (case 104): userKeyblades[] + userData.stageResumption; progress unchanged
+    logger.info("COLOSSEUM RETIRE: %s", request_data)
+    with gstate.State(user, db_session) as st:
+        _store_burst(st, request_data.get("burst"))
+        gcol.progress(st)["pending"] = None
+        keyblades = st["keyblades"]
+    return build_response(user, userKeyblades=keyblades, userData={"stageResumption": _stage_resumption(user)})
+
+
+@register(118)  # POST /colosseum/clear
+def handle_colosseum_clear(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserPoint + UserDetail + ColosseumClear::parse (clearColosseums[] {rank, stageCount} - never empty: the
+    # result screen reads its last element unchecked - then userMaterials/Medals/Skills/Titles/Keyblades) +
+    # StageResumption. Rewards: the rank's per-stage reward, and its completion reward once.
+    logger.info("COLOSSEUM CLEAR: %s", request_data)
+    is_skip = bool(request_data.get("isSkip"))
+    new_medals = []
+    with gstate.State(user, db_session) as st:
+        title_mark = gstate.title_mark(st)
+        rec = gcol.progress(st)
+        rec["pending"] = None
+        cleared, stage_reward, n_rounds, rank_reward = gcol.clear(rec, request_data.get("stageCount"), is_skip)
+        logger.info("  credited %s round(s) %s%s -> now rank %s count %s%s", n_rounds, cleared,
+                    " (one-turn win: skip)" if is_skip else "", rec["rank"], rec["stageCount"],
+                    f", rounds unlocked up to {rec['skip_until']}" if rec.get("skip_until") else "")
+        if stage_reward:
+            for _ in range(n_rounds):                # skipped rounds pay their coins too (wiki)
+                new_medals += _grant(user, st, stage_reward["stageRewardType"], stage_reward["stageRewardId"],
+                                     stage_reward["stageRewardNum"])
+        if rank_reward:
+            for k in range(rank_reward.get("validReward", 0)):
+                new_medals += _grant(user, st, rank_reward["rewardType"][k], rank_reward["rewardId"][k],
+                                     rank_reward["rewardNum"][k])
+        _store_burst(st, request_data.get("burst"))
+        new_titles = gstate.titles_since(st, title_mark)
+        materials = gstate.materials_list(st)
+        rec_rank, rec_count = rec["rank"], max(rec["stageCount"], 1)
+    if user:
+        _add_lux(user, int(request_data.get("lux", 0)))      # GUESS: C5
+        db_session.add(user)
+    return build_response(user,
+        userData={"userPoint": _user_point(user), "userDetail": _user_detail(user),
+                  "stageResumption": _stage_resumption(user)},
+        clearColosseums=cleared or [{"rank": rec_rank, "stageCount": rec_count}],
+        userMaterials=materials, userMedals=new_medals, userSkills=[], userTitles=new_titles,
+        userKeyblades=_user_keyblades(user, db_session))
+
+
+def _ranking_close(db_session: DBSession) -> None:
+    """Close finished ranking periods (once each) and file every participant's result in their state."""
+    def sink(uid, result):
+        o = db_session.get(User, uid)
+        if o:
+            with gstate.State(o, db_session) as st:
+                st.setdefault("ranking_results", []).append(result)
+            logger.info("RANKING RESULT: user %s %s", uid, result)
+    granking.close_due(db_session, sink)
+
+
+def _ranking_flags(user: Optional[User], db_session: DBSession) -> dict:
+    """MypageInfo.rankingRewards: 1 for each category with a pending result; pending -> announced (only
+    announced results are paid in 130, so SceneRanking's own 130 calls - which show no popup - pay nothing)."""
+    flags = {k: 0 for k in ("rankingColosseum", "rankingParty", "rankingLuxWeekly", "rankingLuxMonthly",
+                            "rankingLux")}
+    if not user:
+        return flags
+    _ranking_close(db_session)
+    with gstate.State(user, db_session) as st:
+        for r in st.get("ranking_results", []):
+            if r["status"] in ("pending", "announced"):
+                flags[granking.FLAG_OF_CATEGORY[r["category"]]] = 1
+                r["status"] = "announced"
+    return flags
+
+
+@register(130)  # GET /ranking/reward/check {type}
+def handle_ranking_reward_check(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # RankingReward::parse (0x4AD04C): lastRankingResults[] {lastRankingId, lastRank, lastUnionRank} (one popup
+    # each; the client picks the reward row from master data itself), rankingRewardIds[] (no reader),
+    # openRankingIds[] (the ranking open now: Party title dates, the reward-list button). verifyResponse case 130
+    # then reads "rankingReward": [] = nothing, else an object with userMedals / userSkills / userAvatarParts /
+    # userMaterials / userKeyblades / userTitles (+ userData.userPoint) - the items granted NOW, exactly the row
+    # the popup shows. type: 1 Lux weekly/monthly, 2 Party, 3 Coliseum, 4 Lux.
+    rtype = int(request_data.get("type", 0) or 0)
+    cats = granking.TYPE_CATEGORIES.get(rtype, ())
+    results, reward_ids, granted = [], [], None
+    if user:
+        _ranking_close(db_session)
+        with gstate.State(user, db_session) as st:
+            title_mark = gstate.title_mark(st)
+            parts_before = {p["userAvatarPartsId"] for p in st.get("avatar_parts", [])}
+            medals = []
+            for r in st.get("ranking_results", []):
+                if r["category"] not in cats or r["status"] != "announced":
+                    continue
+                r["status"] = "claimed"
+                results.append({"lastRankingId": r["rankingId"], "lastRank": r["rank"],
+                                "lastUnionRank": r["unionRank"]})
+                if r.get("rewardId"):
+                    reward_ids.append(r["rewardId"])
+                    for rtype_, rid, num, _skt, _ski, _skl in granking.reward_items(r["rewardId"]):
+                        medals += _grant(user, st, rtype_, rid, num)     # medal preset skills: not modelled
+            if results:
+                granted = {"userMedals": medals, "userSkills": [], "userMaterials": [], "userKeyblades": [],
+                           "userAvatarParts": [p for p in _avatar_parts(st)
+                                               if p["userAvatarPartsId"] not in parts_before],
+                           "userTitles": gstate.titles_since(st, title_mark)}
+        if results:
+            db_session.add(user)
+            granted["userData"] = {"userPoint": _user_point(user)}
+            logger.info("RANKING REWARD: type %s -> %s (reward rows %s)", rtype, results, reward_ids)
+    return build_response(user, lastRankingResults=results, rankingRewardIds=reward_ids,
+                          openRankingIds=granking.open_ranking_ids(rtype), rankingReward=granted or [])
+
+
+def _colosseum_ranking(user: Optional[User], db_session: DBSession, key: str) -> dict:
+    # ColosseumRanking::parse(doc, key): rankingDatas[] {userData {user, userDetail}, userAvatar, userColosseum,
+    # arrivalTime, rank}, rankingStatus (2 = rows shown), rankingTermStart/End. Order (wiki/guides 2016): "based
+    # on what round and tier you completed, and when you completed it" - tier, then round, then earliest.
+    # This server's players only (GUESS: C7); "Own" = the 5 places around the player.
+    import json as _json
+    from .models import UserState
+    s = gcol.season() or {}
+    mkey = gcol.month_key(gcol.current_season())
+    rows = []
+    for us in db_session.query(UserState).all():
+        try:
+            rec = (_json.loads(us.data or "{}").get("colosseum") or {}).get(mkey)
+        except ValueError:
+            rec = None
+        if rec and rec.get("total"):
+            rows.append((us.user_id, rec))
+    rows.sort(key=lambda r: (-r[1]["rank"], -r[1]["stageCount"], r[1].get("reached") or "9999"))
+    if key.endswith("Own") and user:
+        idx = next((i for i, r in enumerate(rows) if r[0] == user.id), None)
+        rows = rows[max(0, idx - 5):idx + 6] if idx is not None else []
+        base = idx - min(idx, 5) if idx is not None else 0
+    else:
+        rows, base = rows[:100], 0
+    datas = []
+    for i, (uid, rec) in enumerate(rows):
+        o = db_session.get(User, uid)
+        if o:
+            datas.append({"userData": {"user": _user_obj(o), "userDetail": _user_detail(o)},
+                          "userAvatar": _user_avatar(o), "userColosseum": gcol.user_colosseum(rec),
+                          "arrivalTime": rec.get("reached") or "2000-01-01 00:00:00", "rank": base + i + 1})
+    return {key: {"rankingDatas": datas, "rankingStatus": 2,
+                  "rankingTermStart": s.get("openDate", "2015-06-29 07:00:00"),
+                  "rankingTermEnd": s.get("rankingCloseDate", s.get("closeDate", "2015-08-03 22:59:59"))}}
+
+
+@register(127)  # GET /ranking/colosseum
+def handle_ranking_colosseum(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, **_colosseum_ranking(user, db_session, "colosseumRanking"))
+
+
+@register(128)  # GET /ranking/colosseum/own
+def handle_ranking_colosseum_own(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, **_colosseum_ranking(user, db_session, "colosseumRankingOwn"))
+
+
+# --------------------------------------------------------------------------- single-player batch
+# Contracts from verifyResponse (checked against the disassembly) and the execute* builders; guesses in GUESSES.md.
+
+@register(3)  # GET /user/detail {userId}: another player's detail (support / member list taps)
+def handle_user_detail(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserDetail::parse into its own slot (APIManager+804). Only this server's players exist: look them up.
+    target = db_session.get(User, int(request_data.get("userId", 0) or 0)) or user
+    return build_response(user, userData={"userDetail": _user_detail(target)})
+
+
+@register(15)  # GET /user/album
+def handle_user_album(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserAlbum::parse: userAlbum {medalIds [int], allMedalCount int}; UserAlbumChallenge::parse:
+    # userAlbumChallenge [] (no challenge data; the 1.0.1 challenge popup has no caller).
+    # GUESS: A1 (medals ever owned), A2 (allMedalCount = medal master rows)
+    from .master import MASTER_JSON_DATA
+    ids = [int(x) for x in gstate.load(user, db_session).get("album", [])] if user else []
+    return build_response(user, userAlbum={"medalIds": ids,
+                                           "allMedalCount": len(MASTER_JSON_DATA.get("medal", [])) or 1},
+                          userAlbumChallenge=[])
+
+
+def _bonus_day() -> str:
+    # the day turns over at 12:00 SERVER LOCAL time (user, 2026-10-14; the wiki's "11:00 UTC" was just the EN
+    # server's own clock)
+    return time.strftime("%Y-%m-%d", time.localtime(time.time() - 12 * 3600))
+
+
+def _login_rows(bonus_type: int) -> list:
+    from .master import MASTER_JSON_DATA
+    return sorted((r for r in MASTER_JSON_DATA.get("loginBonus", []) if r.get("bonusType") == bonus_type),
+                  key=lambda r: r["day"])
+
+
+@register(60)  # POST /login/bonus {}
+def handle_login_bonus(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # LoginBonus::parse: loginBonus {continue {loginBonusId, dayCount}, total {loginBonusId, dayCount},
+    # specials [int]}. continue.loginBonusId must be a bonusType-1 row (day 1-5): SceneLoginBonus indexes its
+    # panel with that row's day. The response carries no user data, so rewards go to the present box (GUESS: L3).
+    # bonusType 1 = the 5-day login bonus (50/50/100/100/200 Jewels) that REPEATS after day 5 (user, from old
+    # videos, 2026-10-14; 2016 guides agree): 500 a cycle, six cycles = the 3000 Jewels a month the user remembers.
+    # bonusType 2 = lifetime total login days (milestones day 1..1850).
+    welcome_rows, total_rows = _login_rows(1), _login_rows(2)
+    today = _bonus_day()
+    with gstate.State(user, db_session) as st:
+        lb = st.setdefault("loginbonus", {"last_day": "", "total": 0})
+        lb.setdefault("welcome", min(lb.pop("streak", 0), 5))   # records from the first (repeating-streak) version
+        first_today = lb["last_day"] != today
+        grants = []
+        if first_today:
+            lb["last_day"] = today
+            lb["total"] += 1
+            # next day of the cycle; GUESS: L2 - a missed day does not restart the cycle (not documented)
+            lb["welcome"] = lb["welcome"] % len(welcome_rows) + 1
+            grants.append(welcome_rows[lb["welcome"] - 1])
+        total = lb["total"]
+        cont = welcome_rows[max(lb["welcome"], 1) - 1]
+        reached = next((r for r in total_rows if r["day"] == total), None)
+        upcoming = next((r for r in total_rows if r["day"] > total), None)
+        total_id = (reached or upcoming or {"loginBonusId": 0})["loginBonusId"]   # GUESS: L4
+        if first_today and reached:
+            grants.append(reached)
+        for row in grants:
+            add_present(st, row["rewardType"], row["rewardId"], row["rewardNum"], "Login Bonus")
+        if first_today:
+            logger.info("LOGIN BONUS: welcome %s/%s, total %s, granted %s", lb["welcome"], len(welcome_rows), total,
+                        [r["loginBonusId"] for r in grants])
+        welcome = lb["welcome"]
+    # GUESS: L5 - specials (bonusType 3/4) are date-gated by 2015-16 dates: none active
+    return build_response(user, loginBonus={"continue": {"loginBonusId": cont["loginBonusId"], "dayCount": welcome},
+                                            "total": {"loginBonusId": total_id, "dayCount": total},
+                                            "specials": []})
+
+
+@register(66)  # POST /shop/medal/max: medal box +5 for Jewels
+def handle_shop_medal_max(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserDetail (userData.userDetail) + UserStone. The client's own rules: cost misc 111 (100 Jewels), +misc 103
+    # (5) slots, cap misc 104 (500); it refuses on its side when capped or short.
+    if user:
+        step, cap, cost = _misc(103, 5), _misc(104, 500), _misc(111, 100)
+        cur = _max_medal(user)
+        if cur + step <= cap and _spend_jewels(user, cost):
+            user.max_medal = cur + step
+            logger.info("MEDAL BOX: %s -> %s (-%s Jewels)", cur, user.max_medal, cost)
+        db_session.add(user)
+    return build_response(user, userData={"userDetail": _user_detail(user)}, userStone=_user_stone(user))
+
+
+@register(67)  # POST /shop/ap/recover
+def handle_shop_ap_recover(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserPoint + UserStone + UserKeyblade (userKeyblades[] required). Price misc 112 (100 Jewels), charged as
+    # the client shows it. GUESS: P1 - AP is ignored server-side, so the dialog should rarely appear.
+    if user and _spend_jewels(user, _misc(112, 100)):
+        logger.info("AP RECOVER: -%s Jewels", _misc(112, 100))
+        db_session.add(user)
+    return build_response(user, userData={"userPoint": _user_point(user)}, userStone=_user_stone(user),
+                          userKeyblades=_user_keyblades(user, db_session))
+
+
+@register(45)  # POST /user/support/update {supportMedalId}
+def handle_user_support_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # medal detail popup -> "set as support medal". UserSupport::parse (supportUser) required.
+    mid = int(request_data.get("supportMedalId", 0) or 0)
+    with gstate.State(user, db_session) as st:
+        if any(m["userMedalId"] == mid for m in st["medals"]):
+            st["support_medal"] = mid
+            logger.info("SUPPORT MEDAL: %s", mid)
+    return build_response(user, supportUser=_support_user(user, db_session))
+
+
+# Never sent by the 1.0.1 client (no caller of their execute* builders): correct-shape stubs only.
+@register(12)  # GET /user/item: no case in verifyResponse
+def handle_user_item(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user)
+
+
+@register(8)  # GET /user/birthday
+@register(40)  # POST /user/birthday/create {year, month}
+def handle_user_birthday(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserBirthday::parse: birthday int YYYYMM
+    y, m = int(request_data.get("year", 2000) or 2000), int(request_data.get("month", 1) or 1)
+    return build_response(user, birthday=y * 100 + m)
+
+
+@register(19)  # GET /user/avatar {targetUserId}
+def handle_user_avatar(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    target = db_session.get(User, int(request_data.get("targetUserId", 0) or 0)) or user
+    return build_response(user, userAvatar=_user_avatar(target))
+
+
+@register(46)  # POST /medal/skill/update
+def handle_medal_skill_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, userMedals=[], userSkills=[])
+
+
+@register(50)  # POST /skill/sell
+def handle_skill_sell(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, userData={"userPoint": _user_point(user)}, userMedals=[], sellUserSkillIds=[])
+
+
+@register(55)  # POST /skill/evolve
+def handle_skill_evolve(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, userData={"userPoint": _user_point(user)}, userMedals=[], userSkills=[],
+                          userSkillIds=[])
+
+
+@register(144)  # POST /user/album/challenge/update {challengeId}
+def handle_album_challenge_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, userAlbumChallenge=[], userMaterials=[], userMedals=[], userSkills=[],
+                          userAvatarParts=[], userKeyblades=[], userTitles=[], userStone=_user_stone(user),
+                          userData={"userPoint": _user_point(user), "userDetail": _user_detail(user)})
+
+
+@register(143)  # PUT /system/uuid {accessToken, platformType}: account transfer; nothing parsed
+def handle_system_uuid(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user)
+
+
+# --------------------------------------------------------------------------- multiplayer: parties + rankings
+# Shapes from verifyResponse (checked against the disassembly) and the parsers: Party::init, UserParty::parse
+# (a userParty with partyId != 0 needs a top-level "party"), PartyEx {party, partyLeader}, Applicant, Offer,
+# PartyMemberList (SupportUser + Detail), LuxRanking, PartyRanking. Rules: party.py; guesses PT* / RK* in
+# GUESSES.md. Not sent by 1.0.1: 119-122.
+
+def _party_notice(st: dict) -> dict:
+    return st.setdefault("party_notice", {"offer": 0, "applicant": 0, "leader": 0, "newcomers": []})
+
+
+def _notify(db_session: DBSession, uid: int, key: str, newcomer: Optional[dict] = None) -> None:
+    """Raise a /party/notice flag for another player (offer / applicant / leader / newcomer)."""
+    target = db_session.get(User, uid)
+    if not target:
+        return
+    with gstate.State(target, db_session) as st:
+        n = _party_notice(st)
+        if newcomer:
+            n["newcomers"] = (n["newcomers"] + [newcomer])[-10:]
+        else:
+            n[key] = 1
+
+
+def _notify_staff(db_session: DBSession, p, key: str, newcomer: Optional[dict] = None, skip: int = 0) -> None:
+    for uid in [p.leader_user_id] + gparty.admins(p):
+        if uid and uid != skip:
+            _notify(db_session, uid, key, newcomer)
+
+
+def _member_entry(db_session: DBSession, uid: int, detail: bool = False) -> dict:
+    """SupportUser for a player (+ the Detail fields PartyMemberList reads when getDetail was sent)."""
+    o = db_session.get(User, uid)
+    if o is None:
+        return _sora_support(None, db_session)
+    e = _support_entry(o.id, o.user_name or "Player", _lux_rank(o), _support_medal(o, db_session), _user_avatar(o))
+    e.update(_user_titles(o))
+    kbs = _user_keyblades(o, db_session)
+    kb = next((k for k in kbs if k.get("isFavorite")), kbs[0] if kbs else None)
+    e["keybladeId"] = kb["keybladeId"] if kb else 1000
+    e["isParty"] = 1
+    if detail:
+        e.update({"userKeyblade": kb, "userRanking": {"lux": int(o.total_lux or 0), "rank": 0},
+                  "lastStageId": o.last_clear_stage_id or 0, "comment": o.comment or "", "linkPlatformId": ""})
+    return e
+
+
+def _after_join(db_session: DBSession, uid: int) -> None:
+    """The first party a player ever joins (or creates) gives misc 117 (100) Jewels - ScenePartyTop's entry
+    layout says so while userParty.flagFirstReward is 0 (text 103810026)."""
+    o, m = db_session.get(User, uid), gparty.membership(db_session, uid)
+    if not o or not m:
+        return
+    with gstate.State(o, db_session) as st:
+        if not st.get("party_first_reward"):
+            st["party_first_reward"] = 1
+            o.free_stone = (o.free_stone or 0) + _misc(117, 100)
+            db_session.add(o)
+            logger.info("PARTY FIRST JOIN: user %s +%s Jewels", uid, _misc(117, 100))
+    m.flag_first_reward = 1
+
+
+def _party_ex(db_session: DBSession, p) -> dict:
+    return {"party": gparty.party_obj(db_session, p), "partyLeader": _member_entry(db_session, p.leader_user_id)}
+
+
+def _party_reply(user: Optional[User], db_session: DBSession, **extra) -> dict:
+    db_session.flush()
+    return build_response(user, **gparty.with_party(db_session, user.id if user else 0), **extra)
+
+
+@register(78)  # GET /party {partyId (only when viewing another party)}
+def handle_party(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    pid = int(request_data.get("partyId", 0) or 0)
+    if pid:
+        p = db_session.get(Party, pid)
+        if p:
+            return build_response(user, **_party_ex(db_session, p))
+    return _party_reply(user, db_session)
+
+
+@register(80)  # GET /party/member/list {getDetail?, platformType?}  (every MyPage load, with getDetail=1)
+def handle_party_member_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    uid = user.id if user else 0
+    pid = gparty.party_id_of(db_session, uid)
+    detail = bool(request_data.get("getDetail"))
+    extra = {}
+    if pid:
+        extra["partyUserList"] = [_member_entry(db_session, m.user_id, detail)
+                                  for m in gparty.members(db_session, pid)]
+    return _party_reply(user, db_session, **extra)
+
+
+@register(74)  # POST /party/create {name, message, playStyle, agreeType}
+def handle_party_create(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # userParty (+party) + firstReward. Creation is free (GUESS: PT4).
+    if user:
+        p = gparty.create(db_session, user, str(request_data.get("name", ""))[:14],
+                          str(request_data.get("message", ""))[:20],
+                          int(request_data.get("playStyle", 0) or 0), int(request_data.get("agreeType", 0) or 0))
+        logger.info("PARTY CREATE: %s by user %s", p.id, user.id)
+        _after_join(db_session, user.id)
+    return _party_reply(user, db_session, firstReward=0)
+
+
+@register(75)  # POST /party/update {name, message, playStyle, agreeType}: leader only
+def handle_party_update(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    if user:
+        gparty.update(db_session, user.id, str(request_data.get("name", ""))[:14],
+                      str(request_data.get("message", ""))[:20],
+                      int(request_data.get("playStyle", 0) or 0), int(request_data.get("agreeType", 0) or 0))
+    return _party_reply(user, db_session)
+
+
+@register(79)  # POST /party/leave {}
+def handle_party_leave(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    if user:
+        p = gparty.party_of(db_session, user.id)
+        leader_before = p.leader_user_id if p else 0
+        gparty.leave(db_session, user.id)
+        p = db_session.get(Party, p.id) if p else None
+        if p and p.leader_user_id != leader_before:
+            _notify(db_session, p.leader_user_id, "leader")
+    return _party_reply(user, db_session)
+
+
+@register(76)  # GET /party/notice
+def handle_party_notice(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # {hasNewOffer, isApply, hasNewApplicant, isNewLeader, newcomerUsers[{userName, userId, joinDate, message}]};
+    # flags are cleared once read
+    n = {"offer": 0, "applicant": 0, "leader": 0, "newcomers": []}
+    is_apply = 0
+    if user:
+        gparty.expire(db_session)
+        with gstate.State(user, db_session) as st:
+            n = dict(_party_notice(st))
+            st["party_notice"] = {"offer": 0, "applicant": 0, "leader": 0, "newcomers": []}
+        is_apply = int(db_session.query(PartyApplication).filter(
+            PartyApplication.user_id == user.id, PartyApplication.status == gparty.PENDING).count() > 0)
+    return build_response(user, hasNewOffer=n["offer"], isApply=is_apply, hasNewApplicant=n["applicant"],
+                          isNewLeader=n["leader"], newcomerUsers=n["newcomers"])
+
+
+@register(77)  # POST /party/login {}
+def handle_party_login(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # userParty; in a party also isAbsenceLeader (party.leader_absent) + partyLeader. Grants nothing (GUESS: PT9).
+    p = gparty.party_of(db_session, user.id) if user else None
+    if not p:
+        return _party_reply(user, db_session)
+    absent = int(gparty.leader_absent(db_session, p))
+    return _party_reply(user, db_session, isAbsenceLeader=absent,
+                        partyLeader=_member_entry(db_session, p.leader_user_id))
+
+
+@register(81)  # GET /party/search/active {playStyle, rank, agreeType, memberCount}
+def handle_party_search(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    mine = gparty.party_id_of(db_session, user.id) if user else 0
+    q = {k: int(request_data.get(k, 0) or 0) for k in ("playStyle", "agreeType", "memberCount", "rank")}
+    found = gparty.search(db_session, q["playStyle"], q["agreeType"], q["memberCount"], q["rank"], exclude_party=mine)
+    return build_response(user, partyList=[_party_ex(db_session, p) for p in found])
+
+
+@register(82)  # POST /party/application/160310 {partyId, message}
+def handle_party_apply(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # userParty + failedStatus; when 0 also partyApplicant + firstReward
+    if not user:
+        return _party_reply(user, db_session, failedStatus=gparty.FAILED_FULL)
+    failed, a = gparty.apply(db_session, user, int(request_data.get("partyId", 0) or 0),
+                             str(request_data.get("message", ""))[:20])
+    if failed:
+        return _party_reply(user, db_session, failedStatus=failed)
+    p = db_session.get(Party, a.party_id)
+    if a.status == gparty.AGREED:
+        _after_join(db_session, user.id)
+        _notify_staff(db_session, p, "", {"userName": user.user_name or "Player", "userId": user.id,
+                                          "joinDate": gparty.fmt(datetime.utcnow()), "message": a.message})
+    else:
+        _notify_staff(db_session, p, "applicant")
+    return _party_reply(user, db_session, failedStatus=0, partyApplicant=gparty.applicant_obj(a), firstReward=0)
+
+
+@register(83)  # GET /party/application/list: my applications + their parties
+def handle_party_application_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    apps = db_session.query(PartyApplication).filter(PartyApplication.user_id == (user.id if user else 0),
+                                                     PartyApplication.status == gparty.PENDING).all()
+    parties = [p for p in (db_session.get(Party, a.party_id) for a in apps) if p]
+    return build_response(user, partyApplicants=[gparty.applicant_obj(a) for a in apps],
+                          partyList=[_party_ex(db_session, p) for p in parties])
+
+
+def _application(request_data: dict, db_session: DBSession):
+    return db_session.get(PartyApplication, int(request_data.get("partyApplicantId", 0) or 0))
+
+
+@register(84)  # POST /party/application/cancel {partyApplicantId}
+def handle_party_application_cancel(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    a = _application(request_data, db_session)
+    if a and user and a.user_id == user.id and a.status == gparty.PENDING:
+        a.status = gparty.CANCELLED
+    a = a or PartyApplication(id=0, user_id=user.id if user else 0, party_id=0, status=gparty.CANCELLED)
+    return build_response(user, partyApplicant=gparty.applicant_obj(a))
+
+
+@register(85)  # GET /party/applicant/list: applications to my party (leader / admins)
+def handle_party_applicant_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    p = gparty.party_of(db_session, user.id) if user else None
+    apps = db_session.query(PartyApplication).filter(PartyApplication.party_id == p.id,
+                                                     PartyApplication.status == gparty.PENDING).all() if p else []
+    return build_response(user, partyApplicants=[gparty.applicant_obj(a) for a in apps],
+                          partyUserList=[_member_entry(db_session, a.user_id) for a in apps])
+
+
+@register(86)  # POST /party/applicant/agree {partyApplicantId}
+def handle_party_applicant_agree(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    a = _application(request_data, db_session)
+    p = gparty.party_of(db_session, user.id) if user else None
+    if a and p and a.party_id == p.id and gparty.is_staff(p, user.id) and gparty.accept_application(db_session, a):
+        _after_join(db_session, a.user_id)
+        joined = db_session.get(User, a.user_id)
+        _notify_staff(db_session, p, "", {"userName": joined.user_name if joined else "Player",
+                                          "userId": a.user_id, "joinDate": gparty.fmt(datetime.utcnow()),
+                                          "message": a.message or ""})
+    a = a or PartyApplication(id=0, user_id=0, party_id=0, status=gparty.REJECTED)
+    return _party_reply(user, db_session, partyApplicant=gparty.applicant_obj(a))
+
+
+@register(87)  # POST /party/applicant/reject {partyApplicantId}
+def handle_party_applicant_reject(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    a = _application(request_data, db_session)
+    p = gparty.party_of(db_session, user.id) if user else None
+    if a and p and a.party_id == p.id and gparty.is_staff(p, user.id) and a.status == gparty.PENDING:
+        a.status = gparty.REJECTED
+    a = a or PartyApplication(id=0, user_id=0, party_id=0, status=gparty.REJECTED)
+    return build_response(user, partyApplicant=gparty.applicant_obj(a))
+
+
+@register(92)  # GET /party/invite/search {level, playTimezones, playFrequently, earnLuxRank}
+def handle_party_invite_search(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # players of this server not in a party (the filters are advisory; GUESS: PT12)
+    me = user.id if user else 0
+    found = [o for o in db_session.query(User).filter(User.id != me, User.tutorial_done.is_(True)).limit(200)
+             if not gparty.membership(db_session, o.id)][:30]
+    return build_response(user, partyUserList=[_member_entry(db_session, o.id) for o in found])
+
+
+@register(93)  # POST /party/invite/offer/160310 {userId, message}: failedStatus only
+def handle_party_invite_offer(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    p = gparty.party_of(db_session, user.id) if user else None
+    target = int(request_data.get("userId", 0) or 0)
+    failed = gparty.FAILED_FULL
+    if p and gparty.is_staff(p, user.id) and db_session.get(User, target):
+        failed = gparty.offer(db_session, p, target, str(request_data.get("message", ""))[:20])
+        if not failed:
+            _notify(db_session, target, "offer")
+    return build_response(user, failedStatus=failed)
+
+
+@register(94)  # GET /party/invite/list: offers my party sent
+def handle_party_invite_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    p = gparty.party_of(db_session, user.id) if user else None
+    offers = db_session.query(PartyOffer).filter(PartyOffer.party_id == p.id,
+                                                 PartyOffer.status == gparty.PENDING).all() if p else []
+    return build_response(user, partyOffers=[gparty.offer_obj(o) for o in offers],
+                          partyUserList=[_member_entry(db_session, o.user_id) for o in offers])
+
+
+def _offer(request_data: dict, db_session: DBSession):
+    return db_session.get(PartyOffer, int(request_data.get("partyOfferId", 0) or 0))
+
+
+@register(95)  # POST /party/invite/cancel {partyOfferId}
+def handle_party_invite_cancel(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    o = _offer(request_data, db_session)
+    p = gparty.party_of(db_session, user.id) if user else None
+    if o and p and o.party_id == p.id and gparty.is_staff(p, user.id) and o.status == gparty.PENDING:
+        o.status = gparty.CANCELLED
+    o = o or PartyOffer(id=0, user_id=0, party_id=0, status=gparty.CANCELLED)
+    return build_response(user, partyOffer=gparty.offer_obj(o))
+
+
+@register(96)  # GET /party/offer/list: offers I received + their parties
+def handle_party_offer_list(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    gparty.expire(db_session)
+    offers = db_session.query(PartyOffer).filter(PartyOffer.user_id == (user.id if user else 0),
+                                                 PartyOffer.status == gparty.PENDING).all()
+    parties = [p for p in (db_session.get(Party, o.party_id) for o in offers) if p]
+    return build_response(user, partyOffers=[gparty.offer_obj(o) for o in offers],
+                          partyList=[_party_ex(db_session, p) for p in parties])
+
+
+@register(97)  # POST /party/offer/agree {partyOfferId}
+def handle_party_offer_agree(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    o = _offer(request_data, db_session)
+    if o and user and o.user_id == user.id and gparty.accept_offer(db_session, o):
+        _after_join(db_session, user.id)
+        p = db_session.get(Party, o.party_id)
+        _notify_staff(db_session, p, "", {"userName": user.user_name or "Player", "userId": user.id,
+                                          "joinDate": gparty.fmt(datetime.utcnow()), "message": o.message or ""})
+    o = o or PartyOffer(id=0, user_id=0, party_id=0, status=gparty.REJECTED)
+    return _party_reply(user, db_session, partyOffer=gparty.offer_obj(o))
+
+
+@register(98)  # POST /party/offer/reject {partyOfferId}
+def handle_party_offer_reject(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    o = _offer(request_data, db_session)
+    if o and user and o.user_id == user.id and o.status == gparty.PENDING:
+        o.status = gparty.REJECTED
+    o = o or PartyOffer(id=0, user_id=0, party_id=0, status=gparty.REJECTED)
+    return build_response(user, partyOffer=gparty.offer_obj(o))
+
+
+def _role_change(request_data: dict, user: Optional[User], db_session: DBSession, key: str, action) -> dict:
+    """88-91: leader-only role changes (expel: leader or admin) (GUESS: PT7); reply userParty (+party)."""
+    p = gparty.party_of(db_session, user.id) if user else None
+    target = int(request_data.get(key, 0) or 0)
+    tm = gparty.membership(db_session, target)
+    if p and tm and tm.party_id == p.id and target != user.id:
+        action(p, target)
+    return _party_reply(user, db_session)
+
+
+@register(88)  # POST /party/leader/change {appointId}
+def handle_party_leader_change(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    def act(p, uid):
+        if p.leader_user_id == user.id:
+            gparty.set_leader(p, uid)
+            _notify(db_session, uid, "leader")
+    target = int(request_data.get("appointId", 0) or 0)
+    p = gparty.party_of(db_session, user.id) if user else None
+    if p and target == user.id and p.leader_user_id != user.id:
+        # takeover from an absent leader (PartyLogin.isAbsenceLeader)
+        if gparty.leader_absent(db_session, p):
+            gparty.set_leader(p, user.id)
+        return _party_reply(user, db_session)
+    return _role_change(request_data, user, db_session, "appointId", act)
+
+
+@register(89)  # POST /party/admin/appoint {appointId}
+def handle_party_admin_appoint(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # admins may promote too ("even (oddly enough) promote other members to moderator status", 2016 guide)
+    return _role_change(request_data, user, db_session, "appointId",
+                        lambda p, uid: gparty.is_staff(p, user.id) and gparty.appoint(p, uid))
+
+
+@register(90)  # POST /party/admin/dismiss {dismissId}
+def handle_party_admin_dismiss(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return _role_change(request_data, user, db_session, "dismissId",
+                        lambda p, uid: p.leader_user_id == user.id and gparty.dismiss(p, uid))
+
+
+@register(91)  # POST /party/member/expel {expelId}
+def handle_party_member_expel(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return _role_change(request_data, user, db_session, "expelId",
+                        lambda p, uid: gparty.is_staff(p, user.id) and gparty.expel(db_session, p, uid))
+
+
+# Rankings. Only this server's players; weeks from Monday 07:00 UTC (GUESS: RK1). rankingStatus 2 = in progress
+# (SceneRanking builds rows only for 2; 1 "preparing", 3 "tallying", 4 other). lastRank = the player's own place,
+# shown as "your rank" (0 = unranked).
+def _lux_ranking(user: Optional[User], db_session: DBSession, since, until, own: bool) -> dict:
+    rows = gparty.ranked(gparty.lux_since(db_session, since, "user"))
+    my_rank = next((r for k, _, r in rows if user and k == user.id), 0)
+    if own and user:                                         # the window around the player (GUESS: RK5)
+        idx = next((i for i, r in enumerate(rows) if r[0] == user.id), None)
+        rows = rows[max(0, idx - 5):idx + 6] if idx is not None else []
+    datas = []
+    for uid, lux, rank in rows[:100]:
+        o = db_session.get(User, uid)
+        if o:
+            datas.append({"userData": {"user": _user_obj(o), "userDetail": _user_detail(o)},
+                          "userAvatar": _user_avatar(o), "lux": min(lux, 2**31 - 1), "rank": rank})
+    return {"rankingDatas": datas, "rankingStatus": 2, "rankingTermStart": gparty.fmt(since),
+            "rankingTermEnd": gparty.fmt(until), "lastRank": my_rank}
+
+
+def _week():
+    start = gparty.week_start()
+    return start, start + timedelta(days=7, seconds=-1)
+
+
+def _month():
+    start = gparty.month_start()
+    nxt = gparty.month_start((start + timedelta(days=32)).replace(day=1, hour=gparty.ROLLOVER_HOUR))
+    return start, nxt - timedelta(seconds=1)
+
+
+@register(123)  # GET /ranking/lux
+def handle_ranking_lux(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, luxRanking=_lux_ranking(user, db_session, *_week(), own=False))
+
+
+@register(124)  # GET /ranking/lux/own
+def handle_ranking_lux_own(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, luxRanking=_lux_ranking(user, db_session, *_week(), own=True))
+
+
+@register(119)  # GET /ranking/weekly/user (never sent by 1.0.1)
+def handle_ranking_weekly(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, luxRankingWeekly=_lux_ranking(user, db_session, *_week(), own=False))
+
+
+@register(120)  # GET /ranking/monthly/user (never sent by 1.0.1)
+def handle_ranking_monthly(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, luxRankingMonthly=_lux_ranking(user, db_session, *_month(), own=False))
+
+
+@register(121)  # GET /ranking/weekly/user/own (never sent by 1.0.1)
+def handle_ranking_weekly_own(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, luxRankingWeeklyOwn=_lux_ranking(user, db_session, *_week(), own=True))
+
+
+@register(122)  # GET /ranking/monthly/user/own (never sent by 1.0.1)
+def handle_ranking_monthly_own(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, luxRankingMonthlyOwn=_lux_ranking(user, db_session, *_month(), own=True))
+
+
+def _party_ranking(user: Optional[User], db_session: DBSession, own: bool) -> dict:
+    start, end = _week()
+    rows = gparty.ranked(gparty.lux_since(db_session, start, "party"))
+    mine = gparty.party_id_of(db_session, user.id) if user else 0
+    my_rank = next((r for k, _, r in rows if mine and k == mine), 0)
+    if own and user:
+        idx = next((i for i, r in enumerate(rows) if r[0] == mine), None)
+        rows = rows[max(0, idx - 5):idx + 6] if idx is not None else []
+    datas = []
+    for pid, lux, rank in rows[:100]:
+        p = db_session.get(Party, pid)
+        if p:
+            datas.append({"party": gparty.party_obj(db_session, p), "rank": rank, "lux": min(lux, 2**31 - 1)})
+    return {"rankingDatas": datas, "rankingStatus": 2, "lastRank": my_rank,
+            "updateTime": gparty.fmt(datetime.utcnow()), "nextUpdateTime": gparty.fmt(end)}
+
+
+@register(125)  # GET /ranking/party
+def handle_ranking_party(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, partyRanking=_party_ranking(user, db_session, own=False))
+
+
+@register(126)  # GET /ranking/party/own
+def handle_ranking_party_own(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, partyRankingOwn=_party_ranking(user, db_session, own=True))
+
+
+@register(129)  # GET /ranking/parade: union standings this week + each union's top player
+def handle_ranking_parade(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    start, _ = _week()
+    unions = gparty.ranked(gparty.lux_since(db_session, start, "union"))
+    users = gparty.lux_since(db_session, start, "user")
+    tops = []
+    for union_id, _, _ in unions:
+        best = max(((uid, lux) for uid, lux in users.items()
+                    if (db_session.get(User, uid) or User(union_id=-1)).union_id == union_id),
+                   key=lambda t: t[1], default=None)
+        if best:
+            o = db_session.get(User, best[0])
+            kbs = _user_keyblades(o, db_session)
+            tops.append({"userData": {"user": _user_obj(o)},
+                         "userKeyblade": next((k for k in kbs if k.get("isFavorite")), kbs[0] if kbs else {}),
+                         "userAvatar": _user_avatar(o), "rank": 1, "lux": min(best[1], 2**31 - 1)})
+    return build_response(user, unionParade={
+        "rankingUnionResult": [{"unionId": u, "rank": r, "lux": lux} for u, lux, r in unions],
+        "rankingUnionTopRanker": tops})
+
+
+@register(139)  # GET /link/members {platformIds, platformType}: social-network friends - none here
+def handle_link_members(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, linkUserList=[])
+
+
+# --------------------------------------------------------------------------- serial codes, invite codes, stubs
+def _serial_codes() -> dict:
+    import json as _json
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "serialcodes.json")
+    try:
+        return {k.upper(): int(v) for k, v in _json.load(open(path, encoding="utf-8")).get("codes", {}).items()}
+    except (OSError, ValueError):
+        return {}
+
+
+@register(31)  # POST /system/serialcode {serialCode}
+def handle_serialcode(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # UserPresent::parse (the whole present box). The rewards go to the present box; the client then says
+    # "You have used a serial code to get an item. Go to Presents" (104000007). Unknown / used codes: an error the
+    # client shows. Codes -> serialcodeReward ids in data/serialcodes.json (GUESS: SC1); master dates (2015) are
+    # ignored (GUESS: SC2).
+    code = str(request_data.get("serialCode") or "").strip().upper()
+    rid = _serial_codes().get(code)
+    row = _master_row("serialcodeReward", "serialcodeRewardId", rid) if rid else {}
+    if not row or not user:
+        return build_error(user, "This serial code is not valid.")
+    with gstate.State(user, db_session) as st:
+        used = st.setdefault("serial_used", [])
+        if rid in used:
+            return build_error(user, "This serial code has already been used.")
+        used.append(rid)
+        for k in range(min(int(row.get("validReward", 0) or 0), 10)):
+            add_present(st, row["type"][k], row["id"][k], row["num"][k], row.get("name") or "Serial Code")
+    logger.info("SERIAL CODE %s -> reward %s for user %s", code, rid, user.id)
+    return handle_user_present({}, user, db_session)
+
+
+@register(32)  # GET /system/serialcode/campaign: the serial-code list (activeCampaignIds -> serialcodeReward rows)
+def handle_serialcode_campaign(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # every id must exist in the serialcodeReward master (no null check on the client)
+    ids = sorted({rid for rid in _serial_codes().values()
+                  if _master_row("serialcodeReward", "serialcodeRewardId", rid)})
+    return build_response(user, activeCampaignIds=ids)
+
+
+@register(33)  # GET /system/invitecode: the player's invitation code (party top "Invitation code" button)
+def handle_invitecode(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # SystemInvitecode::parse: inviteCode str, invitedNumber, inviteRemainingNumber ("You have received Jewels
+    # %d/%d times")
+    if not user:
+        return build_response(user, inviteCode="", invitedNumber=0, inviteRemainingNumber=0)
+    with gstate.State(user, db_session) as st:
+        rec = st.get("invite")
+        if not rec:
+            rec = st["invite"] = {"code": _make_invite_code(db_session), "invited": 0}
+    return build_response(user, inviteCode=rec["code"], invitedNumber=rec["invited"],
+                          inviteRemainingNumber=max(INVITE_CAP - rec["invited"], 0))
+
+
+@register(34)  # POST /system/push/regist {deviceType, deviceToken}: no parser; nothing to push to
+def handle_push_regist(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user)
+
+
+@register(35)  # POST /system/push/help: "help me" push after an unfinished raid (no parser); bosses are already
+def handle_push_help(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:  # party-shared
+    return build_response(user)
+
+
+@register(72)  # POST /purchase/prepare {productId, priceLocale}: real-money purchases are not offered
+def handle_purchase_prepare(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_error(user, "Purchases are not available on this server.")
+
+
+@register(73)  # POST /purchase/finish
+def handle_purchase_finish(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_error(user, "Purchases are not available on this server.")
+
+
+@register(132)  # GET /campaign/pincode (no callers) / 136 PUT /campaign/pincode/status: KHchi avatar link
+@register(136)
+def handle_pincode_status(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    # avatarSync {srcAccept, destAccept} (JSON booleans); the KHchi side no longer exists (button off: flag 0x08)
+    return build_response(user, avatarSync={"srcAccept": False, "destAccept": False})
+
+
+@register(133)  # POST /campaign/pincode: generate a link number (avatarSync.pinCode)
+def handle_pincode_create(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, avatarSync={"srcAccept": False, "destAccept": False, "pinCode": "00000000"})
+
+
+@register(134)  # PUT /campaign/pincode {pinCode}: no parser
+@register(135)  # DELETE /campaign/pincode: no parser
+def handle_pincode_other(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user)
+
+
+@register(27)  # GET /system/resourceEv {resourceIds}: event resources - never sent without events
+def handle_resource_ev(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return build_response(user, resourceEv=[])
+
+
+@register(99)  # GET /stage: no callers in 1.0.1 (it uses 100 /stage/160310)
+def handle_stage_root(request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
+    return handle_stage(request_data, user, db_session)
 
 
 def default_handler(action_id: int, request_data: dict, user: Optional[User], db_session: DBSession) -> dict:
