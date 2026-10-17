@@ -355,3 +355,42 @@ def _migrate(engine, inspector):
 
 def get_session(engine):
     return sessionmaker(bind=engine)
+
+
+# ------------------------------------------------------------------------------------------- env overrides
+# An environment variable named like a User column (upper case: MAX_MEDAL=1000000, LUX_RANK=...) overrides that
+# value for every user as it is loaded. The override is not written back: without the variable the stored value
+# comes back. The identity columns cannot be overridden.
+import os as _os
+
+from sqlalchemy import event as _event
+from sqlalchemy.orm.attributes import set_committed_value as _set_committed
+
+_NO_OVERRIDE = {"id", "uuid", "native_user_id"}
+
+
+def _env_overrides():
+    out = {}
+    for col in User.__table__.columns:
+        raw = _os.environ.get(col.name.upper())
+        if raw is None or col.name in _NO_OVERRIDE:
+            continue
+        try:
+            kind = col.type.python_type
+        except NotImplementedError:
+            continue
+        if kind is bool:
+            out[col.name] = raw.strip().lower() in ("1", "true", "yes", "on")
+        elif kind in (int, float, str):
+            out[col.name] = kind(raw)
+    return out
+
+
+_USER_OVERRIDES = _env_overrides()
+
+
+@_event.listens_for(User, "load")
+@_event.listens_for(User, "refresh")
+def _apply_env_overrides(user, *_):
+    for name, value in _USER_OVERRIDES.items():
+        _set_committed(user, name, value)
