@@ -2834,7 +2834,9 @@ def _member_entry(db_session: DBSession, uid: int, detail: bool = False) -> dict
     e["isParty"] = 1
     if detail:
         e.update({"userKeyblade": kb, "userRanking": {"lux": int(o.total_lux or 0), "rank": 0},
-                  "lastStageId": o.last_clear_stage_id or 0, "comment": o.comment or "", "linkPlatformId": ""})
+                  # SceneMyPage::updateFukidashi prints it raw as "Quest %d" (text 101000039), and the quest list
+                  # numbers quests by the stage master's `id`, so send that (quest 215), not the stageId (7150)
+                  "lastStageId": (gstate.stage_row(o.last_clear_stage_id) or {}).get("id", 0), "comment": o.comment or "", "linkPlatformId": ""})
     return e
 
 
