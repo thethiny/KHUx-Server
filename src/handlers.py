@@ -224,18 +224,21 @@ def _add_lux(user: Optional[User], lux: int) -> None:
     user.lux_rank = user.level = after
 
 
-def _user_point(user: Optional[User]) -> dict:
+def _user_point(user: Optional[User], recovered: bool = False) -> dict:
     now = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
     if user:
         stats = _get_player_stats(_lux_rank(user))
         hp = stats["hp"] + (user.hp_prize or 0)
         ap = stats["ap"] + (getattr(user, "ap_prize", 0) or 0)     # + Avatar Board Max AP nodes
+        # TEST ONLY: KHUX_AP=n sends n as the current AP (the AP recovery dialog on quest start); the recovery's own
+        # response (/shop/ap/recover) still sends a full gauge
+        cur = int(os.environ["KHUX_AP"]) if os.environ.get("KHUX_AP") and not recovered else ap
         return {
             "money": user.money, "lux": user.lux, "totalLux": user.total_lux,
             "spherePoint": user.sphere_point or 0, "kizunaPoint": user.kizuna_point or 0,
             "raidPoint": user.raid_point or 0,
             "attack": user.attack, "defense": user.defense, "baseHp": hp,
-            "hp": hp, "ap": ap, "maxHp": hp, "maxAp": ap,
+            "hp": hp, "ap": cur, "maxHp": hp, "maxAp": ap,
             "lastApDatetime": now,
             "stageSpherePoint": user.stage_sphere_point or 0, "raidSpherePoint": user.raid_sphere_point or 0,
             "colosseumSpherePoint": user.colosseum_sphere_point or 0, "stageSkipTicket": 0,
@@ -275,7 +278,11 @@ def _user_avatars(user: Optional[User], db_session: DBSession) -> list:
     # UserAvatarAll::parse (0x49F95C): userAvatars[] of Coordinate, every saved outfit
     if not user:
         return [_user_avatar(user)]
-    return [dict(c) for c in gstate.load(user, db_session)["coordinates"]]
+    # SceneAvatarEdit::initMyCordinateButton (0x7058C8) keeps only the slots 1..6 it finds and the slot button
+    # cycles all six (an out_of_range throw on a missing one), so every slot is sent; unsaved ones copy slot 1
+    saved = {c["myCoordinateNo"]: c for c in gstate.load(user, db_session)["coordinates"]}
+    first = saved.get(1) or next(iter(saved.values()), None) or _user_avatar(user)
+    return [dict(saved.get(no) or first, myCoordinateNo=no) for no in range(1, gstate.COORDINATE_SLOTS + 1)]
 
 
 _STARTING_MEDALS = [
@@ -1979,7 +1986,9 @@ def handle_coppa(request_data: dict, user: Optional[User], db_session: DBSession
             Misc.COPPA_PURCHASE_LIMIT_TEEN: 30000,
             Misc.COPPA_YEAR_PICKER_START: 1910,
             Misc.COPPA_YEAR_PICKER_END: datetime.now().year - Misc.COPPA_MIN_AGE,
-            Misc.COPPA_UNKNOWN_907: 30,
+            # 907 != 0 skips the birthday input of a new account (SceneBirthRegister::changeSceneLayer);
+            # KHUX_MISC_907=0 shows it (to test the birthday popup)
+            Misc.COPPA_UNKNOWN_907: int(os.environ.get("KHUX_MISC_907", "30")),
         },
     )
 
@@ -2729,7 +2738,7 @@ def handle_shop_ap_recover(request_data: dict, user: Optional[User], db_session:
     if user and _spend_jewels(user, _misc(112, 100)):
         logger.info("AP RECOVER: -%s Jewels", _misc(112, 100))
         db_session.add(user)
-    return build_response(user, userData={"userPoint": _user_point(user)}, userStone=_user_stone(user),
+    return build_response(user, userData={"userPoint": _user_point(user, recovered=True)}, userStone=_user_stone(user),
                           userKeyblades=_user_keyblades(user, db_session))
 
 
