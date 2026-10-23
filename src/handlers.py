@@ -72,7 +72,9 @@ def build_ret(user: Optional[User] = None) -> dict:
         # menu buttons the client shows: 0x01 party "Invitation code", 0x02 Other menu "Serial code", 0x04 shop
         # benefit (VIP pass: "unlock all Special Quests" button + locked-quest offer) (0x08 KHchi avatar link,
         # 0x10 transfer, 0x20 support, 0x80 fund settlement: off)
-        "functionFlags": 0x07,
+        # TEST ONLY: KHUX_FUNCTION_FLAGS overrides (0x17 adds the transfer bit: the take-over screen after the terms;
+        # 0x207 the Facebook bit: Other menu's FaceBookButton)
+        "functionFlags": int(os.environ.get("KHUX_FUNCTION_FLAGS", "0x07"), 0),
         "serverTime": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
     }
 
@@ -241,7 +243,7 @@ def _user_point(user: Optional[User], recovered: bool = False) -> dict:
             "hp": hp, "ap": cur, "maxHp": hp, "maxAp": ap,
             "lastApDatetime": now,
             "stageSpherePoint": user.stage_sphere_point or 0, "raidSpherePoint": user.raid_sphere_point or 0,
-            "colosseumSpherePoint": user.colosseum_sphere_point or 0, "stageSkipTicket": 0,
+            "colosseumSpherePoint": user.colosseum_sphere_point or 0, "stageSkipTicket": _skip_tickets(user),
         }
     return {
         "money": 0, "lux": 0, "totalLux": 0,
@@ -252,6 +254,14 @@ def _user_point(user: Optional[User], recovered: bool = False) -> dict:
         "stageSpherePoint": 0, "raidSpherePoint": 0,
         "colosseumSpherePoint": 0, "stageSkipTicket": 0,
     }
+
+
+def _skip_tickets(user: User) -> int:
+    """Stage skip tickets (bought with the shop rows' stageSkipTicket, kept in state): the deck dialog shows its
+    skip button when this is >= 1 (StartDeckEditDialog::updateDeckLayout, user status +0x54)."""
+    from sqlalchemy.orm import object_session
+    db = object_session(user)
+    return int(gstate.load(user, db).get("skip_tickets", 0)) if db is not None else 0
 
 
 def _equip_coordinate(user: Optional[User]) -> int:
@@ -1314,6 +1324,15 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
                              "userKeybladeId": keyblade_id}
         cleared = list((st["stages"].get(str(stage_id)) or {}).get("clearMissionIds", []))
     logger.info("STAGE DROPS: %s", drops)
+    # the deck dialog's skip button sends stageSkip 1 (APIManager::executeStageStart); echoed in startStageData it
+    # makes the client play the quest as a skip (SceneActionMap::createLayer -> StageSkipActionMap): one ticket spent
+    skip = 0
+    if int(request_data.get("stageSkip") or 0) == 1 and user and not resume:
+        with gstate.State(user, db_session) as st:
+            if int(st.get("skip_tickets", 0)) >= 1:
+                st["skip_tickets"] = int(st["skip_tickets"]) - 1
+                skip = 1
+        logger.info("STAGE SKIP: %s", "ticket used" if skip else "no ticket left")
     return build_response(user,
         userData={"userPoint": _user_point(user)},
         # uniqueSymbolEnemyIds listed here are NOT spawned (StageManager::hasRandomEnemySymbol skips teams whose
@@ -1332,7 +1351,7 @@ def handle_stage_start(request_data: dict, user: Optional[User], db_session: DBS
             # missions already cleared on this stage: the result screen (BattleResultScrollView::
             # loadStageResultData) lists a mission reward only for missions cleared now and not in here
             "clearMissionIds": cleared,
-            "stageSkip": 0,
+            "stageSkip": skip,
         },
         campaigns=[r["campaignId"] for r in gevents.active_campaigns() if gevents.campaign_applies(r, stage_id)],
         supportUsers=_chosen_supporters(db_session, user, request_data, friend_points=not resume),
@@ -2705,16 +2724,26 @@ def handle_login_bonus(request_data: dict, user: Optional[User], db_session: DBS
         total_id = (reached or upcoming or {"loginBonusId": 0})["loginBonusId"]   # GUESS: L4
         if first_today and reached:
             grants.append(reached)
+        specials = _active_specials()
+        if first_today:
+            grants += specials
         for row in grants:
             add_present(st, row["rewardType"], row["rewardId"], row["rewardNum"], "Login Bonus")
         if first_today:
             logger.info("LOGIN BONUS: welcome %s/%s, total %s, granted %s", lb["welcome"], len(welcome_rows), total,
                         [r["loginBonusId"] for r in grants])
         welcome = lb["welcome"]
-    # GUESS: L5 - specials (bonusType 3/4) are date-gated by 2015-16 dates: none active
+    # GUESS: L5 - specials (bonusType 3/4) are date-gated by their 2015-16 dates: none active now (a faked
+    # KHUX_EVENT_NOW inside a window shows one: SceneLoginBonus's second, "memory" panel)
     return build_response(user, loginBonus={"continue": {"loginBonusId": cont["loginBonusId"], "dayCount": welcome},
                                             "total": {"loginBonusId": total_id, "dayCount": total},
-                                            "specials": []})
+                                            "specials": [r["loginBonusId"] for r in specials]})
+
+
+def _active_specials() -> list:
+    """The special login bonuses (bonusType 3 / 4) whose startDate..endDate holds the server's now."""
+    now = gevents.now_local().strftime("%Y-%m-%d %H:%M:%S")
+    return [r for r in _login_rows(3) + _login_rows(4) if r.get("startDate", "") <= now < r.get("endDate", "")]
 
 
 @register(66)  # POST /shop/medal/max: medal box +5 for Jewels
